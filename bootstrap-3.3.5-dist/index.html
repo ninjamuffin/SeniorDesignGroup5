@@ -50,21 +50,23 @@
             </div>
         </div>
     </div>
-    <div style="position:relative;left:20px;top:60px;">
-        
-        <form action="demo_form.asp" method="get" id="form1">
-            First name: <input type="text" name="fname"><br>
-            Last name: <input type="text" name="lname"><br>
-        </form>
+	<div class="jumbotron">
+		
+		<div class="form-group">
+		  <label for="usr">Name:</label>
+		  <input type="text" class="form-control" id="usr">
+		</div>
+		<div class="form-group">
+		  <label for="pwd">Password:</label>
+		  <input type="password" class="form-control" id="pwd">
+		</div>
 
-        <button type="submit" form="form1" value="Submit">Submit</button>
-        <output form="form1" name="fname"></output>
-        <p>
-            <h1>
-                
-            </h1>
-        </p>
-    </div> 
+		<button type="submit" form="form1" value="Submit">Submit</button>
+		<output form="form1" name="fname"></output>
+		
+	    </div> 
+	</div>
+
         
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
