@@ -18,9 +18,9 @@ class formClass
 		return (strlen($string) < $len);
 	}
 
-	public function myEncrypt($salt)
+	public function myEncrypt()
 	{
-		return crypt($this->form_string, $salt);
+		return crypt($this->form_string);
 	}
 
 	public function isEmail()

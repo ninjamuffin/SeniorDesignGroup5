@@ -20,11 +20,9 @@ class FormClassTest extends PHPUnit_Framework_TestCase
 
 	public function testMyEncrypt()
 	{
-		$mySalt = "i'm super salty about phpunit";
 		$a = new FormClass("i am a string.");
-		$classEncrypted = $a->myEncrypt($mySalt);
-		$encrypted = crypt($a->getString(), $mySalt);
-		$this->assertEquals($encrypted, $classEncrypted);
+		$encrypted = $a->myEncrypt();
+		$this->assertEquals($encrypted, $a->getString()->encrypt());
 	}
 
 	public function testIsEmail()
