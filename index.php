@@ -56,13 +56,13 @@
 
     //using the values you retrieved earlier from the portal.
 
-    $host = "o0tvd0xlpb.database.windows.net"; //may need port number, 1433
+    $host = "us-cdbr-azure-west-c.cloudapp.net";
 
-    $user = "CS05";
+    $user = "bb50b852a7c8e4";
 
-    $pwd = "!Elcwebapp";
+    $pwd = "5a0ee1e2";
 
-    $db = "Smalltalk Migrate";
+    $db = "SmallTalkWPDB";
 
     // Connect to database.
 
