@@ -20,9 +20,11 @@ class FormClassTest extends PHPUnit_Framework_TestCase
 
 	public function testMyEncrypt()
 	{
+		$mySalt = "i'm super salty about phpunit";
 		$a = new FormClass("i am a string.");
-		$encrypted = $a->myEncrypt();
-		$this->assertEquals($encrypted, $a->getString()->encrypt());
+		$classEncrypted = $a->myEncrypt($mySalt);
+		$encrypted = crypt($a->getString(), $mySalt);
+		$this->assertEquals($encrypted, $classEncrypted);
 	}
 
 	public function testIsEmail()
@@ -42,7 +44,7 @@ class FormClassTest extends PHPUnit_Framework_TestCase
 		$b = new FormClass("im a good boy");
 
 		$this->assertEquals(4, $a->getNumSymbols());
-		$this->assertEquals(0, $b->getNumSymbols());
+		$this->assertEquals(1, $b->getNumSymbols());
 	}
 }
 ?>
