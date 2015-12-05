@@ -60,7 +60,7 @@
 
     $user = "CS05";
 
-    $pwd = "!Elcwebapp";
+    $pwd = "!1Elcwebapp";
 
     $db = "Smalltalk Migrate";
 
