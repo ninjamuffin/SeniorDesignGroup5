@@ -56,14 +56,13 @@
 
     //using the values you retrieved earlier from the portal.
 
-<<<<<<< HEAD
     $host = "o0tvd0xlpb.database.windows.net";
 
     $user = "CS05";
 
     $pwd = "!1Elcwebapp";
 
-    $db = "Smalltalk Migrate";
+    $db = "Expression Errors";
 
     // Connect to database.
 
@@ -163,5 +162,4 @@
 
 </body>
 
-<<<<<<< HEAD
 </html>
