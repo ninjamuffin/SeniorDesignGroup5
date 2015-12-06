@@ -19,15 +19,15 @@ th {text-align: left;}
 
 <?php
 $q = intval($_GET['q']);
-
-$con = mysqli_connect('o0tvd0xlpb.database.windows.net','CS05','!1Elcwebapp','Expression Errors');
+$server = 'o0tvd0xlpb.database.windows.net,1433';
+$con = mssql_connect($server,'CS05','!1Elcwebapp');
 if (!$con) {
-    die('Could not connect: ' . mysqli_error($con));
+    die('Could not connect: ' . mssql_get_last_message());
 }
 
-mysqli_select_db($con,"Expression Errors");
+mssql_select_db("Expression Errors", $con);
 $sql="SELECT * FROM dbo.registration_tbl WHERE name = '".$q."'";
-$result = mysqli_query($con,$sql);
+$result = mssql_query($sql);
 
 echo "<table>
 <tr>
@@ -35,7 +35,7 @@ echo "<table>
 <th>Email</th>
 <th>Date</th>
 </tr>";
-while($row = mysqli_fetch_array($result)) {
+while($row = mssql_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['name'] . "</td>";
     echo "<td>" . $row['email'] . "</td>";
@@ -43,7 +43,7 @@ while($row = mysqli_fetch_array($result)) {
     echo "</tr>";
 }
 echo "</table>";
-mysqli_close($con);
+mssql_close($con);
 ?>
 </body>
 </html>
