@@ -25,10 +25,13 @@ if (!$con) {
     die('Could not connect: ' . mssql_get_last_message());
 }
 
-mssql_select_db("Expression Errors", $con);
-$sql="SELECT * FROM dbo.registration_tbl WHERE id = '".$q."'";
-//$sql="SELECT * FROM dbo.registration_tbl WHERE id = 0";
+mssql_select_db('Expression Errors', $con);
+//$sql="SELECT * FROM dbo.registration_tbl WHERE id = '".$q."'";
+$sql="SELECT * FROM dbo.registration_tbl WHERE id = 0";
 $result = mssql_query($sql);
+
+echo "$sql"
+echo "$result"
 
 echo "<table>
 <tr>
