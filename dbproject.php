@@ -15,7 +15,7 @@ if (!$link)
 
 mssql_select_db($database);
 
-$query = 'select * from registration_tbl';
+$query = 'select * from dbo.registration_tbl';
 
 $result = mssql_query($query);
 if (!$result) 
