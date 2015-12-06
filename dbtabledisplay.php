@@ -26,7 +26,7 @@ if (!$con) {
 }
 
 mssql_select_db("Expression Errors", $con);
-$sql="SELECT * FROM dbo.registration_tbl WHERE name = '".$q."'";
+$sql="SELECT * FROM dbo.registration_tbl WHERE id = '".$q."'";
 $result = mssql_query($sql);
 
 echo "<table>
