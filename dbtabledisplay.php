@@ -37,9 +37,9 @@ echo "<table>
 </tr>";
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
-    echo "<td>" . $row['Name'] . "</td>";
-    echo "<td>" . $row['Email'] . "</td>";
-    echo "<td>" . $row['Date'] . "</td>";
+    echo "<td>" . $row['name'] . "</td>";
+    echo "<td>" . $row['email'] . "</td>";
+    echo "<td>" . $row['date'] . "</td>";
     echo "</tr>";
 }
 echo "</table>";
