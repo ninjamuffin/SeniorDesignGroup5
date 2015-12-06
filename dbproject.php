@@ -1,56 +1,48 @@
 <?php
+$myServer = "o0tvd0xlpb.database.windows.net";
+$myUser = "CS05";
+$myPass = "!1Elcwebapp";
+$myDB = "Expression Errors"; 
 
-$host = 'o0tvd0xlpb.database.windows.net';
-$port = '1433';
-$server = $host . ',' . $port;
-$database = 'Expression Errors';
-$user = 'CS05';
-$password = '!1Elcwebapp';
+//create an instance of the  ADO connection object
+$conn = new COM ("ADODB.Connection")
+  or die("Cannot start ADO");
 
-$link = mssql_connect ($server, $user, $password);
-if (!$link)
-{
-	die('ERROR: Could not connect: ' . mssql_get_last_message());
+//define connection string, specify database driver
+$connStr = "PROVIDER=SQLOLEDB;SERVER=".$myServer.";UID=".$myUser.";PWD=".$myPass.";DATABASE=".$myDB; 
+  $conn->open($connStr); //Open the connection to the database
+
+//declare the SQL statement that will query the database
+$query = "SELECT * FROM dbo.registration_tbl";
+
+//execute the SQL statement and return records
+$rs = $conn->execute($query);
+
+$num_columns = $rs->Fields->Count();
+echo $num_columns . "<br>";  
+
+for ($i=0; $i < $num_columns; $i++) {
+    $fld[$i] = $rs->Fields($i);
 }
 
-mssql_select_db($database);
-
-$query = 'select * from dbo.registration_tbl';
-
-$result = mssql_query($query);
-if (!$result) 
+echo "<table>";
+while (!$rs->EOF)  //carry on looping through while there are records
 {
-	$message = 'ERROR: ' . mssql_get_last_message();
-	return $message;
+    echo "<tr>";
+    for ($i=0; $i < $num_columns; $i++) {
+        echo "<td>" . $fld[$i]->value . "</td>";
+    }
+    echo "</tr>";
+    $rs->MoveNext(); //move on to the next record
 }
-else
-{
-	$i = 0;
-	echo '<html><body><table><tr>';
-	while ($i < mssql_num_fields($result))
-	{
-		$meta = mssql_fetch_field($result, $i);
-		echo '<td>' . $meta->name . '</td>';
-		$i = $i + 1;
-	}
-	echo '</tr>';
-	
-	while ( ($row = mssql_fetch_row($result))) 
-	{
-		$count = count($row);
-		$y = 0;
-		echo '<tr>';
-		while ($y < $count)
-		{
-			$c_row = current($row);
-			echo '<td>' . $c_row . '</td>';
-			next($row);
-			$y = $y + 1;
-		}
-		echo '</tr>';
-	}
-	mssql_free_result($result);
-	
-	echo '</table></body></html>';
-}
+
+
+echo "</table>";
+
+//close the connection and recordset objects freeing up resources 
+$rs->Close();
+$conn->Close();
+
+$rs = null;
+$conn = null;
 ?>
