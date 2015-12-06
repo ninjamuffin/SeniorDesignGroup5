@@ -27,13 +27,14 @@ if (!$con) {
 
 mssql_select_db("Expression Errors", $con);
 $sql="SELECT * FROM dbo.registration_tbl WHERE id = '".$q."'";
+//$sql="SELECT * FROM dbo.registration_tbl WHERE id = 0";
 $result = mssql_query($sql);
 
 echo "<table>
 <tr>
-<th>Name</th>
-<th>Email</th>
-<th>Date</th>
+<th>name</th>
+<th>email</th>
+<th>date</th>
 </tr>";
 while($row = mssql_fetch_array($result)) {
     echo "<tr>";
