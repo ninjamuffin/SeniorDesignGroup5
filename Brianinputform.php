@@ -18,7 +18,7 @@ function showUser(str) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         };
-        xmlhttp.open("GET","Brianinsert.php?q="+str,true);
+        xmlhttp.open("GET","Brianinputform.php?q="+str,true);
         xmlhttp.send();
     }
 }
