@@ -126,7 +126,6 @@ echo ($q);
 echo "<table>
 <tr>
 <th>Level</th>
-<th>ID</th>
 <th>Level Description</th>
 </tr>";
 
@@ -134,7 +133,6 @@ echo "<table>
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['Level'] . "</td>";
-    echo "<td>" . $row['Id'] . "</td>";
     echo "<td>" . $row['Level Description'] . "</td>";
     echo "</tr>";
 }
