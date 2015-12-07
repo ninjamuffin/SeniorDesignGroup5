@@ -18,7 +18,7 @@ th {text-align: left;}
 <body>
 
 <?php
-$q = $_GET['q'];
+$q = intval($_GET['q']);
 
 $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');
 if (!$con) {
@@ -26,7 +26,7 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM user WHERE FirstName = '".$q."'";
+$sql="SELECT * FROM user WHERE id = '".$q."'";
 $result = mysqli_query($con,$sql);
 
 echo "<table>
