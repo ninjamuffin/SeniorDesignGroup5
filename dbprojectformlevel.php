@@ -73,6 +73,74 @@ while($row = mysqli_fetch_array($result)) {
 }
 echo "</table>";
 }
+
+if ($q == "topic"){
+
+mysqli_select_db($con,"mysqldbproject");
+$sql="SELECT * FROM topic";
+$result = mysqli_query($con,$sql);
+echo ($q);
+echo "<table>
+<tr>
+<th>topic_id</th>
+<th>topic_name</th>
+</tr>";
+
+
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['topic_id'] . "</td>";
+    echo "<td>" . $row['topic_name'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+}
+
+if ($q == "word"){
+
+mysqli_select_db($con,"mysqldbproject");
+$sql="SELECT * FROM word";
+$result = mysqli_query($con,$sql);
+echo ($q);
+echo "<table>
+<tr>
+<th>word_id</th>
+<th>word_name</th>
+</tr>";
+
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['word_id'] . "</td>";
+    echo "<td>" . $row['word_name'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+}
+
+if ($q == "level"){
+
+mysqli_select_db($con,"mysqldbproject");
+$sql="SELECT * FROM level";
+$result = mysqli_query($con,$sql);
+echo ($q);
+echo "<table>
+<tr>
+<th>Level</th>
+<th>ID</th>
+<th>Level Description</th>
+</tr>";
+
+
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['Level'] . "</td>";
+    echo "<td>" . $row['Id'] . "</td>";
+    echo "<td>" . $row['Level Description'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+}
+
 mysqli_close($con);
 
 ?>
