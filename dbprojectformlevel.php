@@ -50,6 +50,26 @@ while($row = mysqli_fetch_array($result)) {
     echo "</tr>";
 }
 
+if ($q == "language"){
+
+mysqli_select_db($con,"mysqldbproject");
+$sql="SELECT * FROM language";
+$result = mysqli_query($con,$sql);
+echo ($q);
+echo "<table>
+<tr>
+<th>language_id</th>
+<th>language_name</th>
+</tr>";
+
+
+while($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>" . $row['language_id'] . "</td>";
+    echo "<td>" . $row['language_name'] . "</td>";
+    echo "</tr>";
+}
+
 echo "</table>";
 mysqli_close($con);
 }
