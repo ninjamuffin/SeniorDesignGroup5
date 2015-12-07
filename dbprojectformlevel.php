@@ -41,7 +41,8 @@ echo "<table>
 <th>language_id</th>
 </tr>";
 }
-while($row = mysqli_fetch_array($result) and $q == "expressions") {
+
+while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['student_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
