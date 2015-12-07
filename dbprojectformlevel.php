@@ -30,6 +30,7 @@ $sql="SELECT * FROM '".$q."' ";
 $result = mysqli_query($con,$sql);
 
 if ($q == "expressions"){
+    echo ($q);
 echo "<table>
 <tr>
 <th>student_id</th>
