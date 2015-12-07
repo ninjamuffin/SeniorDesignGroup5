@@ -18,7 +18,7 @@ function showUser(str) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         };
-        xmlhttp.open("GET","dbprojectform1.php?q="+str,true);
+        xmlhttp.open("GET","dbprojectformlevel.php?q="+str,true);
         xmlhttp.send();
     }
 }
@@ -27,16 +27,15 @@ function showUser(str) {
 <body>
 
 <form>
-<select name="users" onchange="showUser(this.value)">
-  <option value="">Select a person:</option>
-  <option value="Peter">Peter</option>
-  <option value="Lois">Lois</option>
-  <option value="Joseph">Joseph</option>
-  <option value="Glenn">Glenn</option>
+<select name="level" onchange="showUser(this.value)">
+  <option value="">Select a course level:</option>
+  <option value="107">Level 107</option>
+  <option value="108">Level 108</option>
+  <option value="109">Level 109</option>
   </select>
 </form>
 <br>
-<div id="txtHint"><b>Person info will be listed here...</b></div>
+<div id="txtHint"><b>Expressions will be listed here...</b></div>
 
 </body>
 </html>
