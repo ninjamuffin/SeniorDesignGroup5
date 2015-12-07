@@ -26,11 +26,11 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM '".$q."' ";
+$sql="SELECT * FROM '".$q."'";
 $result = mysqli_query($con,$sql);
 echo ($q);
 
-#if ($q == "expressions"){
+if ($q == "expressions"){
     
 echo "<table>
 <tr>
@@ -52,7 +52,7 @@ while($row = mysqli_fetch_array($result)) {
 
 echo "</table>";
 mysqli_close($con);
-#}
+}
 ?>
 </body>
 </html>
