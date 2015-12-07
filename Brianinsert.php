@@ -9,8 +9,8 @@ if (!$con) {
 }
 
 $sql_insert ="INSERT INTO user (FirstName, LastName, Age, Hometown, Job)
-VALUES ('FirstName' , 'LastName' , 'Age' , 'Hometown' , 'Job')";
-
+VALUES (?,?,?,?,?)";
+#<!--'FirstName' , 'LastName' , 'Age' , 'Hometown' , 'Job'-->
 $stmt = $conn->prepare($sql_insert);
 $stmt -> bindValue(1, $FirstName);
 $stmt -> bindValue(2, $LasttName);
