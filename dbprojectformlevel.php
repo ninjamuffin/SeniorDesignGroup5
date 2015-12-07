@@ -32,8 +32,11 @@ $result = mysqli_query($con,$sql);
 if ($q = expression){
 echo "<table>
 <tr>
+<th>student_id</th>
+<th>expression</th>
+<th>level_id</th>
+<th>topic_id</th>
 <th>language_id</th>
-<th>expression_name</th>
 </tr>";
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
