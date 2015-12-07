@@ -26,11 +26,12 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM expressions";
+$sql="SELECT * FROM expressions WHERE student_id = '".$q."'"";
 $result = mysqli_query($con,$sql);
 
 echo "<table>
 <tr>
+<th>student_id</th>
 <th>Expression</th>
 <th>Level</th>
 <th>Topic</th>
@@ -38,6 +39,7 @@ echo "<table>
 </tr>";
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
+    echo "<td>" . $row['student_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
     echo "<td>" . $row['level_id'] . "</td>";
     echo "<td>" . $row['topic_id'] . "</td>";
