@@ -49,6 +49,8 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['language_id'] . "</td>";
     echo "</tr>";
 }
+echo "</table>";
+}
 
 if ($q == "language"){
 
@@ -69,10 +71,10 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['language_name'] . "</td>";
     echo "</tr>";
 }
-
 echo "</table>";
-mysqli_close($con);
 }
+mysqli_close($con);
+
 ?>
 </body>
 </html>
