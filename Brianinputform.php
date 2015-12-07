@@ -44,11 +44,11 @@ if (!$con) {
 $sql_insert ="INSERT INTO user (id, FirstName, LastName, Age, Hometown, Job)
 VALUES (0, 'FirstName' , 'LastName' , 'Age' , 'Hometown' , 'Job')";
 $stmt = $con->prepare($sql_insert);
-$stmt -> bindValue(1, $FirstName);
-$stmt -> bindValue(2, $LastName);
-$stmt -> bindValue(3, $Age);
-$stmt -> bindValue(4, $Hometown);
-$stmt -> bindValue(5, $Job);
+$stmt -> bindValue(2, $FirstName);
+$stmt -> bindValue(3, $LastName);
+$stmt -> bindValue(4, $Age);
+$stmt -> bindValue(5, $Hometown);
+$stmt -> bindValue(6, $Job);
 $stmt -> execute();
 if (!mysql_query($sql,$con))
   {
