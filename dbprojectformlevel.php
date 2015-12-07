@@ -26,7 +26,7 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM language";
+$sql="SELECT * FROM language WHERE language_id = 1";
 $result = mysqli_query($con,$sql);
 
 echo "<table>
