@@ -26,18 +26,18 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM language";
+$sql="SELECT * FROM expressions";
 $result = mysqli_query($con,$sql);
 
 echo "<table>
 <tr>
 <th>language_id</th>
-<th>language_name</th>
+<th>expression_name</th>
 </tr>";
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['language_id'] . "</td>";
-    echo "<td>" . $row['language_name'] . "</td>";
+    echo "<td>" . $row['expression'] . "</td>";
     echo "</tr>";
 }
 echo "</table>";
