@@ -18,7 +18,7 @@ th {text-align: left;}
 <body>
 
 <?php
-$q = $_GET['q'];
+$q = strval($_GET['q']);
 
 $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');
 if (!$con) {
@@ -40,13 +40,13 @@ echo "<table>
 <th>topic_id</th>
 <th>language_id</th>
 </tr>";
-}
+
 
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
-    #echo "<td>" . $row['student_id'] . "</td>";
-    #echo "<td>" . $row['expression'] . "</td>";
-    #echo "<td>" . $row['level_id'] . "</td>";
+    echo "<td>" . $row['student_id'] . "</td>";
+    echo "<td>" . $row['expression'] . "</td>";
+    echo "<td>" . $row['level_id'] . "</td>";
     echo "<td>" . $row['topic_id'] . "</td>";
     echo "<td>" . $row['language_id'] . "</td>";
     echo "</tr>";
@@ -54,7 +54,7 @@ while($row = mysqli_fetch_array($result)) {
 
 echo "</table>";
 mysqli_close($con);
-
+}
 ?>
 </body>
 </html>
