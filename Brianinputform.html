@@ -18,14 +18,14 @@ function showUser(str) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         };
-        xmlhttp.open("GET","examplewithmysql.php?q="+str,true);
+        xmlhttp.open("GET","insert.php?q="+str,true);
         xmlhttp.send();
     }
 }
 </script>
 </head>
 <body>
-
+<h1>Submit a new entry in user table</h1>
 <form action="insert.php" method="post">
 FirstName: <input type="text" name="FirstName"><br>
 LastName: <input type="text" name="LastName"><br>
