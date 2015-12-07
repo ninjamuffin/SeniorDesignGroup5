@@ -18,7 +18,7 @@ th {text-align: left;}
 <body>
 
 <?php
-$q = $_GETintval(['q']);
+#-$q = $_GETintval(['q']);
 
 $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');
 if (!$con) {
