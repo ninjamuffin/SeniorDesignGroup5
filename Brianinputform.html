@@ -18,7 +18,7 @@ function showUser(str) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         };
-        xmlhttp.open("GET","insert.php?q="+str,true);
+        xmlhttp.open("GET","Brianinsert.php?q="+str,true);
         xmlhttp.send();
     }
 }
@@ -26,7 +26,7 @@ function showUser(str) {
 </head>
 <body>
 <h1>Submit a new entry in user table</h1>
-<form action="insert.php" method="post">
+<form action="Brianinsert.php" method="post">
 FirstName: <input type="text" name="FirstName"><br>
 LastName: <input type="text" name="LastName"><br>
 Age:      <input type="int" name="Age"><br>
