@@ -24,13 +24,13 @@ $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325e
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-
+$var = '".$q."';
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM $q;
+$sql="SELECT * FROM $var;
 $result = mysqli_query($con,$sql);
-echo ($q);
+echo ($var);
 
-if ($q == "expressions"){
+if ($var == "expressions"){
     
 echo "<table>
 <tr>
