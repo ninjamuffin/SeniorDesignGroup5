@@ -11,7 +11,7 @@ $hometown = mysqli_real_escape_string($link, $_POST['hometown']);
 $job = mysqli_real_escape_string($link, $_POST['job']);
  
 // attempt insert query execution
-$sql = "INSERT INTO persons (FirstName, LastName, Hometown, Job) VALUES ('$first_name', '$last_name', '$hometown', '$job')";
+$sql = "INSERT INTO user (FirstName, LastName, Hometown, Job) VALUES ('$first_name', '$last_name', '$hometown', '$job')";
 if(mysqli_query($link, $sql)){
     echo "Records added successfully.";
 } else{
