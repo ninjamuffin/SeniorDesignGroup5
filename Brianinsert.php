@@ -8,7 +8,7 @@ if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
 
-$sql="INSERT INTO nametable (FirstName, LastName, Age, Hometown, Job)
+$sql="INSERT INTO user (FirstName, LastName, Age, Hometown, Job)
 VALUES
 ('$_POST[FirstName]','$_POST[LastName]','$_POST[Age]','$_POST[Hometown]','$_POST[Job]')";
  
