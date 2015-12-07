@@ -1,7 +1,7 @@
 <html>
 <head>
 <script>
-function showUser(str1, str2) {
+function showUser(str1) {
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -18,7 +18,7 @@ function showUser(str1, str2) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         };
-        xmlhttp.open("GET","examplewithmysql.php?q="+str1"&r="+str2,true);
+        xmlhttp.open("GET","BrianTest.php?q="+str1",true);
         xmlhttp.send();
     }
 }
@@ -36,6 +36,7 @@ function showUser(str1, str2) {
   </select>
 </form>
 
+<!--
 <form>
 <select name="table2">
   <option value="">Select a hometown:</option>
@@ -43,14 +44,7 @@ function showUser(str1, str2) {
   <option value="Newport">Newport</option>
   </select>
 </form>
-
-<!--This is where is where user inputs a word.-->
-<form>
-  Search for a word:<br>
-  <input type="text" name="Word">
-</form>
-
-<button onclick="showUser(table1.value, table2.value)">Submit Query</button>
+-->
 
 <br>
 <div id="txtHint"><b>Person info will be listed here...</b></div>
