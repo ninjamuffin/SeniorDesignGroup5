@@ -40,7 +40,8 @@ echo "<table>
 <th>topic_id</th>
 <th>language_id</th>
 </tr>";
-while($row = mysqli_fetch_array($result)) {
+}
+while($row = mysqli_fetch_array($result) and $q == "expressions") {
     echo "<tr>";
     echo "<td>" . $row['student_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
@@ -52,7 +53,7 @@ while($row = mysqli_fetch_array($result)) {
 
 echo "</table>";
 mysqli_close($con);
-}
+
 ?>
 </body>
 </html>
