@@ -26,7 +26,7 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM expressions WHERE level_id = '".$q."'";
+$sql="SELECT * FROM expressions";
 $result = mysqli_query($con,$sql);
 
 echo "<table>
