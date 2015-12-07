@@ -29,7 +29,7 @@ mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM '".$q."' ";
 $result = mysqli_query($con,$sql);
 
-if ($q = expression){
+if ($q == "expression"){
 echo "<table>
 <tr>
 <th>student_id</th>
