@@ -18,7 +18,7 @@ th {text-align: left;}
 <body>
 
 <?php
-#-$q = $_GETintval(['q']);
+$q = $_GET['q'];
 
 $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');
 if (!$con) {
@@ -26,9 +26,10 @@ if (!$con) {
 }
 
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM expressions";
+$sql="SELECT * FROM '".$q."' ";
 $result = mysqli_query($con,$sql);
 
+if ($q = expression){
 echo "<table>
 <tr>
 <th>language_id</th>
@@ -42,6 +43,7 @@ while($row = mysqli_fetch_array($result)) {
 }
 echo "</table>";
 mysqli_close($con);
+}
 ?>
 </body>
 </html>
