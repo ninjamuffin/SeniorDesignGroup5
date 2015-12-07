@@ -10,7 +10,7 @@ if (!$con) {
 
 $sql="INSERT INTO user (FirstName, LastName, Age, Hometown, Job)
 VALUES
-('$_POST[FirstName]','$_POST[LastName]','$_POST[Age]','$_POST[Hometown]','$_POST[Job]')";
+('FirstName' , 'LastName' , 'Age' , 'Hometown' , 'Job')";
  
 if (!mysql_query($sql,$con))
   {
@@ -19,6 +19,7 @@ if (!mysql_query($sql,$con))
 echo "1 record added";
  
 mysql_close($con)
+
 ?>
 </body>
 </html>
