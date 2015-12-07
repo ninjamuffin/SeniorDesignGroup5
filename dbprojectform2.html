@@ -22,12 +22,16 @@ function showUser(str1, str2) {
         xmlhttp.send();
     }
 }
+function getValsAndShowUser() {
+    var1 = document.getElementById("t1");
+    var2 = document.getElementById("t2");
+    showUser(var1,var2);
 </script>
 </head>
 <body>
 
 <form>
-<select name="table1">
+<select name="table1" id = "t1">
   <option value="">Select a person:</option>
   <option value="Peter">Peter</option>
   <option value="Lois">Lois</option>
@@ -37,14 +41,14 @@ function showUser(str1, str2) {
 </form>
 
 <form>
-<select name="table2">
+<select name="table2" id = "t2">
   <option value="">Select a hometown:</option>
   <option value="Quahog">Quahog</option>
   <option value="Newport">Newport</option>
   </select>
 </form>
 
-<button onclick="showUser(table1.value, table2.value)">Submit Query</button>
+<button onclick="getValsAndShowUser()">Submit Query</button>
 
 <br>
 <div id="txtHint"><b>Person info will be listed here...</b></div>
