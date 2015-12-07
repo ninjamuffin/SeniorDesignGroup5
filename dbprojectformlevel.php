@@ -28,9 +28,10 @@ if (!$con) {
 mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM '".$q."' ";
 $result = mysqli_query($con,$sql);
+echo ($q);
 
 if ($q == "expressions"){
-    echo ($q);
+    
 echo "<table>
 <tr>
 <th>student_id</th>
