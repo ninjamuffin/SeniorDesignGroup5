@@ -47,7 +47,7 @@ echo "</table>";
 }
 if ($q == "language"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM language";
+$sql="SELECT * FROM '".q.'";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -65,7 +65,7 @@ echo "</table>";
 }
 if ($q == "topic"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM topic";
+$sql="SELECT * FROM '".q.'";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -81,9 +81,9 @@ while($row = mysqli_fetch_array($result)) {
 }
 echo "</table>";
 }
-if ($q == "word"){
+if ($q == '".q.'"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM word";
+$sql="SELECT * FROM '".q.'";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -101,7 +101,7 @@ echo "</table>";
 }
 if ($q == "level"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM level";
+$sql="SELECT * FROM '".q.'";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
