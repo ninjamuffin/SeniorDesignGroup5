@@ -23,7 +23,8 @@ $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325e
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-echo (q);
+echo ($q);
+
 
 
 mysqli_close($con);
