@@ -23,12 +23,11 @@ $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325e
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
+echo ($q);
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM expressions
- /*WHERE expressions LIKE '%the%'"; */
+$sql="SELECT * FROM expressions";
 echo ($sql);
 $result = mysqli_query($con,$sql);
-echo ($q);
 echo "<table>
 <tr>
 <th>student_id</th>
