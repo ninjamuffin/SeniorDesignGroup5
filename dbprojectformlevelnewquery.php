@@ -23,7 +23,8 @@ if (!$con) {
 }
 if ($q == "expressions"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM expressions'";
+$sql="SELECT * FROM expressions";
+echo ($sql);
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -47,7 +48,7 @@ echo "</table>";
 }
 if ($q == "language"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM '".q.'";
+$sql="SELECT * FROM language";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -65,7 +66,7 @@ echo "</table>";
 }
 if ($q == "topic"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM '".q.'";
+$sql="SELECT * FROM topic";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -81,9 +82,9 @@ while($row = mysqli_fetch_array($result)) {
 }
 echo "</table>";
 }
-if ($q == '".q.'"){
+if ($q == "word"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM '".q.'";
+$sql="SELECT * FROM word";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -101,7 +102,7 @@ echo "</table>";
 }
 if ($q == "level"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM '".q.'";
+$sql="SELECT * FROM level";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
@@ -121,5 +122,3 @@ mysqli_close($con);
 ?>
 </body>
 </html>
-Status API Training Shop Blog About Pricing
-© 2015 GitHub, Inc. Terms Privacy 
