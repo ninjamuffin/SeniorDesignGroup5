@@ -24,6 +24,7 @@ if (!$con) {
 if ($q == "expressions"){
 mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM expressions";
+echo ($sql);
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
