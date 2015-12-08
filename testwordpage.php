@@ -6,16 +6,18 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
-table, td, th {
+table, td, th, caption {
     border: 2px solid black;
     padding: 5px;
+    display: table-caption;
+    text-align: center;
 }
 th {text-align: left;}
 </style>
 </head>
 <body>
 
-<caption>Search Results:</caption>
+
 
 <?php
 //get the q parameter from URL
@@ -33,6 +35,7 @@ $sql= "SELECT * FROM expressions WHERE expression LIKE '%{$q}%'";
 $result = mysqli_query($con,$sql);
 //Create table template
 echo "<table>
+<caption>Search Results:</caption>
 <tr>
 <th>student_id</th>
 <th>expression</th>
