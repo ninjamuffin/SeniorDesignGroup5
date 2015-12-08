@@ -18,7 +18,7 @@ function showUser(str) {
                 document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
             }
         };
-        xmlhttp.open("GET","testwordpage.php.php?q="+str,true);
+        xmlhttp.open("GET","testwordpage.php?q="+str,true);
         xmlhttp.send();
     }
 }
@@ -26,16 +26,10 @@ function showUser(str) {
 </head>
 <body>
 
-<form action="testwordpage.php">
-<!--  <fieldset> 
-    <legend>Personal information:</legend> -->
-    Word Search:<br>
-    <input type="text" name="word" value="">
-    <br>
-    <br>
-    <input type="submit" value="Submit">
-<!--  </fieldset>  -->
+<form action="testwordpage.php" method = "post">
 
-<!--</form>-->
+    Word Search:<br>
+    <input type="text" name="word"><br>
+    <input type="submit">
 </body>
 </html>
