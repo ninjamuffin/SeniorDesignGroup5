@@ -23,7 +23,7 @@ if (!$con) {
 }
 if ($q == "expressions"){
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM expressions";
+$sql="SELECT * FROM '".q.'";
 $result = mysqli_query($con,$sql);
 echo ($q);
 echo "<table>
