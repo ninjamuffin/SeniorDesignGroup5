@@ -25,7 +25,7 @@ if (!$con) {
 }
 mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM expressions
-      WHERE expressions LIKE '%the%'";
+ /*WHERE expressions LIKE '%the%'"; */
 echo ($sql);
 $result = mysqli_query($con,$sql);
 echo ($q);
