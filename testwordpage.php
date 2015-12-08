@@ -23,12 +23,13 @@ $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325e
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-echo ($q);
+Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
 $sql= "SELECT * FROM expressions WHERE expression LIKE '%{$q}%'";
 
-echo ($sql);
+//echo ($sql);  //Tests the sql statement
 $result = mysqli_query($con,$sql);
+//Create table template
 echo "<table>
 <tr>
 <th>student_id</th>
@@ -37,6 +38,7 @@ echo "<table>
 <th>topic_id</th>
 <th>language_id</th>
 </tr>";
+//Input values into table
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['student_id'] . "</td>";
@@ -46,8 +48,8 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td>" . $row['language_id'] . "</td>";
     echo "</tr>";
 }
+//output the table with values in it
 echo "</table>";
-
 
 mysqli_close($con);
 ?>
