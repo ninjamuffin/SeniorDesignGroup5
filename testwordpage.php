@@ -25,7 +25,7 @@ if (!$con) {
 }
 echo ($q);
 mysqli_select_db($con,"mysqldbproject");
-$sql="SELECT * FROM expressions where expression LIKE '%money%'";
+$sql= "SELECT * FROM expressions WHERE expression LIKE '%money%'";
 
 echo ($sql);
 $result = mysqli_query($con,$sql);
