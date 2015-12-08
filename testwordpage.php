@@ -23,7 +23,7 @@ $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325e
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-Search results for echo ($q);
+//Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
 $sql= "SELECT * FROM expressions WHERE expression LIKE '%{$q}%'";
 
