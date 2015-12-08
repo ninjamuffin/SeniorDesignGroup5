@@ -9,10 +9,15 @@ table {
 table, td, th, caption {
     border: 2px solid black;
     padding: 5px;
+}
+
     display: table-caption;
     text-align: center;
-}
+<caption>Search Results:</caption>
+
+
 th {text-align: left;}
+    
 </style>
 </head>
 <body>
@@ -35,7 +40,6 @@ $sql= "SELECT * FROM expressions WHERE expression LIKE '%{$q}%'";
 $result = mysqli_query($con,$sql);
 //Create table template
 echo "<table>
-<caption>Search Results:</caption>
 <tr>
 <th>student_id</th>
 <th>expression</th>
