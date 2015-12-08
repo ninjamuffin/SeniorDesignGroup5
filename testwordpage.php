@@ -5,6 +5,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    <caption>Search Results:</caption>
 }
 table, td, th {
     border: 2px solid black;
