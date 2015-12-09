@@ -1,45 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<body background = "http://subtlepatterns.com/patterns/wood_pattern.png"
+	font-size: 10pt;
 
-  <div class="login-box">
-    <div class="lb-header">
-      <a href="#" class="active" id="login-box-link">Login</a>
-      <a href="#" id="signup-box-link">Sign Up</a>
-    </div>
-    <div class="social-login">
-      <a href="#">
-        <i class="fa fa-facebook fa-lg"></i>
-        Login in with facebook
-      </a>
-      <a href="#">
-        <i class="fa fa-google-plus fa-lg"></i>
-        log in with Google
-      </a>
-    </div>
-    <form class="email-login">
-      <div class="u-form-group">
-        <input type="email" placeholder="Email"/>
-      </div>
-      <div class="u-form-group">
-        <input type="password" placeholder="Password"/>
-      </div>
-      <div class="u-form-group">
-        <button>Log in</button>
-      </div>
-      <div class="u-form-group">
-        <a href="#" class="forgot-password">Forgot password?</a>
-      </div>
-    </form>
-    <form class="email-signup">
-      <div class="u-form-group">
-        <input type="email" placeholder="Email"/>
-      </div>
-      <div class="u-form-group">
-        <input type="password" placeholder="Password"/>
-      </div>
-      <div class="u-form-group">
-        <input type="password" placeholder="Confirm Password"/>
-      </div>
-      <div class="u-form-group">
-        <button>Sign Up</button>
-      </div>
-    </form>
-  </div>
+<title>Login to text Database</title>
+</head>
+<body>
+	<section class="loginform cf">
+		<form name="login" action="index_submit" method="get" accept-charset="utf-8">
+			<ul>
+				<li>
+					<label for="usermail">Email</label>
+					<input type="email" name="usermail" placeholder="yourname@email.com" required>
+				</li>
+				<li>
+					<label for="password">Password</label>
+					<input type="password" name="password" placeholder="password" required></li>
+				<li>
+					<input type="submit" value="Login">
+				</li>
+			</ul>
+		</form>
+	</section>
+</body>
+</html>
