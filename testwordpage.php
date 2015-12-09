@@ -11,6 +11,7 @@ table {
 table, td, th{
     border: 2px solid black;
     padding: 5px;
+    text-align: left;
 }
 
 
