@@ -50,7 +50,7 @@ if ($q == "language"){
 mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM language";
 $result = mysqli_query($con,$sql);
-echo ($q);
+echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>language_id</th>
@@ -68,7 +68,7 @@ if ($q == "topic"){
 mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM topic";
 $result = mysqli_query($con,$sql);
-echo ($q);
+echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>topic_id</th>
@@ -86,7 +86,7 @@ if ($q == "word"){
 mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM word";
 $result = mysqli_query($con,$sql);
-echo ($q);
+echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>word_id</th>
@@ -104,7 +104,7 @@ if ($q == "level"){
 mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM level";
 $result = mysqli_query($con,$sql);
-echo ($q);
+echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>Level</th>
