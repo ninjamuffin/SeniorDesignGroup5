@@ -5,15 +5,16 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    display: table-caption;
-    text-align: center;
 }
 table, td, th{
     border: 2px solid black;
     padding: 5px;
-    text-align: left;
 }
 
+caption {
+    display: table-caption;
+    text-align: center;
+}
 
 th {text-align: left;}
     
