@@ -26,7 +26,7 @@ mysqli_select_db($con,"mysqldbproject");
 $sql="SELECT * FROM expressions";
 //echo ($sql);
 $result = mysqli_query($con,$sql);
-echo ($q);
+echo "<center>($q)</center>";
 echo "<table>
 <tr>
 <th>student_id</th>
