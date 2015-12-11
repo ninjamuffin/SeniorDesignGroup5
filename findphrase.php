@@ -48,7 +48,7 @@ echo "<table>
 //Input values into table
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
-    echo "<td>" . $row['student_id'] . "</td>";
+    echo "<td>" . $row['expression_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
     echo "<td>" . $row['level_id'] . "</td>";
     echo "<td>" . $row['topic_id'] . "</td>";
