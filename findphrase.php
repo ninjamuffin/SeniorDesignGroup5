@@ -32,7 +32,7 @@ if (!$con) {
 }
 //Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
-$sql= "SELECT * FROM expressions WHERE expression LIKE '%{$q}%'";
+$sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
 //echo ($sql);  //Tests the sql statement
 $result = mysqli_query($con,$sql);
 //Create table template
