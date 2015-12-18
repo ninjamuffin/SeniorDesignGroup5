@@ -1,3 +1,18 @@
+"""
+file: Extract_Data_For_Tables.py
+author: Brendan Kennedy
+purpose: given Expressions.csv, exported from MS Access and cleaned, output:
+        table: words.csv
+        table: Word_In_Expression.csv
+        table: PoS_table.csv [Disregard for general purposes
+words.csv:
+        ~14000 rows
+        columns: [word_id, word, frequency]
+Word_In_Expression.csv:
+        ~450,000 rows
+        columns: [expression_id, word_id, Part-of-Speech tag]
+"""
+
 import csv
 import nltk
 from operator import itemgetter
