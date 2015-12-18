@@ -58,7 +58,7 @@ $result = mysqli_query($con,$sql);
 echo "<table>
 <caption>Search Results:</caption>
 <tr>
-<th>student_id</th>
+<th>expression_id</th>
 <th>expression</th>
 <th>level_id</th>
 <th>topic_id</th>
@@ -68,7 +68,7 @@ echo "<table>
 //Input values into table
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
-    echo "<td>" . $row['student_id'] . "</td>";
+    echo "<td>" . $row['expression_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
     echo "<td>" . $row['level_id'] . "</td>";
     echo "<td>" . $row['topic_id'] . "</td>";
