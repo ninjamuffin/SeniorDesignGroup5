@@ -33,12 +33,21 @@ function showResult(str) {
 <p> </p>
 <a href="http://smalltalkphp.azurewebsites.net/Briantitlepage.html">Return to Table of Contents</a>
 <p> </p>
+<!--
 <form>
 <p></p>
 Please enter a phrase : (ex. I will) <br> 
 <input type="text" size="30" onkeyup="showResult(this.value)">
 <br>
 </form>
+-->
+
+ 
+<form method="post" name="display" action="findphrase.php" /> 
+Please enter a phrase : (ex. I will) <br>  
+<input type="text" name="name" /> 
+<input type="submit" name="Submit" value="display" /> 
+</form> 
 
 </body>
 </html>
