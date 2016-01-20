@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
+<style type="text/css">
 table {
     width: 100%;
     border-collapse: collapse;
 }
 table, td, th{
-    border: 2px solid black;
+    border: 1px solid black;
     padding: 5px;
 }
 caption {
@@ -30,6 +30,11 @@ $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325e
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
+    
+    
+    
+    
+    
 //Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
 $sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
@@ -47,7 +52,7 @@ echo "<table>
 </tr>";
 //Input values into table
 while($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
+    echo "<tr> onmouseover=\"hilite(this)\" onmouseout=\"lowlite(this)\"></tr>";
     echo "<td>" . $row['expression_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
     echo "<td>" . $row['level_id'] . "</td>";
