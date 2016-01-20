@@ -52,7 +52,7 @@ echo "<table>
 </tr>";
 //Input values into table
 while($row = mysqli_fetch_array($result)) {
-    echo "<tr> onmouseover=\"hilite(this)\" onmouseout=\"lowlite(this)\"></tr>";
+    echo "<tr>";
     echo "<td>" . $row['expression_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
     echo "<td>" . $row['level_id'] . "</td>";
