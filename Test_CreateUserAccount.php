@@ -33,7 +33,7 @@ if (!$con) {
     die( print_r( sqlsrv_errors(), true));
 }
     
-$sql="INSERT INTO SiteUsers (username, email, role, date_added) VALUES ('$q', 'email','$r',GETDATE())";
+$sql="INSERT INTO SiteUsers (username, email, role, date_added) VALUES ('$q', '$email','$r',GETDATE())";
 echo ($sql);  //Tests the sql statement
 $result = sqlsrv_query($con,$sql);
 echo ($result);
