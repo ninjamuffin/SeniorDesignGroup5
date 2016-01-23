@@ -1,4 +1,3 @@
-ini_set('display_errors, 1);
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +24,7 @@ th {text-align: left;}
 //get the q parameter from URL
 $q=$_POST["q"];
 $r=$_POST["r"];
+$email=$_POST["email"];
 // connects to DB
 $serverName = "o0tvd0xlpb.database.windows.net,1433";
 $connectionInfo = array( "Database"=>"SmalltalkMigrate2.0", "UID"=>"CS05", "PWD"=>"!1Elcwebapp");
@@ -33,14 +33,7 @@ if (!$con) {
     die( print_r( sqlsrv_errors(), true));
 }
     
-$sql="INSERT INTO [dbo].[SiteUsers]
-           ([username]
-           ,[role]
-           ,[date_added])
-     VALUES
-           ({$q},
-            {$r},
-            GETDATE())";
+$sql="INSERT INTO SiteUsers (username, email, role, date_added) VALUES ('$q', '$email','$r',GETDATE())";
 echo ($sql);  //Tests the sql statement
 $result = sqlsrv_query($con,$sql);
 echo ($result);
@@ -54,18 +47,16 @@ echo "<table>
 <tr>
 <th>user_id</th>
 <th>username</th>
+<th>email address</th>
 <th>role</th>
-<th>date_added</th>
-<th>date_removed</th>
 </tr>";
 //Input values into table
-while($row = sqlsrv_fetch_array(%table_result)) {
+while($row = sqlsrv_fetch_array($table_result)) {
     echo "<tr>";
     echo "<td>" . $row['user_id'] . "</td>";
     echo "<td>" . $row['username'] . "</td>";
+    echo "<td>" . $row['email'] . "</td>";
     echo "<td>" . $row['role'] . "</td>";
-    echo "<td>" . $row['date_added'] . "</td>";
-    echo "<td>" . $row['date_removed'] . "</td>";
     echo "</tr>";
 }
 //output the table with values in it
