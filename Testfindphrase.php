@@ -30,12 +30,8 @@ $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325e
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-    
-    
-echo $_POST['q'];    
-echo $_REQUEST['q'];
 
-/*    
+    
 //Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
 $sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
@@ -63,7 +59,6 @@ while($row = mysqli_fetch_array($result)) {
 }
 //output the table with values in it
 echo "</table>";
- */
 mysqli_close($con);
 ?>
 </body>
