@@ -23,8 +23,18 @@ function showResult(str) {
   xmlhttp.send();
 }
 </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("#header").load("header.html");
+        });
+    </script>
+
 </head>
+
+   
 <body bgcolor="#FDF5E6">
+<div id="header"></div>
 <form>
 <p> </p>  
 <a href="http://smalltalkphp.azurewebsites.net/text_corpus_login.html"><p style="text-align: right">Log Out</a> 
