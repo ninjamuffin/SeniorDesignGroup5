@@ -1,0 +1,60 @@
+<!--
+File: text_corpus_login.html
+Author: Brian Ramaswami
+Purpose: A login page where user can easily login to out webapp and access our database.
+-->
+
+<!-- HTML code that sets up the design of this webapp -->  
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- I am setting the webapp backgound color! -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("#header").load("header.html");
+        });
+    </script>
+
+</head>
+
+<body bgcolor="#FDF5E6"	font-size: 10pt; > 
+<div id="header"></div>
+<p> </p>  
+<a href="http://smalltalkphp.azurewebsites.net/text_corpus_login.html"><p style="text-align: right">Log Out</a> 
+<p> </p>
+	
+	
+	<!-- I am setting up the title page here --> 
+		<center>Gonzaga Text Corpus</center>
+		<p>
+               Login To Text Database
+               </p>
+               
+               <!-- This is where users enter their account credintials-->
+	<section class="loginform cf">
+		<form name="login" action="index_submit" method="get" accept-charset="utf-8">
+			<ul>
+				<li>
+					<!-- This is where user enters email -->
+					<label for="usermail">Email</label>
+					<input type="email" name="usermail" placeholder="yourname@email.com" required>
+				</li>
+				<li>
+					<!-- This is where user enters password -->
+					<label for="password">Password</label>
+					<input type="password" name="password" placeholder="password" required></li>
+				<li>
+					<!-- This is the submit button -->
+					<input type="submit" value="Login">
+				</li>
+			</ul>
+		</form>
+	</section>
+<p> </p>
+
+<!-- This is the link to our table of contents -->
+<a href="http://smalltalkphp.azurewebsites.net/Briantitlepage.html">Search Database for a word</a>
+<p> </p>
+</body>
+</html>
