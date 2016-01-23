@@ -31,7 +31,7 @@ if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
 
-echo "You searched the word: " $q;
+echo $q;
 
     
 //Search results for echo ($q);
