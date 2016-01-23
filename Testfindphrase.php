@@ -32,8 +32,9 @@ if (!$con) {
 }
     
     
-echo $q;    
-    
+echo $_POST['q'];    
+echo $_REQUEST['q'];
+
 /*    
 //Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
