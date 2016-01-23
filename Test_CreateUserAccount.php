@@ -35,14 +35,7 @@ if (!$con) {
     die( print_r( sqlsrv_errors(), true));
 }
     
-$sql="INSERT INTO [dbo].[SiteUsers]
-           ([username]
-           ,[role]
-           ,[date_added])
-     VALUES
-           ({$q},
-            {$r},
-            GETDATE())";
+$sql="INSERT INTO [dbo].[SiteUsers] ([username],[role],[date_added]) VALUES('{$q}','{$r}',GETDATE())";
 echo ($sql);  //Tests the sql statement
 $result = sqlsrv_query($con,$sql);
 echo ($result);
