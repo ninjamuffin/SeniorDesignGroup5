@@ -25,7 +25,7 @@ if (!$con) {
 }
 
 if ($q == "expressions"){
-sqlsrv_select_db($con,"!1Elcwebapp");
+sqlsrv_select_db($con);
 $sql="SELECT * FROM expressions";
 //echo ($sql);
 $result = sqlsrv_query($con,$sql);
