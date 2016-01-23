@@ -22,10 +22,8 @@ th {text-align: left;}
 
 <?php
 //get the q parameter from URL
-//$q=$_POST["q"];
-$q='bwillis';
-//$r=$_POST["r"];
-$r='student';
+$q=$_POST["q"];
+$r=$_POST["r"];
 // connects to DB
 $serverName = "o0tvd0xlpb.database.windows.net,1433";
 $connectionInfo = array( "Database"=>"SmalltalkMigrate2.0", "UID"=>"CS05", "PWD"=>"!1Elcwebapp");
