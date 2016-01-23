@@ -32,9 +32,9 @@ if (!$con) {
 }
     
     
+echo $q;    
     
-    
-    
+/*    
 //Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
 $sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
@@ -62,6 +62,7 @@ while($row = mysqli_fetch_array($result)) {
 }
 //output the table with values in it
 echo "</table>";
+ */
 mysqli_close($con);
 ?>
 </body>
