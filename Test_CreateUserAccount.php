@@ -1,4 +1,3 @@
-ini_set('display_errors, 1);
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +53,7 @@ echo "<table>
 <th>date_removed</th>
 </tr>";
 //Input values into table
-while($row = sqlsrv_fetch_array(%table_result)) {
+while($row = sqlsrv_fetch_array($table_result)) {
     echo "<tr>";
     echo "<td>" . $row['user_id'] . "</td>";
     echo "<td>" . $row['username'] . "</td>";
