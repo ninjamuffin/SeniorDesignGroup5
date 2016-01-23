@@ -1,3 +1,4 @@
+ini_set('display_errors, 1);
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@ if (!$con) {
     die( print_r( sqlsrv_errors(), true));
 }
     
-$sql= "INSERT INTO [dbo].[SiteUsers]
+$sql="INSERT INTO [dbo].[SiteUsers]
            ([username]
            ,[role]
            ,[date_added])
