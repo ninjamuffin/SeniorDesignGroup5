@@ -17,15 +17,18 @@ th {text-align: left;}
 
 <?php
 $q = strval($_GET['q']);
-$con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');
+$serverName = "o0tvd0xlpb.database.windows.net,1433";
+$connectionInfo = array( "Database"=>"SmalltalkMigrate2.0", "UID"=>"CS05", "PWD"=>"!1Elcwebapp");
+$con = sqlsrv_connect( $serverName, $connectionInfo);
 if (!$con) {
-    die('Could not connect: ' . mysqli_error($con));
+    die( print_r( sqlsrv_errors(), true));
 }
+
 if ($q == "expressions"){
-mysqli_select_db($con,"mysqldbproject");
+sqlsrv_select_db($con,"!1Elcwebapp");
 $sql="SELECT * FROM expressions";
 //echo ($sql);
-$result = mysqli_query($con,$sql);
+$result = sqlsrv_query($con,$sql);
 echo "<center>$q Table</center>";
 echo "<table>
 <tr>
@@ -35,7 +38,7 @@ echo "<table>
 <th>topic_id</th>
 <th>language_id</th>
 </tr>";
-while($row = mysqli_fetch_array($result)) {
+while($row = sqlsrv_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['student_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
@@ -47,16 +50,16 @@ while($row = mysqli_fetch_array($result)) {
 echo "</table>";
 }
 if ($q == "language"){
-mysqli_select_db($con,"mysqldbproject");
+sqlsrv_select_db($con,"!1Elcwebapp");
 $sql="SELECT * FROM language";
-$result = mysqli_query($con,$sql);
+$result = sqlsrv_query($con,$sql);
 echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>language_id</th>
 <th>language_name</th>
 </tr>";
-while($row = mysqli_fetch_array($result)) {
+while($row = sqlsrv_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['language_id'] . "</td>";
     echo "<td>" . $row['language_name'] . "</td>";
@@ -65,16 +68,16 @@ while($row = mysqli_fetch_array($result)) {
 echo "</table>";
 }
 if ($q == "topic"){
-mysqli_select_db($con,"mysqldbproject");
+sqlsrv_select_db($con,"!1Elcwebapp");
 $sql="SELECT * FROM topic";
-$result = mysqli_query($con,$sql);
+$result = sqlsrv_query($con,$sql);
 echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>topic_id</th>
 <th>topic_name</th>
 </tr>";
-while($row = mysqli_fetch_array($result)) {
+while($row = sqlsrv_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['topic_id'] . "</td>";
     echo "<td>" . $row['topic_name'] . "</td>";
@@ -83,16 +86,16 @@ while($row = mysqli_fetch_array($result)) {
 echo "</table>";
 }
 if ($q == "word"){
-mysqli_select_db($con,"mysqldbproject");
+sqlsrv_select_db($con,"!1Elcwebapp");
 $sql="SELECT * FROM word";
-$result = mysqli_query($con,$sql);
+$result = sqlsrv_query($con,$sql);
 echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>word_id</th>
 <th>word_name</th>
 </tr>";
-while($row = mysqli_fetch_array($result)) {
+while($row = sqlsrv_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['word_id'] . "</td>";
     echo "<td>" . $row['word_name'] . "</td>";
@@ -101,16 +104,16 @@ while($row = mysqli_fetch_array($result)) {
 echo "</table>";
 }
 if ($q == "level"){
-mysqli_select_db($con,"mysqldbproject");
+sqlsrv_select_db($con,"!1Elcwebapp");
 $sql="SELECT * FROM level";
-$result = mysqli_query($con,$sql);
+$result = sqlsrv_query($con,$sql);
 echo "<center>$q Table</center>";
 echo "<table>
 <tr>
 <th>Level</th>
 <th>Level Description</th>
 </tr>";
-while($row = mysqli_fetch_array($result)) {
+while($row = sqlsrv_fetch_array($result)) {
     echo "<tr>";
     echo "<td>" . $row['Level'] . "</td>";
     echo "<td>" . $row['Level Description'] . "</td>";
@@ -118,7 +121,7 @@ while($row = mysqli_fetch_array($result)) {
 }
 echo "</table>";
 }
-mysqli_close($con);
+sqlsrv_close($con);
 ?>
 </body>
 </html>
