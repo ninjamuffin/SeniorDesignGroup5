@@ -1,111 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Bootstrap 101 Template</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/datepicker.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="datepicker.less" />
- 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script>
-        $(function(){
-            $("#header").load("header.html");
-        });
-    </script>
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/datepicker.css" rel="stylesheet">
+        <link rel="stylesheet/less" type="text/css" href="datepicker.less" />
 
-</head>
+        <!-- Including Header -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+            $(function(){
+                $("#header").load("header.html");
+            });
+        </script>
+    </head>
 
-<body background="gonzagasmalltalk_background.png">
-    <div id="header"></div>
-
-    <div class="jumbotron">
-        <div class="col-sm-12">
-            <!-- Name-plate for teacher homepage. Identifies which instructor is logged in. -->
-            <div class="container">
-                <h1>James Hunter</h1>
-            </div>
-        </div>
+<body>
+    <div id="header"/>
+    <div class="col-sm-12">
+        <!-- Name-plate for teacher homepage. Identifies which instructor is logged in. -->
         <div class="container">
-            <div class="col-sm-2">
-		<!-- Dropdown menu for teacher navigation -->
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
-                                </span>James Hunter</a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <table class="table">
-                                    <tr>
-                                        <td>
-                                            <span class="glyphicon glyphicon-mic text-primary"></span><a href="Instructor_ViewStudents.html">View Students</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span></span><a href="http://www.jquery2dotnet.com">Messages</a>
-                                            <span class="badge">12</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-12">
-                      <div class="update-nag">
-                        <div class="update-split"><i class="glyphicon glyphicon-refresh"></i></div>
-                        <div class="update-text">Cms v0.2.5 is available! <a href="#">Update Now</a> </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-12">
-                      <div class="update-nag">
-                        <div class="update-split update-info"><i class="glyphicon glyphicon-folder-open"></i></div>
-                        <div class="update-text">Plugin <a href="#">Donatirino</a> v0.2 is available! <a href="#">Update Now</a> </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-12">
-                      <div class="update-nag">
-                        <div class="update-split update-success"><i class="glyphicon glyphicon-leaf"></i></div>
-                        <div class="update-text">Theme <a href="#">WooStyliz</a> v1.4 is available! <a href="#">Update Now</a> </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-12">
-                      <div class="update-nag">
-                        <div class="update-split update-danger"><i class="glyphicon glyphicon-warning-sign"></i></div>
-                        <div class="update-text"> <strong>Warning</strong> Some type of problem, fix it! </div>
-                      </div>
-                    </div>
-
-                </div>
-            </div>
-            
+            <h1>James Hunter</h1>
         </div>
+    </div>
+    <div class="container">
+        <div class="col-sm-2">
+    <!-- Dropdown menu for teacher navigation -->
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
+                            </span>James Hunter</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-mic text-primary"></span><a href="Instructor_ViewStudents.html">View Students</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span></span><a href="http://www.jquery2dotnet.com">Messages</a>
+                                        <span class="badge">12</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="update-nag">
+                    <div class="update-split"><i class="glyphicon glyphicon-refresh"></i></div>
+                    <div class="update-text">Cms v0.2.5 is available! <a href="#">Update Now</a> </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="update-nag">
+                    <div class="update-split update-info"><i class="glyphicon glyphicon-folder-open"></i></div>
+                    <div class="update-text">Plugin <a href="#">Donatirino</a> v0.2 is available! <a href="#">Update Now</a> </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="update-nag">
+                    <div class="update-split update-success"><i class="glyphicon glyphicon-leaf"></i></div>
+                    <div class="update-text">Theme <a href="#">WooStyliz</a> v1.4 is available! <a href="#">Update Now</a> </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="update-nag">
+                    <div class="update-split update-danger"><i class="glyphicon glyphicon-warning-sign"></i></div>
+                    <div class="update-text"> <strong>Warning</strong> Some type of problem, fix it! </div>
+                  </div>
+                </div>
+            </div>
+        </div>   
     </div>
 
 
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
   </body>
 </html>
