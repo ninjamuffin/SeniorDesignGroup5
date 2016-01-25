@@ -6,14 +6,9 @@
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
-  background: url(GonzagaBackground.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
 }
 body {
   margin: 0;
