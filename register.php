@@ -27,6 +27,7 @@
                     $username = mssql_escape($_POST['username']);
                     $password = md5(mssql_escape($_POST['password']));
                     $email = mssql_escape($_POST['email']);
+                    $role = $_POST['role'];
                     
                     $checkusername = sqlsrv_query($con, "SELECT * FROM SiteUsers WHERE username = '".$username."'");
                     
@@ -37,7 +38,7 @@
                     }
                     else
                     {
-                        $registerquery = sqlsrv_query("INSERT INTO SiteUsers (username, password, email, role, date_added) VALUES('".$username."', '".$password."', '".$email."' GETDATE())");
+                        $registerquery = sqlsrv_query("INSERT INTO SiteUsers (username, password, email, role, date_added) VALUES('".$username."', '".$password."', '".$email."', '".$role"', GETDATE())");
                         
                         if($registerquery)
                         {
@@ -48,6 +49,10 @@
                         {
                             echo "<h1>Error</h1>";
                             echo "<p>Registration failed. Please try again.</p>";
+                            echo $username;
+                            echo $password;
+                            echo $email;
+                            echo $role;
                         }
                     }
                 }
@@ -64,7 +69,8 @@
                         <label for="email">Email Address:</label><input type="text" name="email" id="email" /><br />
                         <select name="role" id="role">
                         <option value="student">Student</option>
-                            <option value="teacher">Teacher</option><br />
+                            <option value="teacher">Teacher</option>
+                        <option value="admin">Administrator</option><br />
                         </select>
                         <input type="submit" name="register" id="register" id="register" value="Register" />
                     </fieldset>
