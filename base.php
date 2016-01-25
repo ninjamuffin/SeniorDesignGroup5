@@ -2,7 +2,7 @@
 session_start();
 
 $dbhost = "o0tvd0xlpb.database.windows.net,1433";
-$dbname = "Smalltalk Migrate 2.0";
+$dbname = "SmalltalkMigrate2.0";
 $dbuser = "CS05";
 $dbpass = "!1Elcwebapp";
 $connectionInfo = array( "Database"=>$dbname, "UID"=>$dbuser, "PWD"=>$dbpass);
