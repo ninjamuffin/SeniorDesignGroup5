@@ -38,7 +38,7 @@
                     }
                     else
                     {
-                        $registerquery = sqlsrv_query("INSERT INTO SiteUsers (username, password, email, role, date_added) VALUES('".$username."', '".$password."', '".$email."', '".$role"', GETDATE())");
+                        $registerquery = sqlsrv_query("INSERT INTO SiteUsers (username, password, email, role, date_added) VALUES('".$username."', '".$password."', '".$email."', '".$role."', GETDATE())");
                         
                         if($registerquery)
                         {
