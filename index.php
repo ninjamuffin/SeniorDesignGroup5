@@ -34,8 +34,8 @@
     elseif(!empty($_POST['username']) && !empty($_POST['password']))
     {
         // let the user login //mssql_escape may cause problems with md5()
-        $username = mssql_escape($_POST['username']);
-        $password = md5(mssql_escape($_POST['password']));
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
         
         $checklogin = sqlsrv_query($con, "SElECT * FROM SiteUsers WHERE username = '".$username."' AND password = '".$password."'");
         
