@@ -37,7 +37,7 @@
                     }
                     else
                     {
-                        $registerquery = sqlsrv_query("INSERT INTO SiteUsers (username, password, email, date_added) VALUES('".$username."', '".$password."', '".$email."' GETDATE())");
+                        $registerquery = sqlsrv_query("INSERT INTO SiteUsers (username, password, email, role, date_added) VALUES('".$username."', '".$password."', '".$email."' GETDATE())");
                         
                         if($registerquery)
                         {
@@ -62,6 +62,10 @@
                         <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
                         <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
                         <label for="email">Email Address:</label><input type="text" name="email" id="email" /><br />
+                        <select name="role" id="role">
+                        <option value="student">Student</option>
+                            <option value="teacher">Teacher</option><br />
+                        </select>
                         <input type="submit" name="register" id="register" id="register" value="Register" />
                     </fieldset>
                     </form>
