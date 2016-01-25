@@ -1,165 +1,114 @@
-<html>
+<?php include "base.php"; ?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Bootstrap 101 Template</title>
 
-<head>
-
-<Title>Registration Form</Title>
-
-<style type="text/css">
-
-    body { background-color: #fff; border-top: solid 10px #000;
-
-        color: #333; font-size: .85em; margin: 20; padding: 20;
-
-        font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+        
+        <!-- Header File -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+            $(function(){
+                $("#header").load("header.html");
+            });
+        </script>
+    </head>
+    
+    <?php
+    if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
+    {
+        // let the user access the main page
+        ?>
+        <h1>Success</h1>
+    <p>Welcome, <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>.</p>
+    <a href="logout.php">Logout</a>
+    
+        <?php
     }
-
-    h1, h2, h3,{ color: #000; margin-bottom: 0; padding-bottom: 0; }
-
-    h1 { font-size: 2em; }
-
-    h2 { font-size: 1.75em; }
-
-    h3 { font-size: 1.2em; }
-
-    table { margin-top: 0.75em; }
-
-    th { font-size: 1.2em; text-align: left; border: none; padding-left: 0; }
-
-    td { padding: 0.25em 2em 0.25em 0em; border: 0 none; }
-
-</style>
-
-</head>
-
-<body>
-
-<h1>Register here!</h1>
-
-<p>Fill in your name and email address, then click <strong>Submit</strong> to register.</p>
-
-<form method="post" action="index.php">
-
-      Name  <input type="text" name="name" id="name"/></br>
-
-      Email <input type="text" name="email" id="email"/></br>
-
-      <input type="submit" name="submit" value="Submit" />
-
-</form>
-
-<?php
-
-    // DB connection info
-
-    //TODO: Update the values for $host, $user, $pwd, and $db
-
-    //using the values you retrieved earlier from the portal.
-
-    $host = "o0tvd0xlpb.database.windows.net";
-
-    $user = "CS05";
-
-    $pwd = "!1Elcwebapp";
-
-    $db = "Expression Errors";
-
-    // Connect to database.
-
-    try {
-
-        $conn = new PDO( "tcp:host=$host;dbname=$db", $user, $pwd);
-
-        $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-
-    }
-
-    catch(Exception $e){
-
-        die(var_dump($e));
-
-    }
-
-    // Insert registration info
-
-    if(!empty($_POST)) {
-
-    try {
-
-        $name = $_POST['name'];
-
-        $email = $_POST['email'];
-
-        $date = date("Y-m-d");
-
-        // Insert data
-
-        $sql_insert = "INSERT INTO registration_tbl (name, email, date)
-
-                   VALUES (?,?,?)";
-
-        $stmt = $conn->prepare($sql_insert);
-
-        $stmt->bindValue(1, $name);
-
-        $stmt->bindValue(2, $email);
-
-        $stmt->bindValue(3, $date);
-
-        $stmt->execute();
-
-    }
-
-    catch(Exception $e) {
-
-        die(var_dump($e));
-
-    }
-
-    echo "<h3>Your're registered!</h3>";
-
-    }
-
-    // Retrieve data
-
-    $sql_select = "SELECT * FROM registration_tbl";
-
-    $stmt = $conn->query($sql_select);
-
-    $registrants = $stmt->fetchAll();
-
-    if(count($registrants) > 0) {
-
-        echo "<h2>People who are registered:</h2>";
-
-        echo "<table>";
-
-        echo "<tr><th>Name</th>";
-
-        echo "<th>Email</th>";
-
-        echo "<th>Date</th></tr>";
-
-        foreach($registrants as $registrant) {
-
-            echo "<tr><td>".$registrant['name']."</td>";
-
-            echo "<td>".$registrant['email']."</td>";
-
-            echo "<td>".$registrant['date']."</td></tr>";
-
+    elseif(!empty($_POST['username']) && !empty($_POST['password']))
+    {
+        // let the user login //mssql_escape may cause problems with md5()
+        $username = mssql_escape($_POST['username']);
+        $password = md5(mssql_escape($_POST['password']));
+        
+        $checklogin = sqlsrv_query($con, "SElECT * FROM SiteUsers WHERE username = '".$username."' AND password = '".$password."'");
+        
+        if(sqlsrv_num_rows($checklogin) == 1)
+        {
+            $row = sqlsrv_fetch_array($checklogin);
+            $email = $row['EmailAddress'];
+            
+            $_SESSION['Username'] = $username;
+            $_SESSION['EmailAddress'] = $email;
+            $_SESSION['LoggedIn'] = 1;
+            
+            echo "<h1>Success</h1>";
+            echo "<p>redirecting...</p>";
+            echo "<meta http-equiv='refresh' content='=2;index.php' />";
         }
-
-        echo "</table>";
-
-    } else {
-
-        echo "<h3>No one is currently registered.</h3>";
-
+        else
+        {
+            echo "<h1>Error</h1>";
+            echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";
+        }
     }
-
-?>
-
-</body>
-
+    else
+    {
+        // display the login form
+        ?>
+    
+        <h1>Login</h1>
+    
+        <p>Login below or <a href= "register.php">click here to register</a>.</p>
+    
+        <form method ="post" action="index.php" name="loginform" id="loginform">
+        <fieldset>
+            <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
+            <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
+            <input type="submit" name="login" id="login" value="Login" />
+        </fieldset>
+        </form>
+    
+        <?php
+    }
+    ?>
+    <body background="GonzagaBackground.jpg">
+        <div class="jumbotron">
+            <div class="well">
+                <div class="container">
+                    <div class="col-xs-10 col-md-6 col-lg-8" >
+                        <form class="form-signin">
+                            <h2 class="form-signin-heading">Sign-in</h2>
+                            <label for="inputEmail" class="sr-only">Email address</label>
+                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                              </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit" href="TeacherHome.html">Login</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
+    </body>
 </html>
