@@ -36,8 +36,9 @@
         // let the user login //mssql_escape may cause problems with md5()
         $username = $_POST['username'];
         $password = md5($_POST['password']);
+        $loginquery = "SElECT * FROM SiteUsers WHERE username = $username AND password = $password";
         
-        $checklogin = sqlsrv_query($con, "SElECT * FROM SiteUsers WHERE username = '".$username."' AND password = '".$password."'");
+        $checklogin = sqlsrv_query($con, $loginquery);
         
         if(sqlsrv_num_rows($checklogin) == 1)
         {
@@ -56,6 +57,9 @@
         {
             echo "<h1>Error</h1>";
             echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";
+            echo $username;
+            echo $password;
+            echo $loginquery;
         }
     }
     else
