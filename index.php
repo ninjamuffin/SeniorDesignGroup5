@@ -52,6 +52,7 @@
             echo "<h1>Success</h1>";
             echo "<p>redirecting...</p>";
             echo "<meta http-equiv='refresh' content='=2;index.php' />";
+            echo $sqlsrv_num_rows($checklogin);
         }
         else
         {
