@@ -6,16 +6,9 @@
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
-<<<<<<< HEAD
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
-=======
-  
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
->>>>>>> c7208838d25fa146e9b06a82cdd43f6786f4eca0
 }
 body {
   margin: 0;
