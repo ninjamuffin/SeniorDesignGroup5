@@ -40,7 +40,6 @@
         
         $checklogin = sqlsrv_query($con, $loginquery);
         
-        $num_rows = $sqlsrv_num_rows($checklogin);
         
         if(sqlsrv_num_rows($checklogin) >= 0) // ==1
         {
@@ -54,7 +53,6 @@
             echo "<h1>Success</h1>";
             echo "<p>redirecting...</p>";
             echo "<meta http-equiv='refresh' content='=2;index.php' />";
-            echo "$num_rows";
         }
         else
         {
@@ -63,7 +61,6 @@
             echo $username;
             echo $password;
             echo $loginquery;
-            echo "$num_rows";
         }
     }
     else
