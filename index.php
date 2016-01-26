@@ -43,7 +43,7 @@
         if(sqlsrv_num_rows($checklogin) >= 0) // ==1
         {
             $row = sqlsrv_fetch_array($checklogin);
-            $email = $row['EmailAddress'];
+            $email = $row['email'];
             
             $_SESSION['Username'] = $username;
             $_SESSION['EmailAddress'] = $email;
@@ -60,6 +60,7 @@
             echo $username;
             echo $password;
             echo $loginquery;
+            echo $sqlsrv_num_rows($checklogin);
         }
     }
     else
