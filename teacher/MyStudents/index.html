@@ -27,15 +27,15 @@
                     document.getElementById("livesearch").style.border="1px solid #A5ACB2";
                 }
             }
-            xmlhttp.open("GET","Instructor_ViewStudents.php?q="+str,true);
+            xmlhttp.open("GET","index.php?q="+str,true);
             xmlhttp.send();
         }
     </script>
       
     <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/datepicker.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="datepicker.less" />
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/datepicker.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
         $(function(){
@@ -45,7 +45,7 @@
 
 </head>
 
-<body background="gonzagasmalltalk_background.png">
+<body background="/media/gonzagasmalltalk_background.png">
     <div id="header"></div>
 
     
@@ -67,7 +67,7 @@
                                 <table class="table">
                                     <tr>
                                         <td>
-                                            <span class="glyphicon glyphicon-mic text-primary"></span><a href="Instructor_ViewStudents.html">View Students</a>
+                                            <span class="glyphicon glyphicon-mic text-primary"></span><a href="index.html">View Students</a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -105,7 +105,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap-datepicker.js"></script>
 </body>
 </html>
