@@ -40,7 +40,7 @@
         
         $checklogin = sqlsrv_query($con, $loginquery);
         
-        if(sqlsrv_num_rows($checklogin) == 1)
+        if(sqlsrv_num_rows($checklogin) >= 0) // ==1
         {
             $row = sqlsrv_fetch_array($checklogin);
             $email = $row['EmailAddress'];
