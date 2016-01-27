@@ -1,28 +1,101 @@
+
+<!-- Home (index.html) for in-site corpus -->
+
 <!DOCTYPE html>
-<html>
-<body bgcolor="#FDF5E6">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title> Gonzaga Small Talk</title>
 
-<p> </p>  
-<a href="http://smalltalkphp.azurewebsites.net/corpus/index.html"><p style="text-align: right">Log Out</a> 
-<p> </p>
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/datepicker.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
 
-<center>Table of Contents</center>
+    <!-- Including Header -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("#header").load("/header.html");
+        });
+    </script>
 
-<p> </p>
+    <!-- Background Setup -->
+    <style>
+        body{
+            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: auto;
+        }
+    </style>
+</head>
+        
+        
 
-<a href="http://smalltalkphp.azurewebsites.net/corpus/dbprojectformlevelnewquery.html">Data view</a> 
+<body>
+    <div id="header"></div>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <u1 class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/corpus/index.html">Corpus Home</a> 
+                </li>
+                <li class="sidebar-brand">
+                    <a href="/corpus/dbprojectformlevelnewquery.html">Data view</a> 
+                </li>
+                <li class="sidebar-brand">
+                    <a href="/corpus/testwordpage.html">Search for a word</a>
+                </li>
+                <li class="sidebar-brand">
+                    <a href="/corpus/findphrase.html">Search for a phrase</a>
+                </li>
+                
+                <li class="sidebar-brand">
+                    <a href="/corpus/AdvancedSearch.html">Advanced Search</a>
+                </li>
+                
+                <li class="sidebar-brand">
+                    <a href="#">Help</a>
+                </li>
 
-<p> </p>
+            </u1>
 
-<a href="http://smalltalkphp.azurewebsites.net/corpus/testwordpage.html">Search Database for a word</a>
-<p> </p>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                        <!-- BEGIN PAGE CONTENT -->
+                        <h2>Gonzaga Corpus of ESL Utterances</h2>
+                        <p>Home Search page for corpus.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) </p>
+           
+                        <!-- END PAGE CONTENT -->
+                    </div>
+                </div>
 
-<a href="http://smalltalkphp.azurewebsites.net/corpus/findphrase.html">Search Database for a phrase</a>
-<p> </p>
 
-<a href="http://smalltalkphp.azurewebsites.net/corpus/AdvancedSearch.html">Advanced Search</a>
-<p> </p>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 </body>
 </html>
