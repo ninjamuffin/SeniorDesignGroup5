@@ -5,10 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bootstrap 101 Template</title>
-
+        
         <!-- Bootstrap -->
-        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="/css/bootstrap.css" rel="stylesheet">
     </head>
     
     <body>
@@ -20,21 +19,39 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Gonzaga SmallTalk</a>
+                <a class="navbar-brand" href="#">Gonzaga SmallTalk</a> 
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://smalltalkphp.azurewebsites.net/text_corpus_login.html">Database</a></li>
-                    <li><a href="About.html">About</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        <li><a href="TeacherHome.html">Homepage</a></li>
-                        <li><a href="StudentsView.html">Students</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="speechtest.html">Dictation</a></li>
-                </ul>
+                <row>
+                    <ul class="nav navbar-nav navbar-right offset">
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Name<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">My Profile</a></li>
+                                    <li><a href="#">Edit My Profile</a></li>
+                                    <li><a href="#">Students</a></li>
+                                    <li><a href="#">Log Out</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <button type="button" class="btn btn-default" aria-label="Home">
+                                    <span class="glyphicon glyphicon-home" aria-hidden="true">
+                                        <a href="/Student/Home/index.html"></a>
+
+                                    </span>
+                                
+                                
+                                
+                                </button>
+                                   
+
+                            </li>
+
+
+                    </ul>
+                </row>
             </div>
         </div>
     </body>
