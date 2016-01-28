@@ -39,7 +39,10 @@
         $password = $_POST['password'];
         $loginquery = "SELECT * FROM SiteUsers WHERE username = '". $username."' AND password = '". $password."'";
         
-        $checklogin = sqlsrv_query($con, $loginquery);
+        $params = array();
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        
+        $checklogin = sqlsrv_query($con, $loginquery, $params, $options);
         
         
         if(sqlsrv_num_rows($checklogin) >= 1) // ==1
