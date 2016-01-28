@@ -35,8 +35,7 @@
     {
         // let the user login //mssql_escape may cause problems with md5()
         $username = $_POST['username'];
-        //$password = md5($_POST['password']);
-        $password = $_POST['password'];
+        $password = md5($_POST['password']);
         $loginquery = "SELECT * FROM SiteUsers WHERE username = '". $username."' AND password = '". $password."'";
         
         $params = array();
@@ -45,7 +44,7 @@
         $checklogin = sqlsrv_query($con, $loginquery, $params, $options);
         
         
-        if(sqlsrv_num_rows($checklogin) >= 1) // ==1
+        if(sqlsrv_num_rows($checklogin) == 1) // ==1
         {
             $row = sqlsrv_fetch_array($checklogin);
             $email = $row['email'];

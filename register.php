@@ -29,7 +29,12 @@
                     $email = $_POST['email'];
                     $role = $_POST['role'];
                     
-                    $checkusername = sqlsrv_query($con, "SELECT * FROM SiteUsers WHERE username = '".$username."'");
+                    $login_sql = "SELECT * FROM SiteUsers WHERE username = '".$username."'"
+                    
+                    $params = array();
+                    $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+                    
+                    $checkusername = sqlsrv_query($con, $login_sql, $params, $options);
                     
                     if(sqlsrv_num_rows($checkusername) == 1)
                     {
