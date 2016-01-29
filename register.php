@@ -29,7 +29,7 @@
                     $email = $_POST['email'];
                     $role = $_POST['role'];
                     
-                    $login_sql = "SELECT * FROM SiteUsers WHERE username = '".$username."'"
+                    $login_sql = "SELECT * FROM SiteUsers WHERE username = '".$username."'";
                     
                     $params = array();
                     $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
