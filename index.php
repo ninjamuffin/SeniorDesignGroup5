@@ -18,6 +18,15 @@
                 $("#header").load("header.html");
             });
         </script>
+        <style>
+            body{
+                background: url(Media/GonzagaBackground.jpg) no-repeat center center fixed;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: auto;
+            }
+        </style>
     </head>
     
     <?php
@@ -70,7 +79,8 @@
         // display the login form
         ?>
     
-        <body background="GonzagaBackground.jpg">
+        <!-- <body background="GonzagaBackground.jpg"> -->
+        <body>
         <div class="jumbotron">
             <div class="well">
                 <div class="container">
