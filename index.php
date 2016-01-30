@@ -85,15 +85,17 @@
             <div class="well">
                 <div class="container">
                     <div class="col-xs-10 col-md-6 col-lg-8" >
-                        <h1>Login</h1>
+                        <h1 class="form-signin-heading text-right"><font color="white">Sign-in</font></h1>
 
                         <p>Login below or <a href= "register.php">click here to register</a>.</p>
 
-                        <form method ="post" action="index.php" name="loginform" id="loginform">
+                        <form class="form-signin" method ="post" action="index.php" name="loginform" id="loginform">
+                        
                         <fieldset>
                             <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
                             <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
                             <input type="submit" name="login" id="login" value="Login" />
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                         </fieldset>
                         </form>
                     </div>
