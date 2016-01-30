@@ -48,22 +48,21 @@
         {
             $row = sqlsrv_fetch_array($checklogin);
             $email = $row['email'];
+            $role = $row['role'];
             
             $_SESSION['Username'] = $username;
             $_SESSION['EmailAddress'] = $email;
             $_SESSION['LoggedIn'] = 1;
+            $_SESSION['Role'] = $role;
             
             echo "<h1>Success</h1>";
             echo "<p>redirecting...</p>";
-            echo "<meta http-equiv='refresh' content='=2;index.php' />";
+            echo "<meta http-equiv='refresh' content='2;index.php' />";
         }
         else
         {
             echo "<h1>Error</h1>";
             echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";
-            echo $username;
-            echo $password;
-            echo $loginquery;
         }
     }
     else
@@ -71,21 +70,38 @@
         // display the login form
         ?>
     
-        <h1>Login</h1>
-    
-        <p>Login below or <a href= "register.php">click here to register</a>.</p>
-    
-        <form method ="post" action="index.php" name="loginform" id="loginform">
-        <fieldset>
-            <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
-            <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
-            <input type="submit" name="login" id="login" value="Login" />
-        </fieldset>
-        </form>
-    
+        <body background="GonzagaBackground.jpg">
+        <div class="jumbotron">
+            <div class="well">
+                <div class="container">
+                    <div class="col-xs-10 col-md-6 col-lg-8" >
+                        <h1>Login</h1>
+
+                        <p>Login below or <a href= "register.php">click here to register</a>.</p>
+
+                        <form method ="post" action="index.php" name="loginform" id="loginform">
+                        <fieldset>
+                            <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
+                            <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
+                            <input type="submit" name="login" id="login" value="Login" />
+                        </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
+    </body>
         <?php
     }
     ?>
+</html>
+
+<!-- old sign in form for reference
     <body background="GonzagaBackground.jpg">
         <div class="jumbotron">
             <div class="well">
@@ -112,11 +128,4 @@
                 </div>
             </div>
         </div>
-        
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
-    </body>
-</html>
+/-->

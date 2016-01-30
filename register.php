@@ -53,11 +53,7 @@
                         else
                         {
                             echo "<h1>Error</h1>";
-                            echo "<p>Registration failed. Please try again.</p>";
-                            echo $username;
-                            echo $password;
-                            echo $email;
-                            echo $role;
+                            echo "<p>Registration failed. <a href =\"register.php\">Please try again.</a></p>";
                         }
                     }
                 }
