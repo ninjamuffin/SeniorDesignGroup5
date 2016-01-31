@@ -67,7 +67,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <a href="/Admin/ManageCorpus/index.php">Manage Corpus</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/corpus/index.php">Archive</a>
+                            <a href="/corpus/index.php">Corpus</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/Admin/Archive/index.php">Archive</a>
                         </li>
 
                         <li class="sidebar-brand">

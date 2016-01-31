@@ -67,7 +67,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <a href="/Admin/ManageCorpus/index.php">Manage Corpus</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/corpus/index.php">Archive</a>
+                            <a href="/corpus/index.php">Corpus</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/Admin/Archive/index.php">Archive</a>
                         </li>
 
                         <li class="sidebar-brand">
@@ -84,7 +87,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <h1>Search Students</h1>
                             <p>Documentation:</p>
-                            <p>Provides search interface for looking up students in the DB. Would then display list of courses the student has taken, or, alternatively (tabs) all worksheets/expressions submitted by the teacher</p>
+                            <p>Provides search interface for looking up students in the DB. Would then display list of courses the student has taken, or, alternatively (tabs) all worksheets/expressions submitted by the student</p>
                         </div>
                     </div>
                 </div>
