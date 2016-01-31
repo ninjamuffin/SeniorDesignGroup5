@@ -58,19 +58,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <a href="/Admin/Home/">Home</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/Admin/ManageTeachers/index.php">Manage Teachers</a>
+                            <a href="/Admin/ManageTeachers/">Manage Teachers</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/Admin/ManageStudents/index.php">Manage Students</a>
+                            <a href="/Admin/ManageStudents/">Manage Students</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/Admin/ManageCorpus/index.php">Manage Corpus</a>
+                            <a href="/Admin/ManageCorpus/">Manage Corpus</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/corpus/index.php">Corpus</a>
+                            <a href="/corpus/">Corpus</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/Admin/Archive/index.php">Archive</a>
+                            <a href="/Admin/Archive/">Archive</a>
                         </li>
 
                         <li class="sidebar-brand">
