@@ -33,20 +33,21 @@
     </style>
 </head>
 
-
-<!-- if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
+<?php
+session_start()
+if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'admin')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
         <p>Click <a href="/index.php">here</a> if you don't want to wait</p>
-        <meta http-equiv='refresh' content='5;/index.php' /> 
-        
+        <meta http-equiv='refresh' content='5;/index.php' />
+        <?php
     }
     else
     {
-        ?> -->
+        ?>
         <body>
             <div id="header"></div>
 
@@ -85,7 +86,6 @@
                                 <p>Page provides admin user home.  Eventual content will be a site activity queue, listing all teacher/student actions in chronological order.  Will eventually handle requests for corpus changes from teacher members</p>
                                 <p>Sidebar will include admin navigation: ManageStudents, ManageTeachers, ManageCorpus, Archive</p>
                                 <p>Nav bar will include basic account access (same regardless of role)</p>
-                                <p><?=$_SESSION['Username']?></p>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
             });
             </script>
         </body> 
-        <!--        
+        <?php        
     }
 }
 
@@ -114,8 +114,8 @@ else
     <p>Oops! You are not logged in.  Redirecting to log-in in 5 seconds</p>
     <p>Click <a href="/index.php">here</a> if you don't want to wait</p>
     <meta http-equiv='refresh' content='5;/index.php' />
-    
+    <?php
 }
-?> -->
+?>
 
 </html>
