@@ -81,27 +81,23 @@
     
         <!-- <body background="GonzagaBackground.jpg"> -->
         <body>
-        <div class="jumbotron">
-            <div class="well">
-                <div class="container">
-                    <div class="col-xs-10 col-md-6 col-lg-8" >
-                        <h1 class="form-signin-heading text-right"><font color="white">Sign-in</font></h1>
+            <div class="well col-xs-12 pull-right">
+                <form class="form-signin" method ="post" action="index.php" name="loginform" id="loginform">
+                <h1 class="form-signin-heading text-right"><font color="white">Sign-in</font></h1>
 
-                        <p>Login below or <a href= "register.php">click here to register</a>.</p>
+                    <h4 class="form-signin-heading text-right"><font color="white">Login below or <a href= "register.php">click here to register</a>.</font></h4>
 
-                        <form class="form-signin" method ="post" action="index.php" name="loginform" id="loginform">
-                        
-                        <fieldset>
-                            <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
-                            <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
-                            <input type="submit" name="login" id="login" value="Login" />
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                        </fieldset>
-                        </form>
-                    </div>
-                </div>
+                
+
+                <fieldset>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="" autofocus"">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                </fieldset>
+                </form>
             </div>
-        </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
