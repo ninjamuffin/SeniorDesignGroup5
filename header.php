@@ -38,9 +38,9 @@
                       <span class="glyphicon glyphicon-user"></span> USER_NAME <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/<?=_SESSION['role']?>/Home/ViewProfile/index.html">Profile</a></li>
+                        <li><a href="/Admin/Home/ViewProfile/index.html">Profile</a></li>
                         <li class="divider"></li>
-                        <li><a href="/<?=_SESSION['role']?>/Home/ViewProfile/index.html">Settings</a></li>
+                        <li><a href="/Admin/Home/ViewProfile/index.html">Settings</a></li>
                         <li class="divider"></li>
                         <li>Logged in as: <?=$_SESSION['role']?></li>
                         <li class="divider"></li>
