@@ -34,7 +34,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown">
-                    <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
+                    <a href="#" dropdown="" dropdown-toggle data-toggle="dropdown">
                       <span class="glyphicon glyphicon-user"></span> USER_NAME <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
@@ -57,6 +57,7 @@
     else
        {
             ?>
+            <!-- Reroute to log-in page if there is no session detected -->
             <meta http-equiv='refresh' content='0;index.php' />
             <?php
        }
