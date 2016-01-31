@@ -19,8 +19,6 @@
         $(function(){
             $("#header").load("/header.php");
         });
-    </script>
-    <script>
         $(function(){
             $("#sidebar").load("/sidebar.php");
         });
