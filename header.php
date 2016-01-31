@@ -42,7 +42,7 @@
                         <li class="divider"></li>
                         <li><a href="/Admin/Home/ViewProfile/index.html">Settings</a></li>
                         <li class="divider"></li>
-                        <li>Logged in as: <?=$_SESSION['role']?></li>
+                        <li>Logged in as: <?=$_SESSION['Role']?></li>
                         <li class="divider"></li>
                         <li><a href="/logout.php">Log out</a></li>
                     </ul>
