@@ -36,19 +36,19 @@
         if ($_SESSION['Role'] == 'admin')
         {
             ?>
-            <meta http-equiv='refresh' content='0;/Admin/Home/index.php' />
+            <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
             <?php
         }
-        if ($_SESSION['Role'] == 'student')
+        elseif ($_SESSION['Role'] == 'student')
         {
             ?>
-            <meta http-equiv='refresh' content='0;/Student/Home/index.php' />
+            <meta http-equiv='refresh' content='2;/Student/Home/index.php' />
             <?php
         }
-        if ($_SESSION['Role'] == 'teacher')
+        elseif ($_SESSION['Role'] == 'teacher')
         {
             ?>
-            <meta http-equiv='refresh' content='0;/Teacher/Home/index.php' />
+            <meta http-equiv='refresh' content='2;/Teacher/Home/index.php' />
             <?php
         }
         ?>
@@ -73,7 +73,7 @@
         $checklogin = sqlsrv_query($con, $loginquery, $params, $options);
         
         
-        if(sqlsrv_num_rows($checklogin) == 1) // ==1
+        if(sqlsrv_num_rows($checklogin) == 1)
         {
             $row = sqlsrv_fetch_array($checklogin);
             $email = $row['email'];
@@ -86,7 +86,7 @@
             
             echo "<h1>Success</h1>";
             echo "<p>redirecting...</p>";
-            echo "<meta http-equiv='refresh' content='2;index.php' />";
+            echo "<meta http-equiv='refresh' content='2;/index.php' />";
         }
         else
         {
