@@ -36,27 +36,27 @@
         if ($_SESSION['Role'] == 'admin')
         {
             ?>
-            <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
+            <meta http-equiv='refresh' content='0;/Admin/Home/index.php' />
             <?php
         }
         if ($_SESSION['Role'] == 'student')
         {
             ?>
-            <meta http-equiv='refresh' content='2;/Student/Home/index.php' />
+            <meta http-equiv='refresh' content='0;/Student/Home/index.php' />
             <?php
         }
         if ($_SESSION['Role'] == 'teacher')
         {
             ?>
-            <meta http-equiv='refresh' content='2;/Teacher/Home/index.php' />
+            <meta http-equiv='refresh' content='0;/Teacher/Home/index.php' />
             <?php
         }
         ?>
         <h1>Gonzaga Smalltalk</h1>
         <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>. Redirecting to your home page</p>
     
-    
-    <a href="logout.php">Logout</a>
+        
+        <a href="logout.php">Logout</a>
     
         <?php
     }
