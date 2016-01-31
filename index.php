@@ -41,7 +41,7 @@
         }
         ?>
         <h1>Gonzaga Smalltalk</h1>
-    <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>.</p>
+    <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>. Redirecting to your home page</p>
     
     
     <a href="logout.php">Logout</a>

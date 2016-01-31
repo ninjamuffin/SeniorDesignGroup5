@@ -1,3 +1,4 @@
+<?php include "base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,7 +13,11 @@
         
     </head>
     
-    <body>
+    <?php
+    if(!empty($_SESSION['LoggedIn'] && !empty($_SESSION['Username']))
+    {
+        ?>
+        <body>
         <div class="navbar navbar-default navbar-fixed-top ng-scope">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -33,11 +38,11 @@
               <span class="glyphicon glyphicon-user"></span> USER_NAME <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="javascript:void(0);">Profile</a></li>
+                <li><a href="/<?_SESSION['role']?>/Home/ViewProfile/index.html">Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="javascript:void(0);">Settings</a></li>
+                <li><a href="/<?_SESSION['role']?>/Home/ViewProfile/index.html">Settings</a></li>
                 <li class="divider"></li>
-                <li><a href="javascript:void(0);">Logged in as: ACCT_TYPE</a></li>
+                <li>Logged in as: <?=$_SESSION['role']?></li>
                 <li class="divider"></li>
                 <li><a href="/logout.php">Log out</a></li>
             </ul>
@@ -47,4 +52,10 @@
     </div>
   </div>
     </body>
+    ?>
+    }
+    
+    
+    
+    
 </html>

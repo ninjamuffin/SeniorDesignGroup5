@@ -16,14 +16,14 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>
             $(function(){
-                $("#header").load("/header.html");
+                $("#header").load("/header.php");
             });
         </script>
         
         <!-- Background Setup -->
         <style>
             body{
-                background: url(../../Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
+                background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
                     -webkit-background-size: cover;
                     -moz-background-size: cover;
                     -o-background-size: cover;
