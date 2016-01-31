@@ -14,7 +14,7 @@
     </head>
     
     <?php
-    if(!empty($_SESSION['LoggedIn'] && !empty($_SESSION['Username']))
+    if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
