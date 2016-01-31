@@ -36,12 +36,12 @@
         if ($_SESSION['Role'] == 'admin')
         {
             ?>
-            <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
+            <meta http-equiv='refresh' content='0;/Admin/Home/index.php' />
             <?php
         }
         ?>
-        <h1>Success</h1>
-    <p>Welcome, <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>.</p>
+        <h1>Gonzaga Smalltalk</h1>
+    <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>.</p>
     
     
     <a href="logout.php">Logout</a>
