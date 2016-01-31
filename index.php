@@ -37,6 +37,7 @@
         {
             ?>
             <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
+            <?php
         }
         ?>
         <h1>Success</h1>
