@@ -20,6 +20,11 @@
             $("#header").load("/header.php");
         });
     </script>
+    <script>
+        $(function(){
+            $("#sidebar").load("/sidebar.php");
+        });
+    </script>
 
     <!-- Background Setup -->
     <style>
@@ -50,9 +55,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         ?>
         <body>
             <div id="header"></div>
-
+            <div id="sidebar"></div>
             <div id="wrapper">
-                <div id="sidebar-wrapper">
+                <!--<div id="sidebar-wrapper">
                     <u1 class="sidebar-nav">
                         <li class="sidebar-brand">
                             <a href="/Admin/Home/">Home</a>
@@ -80,7 +85,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     </u1>    
 
 
-                </div>
+                </div> -->
                 <div id="sidebar-content-wrapper">
                     <div class="col-sm-12">
                         <div class="container">
