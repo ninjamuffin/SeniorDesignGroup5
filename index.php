@@ -36,7 +36,7 @@
         if ($_SESSION['Role'] == 'admin')
         {
             ?>
-            <meta http-equiv='refresh' content='0;/Admin/Home/index.php' />
+            <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
             <?php
         }
         ?>
