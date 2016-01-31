@@ -33,9 +33,16 @@
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         // let the user access the main page
+        if ($_SESSION['Role'] == 'admin')
+        {
+            ?>
+            <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
+        }
         ?>
         <h1>Success</h1>
     <p>Welcome, <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>.</p>
+    
+    
     <a href="logout.php">Logout</a>
     
         <?php
