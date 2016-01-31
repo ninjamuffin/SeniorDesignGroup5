@@ -55,7 +55,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="sidebar-wrapper">
                     <u1 class="sidebar-nav">
                         <li class="sidebar-brand">
-                            <a href="/Admin/Home/index.php">Home</a>
+                            <a href="/Admin/Home/">Home</a>
                         </li>
                         <li class="sidebar-brand">
                             <a href="/Admin/ManageTeachers/index.php">Manage Teachers</a>
