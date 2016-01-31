@@ -53,6 +53,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         ?>
         <body>
             <div id="header"></div>
+            <div id="sidebar"></div>
             <div id="wrapper">
                 <div id="sidebar-content-wrapper">
                     <div class="col-sm-12">

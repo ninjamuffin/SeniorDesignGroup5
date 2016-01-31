@@ -8,9 +8,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         
         <!-- Bootstrap -->
-        
         <link href="/css/bootstrap.css" rel="stylesheet">
-        
     </head>
     
     <?php
@@ -21,7 +19,9 @@
             <div id="wrapper">
                 <div id="sidebar-wrapper">
                     <u1 class="sidebar-nav">
-                        
+                        <?php
+                        if($_SESSION['Role'] == 'admin')
+                        { ?>
                         <li class="sidebar-brand">
                             <a href="/Admin/Home/">Home</a>
                         </li>
@@ -40,14 +40,51 @@
                         <li class="sidebar-brand">
                             <a href="/Admin/Archive/">Archive</a>
                         </li>
+                        <li class="sidebar-brand">
+                            <a href="#">Help</a>
+                        </li>
+                        <?php
+                        elseif($_SESSION['ROLE'] == 'teacher')
+                        { ?>
+                        <li class="sidebar-brand">
+                            <a href="/Teacher/Home/">Home</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/Teacher/MyCourses/">My Courses</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/Teacher/MyCourses/ViewCourse/">Visit Course</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/corpus/">Corpus</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/Teacher/Archive/">Archive</a>
+                        </li>
 
                         <li class="sidebar-brand">
                             <a href="#">Help</a>
                         </li>
-
+                        <?php
+                        }
+                        elseif($_SESSION['Role'] == 'student')
+                        { ?>
+                        <li class="sidebar-brand">
+                            <a href="/Student/Home/">Home</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/Student/MyCourses/">My Courses</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="/Student/MyCourses/ViewCourse/">Visit Course</a>
+                        </li>
+                        <li class="sidebar-brand">
+                            <a href="#">Help</a>
+                        </li>
+                        <?php
+                        }
+                        ?>
                     </u1>    
-
-
                 </div>
             </div>
         </body>
@@ -60,8 +97,5 @@
             <meta http-equiv='refresh' content='0;index.php' />
             <?php
        }
-    
-    ?>
-    
-    
+    ?>    
 </html>
