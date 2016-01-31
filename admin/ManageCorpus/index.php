@@ -19,6 +19,9 @@
         $(function(){
             $("#header").load("/header.php");
         });
+        $(function(){
+            $("#sidebar").load("/sidebar.php");
+        });
     </script>
 
     <!-- Background Setup -->
@@ -50,41 +53,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         ?>
         <body>
             <div id="header"></div>
-
+            <div id="sidebar"></div>
             <div id="wrapper">
-                <div id="sidebar-wrapper">
-                    <u1 class="sidebar-nav">
-                        <li class="sidebar-brand">
-                            <a href="/Admin/Home/index.php">Home</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/ManageTeachers/index.php">Manage Teachers</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/ManageStudents/index.php">Manage Students</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/ManageCorpus/index.php">Manage Corpus</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/corpus/index.php">Corpus</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/Archive/index.php">Archive</a>
-                        </li>
-
-                        <li class="sidebar-brand">
-                            <a href="#">Help</a>
-                        </li>
-
-                    </u1>    
-
-
-                </div>
                 <div id="sidebar-content-wrapper">
                     <div class="col-sm-12">
                         <div class="container">
-                            <h1>Manage Teacher Accounts</h1>
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                            <h1>Manage Corpus</h1>
                             <p>Documentation:</p>
                             <p>Page will manage the transfer of data from the site to the corpus.  There will be a listing of requests, submitted by teachers, that the administrator will have the option to review, and then submit to the database.  This is how we will manage DB writes.
 </p>
@@ -92,7 +67,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

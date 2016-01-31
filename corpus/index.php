@@ -55,7 +55,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="sidebar-wrapper">
                     <u1 class="sidebar-nav">
                         <li class="sidebar-brand">
-                            <a href="/<?=$_SESSION['Role']?>/Home/index.php">Home</a>
+                            <a href="/<?=$_SESSION['Role']?>/Home/">Home</a>
                         </li>
                         <li class="sidebar-brand">
                             <a href="#">Tag Search</a>
@@ -80,7 +80,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="container">
                             <h1>Corpus Search Home</h1>
                             <p>Documentation:</p>
-                            <p>Only accessible to teacher and user accounts.  Home search page for corpus, will provide links to other types of corpus access/search</p>
+                            <p>Only accessible to teacher and user accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) </p>
                             
                         </div>
                     </div>
