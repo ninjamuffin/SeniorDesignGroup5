@@ -30,6 +30,7 @@
     </head>
     
     <?php
+    session_start();
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         // let the user access the main page
@@ -79,7 +80,7 @@
             $email = $row['email'];
             $role = $row['role'];
             
-            session_start();
+            
             $_SESSION['Username'] = $username;
             $_SESSION['EmailAddress'] = $email;
             $_SESSION['LoggedIn'] = 1;
