@@ -1,4 +1,3 @@
-<!-- Home (index.html) for basic Admin account -->
 <?php include "/base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
