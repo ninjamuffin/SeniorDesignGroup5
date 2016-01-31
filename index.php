@@ -39,9 +39,21 @@
             <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
             <?php
         }
+        if ($_SESSION['Role'] == 'student')
+        {
+            ?>
+            <meta http-equiv='refresh' content='2;/Student/Home/index.php' />
+            <?php
+        }
+        if ($_SESSION['Role'] == 'teacher')
+        {
+            ?>
+            <meta http-equiv='refresh' content='2;/Teacher/Home/index.php' />
+            <?php
+        }
         ?>
         <h1>Gonzaga Smalltalk</h1>
-    <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>. Redirecting to your home page</p>
+        <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>. Redirecting to your home page</p>
     
     
     <a href="logout.php">Logout</a>
@@ -116,32 +128,3 @@
     }
     ?>
 </html>
-
-<!-- old sign in form for reference
-    <body background="GonzagaBackground.jpg">
-        <div class="jumbotron">
-            <div class="well">
-                <div class="container">
-                    <div class="col-xs-10 col-md-6 col-lg-8" >
-                        <form class="form-signin">
-                            <h2 class="form-signin-heading">Sign-in</h2>
-                            <label for="inputEmail" class="sr-only">Email address</label>
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-                            <label for="inputPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                              </label>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit" href="TeacherHome.html">Login</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-/-->
