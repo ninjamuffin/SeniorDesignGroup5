@@ -79,6 +79,7 @@
             $email = $row['email'];
             $role = $row['role'];
             
+            session_start();
             $_SESSION['Username'] = $username;
             $_SESSION['EmailAddress'] = $email;
             $_SESSION['LoggedIn'] = 1;
