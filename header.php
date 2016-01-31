@@ -54,6 +54,12 @@
     </body>
     <?php
     }
+    else
+       {
+            ?>
+            <meta http-equiv='refresh' content='0;index.php' />
+            <?php
+       }
     
     ?>
     
