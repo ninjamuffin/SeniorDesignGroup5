@@ -30,7 +30,6 @@
     </head>
     
     <?php
-    session_start();
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         // let the user access the main page

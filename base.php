@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 
 $dbhost = "o0tvd0xlpb.database.windows.net,1433";
