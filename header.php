@@ -19,38 +19,38 @@
         ?>
         <body>
         <div class="navbar navbar-default navbar-fixed-top ng-scope">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a href="index.html" class="navbar-brand">Gonzaga SmallTalk</a>
-      </div>
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="navbar-brand">Gonzaga SmallTalk</a>
+              </div>
 
-      <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
-    
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
-              <span class="glyphicon glyphicon-user"></span> USER_NAME <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="/<?_SESSION['role']?>/Home/ViewProfile/index.html">Profile</a></li>
-                <li class="divider"></li>
-                <li><a href="/<?_SESSION['role']?>/Home/ViewProfile/index.html">Settings</a></li>
-                <li class="divider"></li>
-                <li>Logged in as: <?=$_SESSION['role']?></li>
-                <li class="divider"></li>
-                <li><a href="/logout.php">Log out</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+              <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
+
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                    <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-user"></span> USER_NAME <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/<?=_SESSION['role']?>/Home/ViewProfile/index.html">Profile</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/<?=_SESSION['role']?>/Home/ViewProfile/index.html">Settings</a></li>
+                        <li class="divider"></li>
+                        <li>Logged in as: <?=$_SESSION['role']?></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout.php">Log out</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
     </body>
     <?php
     }
