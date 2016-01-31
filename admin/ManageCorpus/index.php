@@ -81,11 +81,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="sidebar-content-wrapper">
                     <div class="col-sm-12">
                         <div class="container">
-                            <h1>Administrator Name</h1>
+                            <h1>Manage Teacher Accounts</h1>
                             <p>Documentation:</p>
-                                <p>Page provides admin user home.  Eventual content will be a site activity queue, listing all teacher/student actions in chronological order.  Will eventually handle requests for corpus changes from teacher members</p>
-                                <p>Sidebar will include admin navigation: ManageStudents, ManageTeachers, ManageCorpus, Archive</p>
-                                <p>Nav bar will include basic account access (same regardless of role)</p>
+                            <p>Page will manage the transfer of data from the site to the corpus.  There will be a listing of requests, submitted by teachers, that the administrator will have the option to review, and then submit to the database.  This is how we will manage DB writes.
+</p>
+                            
                         </div>
                     </div>
                 </div>

@@ -81,22 +81,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="sidebar-content-wrapper">
                     <div class="col-sm-12">
                         <div class="container">
-                            <h1>Administrator Name</h1>
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                            <h1>Search Students</h1>
                             <p>Documentation:</p>
-                                <p>Page provides admin user home.  Eventual content will be a site activity queue, listing all teacher/student actions in chronological order.  Will eventually handle requests for corpus changes from teacher members</p>
-                                <p>Sidebar will include admin navigation: ManageStudents, ManageTeachers, ManageCorpus, Archive</p>
-                                <p>Nav bar will include basic account access (same regardless of role)</p>
+                            <p>Provides search interface for looking up students in the DB. Would then display list of courses the student has taken, or, alternatively (tabs) all worksheets/expressions submitted by the teacher</p>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
-            <script src="/js/bootstrap-datepicker.js"></script>
             <script>
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
