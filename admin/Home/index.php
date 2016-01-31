@@ -37,7 +37,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'Admin')
+    if($_SESSION['Role'] != 'admin')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
