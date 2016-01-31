@@ -34,8 +34,8 @@
 
                 <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown">
-                    <a href="#" dropdown="" dropdown-toggle data-toggle="dropdown">
-                      <span class="glyphicon glyphicon-user"></span> USER_NAME <b class="caret"></b>
+                    <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
+                      <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/Admin/Home/ViewProfile/index.html">Profile</a></li>
