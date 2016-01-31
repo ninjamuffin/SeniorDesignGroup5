@@ -85,6 +85,7 @@
                                 <p>Page provides admin user home.  Eventual content will be a site activity queue, listing all teacher/student actions in chronological order.  Will eventually handle requests for corpus changes from teacher members</p>
                                 <p>Sidebar will include admin navigation: ManageStudents, ManageTeachers, ManageCorpus, Archive</p>
                                 <p>Nav bar will include basic account access (same regardless of role)</p>
+                            <p><?=$_SESSION['Username']?></p>
                         </div>
                     </div>
                 </div>
