@@ -19,6 +19,9 @@
         $(function(){
             $("#header").load("/header.php");
         });
+        $(function(){
+            $("#sidebar").load("/corpus/sidebar.php");
+        });
     </script>
 
     <!-- Background Setup -->
@@ -37,12 +40,12 @@
 session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'admin')
+    if( !(($_SESSION['Role'] == 'admin') || ($_SESSION['Role'] == 'teacher') ))
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
-        <p>Click <a href="/index.php">here</a> if you don't want to wait</p>
-        <meta http-equiv='refresh' content='5;/index.php' />
+        <p>Click <a href="/">here</a> if you don't want to wait</p>
+        <meta http-equiv='refresh' content='5;/' />
         <?php
     }
     else
@@ -50,37 +53,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         ?>
         <body>
             <div id="header"></div>
-
             <div id="wrapper">
-                <div id="sidebar-wrapper">
-                    <u1 class="sidebar-nav">
-                        <li class="sidebar-brand">
-                            <a href="/<?=$_SESSION['Role']?>/Home/">Home</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="#">Tag Search</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="#">Annotation Editor</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="#">Graphical Analysis</a>
-                        </li>
-
-                        <li class="sidebar-brand">
-                            <a href="#">Help</a>
-                        </li>
-
-                    </u1>    
-
-
-                </div>
+                <div id="sidebar"></div>
                 <div id="sidebar-content-wrapper">
                     <div class="col-sm-12">
                         <div class="container">
                             <h1>Corpus Search Home</h1>
                             <p>Documentation:</p>
-                            <p>Only accessible to teacher and user accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) </p>
+                            <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) </p>
                             
                         </div>
                     </div>
@@ -107,9 +87,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 else
 {
     ?>
-    <p>Oops! You are not logged in.  Redirecting to log-in in 5 seconds</p>
-    <p>Click <a href="/index.php">here</a> if you don't want to wait</p>
-    <meta http-equiv='refresh' content='5;/index.php' />
+    <!-- To Do: Add alternate corpus view section -->
+    <p>Oops! You are not logged in. We do not yet support access to the corpus without authorization from our administrators.</p>
+    <p>Redirecting to log-in in 5 seconds</p>
+    <p>Click <a href="/">here</a> if you don't want to wait</p>
+    <meta http-equiv='refresh' content='5;/' />
     <?php
 }
 ?>
