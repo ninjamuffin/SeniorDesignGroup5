@@ -22,7 +22,10 @@
                     background-size: auto;
                 
             }
-            a{color:white}
+            a{
+                color:white;
+                text-decoration: underline;
+            }
         </style>
     </head>
     
@@ -112,8 +115,8 @@
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                 </fieldset>
-                <h4 class="form-signin-heading text-right"><font color="white">Forgot Username? Click <a href="#"> here </a>to reset</font></h4>
-                <h4 class="form-signin-heading text-right"><font color="white">Forgot Password? Click <a href="#"> here </a>to reset</font></h4>
+                <h4 class="form-signin-heading text-right"><a href="#">Forgot Username?</a></h4>
+                <h4 class="form-signin-heading text-right"><a href="#">Forgot Password?</a></h4>
                 </form>
             </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
