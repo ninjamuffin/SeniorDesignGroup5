@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bootstrap 101 Template</title>
+        <title>Gonzaga Small Talk</title>
 
         <!-- Bootstrap -->
         <link href="css/bootstrap.css" rel="stylesheet">
@@ -101,7 +101,8 @@
             <div class="well col-xs-12 pull-right">
                 <form class="form-signin" method ="post" action="/" name="loginform" id="loginform">
                 <h1 class="form-signin-heading text-right"><font color="white">Sign-in</font></h1>
-                    <h4 class="form-signin-heading text-right"><font color="white">Login below or <a href= "register.php">click here to register</a>.</font></h4>
+                    <!--<h4 class="form-signin-heading text-right"><font color="white">Login below or <a href= "register.php">click here to register</a>.</font></h4>-->
+                    
                 <fieldset>
                     <label for="username" class="sr-only">Username</label>
                     <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="" autofocus"">
@@ -109,6 +110,8 @@
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                 </fieldset>
+                <h4 class="form-signin-heading text-right"><font color="white">Forgot Username? Click <a href="#"> here </a>to reset</font></h4>
+                <h4 class="form-signin-heading text-right"><font color="white">Forgot Password? Click <a href="#"> here </a>to reset</font></h4>
                 </form>
             </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
