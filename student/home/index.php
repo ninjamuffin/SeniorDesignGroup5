@@ -52,39 +52,42 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-?>        
+    ?>        
 
-<body>
-    <div id="header"></div>
-    <div id="wrapper">
-        <div id = "sidebar"></div>
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                        <!-- BEGIN PAGE CONTENT -->
-                        <h2>Student Name</h2>
-                        <p>Page provides student user home.  Eventual content will be a site activity queue, listing all relevant course postings by teachers.  </p>
-                        <p>Sidebar will include student navigation: Home, Courses {Worksheets}, My Archive {courses {worksheets}}</p>
-                        <p>Nav bar will include basic account access (same regardless of role)</p>
-                        <!-- END PAGE CONTENT -->
+    <body>
+        <div id="header"></div>
+        <div id="wrapper">
+            <div id = "sidebar"></div>
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                            <!-- BEGIN PAGE CONTENT -->
+                            <h2>Student Name</h2>
+                            <p>Page provides student user home.  Eventual content will be a site activity queue, listing all relevant course postings by teachers.  </p>
+                            <p>Sidebar will include student navigation: Home, Courses {Worksheets}, My Archive {courses {worksheets}}</p>
+                            <p>Nav bar will include basic account access (same regardless of role)</p>
+                            <!-- END PAGE CONTENT -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/bootstrap-datepicker.js"></script>
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
-</body>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap-datepicker.js"></script>
+        <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        </script>
+    </body>
+    <?php
+    }
+    ?>
 </html>
