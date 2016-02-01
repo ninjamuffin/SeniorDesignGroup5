@@ -20,6 +20,7 @@
                     -moz-background-size: cover;
                     -o-background-size: cover;
                     background-size: auto;
+                a:link {color:white}
             }
         </style>
     </head>
