@@ -55,17 +55,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div id="header"></div>
             <div id="wrapper">
                 <div id="sidebar"></div>
-                <div id="sidebar-content-wrapper">
-                    <div class="col-sm-12">
-                        <div class="container">
-                            <h1>Corpus Search Home</h1>
-                            <p>Documentation:</p>
-                            <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) </p>
-                            
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1>Corpus Search Home</h1>
+                                <p>Documentation:</p>
+                                <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
