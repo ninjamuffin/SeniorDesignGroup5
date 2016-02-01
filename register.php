@@ -20,8 +20,6 @@
         </script>
     </head>
     
-    
-    
     <body>
         <div id="main">
             <?php
@@ -29,6 +27,8 @@
                 {
                     $username = $_POST['username'];
                     $password = md5($_POST['password']);
+                    $first_name = $_POST['first_name'];
+                    $last_name = $_POST['last_name'];
                     $email = $_POST['email'];
                     $role = $_POST['role'];
                     
@@ -46,7 +46,7 @@
                     }
                     else
                     {
-                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, email, role, date_added) VALUES('$username', '$password', '$email', '$role', GETDATE())", $params, $options);
+                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, first_name, last_name, email, role, date_added) VALUES('$username', '$password', '$first_name', '$last_name', '$email', '$role', GETDATE())", $params, $options);
                         
                         if($registerquery)
                         {
@@ -69,17 +69,18 @@
                     <form method="post" action="register.php" name="registerform" id="registerform">
                     <fieldset>
                         <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
+                        <label for="first_name">First Name:</label><input type="text" name="first_name" id="first_name" /><br />
+                        <label for="last_name">Last Name:</label><input type="text" name="last_name" id="last_name" /><br />
                         <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
                         <label for="email">Email Address:</label><input type="text" name="email" id="email" /><br />
                         <select name="role" id="role">
                         <option value="student">Student</option>
-                            <option value="teacher">Teacher</option>
+                        <option value="teacher">Teacher</option>
                         <option value="admin">Administrator</option><br />
                         </select>
                         <input type="submit" name="register" id="register" id="register" value="Register" />
                     </fieldset>
-                    </form>
-                    
+                    </form>         
                     <?php
                 }
             ?>
