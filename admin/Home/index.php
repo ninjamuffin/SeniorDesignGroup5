@@ -84,15 +84,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
 
                 </div> -->
-                <div id="sidebar-content-wrapper">
-                    <div class="col-sm-12">
-                        <div class="container">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                            <h1>Administrator Name</h1>
-                            <p>Documentation:</p>
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                                <h1>Administrator Name</h1>
+                                <p>Documentation:</p>
                                 <p>Page provides admin user home.  Eventual content will be a site activity queue, listing all teacher/student actions in chronological order.  Will eventually handle requests for corpus changes from teacher members</p>
                                 <p>Sidebar will include admin navigation: ManageStudents, ManageTeachers, ManageCorpus, Archive</p>
                                 <p>Nav bar will include basic account access (same regardless of role)</p>
+                            </div>
                         </div>
                     </div>
                 </div>
