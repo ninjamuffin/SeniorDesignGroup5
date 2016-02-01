@@ -13,11 +13,6 @@
         
         <!-- Header File -->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>
-            $(function(){
-                $("#header").load("header.html");
-            });
-        </script>
         <style>
             body{
                 background: url(Media/GonzagaBackground.jpg) no-repeat center center fixed;
@@ -36,28 +31,31 @@
         if ($_SESSION['Role'] == 'admin')
         {
             ?>
-            <meta http-equiv='refresh' content='2;/Admin/Home/index.php' />
+            <meta http-equiv='refresh' content='0;/Admin/Home/' />
             <?php
         }
         elseif ($_SESSION['Role'] == 'student')
         {
             ?>
-            <meta http-equiv='refresh' content='2;/Student/Home/index.php' />
+            <meta http-equiv='refresh' content='0;/Student/Home/' />
             <?php
         }
         elseif ($_SESSION['Role'] == 'teacher')
         {
             ?>
-            <meta http-equiv='refresh' content='2;/Teacher/Home/index.php' />
+            <meta http-equiv='refresh' content='0;/Teacher/Home/' />
             <?php
         }
         ?>
+        <?php
+        /*
         <h1>Gonzaga Smalltalk</h1>
         <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>. Redirecting to your home page</p>
-    
+        
         
         <a href="logout.php">Logout</a>
-    
+        */
+        ?>
         <?php
     }
     elseif(!empty($_POST['username']) && !empty($_POST['password']))
@@ -85,9 +83,7 @@
             $_SESSION['LoggedIn'] = 1;
             $_SESSION['Role'] = $role;
             
-            echo "<h1>Success</h1>";
-            echo "<p>redirecting...</p>";
-            echo "<meta http-equiv='refresh' content='2;/' />";
+            echo "<meta http-equiv='refresh' content='0;/' />";
         }
         else
         {
@@ -103,13 +99,9 @@
         <!-- <body background="GonzagaBackground.jpg"> -->
         <body>
             <div class="well col-xs-12 pull-right">
-                <form class="form-signin" method ="post" action="index.php" name="loginform" id="loginform">
+                <form class="form-signin" method ="post" action="/" name="loginform" id="loginform">
                 <h1 class="form-signin-heading text-right"><font color="white">Sign-in</font></h1>
-
                     <h4 class="form-signin-heading text-right"><font color="white">Login below or <a href= "register.php">click here to register</a>.</font></h4>
-
-                
-
                 <fieldset>
                     <label for="username" class="sr-only">Username</label>
                     <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="" autofocus"">
@@ -123,7 +115,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
     </body>
         <?php
     }
