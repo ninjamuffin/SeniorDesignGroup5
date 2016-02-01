@@ -11,7 +11,6 @@
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/datepicker.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
 
@@ -46,8 +45,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
-        <p>Click <a href="/index.php">here</a> if you don't want to wait</p>
-        <meta http-equiv='refresh' content='5;/index.php' />
+        <p>Click <a href="/">here</a> if you don't want to wait</p>
+        <meta http-equiv='refresh' content='5;/' />
         <?php
     }
     else
@@ -94,8 +93,8 @@ else
 {
     ?>
     <p>Oops! You are not logged in.  Redirecting to log-in in 5 seconds</p>
-    <p>Click <a href="/index.php">here</a> if you don't want to wait</p>
-    <meta http-equiv='refresh' content='5;/index.php' />
+    <p>Click <a href="/">here</a> if you don't want to wait</p>
+    <meta http-equiv='refresh' content='5;/' />
     <?php
 }
 ?>
