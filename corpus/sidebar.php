@@ -13,6 +13,7 @@
     </head>
     
     <?php
+    session_start();
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         if( ($_SESSION['Role'] == 'admin') || ($_SESSION['Role'] == 'teacher') )
@@ -57,6 +58,12 @@
             <?php
             
         }                 
+    }
+    else
+    {
+        ?>
+        <meta http-equiv="refresh" content='0;/' />
+        <?php
     }
     ?>    
 </html>
