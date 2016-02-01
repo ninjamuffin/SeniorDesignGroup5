@@ -9,6 +9,7 @@
         
         <!-- Bootstrap -->
         <link href="/css/bootstrap.css" rel="stylesheet">
+        <link href="/css/simple-sidebar.css" rel="stylesheet">
     </head>
     
     <?php
