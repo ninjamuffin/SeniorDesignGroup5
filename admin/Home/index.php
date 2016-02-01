@@ -53,8 +53,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         ?>
         <body>
             <div id="header"></div>
-            <div id="sidebar"></div>
+            
             <div id="wrapper">
+                <div id="sidebar"></div>
                 <!--<div id="sidebar-wrapper">
                     <u1 class="sidebar-nav">
                         <li class="sidebar-brand">
