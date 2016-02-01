@@ -52,21 +52,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>
-            <div id="sidebar"></div>
+            <div id="header"></div>           
             <div id="wrapper">
-                <div id="sidebar-content-wrapper">
-                    <div class="col-sm-12">
-                        <div class="container">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                            <h1>View Teacher Profile/Account</h1>
-                            <p>Documentation:</p>
-                            <p>After accepting a form submission from ManageTeachers, this page will display the profile of a given teacher user</p>
-                            
+                <div id="sidebar"></div>
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                                <h1>View Teacher Profile/Account</h1>
+                                <p>Documentation:</p>
+                                <p>After accepting a form submission from ManageTeachers, this page will display the profile of a given teacher user</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

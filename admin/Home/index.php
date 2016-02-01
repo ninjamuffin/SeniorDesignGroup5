@@ -52,39 +52,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>
-            
+            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
-                <!--<div id="sidebar-wrapper">
-                    <u1 class="sidebar-nav">
-                        <li class="sidebar-brand">
-                            <a href="/Admin/Home/">Home</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/ManageTeachers/">Manage Teachers</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/ManageStudents/">Manage Students</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/ManageCorpus/">Manage Corpus</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/corpus/">Corpus</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Admin/Archive/">Archive</a>
-                        </li>
-
-                        <li class="sidebar-brand">
-                            <a href="#">Help</a>
-                        </li>
-
-                    </u1>    
-
-
-                </div> -->
                 <div id="page-content-wrapper">
                     <div class="container-fluid">
                         <div class="row">

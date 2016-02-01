@@ -52,16 +52,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>
-            <div id="sidebar"></div>
+            <div id="header"></div>           
             <div id="wrapper">
-                <div id="sidebar-content-wrapper">
-                    <div class="col-sm-12">
-                        <div class="container">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                            <h1>Search Worksheets</h1>
-                            <p>Documentation:</p>
-                            <p>Provides search interface for looking up worksheets in the DB; paramters would include date, teacher, etc.</p>
+                <div id="sidebar"></div>
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                                <h1>Search Worksheets</h1>
+                                <p>Documentation:</p>
+                                <p>Provides search interface for looking up worksheets in the DB; paramters would include date, teacher, etc.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
