@@ -27,7 +27,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a href="index.html" class="navbar-brand">Gonzaga SmallTalk</a>
+                <a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand">Gonzaga SmallTalk</a>
               </div>
 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
@@ -38,9 +38,9 @@
                       <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/index.html">Profile</a></li>
+                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">Profile</a></li>
                         <li class="divider"></li>
-                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/index.html">Settings</a></li>
+                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">Settings</a></li>
                         <li class="divider"></li>
                         <li>Logged in as: <?=$_SESSION['Role']?></li>
                         <li class="divider"></li>
