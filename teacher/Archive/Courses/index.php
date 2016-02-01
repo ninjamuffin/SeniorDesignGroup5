@@ -1,5 +1,6 @@
-<!-- Archive Home (index.html) for Teacher account -->
 
+<!-- Archive/Courses for Teacher account -->
+<?php include "/base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,6 @@
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/datepicker.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
 
@@ -19,7 +19,10 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
         $(function(){
-            $("#header").load("/header.html");
+            $("#header").load("/header.php");
+        });
+        $(function(){
+            $("#sidebar").load("/sidebar.php");
         });
     </script>
 
@@ -35,67 +38,66 @@
     </style>
 </head>
         
-        
+<?php
+session_start();
+if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
+{
+    if($_SESSION['Role'] != 'teacher')
+    {
+        ?>
+        <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
+        <p>Click <a href="/">here</a> if you don't want to wait</p>
+        <meta http-equiv='refresh' content='5;/' />
+        <?php
+    }
+    else
+    {
+    ?>        
 
-<body>
-    <div id="header"></div>
-    <div id="wrapper">
-        <div id="sidebar-wrapper">
-            <u1 class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="/Teacher/Home/">Home</a>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="/Teacher/Archive/index.html">Archive Home</a>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="/Teacher/Archive/Courses/index.html">Search Courses</a>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="/Teacher/Archive/Worksheets/index.html">Search Worksheets</a>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="/Teacher/Archive/Expressions/index.html">Search Expressions</a>
-                </li>
-
-                <li class="sidebar-brand">
-                    <a href="#">Help</a>
-                </li>
-
-            </u1>
-
-        </div>
-        
-   
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                        <!-- BEGIN PAGE CONTENT -->
-                        <h2>Search Courses</h2>
-                        <p>Search access for teacher user.  Through this page, the teacher will be able to search for (based on semester, time, type, teacher, etc) all courses in the DB.  This replicated functionality in the Access App  </p>
-        
-                        <!-- END PAGE CONTENT -->
+    <body>
+        <div id="header"></div>
+        <div id="wrapper">
+            <div id = "sidebar"></div>
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                            <!-- BEGIN PAGE CONTENT -->
+                            <h2>Search Courses</h2>
+                            <p>Search access for teacher user.  Through this page, the teacher will be able to search for (based on semester, time, type, teacher, etc) all courses in the DB.  This replicated functionality in the Access App  </p>
+                            <!-- END PAGE CONTENT -->
+                        </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
-    </div>
 
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/bootstrap-datepicker.js"></script>
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
-</body>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap-datepicker.js"></script>
+        <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        </script>
+    </body>
+    <?php
+    }
+}
+    
+else
+{
+    ?>
+    <p>Oops! You are not logged in.  Redirecting to log-in in 5 seconds</p>
+    <p>Click <a href="/">here</a> if you don't want to wait</p>
+    <meta http-equiv='refresh' content='5;/' />
+    <?php
+}
+?>
 </html>
+
+
