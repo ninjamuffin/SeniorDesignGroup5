@@ -99,7 +99,7 @@
         ?>
     
         <!-- <body background="GonzagaBackground.jpg"> -->
-        <body link="white">
+        <body>
             <div class="well col-xs-12 pull-right">
                 <form class="form-signin" method ="post" action="/" name="loginform" id="loginform">
                 <h1 class="form-signin-heading text-right"><font color="white">Sign-in</font></h1>
