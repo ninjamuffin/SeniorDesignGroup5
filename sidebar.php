@@ -14,14 +14,13 @@
     <?php
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
-        ?>
-        <body>
+        if($_SESSION['Role'] == 'admin')
+        {
+            ?>
+            <body>
             <div id="wrapper">
                 <div id="sidebar-wrapper">
                     <u1 class="sidebar-nav">
-                        <?php
-                        if($_SESSION['Role'] == 'admin')
-                        { ?>
                         <li class="sidebar-brand">
                             <a href="/Admin/Home/">Home</a>
                         </li>
@@ -43,17 +42,25 @@
                         <li class="sidebar-brand">
                             <a href="#">Help</a>
                         </li>
-                        <?php
-                        elseif($_SESSION['ROLE'] == 'teacher')
-                        { ?>
+                    </u1>
+                </div>
+            </div>
+            </body>
+        <?php
+        }
+        elseif($_SESSION['Role'] == 'teacher')
+        {
+            ?>
+            <body>
+            <div id="wrapper">
+                <div id="sidebar-wrapper">
+                    <u1 class="sidebar-nav">
+                        
                         <li class="sidebar-brand">
                             <a href="/Teacher/Home/">Home</a>
                         </li>
                         <li class="sidebar-brand">
                             <a href="/Teacher/MyCourses/">My Courses</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="/Teacher/MyCourses/ViewCourse/">Visit Course</a>
                         </li>
                         <li class="sidebar-brand">
                             <a href="/corpus/">Corpus</a>
@@ -65,10 +72,20 @@
                         <li class="sidebar-brand">
                             <a href="#">Help</a>
                         </li>
-                        <?php
-                        }
-                        elseif($_SESSION['Role'] == 'student')
-                        { ?>
+                    </u1>
+                </div>
+                </div>
+            </body>
+            <?php            
+        }
+        elseif($_SESSION['Role'] == 'student')
+        {
+            ?>
+            <body>
+            <div id="wrapper">
+                <div id="sidebar-wrapper">
+                    <u1 class="sidebar-nav">
+                        
                         <li class="sidebar-brand">
                             <a href="/Student/Home/">Home</a>
                         </li>
@@ -76,18 +93,15 @@
                             <a href="/Student/MyCourses/">My Courses</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/Student/MyCourses/ViewCourse/">Visit Course</a>
-                        </li>
-                        <li class="sidebar-brand">
                             <a href="#">Help</a>
                         </li>
-                        <?php
-                        }
-                        ?>
-                    </u1>    
+                    </u1>
                 </div>
-            </div>
-        </body>
+                </div>
+            </body>
+            <?php
+        }
+    }                 
     <?php
     }
     else
