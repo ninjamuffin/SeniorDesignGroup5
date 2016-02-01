@@ -84,8 +84,7 @@
             <body>
             <div id="wrapper">
                 <div id="sidebar-wrapper">
-                    <u1 class="sidebar-nav">
-                        
+                    <u1 class="sidebar-nav">       
                         <li class="sidebar-brand">
                             <a href="/Student/Home/">Home</a>
                         </li>
@@ -100,16 +99,14 @@
                 </div>
             </body>
             <?php
-        }
-    }                 
-    <?php
+        }                 
     }
     else
-       {
-            ?>
-            <!-- Reroute to log-in page if there is no session detected -->
-            <meta http-equiv='refresh' content='0;index.php' />
-            <?php
-       }
+    {
+        ?>
+        <!-- Reroute to log-in page if there is no session detected -->
+        <meta http-equiv='refresh' content='0;index.php' />
+        <?php
+    }
     ?>    
 </html>
