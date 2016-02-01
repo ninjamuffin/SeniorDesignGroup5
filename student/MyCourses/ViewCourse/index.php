@@ -1,5 +1,5 @@
-<!-- Home (index.html) for basic Student account -->
-
+<!-- View Course (index.html) for basic Student account -->
+<?php include "/base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +21,9 @@
         $(function(){
             $("#header").load("/header.html");
         });
+        $(function(){
+            $("#sidebar").load("/sidebar.php");
+        });
     </script>
 
     <!-- Background Setup -->
@@ -35,32 +38,26 @@
     </style>
 </head>
         
-        
+ <?php
+session_start();
+if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
+{
+    if($_SESSION['Role'] != 'student')
+    {
+        ?>
+        <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
+        <p>Click <a href="/index.php">here</a> if you don't want to wait</p>
+        <meta http-equiv='refresh' content='5;/index.php' />
+        <?php
+    }
+    else
+    {
+?>       
 
 <body>
     <div id="header"></div>
     <div id="wrapper">
-        <div id="sidebar-wrapper">
-            <u1 class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="/Student/Home/index.html">Home</a>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="/Student/MyCourses/index.html">My Courses</a>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="/Student/MyCourses/ViewCourse/index.html">Visit Course</a>
-                </li>
-
-                <li class="sidebar-brand">
-                    <a href="#">Help</a>
-                </li>
-
-            </u1>
-
-        </div>
-        
-   
+        <div id="sidebar"></div>
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
@@ -73,12 +70,9 @@
                         <!-- END PAGE CONTENT -->
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -93,9 +87,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
