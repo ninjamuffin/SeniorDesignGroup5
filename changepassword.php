@@ -55,7 +55,7 @@
                         {
                          $changepassquery = sqlsrv_query($con, "UPDATE SiteUsers SET password = '$new_password' WHERE username = '$username' AND password = '$password'", $params, $options);
                         
-                            if($resetpassquery)
+                            if($changepassquery)
                             {
                                 echo "<h1>Success</h1>";
                                 echo "<p>Your password was changed successfully. <a href=\"index.php\">Click here to login</a>.</p>";
