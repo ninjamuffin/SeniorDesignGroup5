@@ -52,25 +52,25 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     elseif(!empty($_POST['session']))
     {
         //$CourseID = $_POST['courseID'];
-        $Session = $_POST['session'];
-        echo "<p>Test</p>";
+        $session = $_POST['session'];
 
         //$Year = $_POST['year'];
         //$Section = $_POST['section'];
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
-        echo "<p><?=$Session?></p>";
-        $getSessionsID = "SELECT * FROM Session WHERE Session = '". $Session."'";
+        $getSessionsID = "SELECT * FROM Session WHERE Session = '". $session."'";
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $SessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
-        if (sqlsrv_num_row($SessionFetch) == 1)
+        $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
+        echo "<p>Tests</p>";
+
+        if (sqlsrv_num_row($sessionFetch) == 1)
         {
-            $row = sqlsrv_fetch_array($SessionFetch);
-            $SessionsID = $row['ID'];
+            $row = sqlsrv_fetch_array($sessionFetch);
+            $sessionsID = $row['ID'];
             echo "<p>Hello World</p>";
-            echo "<p><?=$SessionsID?></p>";
+            echo "<p><?=$sessionsID?></p>";
         }
         else
         {
