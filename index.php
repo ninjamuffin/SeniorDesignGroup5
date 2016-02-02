@@ -81,10 +81,15 @@
             $row = sqlsrv_fetch_array($checklogin);
             $email = $row['email'];
             $role = $row['role'];
+            $first_name = $row['first_name'];
+            $last_name = $row['last_name'];
             
             
             $_SESSION['Username'] = $username;
             $_SESSION['EmailAddress'] = $email;
+            $_SESSION['FirstName'] = $first_name;
+            $_SESSION['LastName'] = $last_name;
+            
             $_SESSION['LoggedIn'] = 1;
             $_SESSION['Role'] = $role;
             
