@@ -26,6 +26,9 @@
                             <a href="/Admin/Home/">Home</a>
                         </li>
                         <li class="sidebar-brand">
+                            <a href="/Admin/ManageCourses/">Manage Courses</a>
+                        </li>
+                        <li class="sidebar-brand">
                             <a href="/Admin/ManageTeachers/">Manage Teachers</a>
                         </li>
                         <li class="sidebar-brand">
@@ -39,9 +42,6 @@
                         </li>
                         <li class="sidebar-brand">
                             <a href="/Admin/Archive/">Archive</a>
-                        </li>
-                        <li class="sidebar-brand">
-                            <a href="#">Help</a>
                         </li>
                     </u1>
                 </div>
@@ -69,10 +69,6 @@
                         <li class="sidebar-brand">
                             <a href="/Teacher/Archive/">Archive</a>
                         </li>
-
-                        <li class="sidebar-brand">
-                            <a href="#">Help</a>
-                        </li>
                     </u1>
                 </div>
                 </div>
@@ -93,7 +89,7 @@
                             <a href="/Student/MyCourses/">My Courses</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="#">Help</a>
+                            <a href="/Student/MyTeachers/">My Teachers</a>
                         </li>
                     </u1>
                 </div>
