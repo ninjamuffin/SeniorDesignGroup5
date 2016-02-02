@@ -64,7 +64,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
 
-        if (sqlsrv_num_row($sessionFetch) > 0)
+        if (sqlsrv_num_row($sessionFetch) == 0)
         {
             echo "<p>Hello World</p>";
             $row = sqlsrv_fetch_array($sessionFetch);
@@ -112,7 +112,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <fieldset>
                                         <select id="session" name="session">
                                             <option value="Spring I">Spring I</option>
-                                            <option value="Spring II">Spring I</option>
+                                            <option value="Spring II">Spring II</option>
                                             <option value="Summer I">Summer I</option>
                                             <option value="Summer II">Summer II</option>
                                             <option value="Fall I">Fall I</option>
