@@ -63,7 +63,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
-        echo "<p>Tests</p>";
 
         if (sqlsrv_num_row($sessionFetch) == 1)
         {
