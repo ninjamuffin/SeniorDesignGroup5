@@ -61,8 +61,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         
         $getSessionsID = "SELECT * FROM Session WHERE Session = '". $Session."'";
         $params = array();
-        $options = sqlsrv_query($con, $loginquery, $params, $options);
-        $SessionFetch = sqlsrv_query($con, $loginquery, $params, $options);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $SessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
         if (sqlsrv_num_row($SessionFetch) == 1)
         {
             $row = sqlsrv_fetch_array($SessionFetch);
