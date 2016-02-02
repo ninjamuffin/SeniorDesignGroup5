@@ -51,6 +51,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     
     elseif(!empty($_POST['session']))
     {
+        echo "meta http-equiv='refresh' content=0;/";
         //$CourseID = $_POST['courseID'];
         $Session = $_POST['session'];
         //$Year = $_POST['year'];
