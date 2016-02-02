@@ -58,7 +58,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
-        
+        echo "<p><?=$Session?></p>";
         $getSessionsID = "SELECT * FROM Session WHERE Session = '". $Session."'";
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
