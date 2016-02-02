@@ -65,7 +65,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <!-- BEGIN PAGE CONTENT -->
                         <h2>Documentation:</h2>
                         <audio controls>
-                            <source src="testaudio.mp3" type="audio/mpeg">
+                            <source src="/media/testaudio.mp3" type="audio/mpeg">
                         Your browser does not support the audio element
                         </audio>
                         <p>For the student, this will provide an editing window/form that the student will fill out.  The contents of this page will allow for text as well as audio data entry, and will eventually contain a speech to text module.  Students will be permitted to submit multiple versions of the assignment, and this tracking data will be both displayed in the window and entered in with each new submission</p>
