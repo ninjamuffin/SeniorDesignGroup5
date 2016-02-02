@@ -51,7 +51,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     
     elseif(!empty($_POST['session']))
     {
-        echo "meta http-equiv='refresh' content=0;/";
         //$CourseID = $_POST['courseID'];
         $Session = $_POST['session'];
         //$Year = $_POST['year'];
@@ -64,7 +63,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $params = array();
         $options = sqlsrv_query($con, $loginquery, $params, $options);
         $SessionFetch = sqlsrv_query($con, $loginquery, $params, $options);
-        if (sqlsrv_num_row(SessionFetch) == 1)
+        if (sqlsrv_num_row($SessionFetch) == 1)
         {
             $row = sqlsrv_fetch_array($SessionFetch);
             $SessionsID = $row['ID'];
