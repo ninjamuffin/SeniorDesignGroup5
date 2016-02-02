@@ -52,8 +52,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     elseif(!empty($_POST['session']))
     {
         //$CourseID = $_POST['courseID'];
-        echo "<p>Test</p>";
         $Session = $_POST['session'];
+        echo "<p>Test</p>";
+
         //$Year = $_POST['year'];
         //$Section = $_POST['section'];
         //$ClassName = $_POST['instructorLastName'];
