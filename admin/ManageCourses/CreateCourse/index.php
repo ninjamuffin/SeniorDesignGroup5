@@ -108,7 +108,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <form method="post" action="" name="getSession" id="getSession">
                                     <fieldset>
-                                        <select id="session">
+                                        <select id="session" name="session">
                                             <option value="Spring I">Spring I</option>
                                             <option value="Spring II">Spring I</option>
                                             <option value="Summer I">Summer I</option>
