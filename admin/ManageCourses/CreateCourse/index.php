@@ -48,6 +48,33 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <meta http-equiv='refresh' content='5;/' />
         <?php
     }
+    
+    elseif(!empty($_POST['session']))
+    {
+        //$CourseID = $_POST['courseID'];
+        $Session = $_POST['session'];
+        //$Year = $_POST['year'];
+        //$Section = $_POST['section'];
+        //$ClassName = $_POST['instructorLastName'];
+        //$CRN = $_POST['CRN'];
+        //$Location = $_POST['location'];
+        
+        $getSessionsID = "SELECT * FROM Session WHERE Session = '". $Session."'";
+        $params = array();
+        $options = sqlsrv_query($con, $loginquery, $params, $options);
+        $SessionFetch = sqlsrv_query($con, $loginquery, $params, $options);
+        if (sqlsrv_num_row(SessionFetch) == 1)
+        {
+            $row = sqlsrv_fetch_array($SessionFetch);
+            $SessionsID = $row['ID'];
+            echo "<p><?=$SessionsID?></p>";
+        }
+        else
+        {
+            echo "<h1>Error</h1>";
+        }
+        
+    }
     else
     {
         ?>
@@ -63,6 +90,36 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
                                 <p>Documentation:</p>
                                 <p>Create Course window.  Form submission for: session, year, section, instructor, class, CRN, location.  All these create Teachers&ClassesID. Submits to the DB.  </p>
+                                <p>Form objects:  </p>
+                                <p>Choose Session (Fall I, Fall II, Summer I, Summer II, Fall I, Fall II)</p>
+                                <p>Choose Year (CurrentYear + 5/4/3/2/1, CurrentYear)</p>
+                                <p>Choose Session (1,2)</p>
+                                <p>Choose Instructor [Dropdown/LiveSearch]</p>
+                                <p>Choose Class Name [Dropdown]</p>
+                                <p>CRN [Text] [Optional]</p>
+                                <p>Location [Text] [Optional</p>
+                                <p>Generate Teachers&ClassesID unique from table</p>
+                                <br>
+                                <p>Database Connection Steps:</p>
+                                <p> 1.)Generate SessionsID from Session and Year. </p>
+                                <p> 2.)Generate new Teachers&ClassesID via DB query</p>
+                                <p> 3.)Write new query</p>
+                                
+                                <form method="post" action="" name="getSession" id="getSession">
+                                    <fieldset>
+                                        <select>
+                                            <option value="Spring I">Spring I</option>
+                                            <option value="Spring II">Spring I</option>
+                                            <option value="Summer I">Summer I</option>
+                                            <option value="Summer II">Summer II</option>
+                                            <option value="Fall I">Fall I</option>
+                                            <option value="Fall II">Fall II</option>
+                                        </select>
+                                        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                                    </fieldset>
+                                </form>
+                                
+                                
                             </div>
                         </div>
                     </div>
