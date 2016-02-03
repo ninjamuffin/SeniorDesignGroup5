@@ -59,24 +59,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
-        $getSessionsID = "SELECT * FROM Session";// WHERE Session = 'Spring I';";
+        $query = "SELECT * FROM Session WHERE Session = 'Spring I'";
         $params = array();
-        $options = array( "Scrollable" => "buffered");
-        $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+        $stmt = sqlsrv_query($con, $query, $params, $options);
+        $row_count = sqlsrv_num_rows($stmt);
         
-        if (sqlsrv_num_rows($sessionFetch) === false)
+        if ($row_count === false)
         {
-            echo "<h1>Fuck</h1>";
-            $row = sqlsrv_fetch_array($sessionFetch);
-            $sessionsID = $row['ID'];
-            ?>
-            <p><?=$sessionsID?></p>
-            <?php
+            echo "Error in retrieving row count";
         }
         else
         {
             
-            echo "<h1>It technically worked</h1>";
+            echo $row_count;
         }
         
     }
