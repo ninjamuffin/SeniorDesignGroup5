@@ -67,7 +67,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $year = $_POST['year'];
         $section = $_POST['section'];
         $teacherlastname = $_POST['teacherlastname'];
-        $classname = $_POST['classname']; //need to convert to classnameID
+        $coursenumber = $_POST['coursenumber']; //need to convert to classnameID
         $CRN = $_POST['CRN'];
         $location = $_POST['location'];
         /* End POST Variables */
@@ -99,9 +99,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $result = sqlsrv_fetch( $stmtsessions );
         $sessionsid = sqlsrv_get_field( $stmtsessions, 0);
-        echo "$sessionsid";
+        echo "\n$sessionsid";
         
-        $classnamequery = "SELECT * FROM "
+        $classnamequery = "SELECT * FROM [Class Names] WHERE [Course #] = '". $coursenumber."'";
+        $stmt = sqlsrv_query($con, $classnamequery, $params, $options);
+        if ($stmt === false) {
+            die( print_r(sqlsrv_errors(), true));
+        }
+        $result = sqlsrv_fetch( $stmt );
+        $classnamesid = sqlsrv_get_field($stmt, 0);
+        echo "\n$classnamesid";
         
         
     }
@@ -161,8 +168,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </select><br>
                                         <label for="teacherlastname">Teacher's Last Name:</label>
                                         <input type="text" name="teacherlastname" id="teacherlastname"><br>
-                                        <label for="classname">Classname:</label>
-                                        <input type="text" name="classname" id="classname"><br>
+                                        <label for="coursenumber">Classname:</label>
+                                        <input type="text" name="coursenumber" id="coursenumber"><br>
                                         <label for="CRN">CRN:</label>
                                         <input type="text" name="CRN" id="CRN"><br>
                                         <label for="location">Location:</label>
