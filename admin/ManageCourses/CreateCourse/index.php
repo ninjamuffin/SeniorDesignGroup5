@@ -58,7 +58,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
     }
     
-    elseif(!empty($_POST['session']) && !empty($_POST['year']))
+    elseif(!empty($_POST['session']) && !empty($_POST['year']) && !empty($_POST['section']) && !empty($_POST['teacherlastname']) && !empty($_POST['coursenumber']) && !empty($_POST['CRN']) && !empty($_POST['location']))
     {
         //$CourseID = $_POST['courseID'];
         
@@ -99,7 +99,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $result = sqlsrv_fetch( $stmtsessions );
         $sessionsid = sqlsrv_get_field( $stmtsessions, 0);
-        echo "\n$sessionsid";
+        //echo "\n$sessionsid";
         
         $classnamequery = "SELECT * FROM [Class Names] WHERE [Course #] = '". $coursenumber."'";
         $stmt = sqlsrv_query($con, $classnamequery, $params, $options);
@@ -108,7 +108,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $result = sqlsrv_fetch( $stmt );
         $classnamesid = sqlsrv_get_field($stmt, 0);
-        echo "\n$classnamesid";
+        //echo "\n$classnamesid";
         
         $teacherquery = "SELECT * FROM [Advisor] WHERE [Advisor] = '". $teacherlastname."'";
         $stmt = sqlsrv_query($con, $teacherquery, $params, $options);
@@ -117,7 +117,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $result = sqlsrv_fetch( $stmt );
         $teachernameid = sqlsrv_get_field($stmt, 0);
-        echo "\n$teachernameid";
+        //echo "\n$teachernameid";
         
         $maxquery = "SELECT MAX([Teachers&ClassesID]) AS Max_ID FROM [Teachers&Classes]";
         $stmt = sqlsrv_query($con, $maxquery, $params, $options);
@@ -127,9 +127,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $result = sqlsrv_fetch( $stmt );
         $max_ID = sqlsrv_get_field( $stmt, 0);
         $TCid = $max_ID + 4;
-        echo "\n$TCid";
+        //echo "\n$TCid";
         
-        //$insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('". $TCid."', '". $CRN."', '". $classnamesid."', '". $section."','". $teachernameid."', '". $sessionsid."', '". $location."')";
+        $insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('". $TCid."', '". $CRN."', '". $classnamesid."', '". $section."','". $teachernameid."', '". $sessionsid."', '". $location."')";
         
         
     }
