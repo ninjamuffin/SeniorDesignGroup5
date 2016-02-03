@@ -66,7 +66,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
         if (sqlsrv_num_row($sessionFetch) == 1)
         {
-            echo "<p>Hello World</p>";
             $row = sqlsrv_fetch_array($sessionFetch);
             $sessionsID = $row['ID'];
             ?>
