@@ -58,12 +58,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
     }
     
-    elseif(!empty($_POST['session']))
+    elseif(!empty($_POST['session']) && !empty($_POST['year']))
     {
         //$CourseID = $_POST['courseID'];
         $session = $_POST['session'];
-        
-        //$Year = $_POST['year'];
+        $year = $_POST['year'];
         //$Section = $_POST['section'];
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
@@ -75,9 +74,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
-        $row = sqlsrv_fetch($stmt);
-        $id = sqlsrv_get_field( $stmt, 1);
-        echo "\n$id\n";
+        $session_id = sqlsrv_get_field( $stmt, 1);
+        $query = "SELECT * FROM Year WHERE Year = '". $year."'";
+        $stmt = sqlsrv_query($con, $query, $params, $options);
+        if ($stmt === false ) {
+            die( print_r( sqlsrv_errors(), true));
+        }
+        $year_id = sqlsrv_get_field( $stmt, 1);
+        echo "\n$session_id\n$year_id\n";
+        
+        
         
     }
     else
@@ -120,7 +126,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <option value="Fall I">Fall I</option>
                                             <option value="Fall II">Fall II</option>
                                         </select>
-                                        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                                        <select id="year" name="year">
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2020">2020</option>
+                                        </select>
+                                        <button class="button" type="submit">Submit</button>
                                     </fieldset>
                                 </form>
                                 
