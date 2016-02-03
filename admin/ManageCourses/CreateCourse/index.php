@@ -68,7 +68,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
-        $query = "SELECT * FROM Session WHERE Session = 'Spring II'";
+        $query = "SELECT * FROM Session WHERE Session = '". $session."'";
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
         $stmt = sqlsrv_query($con, $query, $params, $options);
@@ -77,7 +77,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $row = sqlsrv_fetch($stmt);
         $id = sqlsrv_get_field( $stmt, 1);
-        echo "\n$id\n";
+        echo "\n$row['ID']\n";
         
     }
     else
