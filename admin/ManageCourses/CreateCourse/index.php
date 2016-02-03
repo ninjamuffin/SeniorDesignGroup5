@@ -38,6 +38,15 @@
 
 <?php
 session_start();
+$dbhost = "o0tvd0xlpb.database.windows.net,1433";
+$dbname = "SmalltalkMigrate2.0";
+$dbuser = "CS05";
+$dbpass = "!1Elcwebapp";
+$connectionInfo = array( "Database"=>$dbname, "UID"=>$dbuser, "PWD"=>$dbpass);
+
+$con = sqlsrv_connect($dbhost, $connectionInfo); if(!$con) {
+    die(print_r(sqlsrv_errors(), true));
+}
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'admin')
