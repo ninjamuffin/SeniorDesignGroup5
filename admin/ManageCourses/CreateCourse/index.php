@@ -61,7 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$Location = $_POST['location'];
         $query = "SELECT * FROM Session WHERE Session = 'Spring I'";
         $params = array();
-        $options = array( "Scrollable" => "keyset" );
+        $options = array( "Scrollable" => "buffered" );
         $stmt = sqlsrv_query($con, $query, $params, $options);
         $row_count = sqlsrv_num_rows($stmt);
         
