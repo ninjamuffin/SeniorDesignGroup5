@@ -64,7 +64,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
         
-        if (sqlsrv_num_rows($sessionFetch) == 0)
+        if (sqlsrv_num_rows($sessionFetch) === false)
         {
             echo "<h1>Fuck</h1>";
             $row = sqlsrv_fetch_array($sessionFetch);
@@ -76,7 +76,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         else
         {
             
-            echo "<h1>Error</h1>";
+            echo "<h1>It technically worked</h1>";
         }
         
     }
