@@ -129,7 +129,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <p> 3.)Write new query</p>
                                 
                                 <form method="post" action="" name="getSession" id="getSession">
-                                    <fieldset>
+                                    <fieldset class="pull-right">
                                         <label for="session">Session:</label>
                                         <select id="session" name="session">
                                             <option value="Spring I">Spring I</option>
@@ -159,7 +159,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <label for="CRN">CRN:</label>
                                         <input type="text" name="CRN" id="CRN"><br>
                                         <label for="location">Location:</label>
-                                        <input type="text" name="location" id="location">
+                                        <input type="text" name="location" id="location"><br>
                                         
                                         <button class="button" type="submit">Submit</button>
                                     </fieldset>
