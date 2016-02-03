@@ -77,7 +77,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $result = sqlsrv_fetch( $stmt );
         $sessionid = sqlsrv_get_field( $stmt, 1);
-        echo "$sessionid";
 
         //$params = array();
         //$options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
@@ -86,9 +85,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if ($stmtyear === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
-        $result = sqlsrv_fetch( $stmt );
+        $result = sqlsrv_fetch( $stmtyear );
         $yearid = sqlsrv_get_field( $stmtyear, 1);
-        
+        echo "$sessionid $yearid";
+
         
         
     }
