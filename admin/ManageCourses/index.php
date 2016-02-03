@@ -1,5 +1,5 @@
 <!-- Page for the admin user to oversee current courses, and navigate to CreateCourse -->
-<?php include "/base.php"; ?>
+<?php include "../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +38,6 @@
 </head>
 
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'admin')
