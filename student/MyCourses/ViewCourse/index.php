@@ -1,5 +1,5 @@
 <!-- View Course (index.html) for basic Student account -->
-<?php include "/base.php"; ?>
+<?php include "../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +38,6 @@
 </head>
         
  <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'student')
