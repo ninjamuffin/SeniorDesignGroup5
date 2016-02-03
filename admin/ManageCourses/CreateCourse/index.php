@@ -68,7 +68,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
-        $query = "SELECT * FROM Session WHERE Session = 'Spring I'";
+        $query = "SELECT * FROM Session WHERE Session = 'Spring II'";
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
         $stmt = sqlsrv_query($con, $query, $params, $options);
