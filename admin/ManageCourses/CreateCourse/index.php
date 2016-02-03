@@ -63,7 +63,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$CourseID = $_POST['courseID'];
         $session = $_POST['session'];
         $year = $_POST['year'];
-        echo "$year";
         //$Section = $_POST['section'];
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
@@ -78,8 +77,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $result = sqlsrv_fetch( $stmt );
         $sessionid = sqlsrv_get_field( $stmt, 1);
 
-        //$params = array();
-        //$options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
         $queryyear = "SELECT * FROM Year WHERE Year = '". $year."'";
         $stmtyear = sqlsrv_query($con, $queryyear, $params, $options);
         if ($stmtyear === false ) {
@@ -87,7 +84,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $result = sqlsrv_fetch( $stmtyear );
         $yearid = sqlsrv_get_field( $stmtyear, 1);
-        echo "$sessionid $yearid";
+        
+        
+        $sessionsquery = "SELECT * FROM Sessions WHERE Session_ID = '". $sessionid."' AND Year_ID = '". $yearid."'";
+        stmtsessions = sqlsrv_query($con, $sessionsquery, $params, $options);
+        if ($stmtsessions === false ) {
+            die( print_r( sqlsrv_errors(), true));
+        }
+        $result = sqlsrv_fetch( $stmtsessions );
+        $sessionsid = sqlsrv_get_field( $stmtsessions, 0);
+        echo "$sessionsid";
 
         
         
