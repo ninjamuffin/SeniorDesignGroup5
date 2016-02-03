@@ -70,31 +70,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$Location = $_POST['location'];
         $query = "SELECT * FROM Session WHERE Session = 'Spring I'";
         $params = array();
-        $options = array( "Scrollable" => "buffered" );
+        $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
         $stmt = sqlsrv_query($con, $query, $params, $options);
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
-        if ($stmt) {
-            $row = sqlsrv_has_rows( $stmt );
-            if ($rows === true)
-                echo "There are rows. <br />";
-            else
-                echo "There are no rows. <br />";
-        }
-        /*
-        $row_count = sqlsrv_num_rows($stmt);
-        
-        if ($row_count === false)
-        {
-            echo "Error in retrieving row count";
-        }
-        else
-        {
-            
-            echo $row_count;
-        }
-        */
+        $sessions_id = sqlsrv_fetch($stmt);
+        echo "\n$sessions_id\n";
         
     }
     else
