@@ -75,9 +75,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
-        $session_id = sqlsrv_get_field( $stmt, 1);
-        $query_year = "SELECT * FROM Year WHERE Year = '". $year."'";
-        $stmt_year = sqlsrv_query($con, $query_year, $params, $options);
+        $sessionid = sqlsrv_get_field( $stmt, 1);
+        echo "\nTesting";
+        $queryyear = "SELECT * FROM Year WHERE Year = '". $year."'";
+        $stmtyear = sqlsrv_query($con, $queryyear, $params, $options);
         if ($stmt_year === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
