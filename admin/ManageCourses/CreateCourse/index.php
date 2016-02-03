@@ -54,16 +54,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         //$CourseID = $_POST['courseID'];
         $session = $_POST['session'];
-        ?>
-        <p><?=$session?></p>
-        <?php
+        
         //$Year = $_POST['year'];
         //$Section = $_POST['section'];
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
         $getSessionsID = "SELECT * FROM Session WHERE Session = '". $session."'";
-        
+        ?>
+        <p><?=$getSessionsID?></p>
+        <?php
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
