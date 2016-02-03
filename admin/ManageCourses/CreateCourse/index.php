@@ -119,6 +119,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $teachernameid = sqlsrv_get_field($stmt, 0);
         echo "\n$teachernameid";
         
+        $stmt = "SELECT MAX([Teachers&ClassesID]) AS Max_ID FROM [Teachers&Classes]";
+        if ($stmt === false) {
+            die( print_r(sqlsrv_errors(), true));
+        }
+        $result = sqlsrv_fetch( $stmt );
+        $TCid = sqlsrv_get_field( $stmt, 0);
+        echo "\n$TCid";
+        
+        //$insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('". $TCid."', '". $CRN."', '". $classnamesid."', '". $section."','". $teachernameid."', '". $sessionsid."', '". $location."')";
+        
         
     }
     else
