@@ -61,12 +61,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     elseif(!empty($_POST['session']) && !empty($_POST['year']))
     {
         //$CourseID = $_POST['courseID'];
+        
+        /* Get POST Variables */
         $session = $_POST['session'];
         $year = $_POST['year'];
-        //$Section = $_POST['section'];
-        //$ClassName = $_POST['instructorLastName'];
-        //$CRN = $_POST['CRN'];
-        //$Location = $_POST['location'];
+        $section = $_POST['section'];
+        $teacherlastname = $_POST['teacherlastname'];
+        $classname = $_POST['classname']; //need to convert to classnameID
+        $CRN = $_POST['CRN'];
+        $location = $_POST['location'];
+        /* End POST Variables */
+        
+        /* Get ID tags for SessionsID (Session->SessionID, Year->YearID) */
         $query = "SELECT * FROM Session WHERE Session = '". $session."'";
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
@@ -94,7 +100,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $result = sqlsrv_fetch( $stmtsessions );
         $sessionsid = sqlsrv_get_field( $stmtsessions, 0);
         echo "$sessionsid";
-
+        
+        $classnamequery = "SELECT * FROM "
         
         
     }
@@ -129,7 +136,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <p> 3.)Write new query</p>
                                 
                                 <form method="post" action="" name="getSession" id="getSession">
-                                    <fieldset class="align-right">
+                                    <fieldset>
                                         <label for="session">Session:</label>
                                         <select id="session" name="session">
                                             <option value="Spring I">Spring I</option>
