@@ -60,7 +60,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
         $getSessionsID = "SELECT * FROM Session WHERE Session = '". $session."'";
-        echo "<p>Testing<?=$getSessionsID?></p>";
+        ?>
+        <p><?=$getSessionsID?></p>
+        <?php
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
