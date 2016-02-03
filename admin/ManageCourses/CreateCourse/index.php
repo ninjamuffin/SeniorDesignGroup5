@@ -79,13 +79,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $sessionid = sqlsrv_get_field( $stmt, 1);
         echo "$sessionid";
 
-        $params = array();
-        $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
+        //$params = array();
+        //$options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
         $queryyear = "SELECT * FROM Year WHERE Year = '". $year."'";
         $stmtyear = sqlsrv_query($con, $queryyear, $params, $options);
         if ($stmtyear === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
+        $result = sqlsrv_fetch( $stmt );
         $yearid = sqlsrv_get_field( $stmtyear, 1);
         
         
