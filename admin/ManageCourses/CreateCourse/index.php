@@ -87,7 +87,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         
         
         $sessionsquery = "SELECT * FROM Sessions WHERE Session_ID = '". $sessionid."' AND Year_ID = '". $yearid."'";
-        stmtsessions = sqlsrv_query($con, $sessionsquery, $params, $options);
+        $stmtsessions = sqlsrv_query($con, $sessionsquery, $params, $options);
         if ($stmtsessions === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
