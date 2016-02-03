@@ -125,7 +125,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $result = sqlsrv_fetch( $stmt );
         $TCid = sqlsrv_get_field( $stmt, 0);
-        echo "\n$TCid";
+        echo "\n$result";
         
         //$insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('". $TCid."', '". $CRN."', '". $classnamesid."', '". $section."','". $teachernameid."', '". $sessionsid."', '". $location."')";
         
