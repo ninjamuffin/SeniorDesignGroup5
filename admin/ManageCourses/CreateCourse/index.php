@@ -75,8 +75,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
-        $sessions_id = sqlsrv_fetch($stmt);
-        echo "\n$sessions_id\n";
+        $row = sqlsrv_fetch($stmt);
+        $id = sqlsrv_get_field( $stmt, 1);
+        echo "\n$id\n";
         
     }
     else
