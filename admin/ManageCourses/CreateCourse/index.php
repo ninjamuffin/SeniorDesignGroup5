@@ -60,7 +60,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     
     elseif(!empty($_POST['session']) && !empty($_POST['year']))
     {
-        echo "Reached the POST block";
         //$CourseID = $_POST['courseID'];
         $session = $_POST['session'];
         $year = $_POST['year'];
@@ -84,8 +83,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             die( print_r( sqlsrv_errors(), true));
         }
         $yearid = sqlsrv_get_field( $stmtyear, 1);
-        echo "\nTesting";
-        echo "\n$sessionid $yearid\n";
+        echo "\n$sessionid\n";
         
         
         
