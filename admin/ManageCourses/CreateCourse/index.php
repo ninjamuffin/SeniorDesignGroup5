@@ -70,7 +70,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$Location = $_POST['location'];
         $query = "SELECT * FROM Session WHERE Session = 'Spring I'";
         $params = array();
-        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+        $options = array( "Scrollable" => "buffered" );
         $stmt = sqlsrv_query($con, $query, $params, $options);
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true));
