@@ -130,6 +130,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <form method="post" action="" name="getSession" id="getSession">
                                     <fieldset>
+                                        <label for="session">Session:</label>
                                         <select id="session" name="session">
                                             <option value="Spring I">Spring I</option>
                                             <option value="Spring II">Spring II</option>
@@ -137,21 +138,27 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <option value="Summer II">Summer II</option>
                                             <option value="Fall I">Fall I</option>
                                             <option value="Fall II">Fall II</option>
-                                        </select>
+                                        </select><br>
+                                        <label for="year">Year:</label>
                                         <select id="year" name="year">
                                             <option value="2016">2016</option>
                                             <option value="2017">2017</option>
                                             <option value="2018">2018</option>
                                             <option value="2019">2019</option>
                                             <option value="2020">2020</option>
-                                        </select>
+                                        </select><br>
+                                        <label for="section">Section</label>
                                         <select id="section" name="section">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
-                                        </select>
-                                        <input type="text" name="teacherlastname" id="teacherlastname">
-                                        <input type="text" name="classname" id="classname">
-                                        <input type="text" name="CRN" id="CRN">
+                                        </select><br>
+                                        <label for="teacherlastname">Teacher's Last Name:</label>
+                                        <input type="text" name="teacherlastname" id="teacherlastname"><br>
+                                        <label for="classname">Classname:</label>
+                                        <input type="text" name="classname" id="classname"><br>
+                                        <label for="CRN">CRN:</label>
+                                        <input type="text" name="CRN" id="CRN"><br>
+                                        <label for="location">Location:</label>
                                         <input type="text" name="location" id="location">
                                         
                                         <button class="button" type="submit">Submit</button>
