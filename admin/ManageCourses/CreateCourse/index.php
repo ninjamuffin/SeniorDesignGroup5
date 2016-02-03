@@ -110,6 +110,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $classnamesid = sqlsrv_get_field($stmt, 0);
         echo "\n$classnamesid";
         
+        $teacherquery = "SELECT * FROM [Advisor] WHERE [Advisor] = '". $teacherlastname."'";
+        $stmt = sqlsrv_query($con, $teacherquery, $params, $options);
+        if ($stmt === false) {
+            die( print_r(sqlsrv_errors(), true));
+        }
+        $result = sqlsrv_fetch( $stmt );
+        $teachernameid = sqlsrv_get_field($stmt, 0);
+        echo "\n$teachernameid";
+        
         
     }
     else

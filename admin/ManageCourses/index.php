@@ -64,6 +64,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
                                 <p>Documentation:</p>
                                 <p>Courses view for admin user.  Displays list of courses, as well as a button at the top to navigate to CreateCourse.  Each element in the list is a link to a ViewCourse page, which submits a form. </p>
+                                <p>Link to creatcourse page: <a href="CreateCourse/"</p>
                             </div>
                         </div>
                     </div>
