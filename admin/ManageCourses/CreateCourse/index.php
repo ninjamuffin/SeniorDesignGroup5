@@ -59,9 +59,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
-        $query = "SELECT * FROM Session WHERE Session = 'Spring I'";
+        $query = "SELECT * FROM Session WHERE session = 'Spring I'";
         $params = array();
-        $options = array( "Scrollable" => "dynamic" );
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
         $stmt = sqlsrv_query($con, $query, $params, $options);
         $row_count = sqlsrv_num_rows($stmt);
         
