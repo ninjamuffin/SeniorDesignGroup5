@@ -61,7 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$Location = $_POST['location'];
         $getSessionsID = "SELECT * FROM Session";// WHERE Session = 'Spring I';";
         $params = array();
-        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $options = array( "Scrollable" => "buffered");
         $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
         
         if (sqlsrv_num_rows($sessionFetch) === false)
