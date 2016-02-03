@@ -79,11 +79,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         echo "\nTesting";
         $queryyear = "SELECT * FROM Year WHERE Year = '". $year."'";
         $stmtyear = sqlsrv_query($con, $queryyear, $params, $options);
-        if ($stmt_year === false ) {
+        if ($stmtyear === false ) {
             die( print_r( sqlsrv_errors(), true));
         }
-        $year_id = sqlsrv_get_field( $stmt_year, 1);
-        echo "\n$session_id $year_id\n";
+        $yearid = sqlsrv_get_field( $stmtyear, 1);
+        echo "\n$sessionid $yearid\n";
         
         
         
