@@ -145,6 +145,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <option value="2019">2019</option>
                                             <option value="2020">2020</option>
                                         </select>
+                                        <select id="section" name="section">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                        <input type="text" name="teacherlastname" id="teacherlastname">
+                                        <input type="text" name="classname" id="classname">
+                                        <input type="text" name="CRN" id="CRN">
+                                        <input type="text" name="location" id="location">
+                                        
                                         <button class="button" type="submit">Submit</button>
                                     </fieldset>
                                 </form>
