@@ -59,10 +59,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
-        $query = "SELECT * FROM Session WHERE session = 'Spring I'";
+        $query = "SELECT * FROM Session WHERE Session = 'Spring I'";
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
         $stmt = sqlsrv_query($con, $query, $params, $options);
+        if ($stmt) {
+            $row = sqlsrv_has_rows( $stmt );
+            if ($rows === true)
+                echo "There are rows. <br />";
+            else
+                echo "There are no rows. <br />";
+        }
+        /*
         $row_count = sqlsrv_num_rows($stmt);
         
         if ($row_count === false)
@@ -74,6 +82,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             
             echo $row_count;
         }
+        */
         
     }
     else
