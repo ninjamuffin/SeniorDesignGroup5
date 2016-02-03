@@ -37,7 +37,6 @@
 </head>
 
 <?php
-include "/base.php";
 session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
