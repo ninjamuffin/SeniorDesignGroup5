@@ -61,6 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$CRN = $_POST['CRN'];
         //$Location = $_POST['location'];
         $getSessionsID = "SELECT * FROM Session WHERE Session = '". $session."'";
+        
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $sessionFetch = sqlsrv_query($con, $getSessionsID, $params, $options);
@@ -75,6 +76,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         else
         {
+            ?>
+            <p><?=sqlsrv_num_rows($sessionFetch)?></p>
+            <?php
             echo "<h1>Error</h1>";
         }
         
