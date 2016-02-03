@@ -136,7 +136,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             die( print_r(sqlsrv_errors(), true));
         }
         echo "Added column to Teacher&Classes";
-        echo "<meta http-equiv='refresh' content='3;/admin/home/' />"
+        echo "<meta http-equiv='refresh' content='3;/admin/home/' />";
         
         
     }
