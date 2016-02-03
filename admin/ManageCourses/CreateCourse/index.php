@@ -129,7 +129,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $TCid = $max_ID + 4;
         //echo "\n$TCid";
         
-        $insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('". $TCid."', '". $CRN."', '". $classnamesid."', '". $section."','". $teachernameid."', '". $sessionsid."', '". $location."')";
+        $insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('$TCid', '$CRN', '$classnamesid', '$section','$teachernameid', '$sessionsid', '$location')";
+        $insertstmt = sqlsrv_query( $con, $insertquery, $params, $options );
+        if ($insertstmt === false)
+        {
+            die( print_r(sqlsrv_errors(), true));
+        }
+        echo "Added column to Teacher&Classes";
+        echo "<meta http-equiv='refresh' content='3;/admin/home/' />"
         
         
     }
