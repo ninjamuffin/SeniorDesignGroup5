@@ -60,6 +60,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     
     elseif(!empty($_POST['session']) && !empty($_POST['year']))
     {
+        echo "Reached the POST block";
         //$CourseID = $_POST['courseID'];
         $session = $_POST['session'];
         $year = $_POST['year'];
