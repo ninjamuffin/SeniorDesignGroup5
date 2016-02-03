@@ -38,6 +38,7 @@
 
 <?php
 session_start();
+    /*
 $dbhost = "o0tvd0xlpb.database.windows.net,1433";
 $dbname = "SmalltalkMigrate2.0";
 $dbuser = "CS05";
@@ -47,6 +48,9 @@ $connectionInfo = array( "Database"=>$dbname, "UID"=>$dbuser, "PWD"=>$dbpass);
 $con = sqlsrv_connect($dbhost, $connectionInfo); if(!$con) {
     die(print_r(sqlsrv_errors(), true));
 }
+*/
+    
+    
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'admin')
@@ -129,7 +133,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $TCid = $max_ID + 4;
         //echo "\n$TCid";
         
-        $insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('$TCid', '$CRN', '$classnamesid', '$section','$teachernameid', '$sessionsid', '$location')";
+        /*$insertquery = "INSERT INTO [Teachers&Classes] ([Teachers&ClassesID], CRN, ClassNamesID, Section, Instructor, SessionID, Location) VALUES ('$TCid', '$CRN', '$classnamesid', '$section','$teachernameid', '$sessionsid', '$location')";
         $insertstmt = sqlsrv_query( $con, $insertquery, $params, $options );
         if ($insertstmt === false)
         {
@@ -137,7 +141,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         echo "Added column to Teacher&Classes";
         echo "<meta http-equiv='refresh' content='3;/admin/home/' />";
-        
+        */
         
     }
     else
