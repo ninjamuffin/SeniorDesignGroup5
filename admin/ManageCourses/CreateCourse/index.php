@@ -37,7 +37,7 @@
 </head>
 
 <?php
-session_start();
+//session_start();
     /*
 $dbhost = "o0tvd0xlpb.database.windows.net,1433";
 $dbname = "SmalltalkMigrate2.0";
