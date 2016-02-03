@@ -63,6 +63,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         //$CourseID = $_POST['courseID'];
         $session = $_POST['session'];
         $year = $_POST['year'];
+        echo "$year";
         //$Section = $_POST['section'];
         //$ClassName = $_POST['instructorLastName'];
         //$CRN = $_POST['CRN'];
@@ -75,7 +76,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             die( print_r( sqlsrv_errors(), true));
         }
         $sessionid = sqlsrv_get_field( $stmt, 1);
-        echo "\n$sessionid\n";
+        echo "$sessionid";
 
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
