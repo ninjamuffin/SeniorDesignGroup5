@@ -63,6 +63,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $params = array();
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
         $stmt = sqlsrv_query($con, $query, $params, $options);
+        if( $stmt === false ) {
+            die( print_r( sqlsrv_errors(), true));
+        }
         if ($stmt) {
             $row = sqlsrv_has_rows( $stmt );
             if ($rows === true)
