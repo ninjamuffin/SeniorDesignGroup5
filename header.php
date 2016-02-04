@@ -21,14 +21,13 @@
         <div class="navbar navbar-default navbar-fixed-top ng-scope">
             <div class="container-fluid">
               <div class="navbar-header">
-                <a href="#" class="pull-left"><img src="/media/logo.jpeg"></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand">Gonzaga SmallTalk</a>
+                <a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand"><img src="media/logo.jpeg"></a>
               </div>
 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
