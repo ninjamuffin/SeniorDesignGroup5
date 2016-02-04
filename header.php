@@ -21,6 +21,7 @@
         <div class="navbar navbar-default navbar-fixed-top ng-scope">
             <div class="container-fluid">
               <div class="navbar-header">
+                <a href="#" class="pull-left"><img src="/media/logo.jpeg"></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
