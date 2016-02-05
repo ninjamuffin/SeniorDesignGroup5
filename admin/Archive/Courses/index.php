@@ -60,9 +60,49 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                                <h1>Search Courses</h1>
-                                <p>Documentation:</p>
-                                <p>Provides search interface for looking up courses in the DB. Would then display list of worksheets in the class, or, alternatively (tabs) all worksheets/expressions submitted by the teacher</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Documentation</div>
+                                    <div class="panel-body">
+                                        <p>Provides search interface for looking up courses in the DB. Would then display list of worksheets in the class, or, alternatively (tabs) all worksheets/expressions submitted by the teacher</p>
+                                    </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>Course Number</td>
+                                                <td>Class Name</td>
+                                                <td>Instructor Last Name</td>
+                                                <td>Session ID</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                        <?php
+                                            $params = array();
+                                            $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
+                                            $query = "SELECT CN.[Course #] as \"Course Number\", CN.[ClassName] as \"Class Name\", A.[Advisor] as \"Instructor Last Name\", TC.[SessionID] as \"Session ID\"
+                                                    FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN
+                                                    WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND
+	                                                      TC.[Instructor] = A.[ID]
+                                                    ORDER BY TC.[SessionID] desc";
+                                            $stmt = sqlsrv_query($con, $query, $params, $options);
+                                            while($row = sqlsrv_fetch_array($stmt))
+                                            {?>
+                                                <tr>
+                                                    <td><?= echo $row['Course Number']?></td>
+                                                    <td><?= echo $row['Class Name']?></td>
+                                                    <td><?= echo $row['Instructor Last Name']?></td>
+                                                    <td><?= echo $row['Session ID']?></td>
+                                                </tr>
+                                            <?php
+                                            }?>
+                                        </tbody>
+            
+                                    </table>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

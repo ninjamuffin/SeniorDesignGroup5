@@ -60,10 +60,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                                <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
-                                <p>Documentation:</p>
-                                <p>Courses view for admin user.  Displays list of courses, as well as a button at the top to navigate to CreateCourse.  Each element in the list is a link to a ViewCourse page, which submits a form. </p>
-                                <p>Link to creatcourse page: <a href="CreateCourse/"></a></p>
+                                <h1>Courses Listing</h1>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Documentation</div>
+                                    <div class="panel-body">
+                                        <p>Courses view for admin user.  Displays list of courses, as well as a button at the top to navigate to CreateCourse.  Each element in the list is a link to a ViewCourse page, which submits a form. </p>
+                                    </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Documentation</div>
+                                    <table class="table">
+                                        
+                                    </table>
+                                </div>
+                                    
                             </div>
                         </div>
                     </div>
