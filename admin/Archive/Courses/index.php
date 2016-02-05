@@ -82,15 +82,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <?php
                                                 $params = array();
                                                 $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
-                                                $query = "SELECT CN.[Course #] as \"Course Number\", CN.[ClassName] as \"Class Name\", A.[Advisor] as \"Instructor Last Name\", TC.[SessionID] as \"Session ID\" FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND TC.[Instructor] = A.[ID] AND TC.[SessionID] > 130 ORDER BY TC.[SessionID] desc";
+                                                $query = "SELECT * FROM SessionNames";
+                                                    /*"SELECT CN.[Course #] as \"Course Number\", CN.[ClassName] as \"Class Name\", A.[Advisor] as \"Instructor Last Name\", TC.[SessionID] as \"Session ID\" FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND TC.[Instructor] = A.[ID] AND TC.[SessionID] > 130 ORDER BY TC.[SessionID] desc";*/
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 while($row = sqlsrv_fetch_array($stmt))
                                                 {?>
                                                     <tr>
-                                                        <td><?= echo $row['Course Number']?></td>
-                                                        <td><?= echo $row['Class Name']?></td>
-                                                        <td><?= echo $row['Instructor Last Name']?></td>
-                                                        <td><?= echo $row['Session ID']?></td>
+                                                        <td><?php echo $row['Course Number']?></td>
+                                                        <td><?php echo $row['Class Name']?></td>
+                                                        <td><?php echo $row['Instructor Last Name']?></td>
+                                                        <td><?php echo $row['Session ID']?></td>
                                                     </tr>
                                                 <?php
                                                 }?>
