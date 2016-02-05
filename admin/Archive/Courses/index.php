@@ -65,7 +65,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <p>Provides search interface for looking up courses in the DB. Would then display list of worksheets in the class, or, alternatively (tabs) all worksheets/expressions submitted by the teacher</p>
                                     </div>
                                 </div>
-                                <div class="panel panel-default">
+                                <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
                                     <div class="panel-body">
                                         <table class="table">
