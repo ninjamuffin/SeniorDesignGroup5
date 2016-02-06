@@ -127,7 +127,7 @@ ORDER BY Y.[Year] desc";
                                                         $prevPageLink = "?pageNum=".($pageNum - 1);
                                                         echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
                                                     }
-                                                    if($pageNum < 20)
+                                                    if($numOfPages < 20)
                                                     {
                                                         for($i = 1; $i <=$numOfPages; $i++)
                                                         {
