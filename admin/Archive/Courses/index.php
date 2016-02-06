@@ -112,7 +112,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
                                                     echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";
-                                                    echo "</tbody></table><br />";
+                                                echo "</tbody></table><br />";
                                                     if($pageNum > 1)
                                                     {
                                                         $prevPageLink = "?pageNum=".($pageNum - 1);
@@ -121,13 +121,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     for($i = 1; $i <=$numOfPages; $i++)
                                                     {
                                                         $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>$nbsp;$nbsp;");
+                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
                                                     }
                                                     // Display Next Page link if applicable.
                                                     if($pageNum < $numOfPages)
                                                     {
                                                         $nextPageLink = "?pageNum=".($pageNum + 1);
-                                                        echo "$nbsp;$nbsp;<a href='$nextPageLink'>Next Page</a>";
+                                                        echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
                                                     }
                                                 ?>
                                             
