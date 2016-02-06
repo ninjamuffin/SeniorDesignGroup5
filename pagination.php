@@ -7,7 +7,7 @@ function getPage($stmt, $pageNum, $rowsPerPage)
     $rows = array();
     $i = 0;
     while($row = sqlsrv_fetch_array($stmt, 
-                                    SQLSRV_FETCH_NUMERIC,
+                                    SQLSRV_FETCH_BOTH,
                                     SQLSRV_SCROLL_ABSOLUTE,
                                     $offset + $i)
           && $i < $rowsPerPage)
