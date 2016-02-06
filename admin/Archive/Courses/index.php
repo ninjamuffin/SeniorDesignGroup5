@@ -122,13 +122,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     if($pageNum > 1)
                                                     {
                                                         $prevPageLink = "?pageNum=".($pageNum - 1);
-                                                        echo "<a href='<?=$prevPageLink?>'>Previous Page</a>";
+                                                        echo "<a href='$prevPageLink'>Previous Page</a>";
                                                     }
                                                     // Display Next Page link if applicable.
                                                     if($pageNum < $numOfPages)
                                                     {
                                                         $nextPageLink = "?pageNum=".($pageNum + 1);
-                                                        echo "$nbsp;$nbsp;<a href='<?=$nextPageLink?>'>Next Page</a>";
+                                                        echo "$nbsp;$nbsp;<a href='$nextPageLink'>Next Page</a>";
                                                     }
                                                 }?>
                                             </tbody>
