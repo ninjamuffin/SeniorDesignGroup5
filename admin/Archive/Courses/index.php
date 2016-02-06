@@ -94,6 +94,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 /* Extract Pagination Paramaters */
                                                 $rowsPerPage = 10;
                                                 $rowsReturned = sqlsrv_num_rows($stmt);
+                                                echo "$rowsReturned";
                                                 if($rowsReturned === false)
                                                     die(print_r( sqlsrv_errors(), true));
                                                 elseif($rowsReturned == 0)
