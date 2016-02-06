@@ -148,9 +148,6 @@ ORDER BY Y.[Year] desc";
                                                     $pageLink = "?pageNum=$numOfPages";
                                                     print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
                                                 }
-                                                $num = $numOfPages;
-                                                $lastPageLink = "?pageNum=$num";
-                                                print("<a href=$lastPageLink>$num</a>&nbsp;&nbsp;");
                                                 // Display Next Page link if applicable.
                                                 if($pageNum < $numOfPages)
                                                 {
