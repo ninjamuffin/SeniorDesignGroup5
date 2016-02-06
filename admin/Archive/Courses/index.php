@@ -112,6 +112,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
+                                                {
+                                                    echo "<tr>";
+                                                    echo "<td>"
+                                                }
                                                     echo "<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>";
                                                     //echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";
                                                 echo "</tbody></table><br />";
