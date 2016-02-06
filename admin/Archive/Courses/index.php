@@ -127,10 +127,21 @@ ORDER BY Y.[Year] desc";
                                                         $prevPageLink = "?pageNum=".($pageNum - 1);
                                                         echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
                                                     }
-                                                    for($i = 1; $i <=$numOfPages; $i++)
+                                                    if($pageNum < 20)
                                                     {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
+                                                        for($i = 1; $i <=$numOfPages; $i++)
+                                                        {
+                                                            $pageLink = "?pageNum=$i";
+                                                            print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
+                                                        }   
+                                                    }
+                                                    else
+                                                    {
+                                                        for($i = 1; $i <$numOfPages; $i+= 10)
+                                                        {
+                                                            $pageLink = "?pageNum=$i";
+                                                            print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
+                                                        }
                                                     }
                                                     // Display Next Page link if applicable.
                                                     if($pageNum < $numOfPages)
