@@ -111,19 +111,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
-                                                {?>
-                                                    <tr>
-                                                        <td><?php echo $row['Course Number']?></td>
-                                                        <td><?php echo $row['Class Name']?></td>
-                                                        <td><?php echo $row['Instructor Last Name']?></td>
-                                                        <td><?php echo $row['Session ID']?></td>
-                                                    </tr>
-                                                <?php
-                                                }
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";
+                                                    echo "</tbody></table><br />";
                                                     if($pageNum > 1)
                                                     {
                                                         $prevPageLink = "?pageNum=".($pageNum - 1);
                                                         echo "<a href='$prevPageLink'>Previous Page</a>";
+                                                    }
+                                                    for($i = 1; $i <=$numOfPages; $i++)
+                                                    {
+                                                        $pageLink = "?pageNum=$i";
+                                                        print("<a href=$pageLink>$i</a>$nbsp;$nbsp;");
                                                     }
                                                     // Display Next Page link if applicable.
                                                     if($pageNum < $numOfPages)
@@ -132,9 +130,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         echo "$nbsp;$nbsp;<a href='$nextPageLink'>Next Page</a>";
                                                     }
                                                 ?>
-                                            </tbody>
-
-                                        </table>
+                                            
                                     </div>
                                 </div>
                                 
