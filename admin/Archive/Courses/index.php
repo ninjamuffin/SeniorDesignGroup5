@@ -85,7 +85,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <?php
                                                 /* Set up and declare query entity */
                                                 $params = array();
-                                                $options = array( "Scrollable" => 'static' );
+                                                $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
                                                 $query = "SELECT CN.[Course #] as \"Course Number\", CN.[ClassName] as \"Class Name\", A.[Advisor] as \"Instructor Last Name\", TC.[SessionID] as \"Session ID\" FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND TC.[Instructor] = A.[ID] AND TC.[SessionID] > 130 ORDER BY TC.[SessionID] desc";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
