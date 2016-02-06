@@ -75,9 +75,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <td>Course Number</td>
-                                                    <td>Class Name</td>
+                                                    <td>Section</td>
                                                     <td>Instructor Last Name</td>
-                                                    <td>Session ID</td>
+                                                    <td>Year</td>
+                                                    <td>Session</td>
+                                                    <td>Course Page</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -94,7 +96,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 /* Extract Pagination Paramaters */
                                                 $rowsPerPage = 10;
                                                 $rowsReturned = sqlsrv_num_rows($stmt);
-                                                echo "$rowsReturned";
                                                 if($rowsReturned === false)
                                                     die(print_r( sqlsrv_errors(), true));
                                                 elseif($rowsReturned == 0)
@@ -112,12 +113,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='#'>Course Page</a></td></tr>";
                                                 echo "</tbody></table><br />";
                                                     if($pageNum > 1)
                                                     {
                                                         $prevPageLink = "?pageNum=".($pageNum - 1);
-                                                        echo "<a href='$prevPageLink'>Previous Page</a>";
+                                                        echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
                                                     }
                                                     for($i = 1; $i <=$numOfPages; $i++)
                                                     {
