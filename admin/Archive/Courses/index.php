@@ -120,7 +120,11 @@ ORDER BY Y.[Year] desc";
                                                 $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='#'>Course Page</a></td></tr>";
+                                                {
+                                                    $coursePageLink = "ViewCourse/?courseID=$row[5]";
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+                                                }
+                                                    
                                                 echo "</tbody></table><br />";
                                                 if($pageNum > 1)
                                                 {
