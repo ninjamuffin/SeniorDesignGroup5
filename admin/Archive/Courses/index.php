@@ -119,6 +119,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <td><?php echo $row['Session ID']?></td>
                                                     </tr>
                                                 <?php
+                                                }
                                                     if($pageNum > 1)
                                                     {
                                                         $prevPageLink = "?pageNum=".($pageNum - 1);
@@ -130,7 +131,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         $nextPageLink = "?pageNum=".($pageNum + 1);
                                                         echo "$nbsp;$nbsp;<a href='$nextPageLink'>Next Page</a>";
                                                     }
-                                                }?>
+                                                ?>
                                             </tbody>
 
                                         </table>
