@@ -88,7 +88,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 /* Set up and declare query entity */
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
-                                                $query = "SELECT CN.[Course #] as \"Course Number\", CN.[ClassName] as \"Class Name\", A.[Advisor] as \"Instructor Last Name\", TC.[SessionID] as \"Session ID\" FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND TC.[Instructor] = A.[ID] AND TC.[SessionID] > 130 ORDER BY TC.[SessionID] desc";
+                                                $query = "SELECT  CN.[Course #] as \"Course Number\", TC.[Section], A.[Advisor] as \"Instructor Last Name\", Y.[Year], S.[Session], TC.[Teachers&ClassesID]
+FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
+WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
+      TC.[Instructor] = A.[ID] AND 
+	  TC.[SessionID] = Ss.[SessionsID] AND
+	  Y.[ID] = Ss.[Year_ID] AND
+	  S.[ID] = Ss.[Session_ID]
+ORDER BY Y.[Year] desc";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
                                                     die( print_r( sqlsrv_errors(), true));
