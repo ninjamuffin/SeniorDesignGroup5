@@ -1,4 +1,7 @@
-<?php include "../../../base.php"; ?>
+<?php 
+include "../../../base.php"; 
+include "../../../pagination.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,11 +83,34 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <tbody>
 
                                             <?php
+                                                /* Set up and declare query entity */
                                                 $params = array();
-                                                $options = array( "Scrollable" => SQLSRV_CURSOR_FORWARD );
+                                                $options = array( "Scrollable" => 'static' );
                                                 $query = "SELECT CN.[Course #] as \"Course Number\", CN.[ClassName] as \"Class Name\", A.[Advisor] as \"Instructor Last Name\", TC.[SessionID] as \"Session ID\" FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND TC.[Instructor] = A.[ID] AND TC.[SessionID] > 130 ORDER BY TC.[SessionID] desc";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
-                                                while($row = sqlsrv_fetch_array($stmt))
+                                                if ( !$stmt )
+                                                    die( print_r( sqlsrv_errors(), true));
+                                                
+                                                /* Extract Pagination Paramaters */
+                                                $rowsPerPage = 10;
+                                                $rowsReturned = sqlsrv_num_rows($stmt);
+                                                if($rowsReturned === false)
+                                                    die(print_r( sqlsrv_errors(), true));
+                                                elseif($rowsReturned == 0)
+                                                {
+                                                    echo "No rows returned.";
+                                                    exit();
+                                                }
+                                                else
+                                                {
+                                                    /* Calculate number of pages. */
+                                                    $numOfPages = ceil($rowsReturned/$rowsPerPage);
+                                                }
+                                                
+                                                /* Echo results to the page */
+                                                $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+                                                $page = getPage($stmt, $pageNum, $rowsPerPage);
+                                                foreach($page as $row)
                                                 {?>
                                                     <tr>
                                                         <td><?php echo $row['Course Number']?></td>
@@ -93,6 +119,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <td><?php echo $row['Session ID']?></td>
                                                     </tr>
                                                 <?php
+                                                    if($pageNum > 1)
+                                                    {
+                                                        $prevPageLink = "?pageNum=".($pageNum - 1);
+                                                        echo "<a href='<?=$prevPageLink?>'>Previous Page</a>";
+                                                    }
+                                                    // Display Next Page link if applicable.
+                                                    if($pageNum < $numOfPages)
+                                                    {
+                                                        $nextPageLink = "?pageNum=".($pageNum + 1);
+                                                        echo "$nbsp;$nbsp;<a href='<?=$nextPageLink?>'>Next Page</a>";
+                                                    }
                                                 }?>
                                             </tbody>
 
