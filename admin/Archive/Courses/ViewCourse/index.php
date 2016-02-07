@@ -1,5 +1,4 @@
 <?php 
-include "../../../../base.php"; 
 include "../../../../pagination.php";
 ?>
 <!DOCTYPE html>
@@ -81,10 +80,44 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <td>Worksheet Number</td>
-                                                    <td>Link</td>
+                                                    <td>Link to worksheet page</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
+        <?php
+            $params = array();
+            $options = array( "Scrollable" => 'static' );
+            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = 1824 GROUP BY [Worksheet#],[TEachers&ClassesID]";
+            $stmt = sqlsrv_query($con, $query, $params, $options);
+            if (!$stmt)
+                die( print_r( sqlsrv_errors(), true));
+            
+            $rowsPerPage = 10;
+            $rowsReturned = sqlsrv_num_rows($stmt);
+            if($rowsReturned === false)
+                die(print_r( sqlsrv_errors(), true));
+            elseif($rowsReturned == 0)
+            {
+                echo "No rows returned.";
+                exit();
+            }
+            else
+            {
+                $numOfPages = ceil($rowsReturned/$rowsPerPage);
+            }
+            
+            $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+            $page = getPage($stmt, $pageNum, $rowsPerPage);
+            foreach($page as $row)
+            {
+                $worksheetPageLink = "ViewWorksheet/?courseID=$row[1]?worksheetNum=$row[0]";
+                echo "<tr><td>$row[0]</td><td><a href='$worksheetPageLink'>Worksheet Page</a></td></tr>";
+            }
+            ?>
+            
+            
+            
+                                            </tbody>
                                         </table>
 
                                     </div>

@@ -1,5 +1,4 @@
 <?php 
-include "../../../base.php"; 
 include "../../../pagination.php";
 ?>
 <!DOCTYPE html>
