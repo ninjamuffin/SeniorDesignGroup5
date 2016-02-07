@@ -121,8 +121,8 @@ GROUP BY A.[InstructoFirstName], A.[Advisor], A.[ID]";
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
                                                 {
-                                                    $teacherPageLink = "ViewStudent/?teacherID=$row[2]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Student's Page</a></td><td>$row[3]</td></tr>";
+                                                    $teacherPageLink = "ViewTeacher/?teacherID=$row[2]";
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Teacher's Page</a></td><td>$row[3]</td></tr>";
                                                 }
                                                     
                                                 echo "</tbody></table><br />";
