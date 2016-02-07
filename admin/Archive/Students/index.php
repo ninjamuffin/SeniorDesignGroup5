@@ -62,9 +62,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Student Information</div>
+                                    <div class="panel-heading">Students</div>
                                     <div class="panel-body">
-                                        <p>Provides search interface for looking up courses in the DB. Would then display list of worksheets in the class, or, alternatively (tabs) all worksheets/expressions submitted by the teacher</p>
+                                        <p>This window will have a search interface for looking up students in the DB. </p>
                                     </div>
                                 </div>
                                 <div class="panel panel-primary">
