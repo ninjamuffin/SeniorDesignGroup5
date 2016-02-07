@@ -1,5 +1,5 @@
 <?php 
-include "../../../../pagination.php";
+include "../../../../../pagination.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,8 +52,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         $courseID = isset($_GET['courseID']) ? $_GET['courseID'] : 0;
-        if ($courseID == 0)
-            echo "<meta http-equiv='refresh' content=0;../";
+        $worksheetID = isset($_GET['worksheetNum']) ? $_GET['worksheetNum'] : 0;
+        if ($courseID == 0 || $worksheetNum == 0)
+            echo "<meta http-equiv='refresh' content=0;../../";
         else
         {
         ?>
@@ -73,6 +74,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body">
                                         <p>Main course (archived) view for admin/teacher.  Will contain list/links to worksheets, students, and the teacher</p>
                                         <p>This top section will contain general information about a given course (teacher, level, etc)</p>
+                                        
                                     </div>
                                 </div>
                                 <div class="panel panel-primary">
@@ -81,15 +83,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <td>Worksheet Number</td>
-                                                    <td>Link to worksheet page</td>
+                                                    <td>Sentence Number</td>
+                                                    <td>Student</td>
+                                                    <td>Citizenship</td>
+                                                    <td>Language</td>
+                                                    <td>Expression</td>
+                                                    <td>Context/Vocab</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
         <?php
             $params = array();
             $options = array( "Scrollable" => 'static' );
-            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = 1824 GROUP BY [Worksheet#],[TEachers&ClassesID]";
+            $query = "SELECT [Sentence number], Student_ID, Expression, [Context/Vocabulary] FROM Expressions WHERE [Teachers&ClassesID] = $courseID AND [Worksheet#] = $worksheetNum ORDER BY [Sentence number]";
             $stmt = sqlsrv_query($con, $query, $params, $options);
             if (!$stmt)
                 die( print_r( sqlsrv_errors(), true));
@@ -112,8 +118,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $page = getPage($stmt, $pageNum, $rowsPerPage);
             foreach($page as $row)
             {
-                $worksheetPageLink = "ViewWorksheet/?courseID=$row[1]?worksheetNum=$row[0]";
-                echo "<tr><td>$row[0]</td><td><a href='$worksheetPageLink'>Worksheet Page</a></td></tr>";
+                $studentPageLink = "/Admin/Archive/Students/ViewStudent/?studentID=$row[5]?;
+                echo "<tr><td>$row[0]</td><td><a href='$studentPageLink'>$row[1]</a></td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
             }
         ?>
             
