@@ -86,7 +86,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Sentence Number</td>
                                                     <td>Student</td>
                                                     <td>Citizenship</td>
-                                                    <td>Language</td>
                                                     <td>Expression</td>
                                                     <td>Context/Vocab</td>
                                                 </tr>
