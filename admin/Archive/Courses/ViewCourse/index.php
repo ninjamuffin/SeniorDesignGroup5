@@ -112,7 +112,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $page = getPage($stmt, $pageNum, $rowsPerPage);
             foreach($page as $row)
             {
-                $worksheetPageLink = "ViewWorksheet/?courseID=$row[1]?worksheetNum=$row[0]";
+                $worksheetPageLink = "ViewWorksheet/?courseID=$row[1]&worksheetNum=$row[0]";
                 echo "<tr><td>$row[0]</td><td><a href='$worksheetPageLink'>Worksheet Page</a></td></tr>";
             }
         ?>
