@@ -80,6 +80,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <!--<td>Joined Site</td>-->
                                                     <!--<td>Last active session</td>-->
                                                     <td>Link to Student's Page</td>
+                                                    <td>Number of Courses Taken</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -90,9 +91,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $options = array( "Scrollable" => 'static' );
                                                 $query = 
 "SELECT S.[First Name], S.[Last Name], C.[Country], S.[ID]
- FROM Students as S, Country as C
+ FROM Students as S, Country as C, Expressions as E
  WHERE C.[ID] = S.[Citizenship] AND
-       S.[ID] in (SELECT DISTINCT Student_ID FROM Expressions)";
+       S.[ID] in (SELECT DISTINCT Student_ID FROM Expressions) AND
+       E.[Student_ID] = S.[ID]
+ GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
                                                     die( print_r( sqlsrv_errors(), true));
@@ -119,7 +122,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 foreach($page as $row)
                                                 {
                                                     $studentPageLink = "ViewStudent/?studentID=$row[3]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td><a href='$studentPageLink'>Student's Page</a></td></tr>";
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td><a href='$studentPageLink'>Student's Page</a></td><td>$row[4]</td></tr>";
                                                 }
                                                     
                                                 echo "</tbody></table><br />";
