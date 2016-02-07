@@ -118,7 +118,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $page = getPage($stmt, $pageNum, $rowsPerPage);
             foreach($page as $row)
             {
-                $studentPageLink = "/Admin/Archive/Students/ViewStudent/?studentID=$row[5]"?;
+                $studentPageLink = "/Admin/Archive/Students/ViewStudent/?studentID=$row[5]";
                 echo "<tr><td>$row[0]</td><td><a href='$studentPageLink'>$row[1]</a></td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
             }
         ?>
