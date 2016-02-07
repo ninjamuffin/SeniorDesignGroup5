@@ -89,7 +89,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
                                                 $query = 
-"SELECT S.[First Name], S.[Last Name], C.[Country]
+"SELECT S.[First Name], S.[Last Name], C.[Country], S.[ID]
  FROM Students as S, Country as C
  WHERE C.[ID] = S.[Citizenship]";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
