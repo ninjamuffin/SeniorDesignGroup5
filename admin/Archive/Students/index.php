@@ -73,12 +73,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <td>Course Number</td>
-                                                    <td>Section</td>
-                                                    <td>Instructor Last Name</td>
-                                                    <td>Year</td>
-                                                    <td>Session</td>
-                                                    <td>Course Page</td>
+                                                    <td>First Name</td>
+                                                    <td>Last Name</td>
+                                                    <td>Citizenship</td>
+                                                    <!--<td>Language</td>-->
+                                                    <!--<td>Joined Site</td>-->
+                                                    <!--<td>Last active session</td>-->
+                                                    <td>Link to Student's Page</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -87,14 +88,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 /* Set up and declare query entity */
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
-                                                $query = "SELECT  CN.[Course #] as \"Course Number\", TC.[Section], A.[Advisor] as \"Instructor Last Name\", Y.[Year], S.[Session], TC.[Teachers&ClassesID]
-FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
-WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
-      TC.[Instructor] = A.[ID] AND 
-	  TC.[SessionID] = Ss.[SessionsID] AND
-	  Y.[ID] = Ss.[Year_ID] AND
-	  S.[ID] = Ss.[Session_ID]
-ORDER BY Y.[Year] desc";
+                                                $query = 
+"SELECT S.[First Name], S.[Last Name], C.[Country]
+ FROM Students as S, Country as C
+ WHERE C.[ID] = S.[Citizenship]";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
                                                     die( print_r( sqlsrv_errors(), true));
@@ -120,8 +117,8 @@ ORDER BY Y.[Year] desc";
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
                                                 {
-                                                    $coursePageLink = "ViewCourse/?courseID=$row[5]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+                                                    $studentPageLink = "ViewStudent/?studentID=$row[5]";
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td><a href='$studentPageLink'>Student's Page</a></td></tr>";
                                                 }
                                                     
                                                 echo "</tbody></table><br />";
