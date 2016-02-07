@@ -52,7 +52,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         $courseID = isset($_GET['courseID']) ? $_GET['courseID'] : 0;
-        $worksheetID = isset($_GET['worksheetNum']) ? $_GET['worksheetNum'] : 0;
+        $worksheetNum = isset($_GET['worksheetNum']) ? $_GET['worksheetNum'] : 0;
         if ($courseID == 0 || $worksheetNum == 0)
             echo "<meta http-equiv='refresh' content=0;../../";
         else
