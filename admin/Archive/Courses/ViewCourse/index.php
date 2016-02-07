@@ -67,7 +67,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-12">
                                 <!--<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>-->
-                                <a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-menu-burger"></span> </a>
+                                <a href="#menu-toggle" class="glyphicon glyphicon-menu-burger" id="menu-toggle"></a>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Documentation</div>
                                     <div class="panel-body">
