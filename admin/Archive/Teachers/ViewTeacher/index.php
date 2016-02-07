@@ -1,5 +1,5 @@
 <?php 
-include "../../../pagination.php";
+include "../../../../pagination.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +51,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $teacherID = isset($_GET['teacherID']) ? $_GET['teacherID'] : 0;
+        if ($teacherID == 0)
+            echo "<meta http-equiv='refresh' content=0;../";
+        else
+        {
         ?>
         <body>
             <div id="header"></div>           
@@ -62,24 +67,22 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Students</div>
+                                    <div class="panel-heading">Teacher Information</div>
                                     <div class="panel-body">
-                                        <p>This window will have a search interface for looking up students in the DB. </p>
+                                        <p>Show teacher history (new data will include number of classes, time frame of activity, list of institutions, etc.)</p>
                                     </div>
                                 </div>
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    <div class="panel-heading">Teacher's Course Listing (sort by most recent)</div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <td>First Name</td>
-                                                    <td>Last Name</td>
-                                                    <!--<td>Institution</td>-->
-                                                    <!--<td>Joined Site</td>-->
-                                                    <!--<td>Last active session</td>-->
-                                                    <td>Link to Teacher's Page</td>
-                                                    <td>Number of Courses Taught</td>
+                                                    <td>Course Number</td>
+                                                    <td>Section</td>
+                                                    <td>Year</td>
+                                                    <td>Session</td>
+                                                    <td>Course Page</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -89,13 +92,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
                                                 $query = 
-"SELECT A.[InstructoFirstName], A.[Advisor], A.[ID], COUNT(DISTINCT TC.[Teachers&ClassesID])
-FROM Advisor as A, Expressions as E, [Teachers&Classes] as TC
-WHERE A.[ID] in (SELECT DISTINCT TCalt.[Instructor]
-			     FROM [Teachers&Classes] as TCalt
-				) AND
-	  TC.[Instructor] = A.[ID]
-GROUP BY A.[InstructoFirstName], A.[Advisor], A.[ID]";
+"SELECT  CN.[Course #], TC.[Section], Y.[Year], S.[Session], TC.[Teachers&ClassesID]
+FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
+WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
+      TC.[Instructor] = A.[ID] AND 
+	  TC.[SessionID] = Ss.[SessionsID] AND
+	  Y.[ID] = Ss.[Year_ID] AND
+	  S.[ID] = Ss.[Session_ID] AND
+      TC.[Teachers&ClassesID] in (SELECT DISTINCT OtherExpressions.[Teachers&ClassesID] FROM Expressions as OtherExpressions WHERE OtherExpressions.[Instructor] = $teacherID)
+ORDER BY Y.[Year] desc";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
                                                     die( print_r( sqlsrv_errors(), true));
@@ -121,54 +126,44 @@ GROUP BY A.[InstructoFirstName], A.[Advisor], A.[ID]";
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
                                                 {
-                                                    $teacherPageLink = "ViewStudent/?teacherID=$row[2]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Student's Page</a></td><td>$row[3]</td></tr>";
+                                                    $coursePageLink = "/Admin/Archive/Courses/ViewCourse/?courseID=$row[4]";
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
                                                 }
                                                     
                                                 echo "</tbody></table><br />";
                                                 if($pageNum > 1)
                                                 {
-                                                    $prevPageLink = "?pageNum=".($pageNum - 1);
+                                                    $prevPageLink = "?pageNum=".($pageNum - 1)."&teacherID=$teacherID";
                                                     echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
                                                 }
                                                 $num = 1;
-                                                $firstPageLink = "?pageNum=$num";
+                                                $firstPageLink = "?pageNum=$num&teacherID=$teacherID";
                                                 print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
                                                 if($numOfPages < 20)
                                                 {
                                                     for($i = 2; $i <=$numOfPages; $i++)
                                                     {
-                                                        $pageLink = "?pageNum=$i";
+                                                        $pageLink = "?pageNum=$i&teacherID=$teacherID";
                                                         print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
                                                     }   
                                                 }
-                                                elseif($numOfPages < 180)
+                                                else
                                                 {
                                                     for($i = 10; $i <$numOfPages; $i+= 10)
                                                     {
-                                                        $pageLink = "?pageNum=$i";
+                                                        $pageLink = "?pageNum=$i&teacherID=$teacherID";
                                                         print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
                                                     }
-                                                    $pageLink = "?pageNum=$numOfPages";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                else
-                                                {
-                                                    for($i = 30; $i <$numOfPages; $i+= 30)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages";
+                                                    $pageLink = "?pageNum=$numOfPages&teacherID=$teacherID";
                                                     print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
                                                 }
                                                 // Display Next Page link if applicable.
                                                 if($pageNum < $numOfPages)
                                                 {
-                                                    $nextPageLink = "?pageNum=".($pageNum + 1);
+                                                    $nextPageLink = "?pageNum=".($pageNum + 1)."&teacherID=$teacherID";
                                                     echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
                                                 }
-                                                ?>
+                                            ?>
                                             
                                     </div>
                                 </div>
@@ -189,7 +184,8 @@ GROUP BY A.[InstructoFirstName], A.[Advisor], A.[ID]";
             });
             </script>
         </body> 
-        <?php        
+        <?php 
+        }
     }
 }
 

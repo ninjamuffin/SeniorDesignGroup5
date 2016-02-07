@@ -138,7 +138,7 @@ ORDER BY Y.[Year] desc";
                                                     echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
                                                 }
                                                 $num = 1;
-                                                $firstPageLink = "?pageNum=$num";
+                                                $firstPageLink = "?pageNum=$num&studentID=$studentID";
                                                 print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
                                                 if($numOfPages < 20)
                                                 {
