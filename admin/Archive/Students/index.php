@@ -138,7 +138,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
                                                     }   
                                                 }
-                                                elseif($numOfPages < 120)
+                                                elseif($numOfPages < 180)
                                                 {
                                                     for($i = 10; $i <$numOfPages; $i+= 10)
                                                     {
@@ -150,7 +150,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 }
                                                 else
                                                 {
-                                                    for($i = 20; $i <$numOfPages; $i+= 20)
+                                                    for($i = 30; $i <$numOfPages; $i+= 30)
                                                     {
                                                         $pageLink = "?pageNum=$i";
                                                         print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
