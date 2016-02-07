@@ -129,43 +129,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 $studentPageLink = "/Admin/Archive/Students/ViewStudent/?studentID=$row[5]";
                 echo "<tr><td>$row[0]</td><td><a href='$studentPageLink'>$row[1]</a></td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
             }
-        ?>
-            
-            
-            
-                                            </tbody>
-                                        </table>
-        <?php
+            echo "</tbody></table>";
             if($pageNum > 1)
                 {
-                    $prevPageLink = "?pageNum=".($pageNum - 1);
+                    $prevPageLink = "?pageNum=".($pageNum - 1)."&courseID=$courseID&worksheetNum=$worksheetNum";
                     echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
                 }
-            $num = 1;
-            $firstPageLink = "?pageNum=$num";
-            print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
-            if($numOfPages < 20)
+            for($i = 1; $i <=$numOfPages; $i++)
             {
-                for($i = 2; $i <=$numOfPages; $i++)
-                {
-                    $pageLink = "?pageNum=$i";
-                    print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                }   
-            }
-            else
-            {
-                for($i = 10; $i <$numOfPages; $i+= 10)
-                {
-                    $pageLink = "?pageNum=$i";
-                    print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                }
-                $pageLink = "?pageNum=$numOfPages";
-                print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-            }
-            // Display Next Page link if applicable.
+                $pageLink = "?pageNum=$i&courseID=$courseID&worksheetNum=$worksheetNum";
+                print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
+            }   
             if($pageNum < $numOfPages)
             {
-                $nextPageLink = "?pageNum=".($pageNum + 1);
+                $nextPageLink = "?pageNum=".($pageNum + 1)."&courseID=$courseID&worksheetNum=$worksheetNum";
                 echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
             }
             ?>
