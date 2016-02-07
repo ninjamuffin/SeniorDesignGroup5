@@ -90,10 +90,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
                                                 $query = 
-"SELECT S.[First Name], S.[Last Name], C.[Country], S.[ID]
+"SELECT S.[First Name], S.[Last Name], C.[Country], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
  FROM Students as S, Country as C, Expressions as E
  WHERE C.[ID] = S.[Citizenship] AND
-       S.[ID] in (SELECT DISTINCT Student_ID FROM Expressions) AND
+       S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
        E.[Student_ID] = S.[ID]
  GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
