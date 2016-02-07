@@ -61,7 +61,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                                 <h1>Archive Home</h1>
-                                <p>Documentation:</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Archive Contents</div>
+                                    <u1 class="list=group">
+                                        <li class="list-group-item"><a href="Courses">Navigate to Courses</a></li>
+                                        <li class="list-group-item"><a href="Students">Navigate to Students</a></li>
+                                        <li class="list-group-item"><a href="Teachers">Navigate Teachers</a></li>
+                                        <li class="list-group-item"><a href="/Corpus">Search for Expressions</a></li>           
+                                    </u1>
+                                </div>
+                                <p>Archive Contents</p>
                                 <p>Home for archive access (admin user).  Will include user documentation for navigating the archive, as well as links for each kind of search</p>
                             </div>
                         </div>
