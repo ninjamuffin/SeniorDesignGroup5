@@ -95,7 +95,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
             $params = array();
             $options = array( "Scrollable" => 'static' );
-            $query = "SELECT [Sentence number], Student_ID, Expression, [Context/Vocabulary] FROM Expressions WHERE [Teachers&ClassesID] = $courseID AND [Worksheet#] = $worksheetNum ORDER BY [Sentence number]";
+            $query = 
+       "SELECT E.[Sentence number], S.[Last Name], C.Country, S.[Language], E.Expression, E.[Context/Vocabulary], E.Student_ID
+        FROM Expressions as E, 
+             Students as S, 
+	         Country as C
+        WHERE E.[Teachers&ClassesID] = $courseID AND
+              E.[Worksheet#] = $worksheetNum AND
+		      S.ID = E.Student_ID AND
+		      C.ID = S.Citizenship
+        ORDER BY [Sentence number]";
             $stmt = sqlsrv_query($con, $query, $params, $options);
             if (!$stmt)
                 die( print_r( sqlsrv_errors(), true));
