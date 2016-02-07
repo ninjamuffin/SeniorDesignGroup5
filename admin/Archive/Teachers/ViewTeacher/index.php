@@ -99,7 +99,10 @@ WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND
 	  TC.[SessionID] = Ss.[SessionsID] AND
 	  Y.[ID] = Ss.[Year_ID] AND
 	  S.[ID] = Ss.[Session_ID] AND
-      TC.[Teachers&ClassesID] in (SELECT DISTINCT OtherExpressions.[Teachers&ClassesID] FROM Expressions as OtherExpressions WHERE OtherExpressions.[Instructor] = $teacherID)
+      TC.[Teachers&ClassesID] in (SELECT DISTINCT OtherE.[Teachers&ClassesID] 
+								  FROM Expressions as OtherE, [Teachers&Classes] as OtherTC 
+								  WHERE OtherE.[Teachers&ClassesID] = OtherTC.[Teachers&ClassesID] AND
+										OtherTC.[Instructor] = 94)
 ORDER BY Y.[Year] desc";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
