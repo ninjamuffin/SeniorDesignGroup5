@@ -91,7 +91,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $query = 
 "SELECT S.[First Name], S.[Last Name], C.[Country], S.[ID]
  FROM Students as S, Country as C
- WHERE C.[ID] = S.[Citizenship]";
+ WHERE C.[ID] = S.[Citizenship] AND
+       S.[ID] in (SELECT DISTINCT Student_ID FROM Expressions)";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
                                                     die( print_r( sqlsrv_errors(), true));
