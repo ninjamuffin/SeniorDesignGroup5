@@ -69,14 +69,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <li class="list-group-item"><a href="Teachers">Navigate Teachers</a></li>
                                         <li class="list-group-item"><a href="/Corpus">Search for Expressions</a></li>           
                                     </u1>
-                                </div>
-                                <p>Archive Contents</p>
-                                <p>Home for archive access (admin user).  Will include user documentation for navigating the archive, as well as links for each kind of search</p>
+                                </div> <!-- End panel -->
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </div> <!-- End Container Fluid -->
+                </div> <!-- End Page Content Wrapper -->
+            </div> <!-- End Wrapper -->
             
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
