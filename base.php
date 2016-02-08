@@ -7,7 +7,7 @@ $dbname = "SmalltalkMigrate2.0";
 $dbuser = "CS05";
 $dbpass = "!1Elcwebapp";
 $connectionInfo = array( "Database"=>$dbname, "UID"=>$dbuser, "PWD"=>$dbpass);
-$salt = "Th4nkY0uF0rR3g1st3r1ng!!"
+$salt = "Th4nkY0uF0rR3g1st3r1ng!!";
 
 $con = sqlsrv_connect($dbhost, $connectionInfo); if(!$con) {
     die(print_r(sqlsrv_errors(), true));
