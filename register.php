@@ -25,11 +25,11 @@
             <?php
                 if(!empty($_POST['username']) && !empty($_POST['password']))
                 {
-                    $username = $_POST['username'];
-                    $password = md5($_POST['password']);
-                    $first_name = $_POST['first_name'];
-                    $last_name = $_POST['last_name'];
-                    $email = $_POST['email'];
+                    $username = mssql_escape($_POST['username']);
+                    $password = md5(mssql_escape($_POST['password'] + $salt));
+                    $first_name = mssql_escape($_POST['first_name']);
+                    $last_name = mssql_escape($_POST['last_name']);
+                    $email = mssql_escape($_POST['email']);
                     $role = $_POST['role'];
                     
                     $login_sql = "SELECT * FROM SiteUsers WHERE username = '".$username."'";
