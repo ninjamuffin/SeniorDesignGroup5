@@ -98,7 +98,7 @@
         else
         {?>
             <body>
-                <div class ="well col-xs-12 pull-right">
+                <div class ="well col-xs-12">
                     <h1 class="form-signin-heading text-right"><font color="white">Error</font></h1>
                     <p><font color="white">Sorry, your account could not be found</font></p>
                     <p><font color="white">Please <a href="/">click here to try again</a></font></p>
