@@ -26,7 +26,7 @@
                 if(!empty($_POST['username']) && !empty($_POST['password']))
                 {
                     $username = $_POST['username'];
-                    $password = md5($_POST['password']);
+                    $password = md5($_POST['password'] + $salt);
                     $first_name = $_POST['first_name'];
                     $last_name = $_POST['last_name'];
                     $email = $_POST['email'];

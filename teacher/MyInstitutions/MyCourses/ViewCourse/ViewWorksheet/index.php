@@ -1,6 +1,6 @@
-<!-- View students (index.php) for basic Teacher account -->
+<!-- View Worksheet (index.php) for Teacher account -->
 
-<?php include "/base.php"; ?>
+<?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +39,6 @@
 </head>
         
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'teacher')
@@ -64,8 +63,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h2>My Students</h2>
-                            <p>For a given teacher, will list all active students (according to active courses) and display a link to each student's profile view  </p>
+                            <h1>Course Title: View Worksheet #</h1>
+                            <p>Provides Teacher with a window for viewing a posted worksheet.  Once submissions are available from students, there will be a list of links to open the EditWorksheet page, which will allow the teacher to enter feedback.  Optionally, this page will link to a feedback page, rather than editing and feedback being  on the same page</p>  
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

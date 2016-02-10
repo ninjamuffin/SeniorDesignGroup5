@@ -1,6 +1,6 @@
-<!-- Edit Worksheet (index.php) for Teacher account -->
+<!-- View students (index.php) for basic Teacher account -->
 
-<?php include "/base.php"; ?>
+<?php include "../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +39,6 @@
 </head>
         
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'teacher')
@@ -64,8 +63,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h1>Course Title: Edit Worksheet #</h1>
-                            <p>Editing window (of worksheet) for teacher user.  Will provide ability to change the contents of a worksheet.  TBD if there will be an additional window for editing feedback...probably, though</p> 
+                            <h2>My Students</h2>
+                            <p>For a given teacher, will list all active students (according to active courses) and display a link to each student's profile view  </p>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

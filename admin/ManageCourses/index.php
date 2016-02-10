@@ -1,4 +1,5 @@
-<?php include "/base.php"; ?>
+<!-- Page for the admin user to oversee current courses, and navigate to CreateCourse -->
+<?php include "../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +38,6 @@
 </head>
 
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'admin')
@@ -60,13 +60,25 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                                <h1>Search Worksheets</h1>
-                                <p>Documentation:</p>
-                                <p>Provides search interface for looking up worksheets in the DB; paramters would include date, teacher, etc.</p>
+                                <h1>Courses Listing</h1>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Documentation</div>
+                                    <div class="panel-body">
+                                        <p>Courses view for admin user.  Displays list of courses, as well as a button at the top to navigate to CreateCourse.  Each element in the list is a link to a ViewCourse page, which submits a form. </p>
+                                    </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Documentation</div>
+                                    <table class="table">
+                                        
+                                    </table>
+                                </div>
+                                    
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

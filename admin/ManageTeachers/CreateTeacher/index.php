@@ -1,8 +1,4 @@
-<!-- Teacher/Archive/Expressions/index.php -->
-
-
-<!-- Archive/Courses for Teacher account -->
-<?php include "/base.php"; ?>
+<?php include "../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +11,7 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -31,7 +27,7 @@
     <!-- Background Setup -->
     <style>
         body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
+            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
                 -o-background-size: cover;
@@ -39,12 +35,11 @@
         }
     </style>
 </head>
-        
+
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'teacher')
+    if($_SESSION['Role'] != 'admin')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
@@ -54,42 +49,40 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-    ?>        
-
-    <body>
-        <div id="header"></div>
-        <div id="wrapper">
-            <div id = "sidebar"></div>
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <h2>Search Expressions</h2>
-                            <p>Search access for teacher user.  Through this page, the teacher will be able to search for (based on semester, time, type, teacher, etc) all expressions in the DB.  This replicated functionality in the Access App  </p>
-                            <!-- END PAGE CONTENT -->
+        ?>
+        <body>
+            <div id="header"></div>           
+            <div id="wrapper">
+                <div id="sidebar"></div>
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
+                                <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
+                                <p>Register a new teacher account.  Input form: First name, last name, username, default password, school email</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="/js/bootstrap.min.js"></script>
-        <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-        </script>
-    </body>
-    <?php
+            </div>
+
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="/js/bootstrap.min.js"></script>
+            <script>
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+            </script>
+        </body> 
+        <?php        
     }
 }
-    
+
 else
 {
     ?>
@@ -99,4 +92,5 @@ else
     <?php
 }
 ?>
+
 </html>

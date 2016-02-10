@@ -134,7 +134,7 @@ a.c1 {font-weight: normal;}
         </div>
         <div id="div_start">
           <button id="start_button" onclick="startButton(event)"><img alt="Start" id="start_img"
-          src="mic.gif"></button>
+          src="/media/mic.gif"></button>
         </div>
         <div id="results">
           <span class="final" id="final_span"></span> <span class="interim" id=
@@ -304,17 +304,17 @@ if (!('webkitSpeechRecognition' in window)) {
   recognition.onstart = function() {
     recognizing = true;
     showInfo('info_speak_now');
-    start_img.src = 'mic.gif';
+    start_img.src = '/media/mic.gif';
   };
 
   recognition.onerror = function(event) {
     if (event.error == 'no-speech') {
-      start_img.src = 'mic.gif';
+      start_img.src = '/media/mic.gif';
       showInfo('info_no_speech');
       ignore_onend = true;
     }
     if (event.error == 'audio-capture') {
-      start_img.src = 'mic.gif';
+      start_img.src = '/media/mic.gif';
       showInfo('info_no_microphone');
       ignore_onend = true;
     }
@@ -333,7 +333,7 @@ if (!('webkitSpeechRecognition' in window)) {
     if (ignore_onend) {
       return;
     }
-    start_img.src = 'mic.gif';
+    start_img.src = '/media/mic.gif';
     if (!final_transcript) {
       showInfo('info_start');
       return;
@@ -435,7 +435,7 @@ function startButton(event) {
   ignore_onend = false;
   final_span.innerHTML = '';
   interim_span.innerHTML = '';
-  start_img.src = 'mic.gif';
+  start_img.src = '/media/mic.gif';
   showInfo('info_allow');
   showButtons('none');
   start_timestamp = event.timeStamp;

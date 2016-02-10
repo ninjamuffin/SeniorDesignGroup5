@@ -1,4 +1,4 @@
-<?php include "../../base.php"; ?>
+<?php include "../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +37,7 @@
 </head>
 
 <?php
+
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'admin')
@@ -59,21 +60,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                                <h1>Manage Corpus</h1>
+                                <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
                                 <p>Documentation:</p>
-                                <p>Page will manage the transfer of data from the site to the corpus.  There will be a listing of requests, submitted by teachers, that the administrator will have the option to review, and then submit to the database.  This is how we will manage DB writes.
-</p>
+                                <p>Course view for admin user. Displays: teacher, student list, course name, location, and any other information</p>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
-            <script src="/js/bootstrap-datepicker.js"></script>
             <script>
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();

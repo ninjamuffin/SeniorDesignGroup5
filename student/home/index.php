@@ -1,5 +1,5 @@
 <!-- Home (index.html) for basic Student account -->
-<?php include "/base.php"; ?>
+<?php include "../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +38,6 @@
 </head>
         
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'student')
@@ -63,7 +62,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h2>Student Name</h2>
+                            <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
                             <p>Page provides student user home.  Eventual content will be a site activity queue, listing all relevant course postings by teachers.  </p>
                             <p>Sidebar will include student navigation: Home, Courses {Worksheets}, My Archive {courses {worksheets}}</p>
                             <p>Nav bar will include basic account access (same regardless of role)</p>

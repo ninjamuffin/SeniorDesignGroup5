@@ -1,5 +1,5 @@
 <?php 
-include "../../../pagination.php";
+include "../../../../pagination.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +51,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $teacherID = isset($_GET['teacherID']) ? $_GET['teacherID'] : 0;
+        if ($teacherID == 0)
+            echo "<meta http-equiv='refresh' content=0;../";
+        else
+        {
         ?>
         <body>
             <div id="header"></div>           
@@ -61,16 +66,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-12">
                                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
-                                
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    <div class="panel-heading">Teacher Information</div>
+                                    <div class="panel-body">
+                                        <p>Show teacher history (new data will include number of classes, time frame of activity, list of institutions, etc.)</p>
+                                    </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Teacher's Course Listing (sort by most recent)</div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <td>Course Number</td>
                                                     <td>Section</td>
-                                                    <td>Instructor Last Name</td>
                                                     <td>Year</td>
                                                     <td>Session</td>
                                                     <td>Course Page</td>
@@ -82,13 +91,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 /* Set up and declare query entity */
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
-                                                $query = "SELECT  CN.[Course #] as \"Course Number\", TC.[Section], A.[Advisor] as \"Instructor Last Name\", Y.[Year], S.[Session], TC.[Teachers&ClassesID]
+                                                $query = 
+"SELECT  CN.[Course #], TC.[Section], Y.[Year], S.[Session], TC.[Teachers&ClassesID]
 FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
       TC.[Instructor] = A.[ID] AND 
 	  TC.[SessionID] = Ss.[SessionsID] AND
 	  Y.[ID] = Ss.[Year_ID] AND
-	  S.[ID] = Ss.[Session_ID]
+	  S.[ID] = Ss.[Session_ID] AND
+      TC.[Teachers&ClassesID] in (SELECT DISTINCT OtherE.[Teachers&ClassesID] 
+								  FROM Expressions as OtherE, [Teachers&Classes] as OtherTC 
+								  WHERE OtherE.[Teachers&ClassesID] = OtherTC.[Teachers&ClassesID] AND
+										OtherTC.[Instructor] = 94)
 ORDER BY Y.[Year] desc";
                                                 $stmt = sqlsrv_query($con, $query, $params, $options);
                                                 if ( !$stmt )
@@ -115,24 +129,24 @@ ORDER BY Y.[Year] desc";
                                                 $page = getPage($stmt, $pageNum, $rowsPerPage);
                                                 foreach($page as $row)
                                                 {
-                                                    $coursePageLink = "ViewCourse/?courseID=$row[5]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+                                                    $coursePageLink = "/Admin/Archive/Courses/ViewCourse/?courseID=$row[4]";
+                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
                                                 }
                                                     
                                                 echo "</tbody></table><br />";
                                                 if($pageNum > 1)
                                                 {
-                                                    $prevPageLink = "?pageNum=".($pageNum - 1);
+                                                    $prevPageLink = "?pageNum=".($pageNum - 1)."&teacherID=$teacherID";
                                                     echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
                                                 }
                                                 $num = 1;
-                                                $firstPageLink = "?pageNum=$num";
+                                                $firstPageLink = "?pageNum=$num&teacherID=$teacherID";
                                                 print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
                                                 if($numOfPages < 20)
                                                 {
                                                     for($i = 2; $i <=$numOfPages; $i++)
                                                     {
-                                                        $pageLink = "?pageNum=$i";
+                                                        $pageLink = "?pageNum=$i&teacherID=$teacherID";
                                                         print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
                                                     }   
                                                 }
@@ -140,19 +154,19 @@ ORDER BY Y.[Year] desc";
                                                 {
                                                     for($i = 10; $i <$numOfPages; $i+= 10)
                                                     {
-                                                        $pageLink = "?pageNum=$i";
+                                                        $pageLink = "?pageNum=$i&teacherID=$teacherID";
                                                         print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
                                                     }
-                                                    $pageLink = "?pageNum=$numOfPages";
+                                                    $pageLink = "?pageNum=$numOfPages&teacherID=$teacherID";
                                                     print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
                                                 }
                                                 // Display Next Page link if applicable.
                                                 if($pageNum < $numOfPages)
                                                 {
-                                                    $nextPageLink = "?pageNum=".($pageNum + 1);
+                                                    $nextPageLink = "?pageNum=".($pageNum + 1)."&teacherID=$teacherID";
                                                     echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
                                                 }
-                                                ?>
+                                            ?>
                                             
                                     </div>
                                 </div>
@@ -173,7 +187,8 @@ ORDER BY Y.[Year] desc";
             });
             </script>
         </body> 
-        <?php        
+        <?php 
+        }
     }
 }
 

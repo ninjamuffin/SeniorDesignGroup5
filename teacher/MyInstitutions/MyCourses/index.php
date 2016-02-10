@@ -1,8 +1,6 @@
-<!-- Teacher/Archive/Worksheets/index.php -->
+<!-- Courses Home (index.php) for Teacher account -->
 
-
-<!-- Archive/Courses for Teacher account -->
-<?php include "/base.php"; ?>
+<?php include "../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +39,6 @@
 </head>
         
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'teacher')
@@ -66,8 +63,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h2>Search Expressions</h2>
-                            <p>Search access for teacher user.  Through this page, the teacher will be able to search for (based on semester, time, type, teacher, etc) all worksheets in the DB.  This replicated functionality in the Access App  </p>
+                            <h1>Courses</h1>
+                            <p>Documentation:</p>
+                            <p>Home view for all courses (active) taught by instructor.  Lists links to each course page</p>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>
@@ -79,7 +77,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/bootstrap-datepicker.js"></script>
         <script>
         $("#menu-toggle").click(function(e) {
             e.preventDefault();

@@ -27,7 +27,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand">Gonzaga SmallTalk</a>
+                <!--<a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand"> <img src="/media/logo.jpeg"></a>-->
               </div>
 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">

@@ -67,7 +67,7 @@
     {
         // let the user login //mssql_escape may cause problems with md5()
         $username = $_POST['username'];
-        $password = md5($_POST['password']);
+        $password = md5($_POST['password'] + $salt);
         $loginquery = "SELECT * FROM SiteUsers WHERE username = '". $username."' AND password = '". $password."'";
         
         $params = array();
@@ -96,9 +96,19 @@
             echo "<meta http-equiv='refresh' content='0;/' />";
         }
         else
-        {
-            echo "<h1>Error</h1>";
-            echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";
+        {?>
+            <body>
+                <div class ="well col-xs-12">
+                    <h1 class="form-signin-heading text-right"><font color="white">Error</font></h1>
+                    <p><font color="white">Sorry, your account could not be found</font></p>
+                    <p><font color="white">Please <a href="/">click here to try again</a></font></p>
+                    <p><font color="white">If you are having trouble accessing your account, contact your administrator</font></p>
+                </div>    
+            
+            </body>
+        <?php
+           
+    
         }
     }
     else
@@ -122,6 +132,7 @@
                 </fieldset>
                 <h4 class="form-signin-heading text-right"><a href="#">Forgot Username?</a></h4>
                 <h4 class="form-signin-heading text-right"><a href="#">Forgot Password?</a></h4>
+                <h4 class="form-signin-heading text-right"><a href="register.php">Register</a></h4>
                 </form>
             </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

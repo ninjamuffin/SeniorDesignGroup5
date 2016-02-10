@@ -1,6 +1,6 @@
-<!-- View Worksheet (index.php) for Teacher account -->
+<!-- Course view (index.php) for Teacher account -->
 
-<?php include "/base.php"; ?>
+<?php include "../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +39,6 @@
 </head>
         
 <?php
-session_start();
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
     if($_SESSION['Role'] != 'teacher')
@@ -64,8 +63,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h1>Course Title: View Worksheet #</h1>
-                            <p>Provides Teacher with a window for viewing a posted worksheet.  Once submissions are available from students, there will be a list of links to open the EditWorksheet page, which will allow the teacher to enter feedback.  Optionally, this page will link to a feedback page, rather than editing and feedback being  on the same page</p>  
+                            <h1>Insert Course Title</h1>
+                            <p>Course home view for teacher.  Will list worksheets (links), students (links), a create worksheet page, an edit worksheet (will include an option to publish worksheet), and a view worksheet option (for reviewing student submissions...tbd)</p>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>
