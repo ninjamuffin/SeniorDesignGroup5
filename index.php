@@ -96,9 +96,19 @@
             echo "<meta http-equiv='refresh' content='0;/' />";
         }
         else
-        {
-            echo "<h1>Error</h1>";
-            echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";
+        {?>
+            <body>
+                <div class ="well col-xs-12 pull-right">
+                    <h1 class="form-signin-heading text-right"><font color="white">Error</font></h1>
+                    <p><font color="white">Sorry, your account could not be found</font></p>
+                    <p><font color="white">Please <a href="/">click here to try again</a></font></p>
+                    <p><font color="white">If you are having trouble accessing your account, contact your administrator</font></p>
+                </div>    
+            
+            </body>
+            
+           
+    
         }
     }
     else
