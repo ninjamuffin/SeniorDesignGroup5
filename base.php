@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'pagination.php';
 
 $dbhost = "o0tvd0xlpb.database.windows.net,1433";
 $dbname = "SmalltalkMigrate2.0";

@@ -1,5 +1,5 @@
 <?php 
-include "../../../pagination.php";
+include "../../../base.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +51,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        
         ?>
         <body>
             <div id="header"></div>           
@@ -64,7 +65,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    
                                     <div class="panel-body">
+                                        
+                                        <form method="post" action="" name="DisplayPerPage">
+                                            <fieldset>
+                                                <label for="PerPage">Display rows per page:</label>
+                                                <select id="PerPage" name="PerPage">
+                                                    <option value="10">10</option>
+                                                    <option value="20">10</option>
+                                                    <option value="30">10</option>
+                                                    <option value="50">10</option>  
+                                                </select>
+                                                <button class="button" type="submit">Submit</button>
+                                            </fieldset>
+                                            
+                                        
+                                        
+                                        </form>
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -82,7 +100,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 /* Set up and declare query entity */
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
-                                                $query = "SELECT  CN.[Course #] as \"Course Number\", TC.[Section], A.[Advisor] as \"Instructor Last Name\", Y.[Year], S.[Session], TC.[Teachers&ClassesID]
+                                                $query = "SELECT  CN.[Course #], TC.[Section], A.[Advisor], Y.[Year], S.[Session], TC.[Teachers&ClassesID]
 FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
       TC.[Instructor] = A.[ID] AND 
@@ -96,7 +114,10 @@ ORDER BY Y.[Year] desc";
                                                     die( print_r( sqlsrv_errors(), true));
                                                 
                                                 /* Extract Pagination Paramaters */
-                                                $rowsPerPage = 10;
+                                                if(!empty($_POST['PerPage']))
+                                                    $rowsPerPage = $_POST['PerPage'];
+                                                else
+                                                    $rowsPerPage = 10;
                                                 $rowsReturned = sqlsrv_num_rows($stmt);
                                                 if($rowsReturned === false)
                                                     die(print_r( sqlsrv_errors(), true));
