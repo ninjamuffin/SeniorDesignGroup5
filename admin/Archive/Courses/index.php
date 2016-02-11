@@ -81,7 +81,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </fieldset>
                                             
                                         
-                                        
+                         
                                         </form>
                                         <table class="table">
                                             <thead>
