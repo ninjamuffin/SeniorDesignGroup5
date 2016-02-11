@@ -1,5 +1,5 @@
 <?php
-include 'base.php';
+
 
 function getPage($stmt, $pageNum, $rowsPerPage)
 {
