@@ -89,7 +89,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
             $params = array();
             $options = array( "Scrollable" => 'static' );
-            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = $courseID ORDER BY [Worksheet#],[Teachers&ClassesID]";
+            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = $courseID GROUP BY [Worksheet#],[Teachers&ClassesID]";
             $stmt = sqlsrv_query($con, $query, $params, $options);
             if (!$stmt)
                 die( print_r( sqlsrv_errors(), true));

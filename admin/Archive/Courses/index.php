@@ -87,6 +87,7 @@ FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
       TC.[Instructor] = A.[ID] AND 
 	  TC.[SessionID] = Ss.[SessionsID] AND
+      TC.[Teachers&ClassesID] in (SELECT [Teachers&ClassesID] from Expressions) AND
 	  Y.[ID] = Ss.[Year_ID] AND
 	  S.[ID] = Ss.[Session_ID]
 ORDER BY Y.[Year] desc";
