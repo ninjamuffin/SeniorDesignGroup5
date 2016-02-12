@@ -37,7 +37,7 @@
         use WindowsAzure\Blob\Models\PublicAccessType;
         use WindowsAzure\Common\ServiceException;
 
-        $connectionString= "DefaultEndpointsProtocol=https;AccountName=smalltalkelc;AccountKey=9Dp8HQ0qsk3ZWW1fADulCa7KEMO3Py5gOeTadrcbSwPYl+O4se+b4hfCUhDbe7KoPz+4ioJj5YSyomNcIPnyUw==";
+        $connectionString="DefaultEndpointsProtocol=https;AccountName=smalltalkelc;AccountKey=9Dp8HQ0qsk3ZWW1fADulCa7KEMO3Py5gOeTadrcbSwPYl+O4se+b4hfCUhDbe7KoPz+4ioJj5YSyomNcIPnyUw==";
 
         $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($connectionString);
 
