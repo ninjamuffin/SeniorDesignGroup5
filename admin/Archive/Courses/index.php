@@ -130,6 +130,7 @@ ORDER BY Y.[Year] desc";
                                                 {
                                                     /* Calculate number of pages. */
                                                     $numOfPages = ceil($rowsReturned/$rowsPerPage);
+                                                    echo "$numOfPages";
                                                 }
                                                 
                                                 /* Echo results to the page */
