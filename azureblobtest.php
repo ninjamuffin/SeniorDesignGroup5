@@ -30,6 +30,7 @@
     </head>
     
  <?php
+        echo "Test";
         require_once 'vendor\autoload.php';
         use WindowsAzure\Common\ServiceBuilder;
         use WindowsAzure\Blob\Models\CreateContainerOptions;
