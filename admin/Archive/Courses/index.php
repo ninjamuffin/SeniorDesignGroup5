@@ -65,10 +65,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
-                                    
-                                    <div class="panel-body">
-                                        
-                                        <form method="post" action="" name="PerPage">
+                                    <form method="post" action="" name="PerPage">
                                             <fieldset>
                                                 <label for="PerPage">Display rows per page:</label>
                                                 <select id="PerPage" name="PerPage">
@@ -79,10 +76,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </select>
                                                 <button class="button" type="submit">Submit</button>
                                             </fieldset>
-                                            
+                                    </form>
+                                    <div class="panel-body">
                                         
-                         
-                                        </form>
+                                        
                                         <table class="table">
                                             <thead>
                                                 <tr>
