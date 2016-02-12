@@ -45,7 +45,7 @@
 
         $createContainerOptions->addMetaData("key1", "value1");
         $createContainerOptions->addMetaDasta("key2", "value2");
-        echo "Test";
+        echo "$connectionString";
         try {
             // Create Container.
             $blobRestProxy->createContainer("mycontainer", $createContainerOptions);
