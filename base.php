@@ -1,5 +1,5 @@
 <?php
-//include 'pagination.php';
+include 'pagination.php';
 session_start();
 
 
