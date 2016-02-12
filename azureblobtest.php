@@ -30,7 +30,7 @@
     </head>
     
  <?php
-        echo "Test";
+        
         require_once 'vendor\autoload.php';
         use WindowsAzure\Common\ServiceBuilder;
         use WindowsAzure\Blob\Models\CreateContainerOptions;
@@ -45,7 +45,7 @@
 
         $createContainerOptions->addMetaData("key1", "value1");
         $createContainerOptions->addMetaDasta("key2", "value2");
-
+        echo "Test";
         try {
             // Create Container.
             $blobRestProxy->createContainer("mycontainer", $createContainerOptions);
