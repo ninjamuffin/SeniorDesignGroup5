@@ -68,14 +68,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     
                                     <div class="panel-body">
                                         
-                                        <form method="post" action="" name="DisplayPerPage">
+                                        <form method="post" action="" name="PerPage">
                                             <fieldset>
                                                 <label for="PerPage">Display rows per page:</label>
                                                 <select id="PerPage" name="PerPage">
                                                     <option value="10">10</option>
-                                                    <option value="20">10</option>
-                                                    <option value="30">10</option>
-                                                    <option value="50">10</option>  
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>  
                                                 </select>
                                                 <button class="button" type="submit">Submit</button>
                                             </fieldset>
