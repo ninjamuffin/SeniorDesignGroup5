@@ -19,35 +19,30 @@ function getPage($stmt, $pageNum, $rowsPerPage)
     
 }
 
-function pageLinks($numPages, $pageNum, $rowsPerPage)
+function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned)
 {
+    if($numOfPages <= 1)
+        return;
     if($pageNum > 1)
     {
         $prevPageLink = "?pageNum=".($pageNum - 1);
         echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
     }
-    $num = 1;
-    $firstPageLink = "?pageNum=$num";
-    $endPoint = $rowsPerPage - 1;
-    print("<a href=$firstPageLink>1-$endPoint</a>&nbsp;&nbsp;");
-    if($numOfPages < 20)
+    for($j = 0; $j < $numOfPages - 1; $j++)
     {
-        for($i = 2; $i <=$numOfPages; $i++)
-        {
-            $pageLink = "?pageNum=$i";
-            print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-        }   
+        $frontBound = ($j * $rowsPerPage) + 1;
+        $endBound = ($j + 1) * $rowsPerPage;
+        $linkedPageNum = $j + 1;
+        $pageLink = "?pageNum=$linkedPageNum";
+        print("<a href=$pageLink>$frontBound-$endBound</a>,&nbsp;&nbsp;");
     }
-    else
-    {
-        for($i = 10; $i <$numOfPages; $i+= 10)
-        {
-            $pageLink = "?pageNum=$i";
-            print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-        }
-        $pageLink = "?pageNum=$numOfPages";
-        print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-    }
+    
+    /* Print Last Page Link (endpoint = last row) */
+    $pageLink = "?pageNum=$numOfPages";
+    $frontBound = ($numOfPages - 1) + 1;
+    $endBound = $rowsReturned;
+    print("<a href=$pageLink>$numOfPages-$rowsReturned</a>,&nbsp;&nbsp;");
+    
     // Display Next Page link if applicable.
     if($pageNum < $numOfPages)
     {
