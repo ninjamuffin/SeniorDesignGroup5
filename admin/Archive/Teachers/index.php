@@ -75,100 +75,55 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <tr>
                                                     <td>First Name</td>
                                                     <td>Last Name</td>
-                                                    <!--<td>Institution</td>-->
-                                                    <!--<td>Joined Site</td>-->
-                                                    <!--<td>Last active session</td>-->
                                                     <td>Link to Teacher's Page</td>
-                                                    <td>Number of Courses Taught</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
-                                            <?php
-                                                /* Set up and declare query entity */
-                                                $params = array();
-                                                $options = array( "Scrollable" => 'static' );
-                                                $query = 
-"SELECT A.[InstructoFirstName], A.[Advisor], A.[ID], COUNT(DISTINCT TC.[Teachers&ClassesID])
+<?php
+    /* Set up and declare query entity */
+    $params = array();
+    $options = array( "Scrollable" => 'static' );
+    $query = 
+"SELECT A.[InstructoFirstName], A.[Advisor], A.[ID]
 FROM Advisor as A, Expressions as E, [Teachers&Classes] as TC
-WHERE A.[ID] in (SELECT DISTINCT TCalt.[Instructor]
-			     FROM [Teachers&Classes] as TCalt
-				) AND
-	  TC.[Instructor] = A.[ID]
-GROUP BY A.[InstructoFirstName], A.[Advisor], A.[ID]";
-                                                $stmt = sqlsrv_query($con, $query, $params, $options);
-                                                if ( !$stmt )
-                                                    die( print_r( sqlsrv_errors(), true));
-                                                
-                                                /* Extract Pagination Paramaters */
-                                                $rowsPerPage = 10;
-                                                $rowsReturned = sqlsrv_num_rows($stmt);
-                                                if($rowsReturned === false)
-                                                    die(print_r( sqlsrv_errors(), true));
-                                                elseif($rowsReturned == 0)
-                                                {
-                                                    echo "No rows returned.";
-                                                    exit();
-                                                }
-                                                else
-                                                {
-                                                    /* Calculate number of pages. */
-                                                    $numOfPages = ceil($rowsReturned/$rowsPerPage);
-                                                }
-                                                
-                                                /* Echo results to the page */
-                                                $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-                                                $page = getPage($stmt, $pageNum, $rowsPerPage);
-                                                foreach($page as $row)
-                                                {
-                                                    $teacherPageLink = "ViewTeacher/?teacherID=$row[2]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Teacher's Page</a></td><td>$row[3]</td></tr>";
-                                                }
-                                                    
-                                                echo "</tbody></table><br />";
-                                                if($pageNum > 1)
-                                                {
-                                                    $prevPageLink = "?pageNum=".($pageNum - 1);
-                                                    echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
-                                                }
-                                                $num = 1;
-                                                $firstPageLink = "?pageNum=$num";
-                                                print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
-                                                if($numOfPages < 20)
-                                                {
-                                                    for($i = 2; $i <=$numOfPages; $i++)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }   
-                                                }
-                                                elseif($numOfPages < 180)
-                                                {
-                                                    for($i = 10; $i <$numOfPages; $i+= 10)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                else
-                                                {
-                                                    for($i = 30; $i <$numOfPages; $i+= 30)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                // Display Next Page link if applicable.
-                                                if($pageNum < $numOfPages)
-                                                {
-                                                    $nextPageLink = "?pageNum=".($pageNum + 1);
-                                                    echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
-                                                }
-                                                ?>
+WHERE A.[ID] in (   SELECT DISTINCT TCalt.[Instructor]
+                    FROM [Teachers&Classes] as TCalt  
+                ) AND
+      TC.[Instructor] = A.[ID]
+GROUP BY A.[Advisor], A.[InstructoFirstName], A.[ID]";
+    $stmt = sqlsrv_query($con, $query, $params, $options);
+    if ( !$stmt )
+        die( print_r( sqlsrv_errors(), true));
+
+    /* Extract Pagination Paramaters */
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 10
+    $rowsReturned = sqlsrv_num_rows($stmt);
+    if($rowsReturned === false)
+        die(print_r( sqlsrv_errors(), true));
+    elseif($rowsReturned == 0)
+    {
+        echo "No rows returned.";
+        exit();
+    }
+    else
+    {
+        /* Calculate number of pages. */
+        $numOfPages = ceil($rowsReturned/$rowsPerPage);
+    }
+
+    /* Echo results to the page */
+    $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+    $page = getPage($stmt, $pageNum, $rowsPerPage);
+    foreach($page as $row)
+    {
+        $teacherPageLink = "ViewTeacher/?teacherID=$row[2]";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Visit Page</a></td></tr>";
+    }
+
+    echo "</tbody></table><br />";
+    pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
+    ?>
                                             
                                     </div>
                                 </div>
