@@ -39,9 +39,9 @@ function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned)
     
     /* Print Last Page Link (endpoint = last row) */
     $pageLink = "?pageNum=$numOfPages";
-    $frontBound = ($numOfPages - 1) + 1;
+    $frontBound = ($numOfPages - 1)*$rowsPerPage + 1;
     $endBound = $rowsReturned;
-    print("<a href=$pageLink>$numOfPages-$rowsReturned</a>,&nbsp;&nbsp;");
+    print("<a href=$pageLink>$numOfPages-$rowsReturned</a>&nbsp;&nbsp;");
     
     // Display Next Page link if applicable.
     if($pageNum < $numOfPages)
@@ -49,5 +49,6 @@ function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned)
         $nextPageLink = "?pageNum=".($pageNum + 1);
         echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
     }
+    $_POST['PerPage'] = $rowsPerPage;
     
 }
