@@ -114,8 +114,9 @@ ORDER BY Y.[Year] desc";
                                                 /* Extract Pagination Paramaters */
                                                 if(!empty($_POST['PerPage']))
                                                 {
-                                                    $rowsPerPage = $_POST['PerPage'];
-                                                    $pageNum = 1;
+                                                    //$rowsPerPage = $_POST['PerPage'];
+                                                    //$pageNum = 1;
+                                                    echo "<meta http-equiv='refresh content='0;?pageNum=1&pp=$_POST['PerPage']' />";
                                                 }
                                                     
                                                 else
