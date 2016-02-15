@@ -69,6 +69,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Select rows per page
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="?pp=10">10</a></li>
+                                            <li><a href="?pp=25">25</a></li>
+                                            <li><a href="?pp=50">50</a></li>
+                                            <li><a href="?pp=100">100</a></li>
+                                            
+                                        </ul>
+                                    </div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
@@ -85,90 +99,49 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </thead>
                                             <tbody>
 
-                                            <?php
-                                                /* Set up and declare query entity */
-                                                $params = array();
-                                                $options = array( "Scrollable" => 'static' );
-                                                $query = 
+<?php
+    /* Set up and declare query entity */
+    $params = array();
+    $options = array( "Scrollable" => 'static' );
+    $query = 
 "SELECT S.[First Name], S.[Last Name], C.[Country], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
- FROM Students as S, Country as C, Expressions as E
- WHERE C.[ID] = S.[Citizenship] AND
-       S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
-       E.[Student_ID] = S.[ID]
- GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
-                                                $stmt = sqlsrv_query($con, $query, $params, $options);
-                                                if ( !$stmt )
-                                                    die( print_r( sqlsrv_errors(), true));
-                                                
-                                                /* Extract Pagination Paramaters */
-                                                $rowsPerPage = 10;
-                                                $rowsReturned = sqlsrv_num_rows($stmt);
-                                                if($rowsReturned === false)
-                                                    die(print_r( sqlsrv_errors(), true));
-                                                elseif($rowsReturned == 0)
-                                                {
-                                                    echo "No rows returned.";
-                                                    exit();
-                                                }
-                                                else
-                                                {
-                                                    /* Calculate number of pages. */
-                                                    $numOfPages = ceil($rowsReturned/$rowsPerPage);
-                                                }
-                                                
-                                                /* Echo results to the page */
-                                                $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-                                                $page = getPage($stmt, $pageNum, $rowsPerPage);
-                                                foreach($page as $row)
-                                                {
-                                                    $studentPageLink = "ViewStudent/?studentID=$row[3]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td><a href='$studentPageLink'>Student's Page</a></td><td>$row[4]</td></tr>";
-                                                }
-                                                    
-                                                echo "</tbody></table><br />";
-                                                if($pageNum > 1)
-                                                {
-                                                    $prevPageLink = "?pageNum=".($pageNum - 1);
-                                                    echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
-                                                }
-                                                $num = 1;
-                                                $firstPageLink = "?pageNum=$num";
-                                                print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
-                                                if($numOfPages < 20)
-                                                {
-                                                    for($i = 2; $i <=$numOfPages; $i++)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }   
-                                                }
-                                                elseif($numOfPages < 180)
-                                                {
-                                                    for($i = 10; $i <$numOfPages; $i+= 10)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                else
-                                                {
-                                                    for($i = 30; $i <$numOfPages; $i+= 30)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                // Display Next Page link if applicable.
-                                                if($pageNum < $numOfPages)
-                                                {
-                                                    $nextPageLink = "?pageNum=".($pageNum + 1);
-                                                    echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
-                                                }
-                                                ?>
+FROM Students as S, Country as C, Expressions as E
+WHERE C.[ID] = S.[Citizenship] AND
+S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
+E.[Student_ID] = S.[ID]
+GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
+    $stmt = sqlsrv_query($con, $query, $params, $options);
+    if ( !$stmt )
+        die( print_r( sqlsrv_errors(), true));
+
+    /* Extract Pagination Paramaters */
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 10
+    $rowsReturned = sqlsrv_num_rows($stmt);
+    if($rowsReturned === false)
+        die(print_r( sqlsrv_errors(), true));
+    elseif($rowsReturned == 0)
+    {
+        echo "No rows returned.";
+        exit();
+    }
+    else
+    {
+        /* Calculate number of pages. */
+        $numOfPages = ceil($rowsReturned/$rowsPerPage);
+    }
+
+    /* Echo results to the page */
+    $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+    $page = getPage($stmt, $pageNum, $rowsPerPage);
+    foreach($page as $row)
+    {
+        $studentPageLink = "ViewStudent/?studentID=$row[3]";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td><a href='$studentPageLink'>Student's Page</a></td><td>$row[4]</td></tr>";
+    }
+
+    echo "</tbody></table><br />";
+    pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
+    ?>
                                             
                                     </div>
                                 </div>

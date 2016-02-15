@@ -114,7 +114,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
     /* Extract Pagination Paramaters */
 
-    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 10
 
 
     $rowsReturned = sqlsrv_num_rows($stmt);
