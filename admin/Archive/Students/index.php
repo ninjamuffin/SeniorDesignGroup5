@@ -76,10 +76,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="?pp=10">10</a></li>
-                                            <li><a href="?pp=25">25</a></li>
                                             <li><a href="?pp=50">50</a></li>
                                             <li><a href="?pp=100">100</a></li>
+                                            <li><a href="?pp=200">200</a></li>
+                                            
                                             
                                         </ul>
                                     </div>
@@ -115,7 +115,7 @@ GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
         die( print_r( sqlsrv_errors(), true));
 
     /* Extract Pagination Paramaters */
-    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 10
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 50; // get rows per page, default = 50
     $rowsReturned = sqlsrv_num_rows($stmt);
     if($rowsReturned === false)
         die(print_r( sqlsrv_errors(), true));
