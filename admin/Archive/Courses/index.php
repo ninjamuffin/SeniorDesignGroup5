@@ -66,10 +66,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
-                                    <form method="post" action="" name="PerPage">
+                                    <form method="get" action="">
                                             <fieldset>
-                                                <label for="PerPage">Rows per page:</label>
-                                                <select id="PerPage" name="PerPage">
+                                                <label for="pp">Rows per page:</label>
+                                                <select id="pp" name="pp">
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
                                                     <option value="50">50</option>
@@ -112,17 +112,9 @@ ORDER BY Y.[Year] desc";
                                                     die( print_r( sqlsrv_errors(), true));
                                                 
                                                 /* Extract Pagination Paramaters */
-                                                if(!empty($_POST['PerPage']))
-                                                {
-                                                    //$rowsPerPage = $_POST['PerPage'];
-                                                    //$pageNum = 1;
-                                                    echo "<meta http-equiv='refresh' content='0;?pageNum=1&pp=10' />";
-                                                }
-                                                    
-                                                else
-                                                {
-                                                    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
-                                                }
+                                                
+                                                $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
+                                                
                                                     
                                                 $rowsReturned = sqlsrv_num_rows($stmt);
                                                 if($rowsReturned === false)
