@@ -116,7 +116,7 @@ ORDER BY Y.[Year] desc";
                                                 {
                                                     //$rowsPerPage = $_POST['PerPage'];
                                                     //$pageNum = 1;
-                                                    echo "<meta http-equiv='refresh' content='0;?pageNum=1&pp=$_POST['PerPage']' />";
+                                                    echo "<meta http-equiv='refresh' content='0;?pageNum=1&pp=$_POST["PerPage"]' />";
                                                 }
                                                     
                                                 else
