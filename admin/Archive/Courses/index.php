@@ -72,12 +72,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <select id="PerPage" name="PerPage">
                                                     <?php
         if(!empty($_POST['PerPage']))
-            echo "<option selected ='selected'>$_POST['PerPage']</option>";
+            echo "<option selected ='selected'><?=$_POST['PerPage']?></option>";
         else
             echo "<option selected ='selected'>10</option>";
                                                     ?>
                                                     <option value="10">10</option>
-                                                    <option value="30">30</option>
+                                                    <option value="25">25</option>
                                                     <option value="50">50</option>
                                                     <option value="100">100</option>  
                                                 </select>
