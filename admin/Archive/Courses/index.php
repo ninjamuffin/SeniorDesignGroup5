@@ -66,6 +66,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    <!-- Select Rows Per Page -->
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             Select rows per page
@@ -79,22 +80,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             
                                         </ul>
                                     </div>
-                                    <!--<form method="get" action="">
-                                            <fieldset>
-                                                <label for="pp">Rows per page:</label>
-                                                <select id="pp" name="pp">
-                                                    <option selected="selected"><?=$_GET['pp']?></option>
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>  
-                                                </select>
-                                                <button class="button" type="submit">Submit</button>
-                                            </fieldset>
-                                    </form>-->
-                                    <div class="panel-body">
-                                        
-                                        
+                                    
+                                    <div class="panel-body">                           
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -108,54 +95,54 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </thead>
                                             <tbody>
 
-                                            <?php
-                                                /* Set up and declare query entity */
-                                                $params = array();
-                                                $options = array( "Scrollable" => 'static' );
-                                                $query = "SELECT  CN.[Course #], TC.[Section], A.[Advisor], Y.[Year], S.[Session], TC.[Teachers&ClassesID], TC.[Instructor]
-FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
-WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
-      TC.[Instructor] = A.[ID] AND 
-	  TC.[SessionID] = Ss.[SessionsID] AND
-      TC.[Teachers&ClassesID] in (SELECT [Teachers&ClassesID] from Expressions) AND
-	  Y.[ID] = Ss.[Year_ID] AND
-	  S.[ID] = Ss.[Session_ID]
-ORDER BY Y.[Year] desc";
-                                                $stmt = sqlsrv_query($con, $query, $params, $options);
-                                                if ( !$stmt )
-                                                    die( print_r( sqlsrv_errors(), true));
-                                                
-                                                /* Extract Pagination Paramaters */
-                                                
-                                                $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
-                                                
-                                                    
-                                                $rowsReturned = sqlsrv_num_rows($stmt);
-                                                if($rowsReturned === false)
-                                                    die(print_r( sqlsrv_errors(), true));
-                                                elseif($rowsReturned == 0)
-                                                {
-                                                    echo "No rows returned.";
-                                                    exit();
-                                                }
-                                                else
-                                                {
-                                                    /* Calculate number of pages. */
-                                                    $numOfPages = ceil($rowsReturned/$rowsPerPage);
-                                                }
-                                                
-                                                /* Echo results to the page */
-                                                $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-                                                $page = getPage($stmt, $pageNum, $rowsPerPage);
-                                                foreach($page as $row)
-                                                {
-                                                    $coursePageLink = "ViewCourse/?courseID=$row[5]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
-                                                }
-                                                    
-                                                echo "</tbody></table><br />";
-                                                pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
-                                                ?>
+<?php
+    /* Set up and declare query entity */
+    $params = array();
+    $options = array( "Scrollable" => 'static' );
+    $query = "  SELECT  CN.[Course #], TC.[Section], A.[Advisor], Y.[Year], S.[Session], TC.[Teachers&ClassesID], TC.[Instructor]
+                FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
+                WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
+                TC.[Instructor] = A.[ID] AND 
+                TC.[SessionID] = Ss.[SessionsID] AND
+                TC.[Teachers&ClassesID] in (SELECT [Teachers&ClassesID] from Expressions) AND
+                Y.[ID] = Ss.[Year_ID] AND
+                S.[ID] = Ss.[Session_ID]
+                ORDER BY Y.[Year] desc";
+    $stmt = sqlsrv_query($con, $query, $params, $options);
+    if ( !$stmt )
+        die( print_r( sqlsrv_errors(), true));
+
+    /* Extract Pagination Paramaters */
+
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
+
+
+    $rowsReturned = sqlsrv_num_rows($stmt);
+    if($rowsReturned === false)
+        die(print_r( sqlsrv_errors(), true));
+    elseif($rowsReturned == 0)
+    {
+        echo "No rows returned.";
+        exit();
+    }
+    else
+    {
+        /* Calculate number of pages. */
+        $numOfPages = ceil($rowsReturned/$rowsPerPage);
+    }
+
+    /* Echo results to the page */
+    $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+    $page = getPage($stmt, $pageNum, $rowsPerPage);
+    foreach($page as $row)
+    {
+        $coursePageLink = "ViewCourse/?courseID=$row[5]";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+    }
+
+    echo "</tbody></table><br />";
+    pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
+    ?>
                                             
                                     </div>
                                 </div>

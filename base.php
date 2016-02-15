@@ -1,4 +1,5 @@
 <?php
+include 'pagination.php';
 session_start();
 
 /* DB Connection Information */
