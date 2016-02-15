@@ -71,7 +71,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <label for="PerPage">Rows per page:</label>
                                                 <select id="PerPage" name="PerPage">
                                                     <option value="10">10</option>
-                                                    <option value="30">30</option>
+                                                    <option value="25">25</option>
                                                     <option value="50">50</option>
                                                     <option value="100">100</option>  
                                                 </select>
@@ -113,7 +113,11 @@ ORDER BY Y.[Year] desc";
                                                 
                                                 /* Extract Pagination Paramaters */
                                                 if(!empty($_POST['PerPage']))
+                                                {
                                                     $rowsPerPage = $_POST['PerPage'];
+                                                    $pageNum = 1;
+                                                }
+                                                    
                                                 else
                                                 {
                                                     $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
