@@ -66,27 +66,46 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
-                                    <form method="post" action="" name="PerPage">
-                                            <fieldset>
-                                                <label for="PerPage">Rows per page:</label>
-                                                <select id="PerPage" name="PerPage">
-                                                    <?php
+        <?php                         
         if(!empty($_POST['PerPage']))
-            echo "<option selected ='selected'><?=$_POST['PerPage']?></option>";
+        {
+            ?>
+            <form method="post" action="" name="PerPage">
+                <fieldset>
+                    <label for="PerPage">Rows per page:</label>
+                    <select id="PerPage" name="PerPage">
+                        <option selected='selected'><?=$_POST['PerPage']?></option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>  
+                    </select>
+                    <button class="button" type="submit">Submit</button>
+                </fieldset>
+            </form>
+            <?php
+        }
+           
         else
-            echo "<option selected ='selected'>10</option>";
-                                                    ?>
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>  
-                                                </select>
-                                                <button class="button" type="submit">Submit</button>
-                                            </fieldset>
-                                    </form>
+        {
+            ?>
+            <form method="post" action="" name="PerPage">
+                    <fieldset>
+                        <label for="PerPage">Rows per page:</label>
+                        <select id="PerPage" name="PerPage">
+                            <option selected='selected'>10</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>  
+                        </select>
+                        <button class="button" type="submit">Submit</button>
+                    </fieldset>
+            </form>
+            <?php
+        }
+        ?>                                                                 
                                     <div class="panel-body">
-                                        
-                                        
                                         <table class="table">
                                             <thead>
                                                 <tr>
