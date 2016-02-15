@@ -68,7 +68,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    <div class="panel-heading">Teacher listing (only SmallTalk contributors, listed alphabetically by last name</div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Select rows per page
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="?pp=10">10</a></li>
+                                            <li><a href="?pp=25">25</a></li>
+                                            <li><a href="?pp=50">50</a></li>
+                                            
+                                        </ul>
+                                    </div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
