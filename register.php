@@ -32,9 +32,9 @@
                     $email = $_POST['email'];
                     $role = $_POST['role'];
                     
-                    $login_sql = "SELECT * FROM SiteUsers WHERE username = '".$username."'";
+                    $login_sql = "SELECT * FROM SiteUsers WHERE username = ?";
                     
-                    $params = array();
+                    $params = array($username);
                     $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
                     
                     $checkusername = sqlsrv_query($con, $login_sql, $params, $options);
@@ -46,7 +46,8 @@
                     }
                     else
                     {
-                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, first_name, last_name, email, role, date_added) VALUES('$username', '$password', '$first_name', '$last_name', '$email', '$role', GETDATE())", $params, $options);
+                        $params = array($username, $password, $first_name, $last_name, $email, $role);
+                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, first_name, last_name, email, role, date_added) VALUES(?,?,?,?,?,?, GETDATE())", $params, $options);
                         
                         if($registerquery)
                         {
