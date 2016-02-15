@@ -66,7 +66,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
-                                    <form method="get" action="">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Select rows per page
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="?pp=10">10</a></li>
+                                            <li><a href="?pp=25">25</a></li>
+                                            <li><a href="?pp=50">50</a></li>
+                                            <li><a href="?pp=100">100</a></li>
+                                            
+                                        </ul>
+                                    </div>
+                                    <!--<form method="get" action="">
                                             <fieldset>
                                                 <label for="pp">Rows per page:</label>
                                                 <select id="pp" name="pp">
@@ -78,7 +91,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </select>
                                                 <button class="button" type="submit">Submit</button>
                                             </fieldset>
-                                    </form>
+                                    </form>-->
                                     <div class="panel-body">
                                         
                                         

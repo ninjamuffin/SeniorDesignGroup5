@@ -45,9 +45,9 @@ function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned)
     $frontBound = (($numOfPages - 1) * $rowsPerPage) + 1;
     $endBound = $rowsReturned;
     if($pageNum == $numOfPages)
-        print("<a href=$pageLink>$frontBound-$rowsReturned</a>&nbsp;&nbsp;");
-    else
         print("<strong><a href=$pageLink>$frontBound-$rowsReturned</a></strong>&nbsp;&nbsp;");
+    else
+        print("<a href=$pageLink>$frontBound-$rowsReturned</a>&nbsp;&nbsp;");
     
     // Display Next Page link if applicable.
     if($pageNum < $numOfPages)
