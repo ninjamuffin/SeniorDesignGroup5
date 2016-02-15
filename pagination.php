@@ -28,7 +28,7 @@ function pageLinks($numPages, $pageNum, $rowsPerPage)
     }
     $num = 1;
     $firstPageLink = "?pageNum=$num";
-    print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
+    print("<a href=$firstPageLink>1-($rowsPerPage-1)</a>&nbsp;&nbsp;");
     if($numOfPages < 20)
     {
         for($i = 2; $i <=$numOfPages; $i++)
