@@ -32,9 +32,9 @@
                     $email = $_POST['email'];
                     $new_password = md5($_POST['new_password'] + $salt);
                     
-                    $login_sql = "SELECT * FROM SiteUsers WHERE username = '".$username."'";
+                    $login_sql = "SELECT * FROM SiteUsers WHERE username = ?";
                     
-                    $params = array();
+                    $params = array($username);
                     $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
                     
                     $checkusername = sqlsrv_query($con, $login_sql, $params, $options);
@@ -53,7 +53,8 @@
                         }
                         else
                         {
-                         $changepassquery = sqlsrv_query($con, "UPDATE SiteUsers SET password = '$new_password' WHERE username = '$username' AND password = '$password'", $params, $options);
+                         $params = array($new_password, $username, $password);
+                         $changepassquery = sqlsrv_query($con, "UPDATE SiteUsers SET password = ? WHERE username = ? AND password = ?", $params, $options);
                         
                             if($changepassquery)
                             {

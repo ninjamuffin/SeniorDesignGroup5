@@ -68,9 +68,9 @@
         // let the user login //mssql_escape may cause problems with md5()
         $username = $_POST['username'];
         $password = md5($_POST['password'] + $salt);
-        $loginquery = "SELECT * FROM SiteUsers WHERE username = '". $username."' AND password = '". $password."'";
+        $loginquery = "SELECT * FROM SiteUsers WHERE username = ? AND password = ?";
         
-        $params = array();
+        $params = array($username, $password);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         
         $checklogin = sqlsrv_query($con, $loginquery, $params, $options);
