@@ -84,9 +84,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <td>Course Number</td>
+                                                    <td>Course</td>
                                                     <td>Section</td>
-                                                    <td>Instructor Last Name</td>
+                                                    <td>Instructor</td>
                                                     <td>Year</td>
                                                     <td>Session</td>
                                                     <td>Course Page</td>
@@ -98,7 +98,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 /* Set up and declare query entity */
                                                 $params = array();
                                                 $options = array( "Scrollable" => 'static' );
-                                                $query = "SELECT  CN.[Course #], TC.[Section], A.[Advisor], Y.[Year], S.[Session], TC.[Teachers&ClassesID]
+                                                $query = "SELECT  CN.[Course #], TC.[Section], A.[Advisor], Y.[Year], S.[Session], TC.[Teachers&ClassesID], TC.[Instructor]
 FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
       TC.[Instructor] = A.[ID] AND 
@@ -128,7 +128,6 @@ ORDER BY Y.[Year] desc";
                                                 {
                                                     /* Calculate number of pages. */
                                                     $numOfPages = ceil($rowsReturned/$rowsPerPage);
-                                                    echo "$numOfPages";
                                                 }
                                                 
                                                 /* Echo results to the page */
@@ -141,38 +140,7 @@ ORDER BY Y.[Year] desc";
                                                 }
                                                     
                                                 echo "</tbody></table><br />";
-                                                if($pageNum > 1)
-                                                {
-                                                    $prevPageLink = "?pageNum=".($pageNum - 1);
-                                                    echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
-                                                }
-                                                $num = 1;
-                                                $firstPageLink = "?pageNum=$num";
-                                                print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
-                                                if($numOfPages < 20)
-                                                {
-                                                    for($i = 2; $i <=$numOfPages; $i++)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }   
-                                                }
-                                                else
-                                                {
-                                                    for($i = 10; $i <$numOfPages; $i+= 10)
-                                                    {
-                                                        $pageLink = "?pageNum=$i";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                // Display Next Page link if applicable.
-                                                if($pageNum < $numOfPages)
-                                                {
-                                                    $nextPageLink = "?pageNum=".($pageNum + 1);
-                                                    echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
-                                                }
+                                                pageLinks($numPages, $pageNum, $PerPage);
                                                 ?>
                                             
                                     </div>

@@ -18,3 +18,40 @@ function getPage($stmt, $pageNum, $rowsPerPage)
     return $rows;
     
 }
+
+function pageLinks($numPages, $pageNum, $rowsPerPage)
+{
+    if($pageNum > 1)
+    {
+        $prevPageLink = "?pageNum=".($pageNum - 1);
+        echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
+    }
+    $num = 1;
+    $firstPageLink = "?pageNum=$num";
+    print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
+    if($numOfPages < 20)
+    {
+        for($i = 2; $i <=$numOfPages; $i++)
+        {
+            $pageLink = "?pageNum=$i";
+            print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
+        }   
+    }
+    else
+    {
+        for($i = 10; $i <$numOfPages; $i+= 10)
+        {
+            $pageLink = "?pageNum=$i";
+            print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
+        }
+        $pageLink = "?pageNum=$numOfPages";
+        print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
+    }
+    // Display Next Page link if applicable.
+    if($pageNum < $numOfPages)
+    {
+        $nextPageLink = "?pageNum=".($pageNum + 1);
+        echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
+    }
+    
+}

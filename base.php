@@ -1,8 +1,7 @@
 <?php
-include 'pagination.php';
 session_start();
 
-
+/* DB Connection Information */
 $dbhost = "o0tvd0xlpb.database.windows.net,1433";
 $dbname = "SmalltalkMigrate2.0";
 $dbuser = "CS05";
@@ -13,12 +12,13 @@ $salt = "Th4nkY0uF0rR3g1st3r1ng!!";
 $con = sqlsrv_connect($dbhost, $connectionInfo); if(!$con) {
     die(print_r(sqlsrv_errors(), true));
 }
-
 function mssql_escape($data) {
     if(is_numeric($data))
         return $data;
     $unpacked = unpack('H*hex', $data);
     return '0x' . $unpacked['hex'];
 }
+
+
 
 ?>
