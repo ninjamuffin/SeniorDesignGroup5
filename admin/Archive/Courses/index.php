@@ -66,46 +66,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
-        <?php                         
-        if(!empty($_POST['PerPage']))
-        {
-            ?>
-            <form method="post" action="" name="PerPage">
-                <fieldset>
-                    <label for="PerPage">Rows per page:</label>
-                    <select id="PerPage" name="PerPage">
-                        <option selected='selected'><?=$_POST['PerPage']?></option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>  
-                    </select>
-                    <button class="button" type="submit">Submit</button>
-                </fieldset>
-            </form>
-            <?php
-        }
-           
-        else
-        {
-            ?>
-            <form method="post" action="" name="PerPage">
-                    <fieldset>
-                        <label for="PerPage">Rows per page:</label>
-                        <select id="PerPage" name="PerPage">
-                            <option selected='selected'>10</option>
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>  
-                        </select>
-                        <button class="button" type="submit">Submit</button>
-                    </fieldset>
-            </form>
-            <?php
-        }
-        ?>                                                                 
+                                    <form method="post" action="" name="PerPage">
+                                            <fieldset>
+                                                <label for="PerPage">Rows per page:</label>
+                                                <select id="PerPage" name="PerPage">
+                                                    <option value="10">10</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>  
+                                                </select>
+                                                <button class="button" type="submit">Submit</button>
+                                            </fieldset>
+                                    </form>
                                     <div class="panel-body">
+                                        
+                                        
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -140,7 +115,10 @@ ORDER BY Y.[Year] desc";
                                                 if(!empty($_POST['PerPage']))
                                                     $rowsPerPage = $_POST['PerPage'];
                                                 else
-                                                    $rowsPerPage = 10;
+                                                {
+                                                    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
+                                                }
+                                                    
                                                 $rowsReturned = sqlsrv_num_rows($stmt);
                                                 if($rowsReturned === false)
                                                     die(print_r( sqlsrv_errors(), true));
