@@ -68,8 +68,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
                                     <form method="post" action="" name="PerPage">
                                             <fieldset>
-                                                <label for="PerPage">Display rows per page:</label>
+                                                <label for="PerPage">Rows per page:</label>
                                                 <select id="PerPage" name="PerPage">
+                                                    <?php
+        if(!empty($_POST['PerPage']))
+            echo "<option selected ='selected'>$_POST['PerPage']</option>";
+        else
+            echo "<option selected ='selected'>10</option>";
+                                                    ?>
                                                     <option value="10">10</option>
                                                     <option value="30">30</option>
                                                     <option value="50">50</option>
