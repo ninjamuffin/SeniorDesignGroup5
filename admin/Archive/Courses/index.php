@@ -140,7 +140,7 @@ ORDER BY Y.[Year] desc";
                                                 }
                                                     
                                                 echo "</tbody></table><br />";
-                                                pageLinks($numPages, $pageNum, $PerPage);
+                                                pageLinks($numPages, $pageNum, $rowsPerPage);
                                                 ?>
                                             
                                     </div>
