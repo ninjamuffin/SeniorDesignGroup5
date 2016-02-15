@@ -34,14 +34,20 @@ function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned)
         $endBound = ($j + 1) * $rowsPerPage;
         $linkedPageNum = $j + 1;
         $pageLink = "?pageNum=$linkedPageNum&pp=$rowsPerPage";
-        print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
+        if ( ($j + 1) == $pageNum)
+            print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
+        else
+            print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
     }
     
     /* Print Last Page Link (endpoint = last row) */
     $pageLink = "?pageNum=$numOfPages&pp=$rowsPerPage";
     $frontBound = (($numOfPages - 1) * $rowsPerPage) + 1;
     $endBound = $rowsReturned;
-    print("<strong><a href=$pageLink>$frontBound-$rowsReturned</a></strong>&nbsp;&nbsp;");
+    if($pageNum == $numOfPages)
+        print("<a href=$pageLink>$frontBound-$rowsReturned</a>&nbsp;&nbsp;");
+    else
+        print("<strong><a href=$pageLink>$frontBound-$rowsReturned</a></strong>&nbsp;&nbsp;");
     
     // Display Next Page link if applicable.
     if($pageNum < $numOfPages)
