@@ -51,12 +51,13 @@ class Pagination
             {
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
             }
+            
             elseif( (($j + 1) < $modulator ) || (abs($j + 1 - $pageNum) < $modulator) || (abs($j + 1 - $numPages) < $modulator) || ( ($j + 1) == floor($numOfPages/2)))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
             
             
             
-            if( (($j + 1) > ($modulator - 1) && (!($firstDivider)))
+            if( (($j + 1) > ($modulator - 1)) && (!($firstDivider)))
             {
                 if ($pageNum > (2 * $modulator))
                 {
