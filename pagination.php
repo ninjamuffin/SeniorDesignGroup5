@@ -2,21 +2,14 @@
 
 class Pagination
 {
-    function __construct() {
-        // Constructor activity...
-    }
-    private function getDistance($n, $m)
-    {
-        return abs($n - $m);
-    }
     
     private function pageInRange($num, $selectedPage, $numPages)
     {
         if ( ($num > 0) && ($num < 5) )
             return true;
-        if ( (($num - $selectedPage)) < 5 )
+        if ( (abs($num - $selectedPage)) < 5 )
             return true;
-        if ( (($numPages - $selectedPage)) < 5)
+        if ( (abs($numPages - $selectedPage)) < 5)
             return true;
         return false; 
     }
@@ -52,12 +45,11 @@ class Pagination
             $endBound = ($j + 1) * $rowsPerPage;
             $linkedPageNum = $j + 1;
             $pageLink = "?pageNum=$linkedPageNum&pp=$rowsPerPage";
-            $inRange = $this->pageInRange( ($j + 1), $pageNum, $numOfPages);
             if ( ($j + 1) == $pageNum)
             {
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
             }
-            elseif($inRange)
+            elseif( (($j + 1) < 5 ) || (abs($j + 1 - $pageNum) < 5) || (abs($pageNum - $numPages) < 5))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
 
         }
