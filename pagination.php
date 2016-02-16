@@ -36,7 +36,7 @@ class Pagination
             $pageLink = "?pageNum=$linkedPageNum&pp=$rowsPerPage";
             if ( ($j + 1) == $pageNum)
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
-            elseif(pageInRange($j + 1, $pageNum, $numOfPages)
+            elseif(pageInRange($j + 1, $pageNum, $numOfPages))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
 
         }
@@ -72,7 +72,7 @@ class Pagination
             return true;
         if ( getDistance($num, $selectedPage) < 5)
             return true;
-        return false;
+        return false; 
     }
     
 }
