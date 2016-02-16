@@ -9,8 +9,8 @@ class Pagination
     
     private function pageInRange($num, $selectedPage, $numPages)
     {
-        if ( $num > 0 && $num < 5 )
-            return (true);
+        if ( ($num > 0) && ($num < 5) )
+            return true;
         if ( getDistance($num, $numPages) < 5 )
             return true;
         if ( getDistance($num, $selectedPage) < 5)
