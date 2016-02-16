@@ -49,11 +49,10 @@ class Pagination
             {
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
             }
-            elseif( (($j + 1) < 5 ) || (abs($j + 1 - $pageNum) < 5) || (abs($pageNum - $numPages) < 5))
+            elseif( (($j + 1) < 5 ) || (abs($j + 1 - $pageNum) < 5) || (abs($j + 1 - $numPages) < 5))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
 
         }
-        print("<p> Helloooo </p>");
 
         /* Print Last Page Link (endpoint = last row) */
         $pageLink = "?pageNum=$numOfPages&pp=$rowsPerPage";
