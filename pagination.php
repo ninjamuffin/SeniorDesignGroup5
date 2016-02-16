@@ -53,7 +53,7 @@ class Pagination
             {
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
             }
-            else//if(pageInRange( ($j + 1), $pageNum, $numOfPages))
+            elseif($this->pageInRange( ($j + 1), $pageNum, $numOfPages))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
 
         }
