@@ -34,6 +34,8 @@ class Pagination
     {
         if($numOfPages <= 1)
             return;
+        $firstDivider = false;
+        $lastDivider = false;
         if($pageNum > 1)
         {
             $prevPageLink = "?pageNum=".($pageNum - 1)."&pp=$rowsPerPage";
@@ -51,6 +53,22 @@ class Pagination
             }
             elseif( (($j + 1) < 5 ) || (abs($j + 1 - $pageNum) < 5) || (abs($j + 1 - $numPages) < 5))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
+            elseif(!($firstDivider))
+            {
+                if ($pageNum > 10)
+                {
+                    print("...");
+                    $firstDivider = true;
+                }
+            }
+            elseif(!($lastDivider))
+            {
+                if ( ($numOfPages - $pageNum) > 10)
+                {
+                    print("...");
+                    $lastDivider = true;
+                }
+            }
 
         }
 
