@@ -10,7 +10,7 @@ class Pagination
     private function pageInRange($num, $selectedPage, $numPages)
     {
         if ( $num > 0 && $num < 5 )
-            return true;
+            return (true);
         if ( getDistance($num, $numPages) < 5 )
             return true;
         if ( getDistance($num, $selectedPage) < 5)
@@ -54,7 +54,7 @@ class Pagination
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
                 print("<p>Hello World </p>");
             }
-            elseif(pageInRange($j + 1, $pageNum, $numOfPages))
+            elseif(pageInRange( ($j + 1), $pageNum, $numOfPages))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
 
         }
