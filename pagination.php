@@ -2,6 +2,9 @@
 
 class Pagination
 {
+    function __construct() {
+        // Constructor activity...
+    }
     private function getDistance($n, $m)
     {
         return abs($n - $m);
