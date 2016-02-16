@@ -133,7 +133,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
     /* Echo results to the page */
     $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-    $page = getPage($stmt, $pageNum, $rowsPerPage);
+    $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
         $coursePageLink = "ViewCourse/?courseID=$row[5]";
@@ -141,7 +141,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
 
     echo "</tbody></table><br />";
-    pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
+    Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
     ?>
                                             
                                     </div>
