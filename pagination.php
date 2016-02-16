@@ -11,9 +11,9 @@ class Pagination
     {
         if ( ($num > 0) && ($num < 5) )
             return true;
-        if ( (abs($num - $selectedPage)) < 5 )
+        if ( (($num - $selectedPage)) < 5 )
             return true;
-        if ( (abs($numPages - $selectedPage)) < 5)
+        if ( (($numPages - $selectedPage)) < 5)
             return true;
         return false; 
     }
