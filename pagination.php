@@ -67,7 +67,7 @@ class Pagination
             }
             if( (($j + 1) > $numOfPages - ($modulator - 1)) && (!($lastDivider)))
             {
-                if ( ($numOfPages - $pageNum) >  ($modulator * 2))
+                if ( ($numOfPages - $pageNum) > ($modulator * 2))
                 {
                     print("...&nbsp;&nbsp;");
                     $lastDivider = true;
