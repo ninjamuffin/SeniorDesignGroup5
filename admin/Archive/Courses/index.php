@@ -66,7 +66,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Search for a course</div>
                                     <div class="panel-body">
-                                        
+                                        <form method="POST" action="Search/" name="SubmitCourseSearch">
+                                            <fieldset>
+                                                <select>
+                                                    <option selected="selected"></option>
+                                                    <option value=""</option>
+                                                </select>
+                                            </fieldset>
+                                        </form> 
                                     </div>
                                 
                                 </div>
