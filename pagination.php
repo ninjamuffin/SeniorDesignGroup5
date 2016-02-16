@@ -36,8 +36,9 @@ function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned)
         $pageLink = "?pageNum=$linkedPageNum&pp=$rowsPerPage";
         if ( ($j + 1) == $pageNum)
             print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
-        else
+        elseif( ( ($j + 1 - $pageNum) > -5) && ($j + 1 - $pageNum) < 5)
             print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
+            
     }
     
     /* Print Last Page Link (endpoint = last row) */
