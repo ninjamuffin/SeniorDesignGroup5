@@ -53,7 +53,7 @@ class Pagination
             }
             elseif( (($j + 1) < 5 ) || (abs($j + 1 - $pageNum) < 5) || (abs($j + 1 - $numPages) < 5))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
-            if( (($j + 1) > 10) && (!($firstDivider)))
+            if( (($j + 1) > 4) && (!($firstDivider)))
             {
                 if ($pageNum > 10)
                 {
@@ -61,7 +61,7 @@ class Pagination
                     $firstDivider = true;
                 }
             }
-            if( (($j + 1) > $numOfPages - 10) && (!($lastDivider)))
+            if( (($j + 1) > $numOfPages - 4) && (!($lastDivider)))
             {
                 if ( ($numOfPages - $pageNum) > 10)
                 {
