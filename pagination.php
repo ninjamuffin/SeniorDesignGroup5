@@ -57,15 +57,15 @@ class Pagination
             {
                 if ($pageNum > 10)
                 {
-                    print("...");
+                    print("...&nbsp;&nbsp;");
                     $firstDivider = true;
                 }
             }
-            elseif( ($numOfPages - ($j + 1) > 10) && (!($lastDivider)))
+            if( (($j + 1) > $numOfPages - 10) && (!($lastDivider)))
             {
                 if ( ($numOfPages - $pageNum) > 10)
                 {
-                    print("...");
+                    print("...&nbsp;&nbsp;");
                     $lastDivider = true;
                 }
             }
