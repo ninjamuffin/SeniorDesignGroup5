@@ -49,11 +49,12 @@ class Pagination
             $endBound = ($j + 1) * $rowsPerPage;
             $linkedPageNum = $j + 1;
             $pageLink = "?pageNum=$linkedPageNum&pp=$rowsPerPage";
+            $inRange = $this->pageInRange( ($j + 1), $pageNum, $numOfPages);
             if ( ($j + 1) == $pageNum)
             {
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
             }
-            elseif($this->pageInRange( ($j + 1), $pageNum, $numOfPages))
+            elseif($inRange)
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
 
         }
