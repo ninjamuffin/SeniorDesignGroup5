@@ -50,7 +50,10 @@ class Pagination
             $linkedPageNum = $j + 1;
             $pageLink = "?pageNum=$linkedPageNum&pp=$rowsPerPage";
             if ( ($j + 1) == $pageNum)
+            {
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
+                print("<p>Hello World </p>");
+            }
             elseif(pageInRange($j + 1, $pageNum, $numOfPages))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
 
