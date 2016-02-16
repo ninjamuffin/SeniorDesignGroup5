@@ -59,7 +59,7 @@ class Pagination
             
             if( (($j + 1) > ($modulator - 1)) && (!($firstDivider)))
             {
-                if ($pageNum > (2 * $modulator - 2))
+                if ($pageNum > (2 * $modulator - 1))
                 {
                     print("...&nbsp;&nbsp;");
                     $firstDivider = true;
