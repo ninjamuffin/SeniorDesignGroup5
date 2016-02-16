@@ -141,7 +141,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
 
     echo "</tbody></table><br />";
-    Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
+        $modulator = 5;
+    Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                             
                                     </div>

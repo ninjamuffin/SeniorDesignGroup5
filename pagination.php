@@ -30,7 +30,7 @@ class Pagination
         return $rows;
     }
     
-    public static function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned)
+    public static function pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator)
     {
         if($numOfPages <= 1)
             return;
@@ -51,19 +51,22 @@ class Pagination
             {
                 print("<strong><a href=$pageLink>$frontBound-$endBound</a></strong>&nbsp;&nbsp;");
             }
-            elseif( (($j + 1) < 5 ) || (abs($j + 1 - $pageNum) < 5) || (abs($j + 1 - $numPages) < 5))
+            elseif( (($j + 1) < $modulator ) || (abs($j + 1 - $pageNum) < modulator) || (abs($j + 1 - $numPages) < $modulator) || ( ($j + 1) == floor($numOfPages/2)))
                 print("<a href=$pageLink>$frontBound-$endBound</a>&nbsp;&nbsp;");
-            if( (($j + 1) > 4) && (!($firstDivider)))
+            
+            
+            
+            if( (($j + 1) > ($modulator - 1) && (!($firstDivider)))
             {
-                if ($pageNum > 10)
+                if ($pageNum > (2 * $modulator))
                 {
                     print("...&nbsp;&nbsp;");
                     $firstDivider = true;
                 }
             }
-            if( (($j + 1) > $numOfPages - 4) && (!($lastDivider)))
+            if( (($j + 1) > $numOfPages - ($modulator - 1)) && (!($lastDivider)))
             {
-                if ( ($numOfPages - $pageNum) > 10)
+                if ( ($numOfPages - $pageNum) >  ($modulator * 2))
                 {
                     print("...&nbsp;&nbsp;");
                     $lastDivider = true;
