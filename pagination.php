@@ -2,6 +2,21 @@
 
 class Pagination
 {
+    private function getDistance($n, $m)
+    {
+        return abs($n - $m);
+    }
+    
+    private function pageInRange($num, $selectedPage, $numPages)
+    {
+        if ( $num > 0 && $num < 5 )
+            return true;
+        if ( getDistance($num, $numPages) < 5 )
+            return true;
+        if ( getDistance($num, $selectedPage) < 5)
+            return true;
+        return false; 
+    }
     public static function getPage($stmt, $pageNum, $rowsPerPage)
     {
         $offset = ($pageNum - 1) * $rowsPerPage;
@@ -59,20 +74,7 @@ class Pagination
 
     }
     
-    private function getDistance($n, $m)
-    {
-        return abs($n - $m);
-    }
     
-    private function pageInRange($num, $selectedPage, $numPages)
-    {
-        if ( $num > 0 && $num < 5 )
-            return true;
-        if ( getDistance($num, $numPages) < 5 )
-            return true;
-        if ( getDistance($num, $selectedPage) < 5)
-            return true;
-        return false; 
-    }
+    
     
 }
