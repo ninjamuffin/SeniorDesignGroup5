@@ -11,6 +11,7 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/SidebarPractice.css" rel="stylesheet">
 
 
     <!-- Including Header -->
@@ -58,6 +59,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
+                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                                </button>
                                 <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
                                 <p>Documentation:</p>
                                 <p>Page provides admin user home.  Eventual content will be a site activity queue, listing all teacher/student actions in chronological order.  Will eventually handle requests for corpus changes from teacher members</p>
@@ -74,6 +80,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
+            <script src="/js/SidebarPractice.js"></script>
             <script>
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
