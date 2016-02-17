@@ -1,4 +1,4 @@
-<?php include '../../base.php' ?>
+<?php include '../../base.php'; ?>
 
 <html>
 <head>
