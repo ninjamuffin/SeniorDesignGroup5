@@ -1,6 +1,6 @@
 <!-- Edit Worksheet (index.php) for Teacher account -->
 
-<?php include "../../../../base.php"; ?>
+<?php include "../../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,8 +63,30 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h1>Course Title: Edit Worksheet #</h1>
-                            <p>Editing window (of worksheet) for teacher user.  Will provide ability to change the contents of a worksheet.  TBD if there will be an additional window for editing feedback...probably, though</p> 
+                            <h1>Course Title: Edit Worksheet #_</h1>
+                            <div class="panel panel-primary">
+                                <button class="btn btn-default" type="button" id="PublishWorksheet"><a href="#">Publish</a></button>
+                                <div class="panel-heading">Display Worksheet Information</div>
+                                <div class="panel-body">
+                                    <p>Topic, level, date</p>
+                                </div> 
+                            </div>
+    <?php
+        for ($i = 1; $i <= 10; $i++)
+        {
+    ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Expression <?=$i?></div>
+                                <div class="panel-body">
+                                    <p>Display sentence number, Display student, Text Display[Expression], Text Entry/Text Display{Enter Context/Vocab}, Checkbox[Starred], Update button</p>
+                                    <p>On update, print "Expression updated</p>
+                                </div>
+                            </div>
+    <?php              
+        }
+    ?>
+                            
+                             
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

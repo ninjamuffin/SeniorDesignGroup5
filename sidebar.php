@@ -61,7 +61,7 @@
                             <a href="/Teacher/Home/">Home</a>
                         </li>
                         <li class="sidebar-brand">
-                            <a href="/Teacher/MyCourses/">My Courses</a>
+                            <a href="/Teacher/MyInstitutions/">My Institutions</a>
                         </li>
                         <li class="sidebar-brand">
                             <a href="/corpus/">Corpus</a>

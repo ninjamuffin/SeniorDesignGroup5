@@ -1,6 +1,6 @@
 <!-- Course view (index.php) for Teacher account -->
 
-<?php include "../../../base.php"; ?>
+<?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,8 +63,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h1>Insert Course Title</h1>
-                            <p>Course home view for teacher.  Will list worksheets (links), students (links), a create worksheet page, an edit worksheet (will include an option to publish worksheet), and a view worksheet option (for reviewing student submissions...tbd)</p>
+                            <h1>Course Title</h1>
+                            
+                            <!-- Worksheet Listing -->
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Worksheets</div>
+                                <button class="btn btn-default" type="button" id="CreateWorksheet"><a href="CreateWorksheet/">Create Worksheet</a></button>
+                                <div class="panel-body">
+                                    <p>Will iterate through worksheets, providing a viewing link (to review submissions), an edit button, a 'publish' button, the worksheet status "in progress/published", and date created. </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Student listing -->
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Students</div>
+                                <div class="panel-body">
+                                    <p>Will iterate through students, giving brief summary stats (worksheets completed, incomplete worksheets, etc), a link to each students profile, and an option to search that student in the archive</p>
+                                </div>
+                            </div>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

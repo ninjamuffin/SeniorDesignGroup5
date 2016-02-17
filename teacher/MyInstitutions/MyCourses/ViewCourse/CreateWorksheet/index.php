@@ -1,6 +1,6 @@
 <!-- Create Worksheet (index.php) for Teacher account -->
 
-<?php include "../../../../base.php"; ?>
+<?php include "../../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +64,28 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
                             <h1>Course Title: Create Worksheet #</h1>
-                            <p>For a teacher, and for a given course, will provide a window for creating a new worksheet.  Two options will be available, using buttons, for the entry of this data: by hand (entering each expression into a table) and by file (.txt, .xml, or excel doc)</p>  
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Enter Worksheet Information</div>
+                                <div class="panel-body">
+                                    <p>Enter <strong>topic</strong>, enter <strong>date</strong>, verify <strong>level</strong> (extracted from course number)</p>
+                                </div> 
+                            </div>
+    <?php
+        for ($i = 1; $i <= 10; $i++)
+        {
+    ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Expression <?=$i?></div>
+                                <div class="panel-body">
+                                    <p>Sentence number, Dropdown{Select Student}, Text Entry{Enter Expression}, Text Entry{Enter Context/Vocab}, Submit</p>
+                                    <p>On submit: disable submit, print "Submitted"</p>
+                                </div>
+                            </div>
+    <?php              
+        }
+    ?>
+                            
+                             
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

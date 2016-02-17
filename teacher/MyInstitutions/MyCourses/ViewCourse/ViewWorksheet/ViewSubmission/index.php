@@ -1,6 +1,6 @@
-<!-- Courses Home (index.php) for Teacher account -->
+<!-- View Submission (index.php) for Teacher account -->
 
-<?php include "../../base.php"; ?>
+<?php include "../../../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,26 +63,31 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
+                            <h1>Course Title: Edit Worksheet #_</h1>
                             <div class="panel panel-primary">
-                                <div class="panel-heading">My Institutions</div>
+                                <button class="btn btn-default" type="button" id="PublishWorksheet"><a href="#">Publish</a></button>
+                                <div class="panel-heading">Submission Information</div>
                                 <div class="panel-body">
-                                    <u1 class="list-group">
-        <?php
-        $params = array();
-        $options = array( "Scrollable" => 'static' );
-        $query = ""; // Query will retrieve, based on teacher ID (associated with user account), a list of institution names from institution table, for all institution IDs that appear with matched Expressions->TCs->[Instructor]
-        ?>
-        
-                                        <li class="list-group-item"><a href="MyCourses/">Gonzaga</a></li>
-                                        <li class="list-group-item"><a href="MyCourses/">Other</a></li>
-                                        <li class="list-group-item"><a href="MyCourses/">Other</a></li>
-                                        <li class="list-group-item"><a href="MyCourses/">Other</a></li>
-                                        <!-- Instituion selected is passed through GET method -->
-                                    </u1>
-                                    
+                                    <p>Student name, date of submission</p>
+                                </div> 
+                            </div>
+    <?php
+        for ($i = 1; $i <= 10; $i++) // from i = 1 to number of expressions submitted (all starred, all of own authorship)
+        {
+    ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Expression <?=$i?></div>
+                                <div class="panel-body">
+                                    <p>Display sentence number, Text Display[Original Expression], Text Display[Enter Context/Vocab]</p>
+                                    <p>Text Display[Student], Text Display[Submitted text]</p>
                                     
                                 </div>
                             </div>
+    <?php              
+        }
+    ?>
+                            
+                             
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

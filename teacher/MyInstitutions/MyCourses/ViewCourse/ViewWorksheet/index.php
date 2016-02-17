@@ -63,8 +63,35 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h1>Course Title: View Worksheet #</h1>
-                            <p>Provides Teacher with a window for viewing a posted worksheet.  Once submissions are available from students, there will be a list of links to open the EditWorksheet page, which will allow the teacher to enter feedback.  Optionally, this page will link to a feedback page, rather than editing and feedback being  on the same page</p>  
+                            <h1>Course Title: Edit Worksheet #_</h1>
+                            
+                            <!-- Worksheet Info -->
+                            <div class="panel panel-primary col-lg-4">
+                                <div class="panel-heading">Worksheet Information</div>
+                                <div class="panel-body">
+                                    <p>Topic, level, date</p>
+                                </div> 
+                            </div>
+                            
+                            <!-- Worksheet contents -->
+                            <div class="panel panel-primary col-lg-12">
+                                <div class="panel-heading">Display Original worksheet expressions</div>
+                                <div class="panel-body">
+                                    <p>Sentence number, student, expression, context/vocab</p>
+                                </div> 
+                            </div>
+                            
+                            <!-- Student submissions -->
+                            <div class="panel panel-primary col-lg-12">
+                                <div class="panel-heading">Submissions</div>
+                                <div class="panel-body">
+                                    <p>Student(link), date, view submission(link)</p>
+                                </div> 
+                            </div>
+                            
+                            
+    
+                              
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>
