@@ -13,10 +13,11 @@ include "../../../../base.php";
     <!-- Bootstrap -->
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-
+    <link href="/css/SidebarPractice.css" rel="stylesheet">
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
             $("#header").load("/header.php");
@@ -65,6 +66,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
+                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                                </button>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Teacher Information</div>
                                     <div class="panel-body">
