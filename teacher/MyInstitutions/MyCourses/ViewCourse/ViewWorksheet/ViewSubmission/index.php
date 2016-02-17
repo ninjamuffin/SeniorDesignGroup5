@@ -63,9 +63,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-12">
                             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h1>Course Title: Edit Worksheet #_</h1>
                             <div class="panel panel-primary">
-                                <button class="btn btn-default" type="button" id="PublishWorksheet"><a href="#">Publish</a></button>
                                 <div class="panel-heading">Submission Information</div>
                                 <div class="panel-body">
                                     <p>Student name, date of submission</p>
