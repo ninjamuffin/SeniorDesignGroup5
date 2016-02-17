@@ -1,5 +1,5 @@
 <?php include '../../base.php'; ?>
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
