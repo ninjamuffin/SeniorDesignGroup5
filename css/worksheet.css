@@ -3731,7 +3731,6 @@ tbody.collapse.in {
   position: relative;
   display: table;
   border-collapse: separate;
-    
 }
 .input-group[class*="col-"] {
   float: none;
@@ -6591,4 +6590,37 @@ button.close {
     display: none !important;
   }
 }
+.nested-group input:focus {
+    box-shadow: none;
+}
+
+.nested-group input:first-child {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.nested-group input {
+    margin-left: -5px;
+    border-radius: 0px;
+}
+
+.nested-group  button {
+    margin-left: -5px;
+    border-left: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
 /*# sourceMappingURL=bootstrap.css.map */
+

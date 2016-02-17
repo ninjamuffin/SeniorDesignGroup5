@@ -13,6 +13,7 @@
 .input-group-btn .btn-group {
     display: flex !important; 
 }
+                         
 .btn-group .btn {
     border-radius: 1;
     margin-left: -1px;
@@ -102,6 +103,7 @@
                             
     <div class="container">
     <label for="contain">Word Search</label>
+        <div class = "word filter">
         <div class="row">
             <div class="col-md-12">
                 <div class="input-group" id="adv-search">
@@ -156,22 +158,31 @@
                                         <label for="contain">Topic</label>
                                         <input class="form-control" type="text">
                                       </div>
-                                      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                     </form>
                                 </div>
                             </div>
-                    <!--        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
                         </div>
                     </div>
                 </div>
               </div>
             </div>
+        <!-- THIS WILL ADD EXTRA SEARCH FIELDS -->
+        <button onclick="extraWord()">Search Additional Word</button>
+            </div>
+        <!-- THIS WILL SEARCH THE WHOLE FIELD -->
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+
         </div>
+                                
+
+                                      
+                                
 
 
 
-
-
+<script>
+function extraWord(){
+        var x = document.createElement
 <div class="container">
     <label for="contain">Additional Word</label>
     <div class="row">
@@ -232,227 +243,83 @@
                                     </form>
                                 </div>
                             </div>
-                    <!--        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
                         </div>
                     </div>
                 </div>
               </div>
             </div>
         </div>
-
-
-<!--                                
-<div class="container">
-    <label for="contain">Additional Word</label>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for a word" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="filter">Part of Speech</label>
-                                    <select class="form-control">
-                                        <option value="profileID">Verbs</option>
-                                        <option value="profileID">Nouns</option>
-                                        <option value="profileID">Pronouns</option>
-                                        <option value="profileID">Adverbs</option>
-                                        <option value="profileID">Adjectives</option>
-                                        <option value="profileID">Prepostions</option>
-                                        <option value="profileID">conjunctions</option>
-                                        <option value="profileID">Interjections</option>
-                                      </select>
-                                    </select>
-                                  </div>
-                                  
-                                  <div class="onoffswitch">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                                    <label class="onoffswitch-label" for="myonoffswitch">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="filter">Level</label>
-                                    <select class="form-control">
-                                        <option value="profileID">1</option>
-                                        <option value="profileID">2</option>
-                                        <option value="profileID">3</option>
-                                        <option value="profileID">4</option>
-                                        <option value="profileID">5</option>
-                                        <option value="profileID">6</option>
-                                        <option value="profileID">7</option>
-                                        <option value="profileID">8</option>
-                                      </select>
-                                    </select>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Language</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Topic</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </form>
+document.body.appendChild(x);
+    }
+</script>
+<!--
+        <div class = "word filter">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group" id="adv-search">
+                    <input type="text" class="form-control" placeholder="Search for a word">
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <form class="form-horizontal" role="form">
+                                      <div class="form-group">
+                                        <label for="filter">Part of Speech</label>
+                                        <select class="form-control">
+                                            <option value="profileID">Verbs</option>
+                                            <option value="profileID">Nouns</option>
+                                            <option value="profileID">Pronouns</option>
+                                            <option value="profileID">Adverbs</option>
+                                            <option value="profileID">Adjectives</option>
+                                            <option value="profileID">Prepostions</option>
+                                            <option value="profileID">conjunctions</option>
+                                            <option value="profileID">Interjections</option>
+                                          </select>
+                                        
+                                      </div>
+                                      <div class="onoffswitch">
+                                          <label for="filter">Errors</label>
+                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked="">
+                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="filter">Level</label>
+                                        <select class="form-control">
+                                            <option value="profileID">1</option>
+                                            <option value="profileID">2</option>
+                                            <option value="profileID">3</option>
+                                            <option value="profileID">4</option>
+                                            <option value="profileID">5</option>
+                                            <option value="profileID">6</option>
+                                            <option value="profileID">7</option>
+                                            <option value="profileID">8</option>
+                                          </select>
+                                        
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="contain">Language</label>
+                                        <input class="form-control" type="text">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="contain">Topic</label>
+                                        <input class="form-control" type="text">
+                                      </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     </div>
                 </div>
+              </div>
             </div>
-          </div>
-        </div>
-	</div>
-</div>
-
-
-<div class="container">
-    <label for="contain">Additional Word</label>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for a word" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="filter">Part of Speech</label>
-                                    <select class="form-control">
-                                        <option value="profileID">Verbs</option>
-                                        <option value="profileID">Nouns</option>
-                                        <option value="profileID">Pronouns</option>
-                                        <option value="profileID">Adverbs</option>
-                                        <option value="profileID">Adjectives</option>
-                                        <option value="profileID">Prepostions</option>
-                                        <option value="profileID">conjunctions</option>
-                                        <option value="profileID">Interjections</option>
-                                      </select>
-                                    </select>
-                                  </div>
-                                  
-                                  <div class="onoffswitch">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                                    <label class="onoffswitch-label" for="myonoffswitch">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="filter">Level</label>
-                                    <select class="form-control">
-                                        <option value="profileID">1</option>
-                                        <option value="profileID">2</option>
-                                        <option value="profileID">3</option>
-                                        <option value="profileID">4</option>
-                                        <option value="profileID">5</option>
-                                        <option value="profileID">6</option>
-                                        <option value="profileID">7</option>
-                                        <option value="profileID">8</option>
-                                      </select>
-                                    </select>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Language</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Topic</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </form>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-	</div>
-</div>
-
-
-<div class="container">
-    <label for="contain">Additional Word</label>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for a word" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="filter">Part of Speech</label>
-                                    <select class="form-control">
-                                        <option value="profileID">Verbs</option>
-                                        <option value="profileID">Nouns</option>
-                                        <option value="profileID">Pronouns</option>
-                                        <option value="profileID">Adverbs</option>
-                                        <option value="profileID">Adjectives</option>
-                                        <option value="profileID">Prepostions</option>
-                                        <option value="profileID">conjunctions</option>
-                                        <option value="profileID">Interjections</option>
-                                      </select>
-                                    </select>
-                                  </div>
-                                  
-                                  <div class="onoffswitch">
-                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                                    <label class="onoffswitch-label" for="myonoffswitch">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="filter">Level</label>
-                                    <select class="form-control">
-                                        <option value="profileID">1</option>
-                                        <option value="profileID">2</option>
-                                        <option value="profileID">3</option>
-                                        <option value="profileID">4</option>
-                                        <option value="profileID">5</option>
-                                        <option value="profileID">6</option>
-                                        <option value="profileID">7</option>
-                                        <option value="profileID">8</option>
-                                      </select>
-                                    </select>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Language</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Topic</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </form>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-	</div>
-</div>
--->
-                            
-                        </body></html>
+        <!-- THIS WILL ADD EXTRA SEARCH FIELDS -->
+    <!--    <button onclick="extraWord()">Search Additional Word</button>
+            </div> 
+                                -->
+                                
+</body>
+</html>

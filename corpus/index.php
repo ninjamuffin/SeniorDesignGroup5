@@ -67,7 +67,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                                 <h1>Corpus Search Home</h1>
                                 <p>Documentation:</p>
-                                <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) </p>
+                                <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) <a href="search">Search the Corpus</a> </p>
+                                
                             </div>
                         </div>
                     </div>

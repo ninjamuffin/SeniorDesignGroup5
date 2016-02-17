@@ -1,3 +1,5 @@
+<?php include '../../base.php' ?>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -79,8 +81,10 @@
                             <div class="dropdown dropdown-lg">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                 <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    
                                     <div class="form-group">
-                                        <label for="filter">Part of Speech</label>
+                                        <h3><label for="filter">Part of Speech</label></h3>
+                                        <br>
                                         <select class="form-control">
                                             <option value="profileID">Verbs</option>
                                             <option value="profileID">Nouns</option>
@@ -92,9 +96,10 @@
                                             <option value="profileID">Interjections</option>
                                          </select>
                                       </div>
-                                      
+                                    <br>
+                                      <label for="filter">Errors</label>
                                      <div class="onoffswitch">
-                                          <label for="filter">Errors</label>
+                                          
                                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked="">
                                         <label class="onoffswitch-label" for="myonoffswitch">
                                             <span class="onoffswitch-inner"></span>
@@ -114,13 +119,17 @@
                                             <option value="profileID">8</option>
                                           </select>
                                         
-                                      </div>
+                                      </div><br>
+                                      <label for="contain">Language</label>
+                                      
                                       <div class="form-group">
-                                        <label for="contain">Language</label>
+                                        
                                         <input class="form-control" type="text">
                                       </div>
+                                        <br>
+                                    <label for="contain">Topic</label>
                                       <div class="form-group">
-                                        <label for="contain">Topic</label>
+                                        
                                         <input class="form-control" type="text">
                                       </div>
                                 </div>
