@@ -114,7 +114,12 @@
                                 <a href="/corpus/">Corpus</a>
                             </li>
                             <li class="sidebar-brand">
-                                <a href="/teacher/Archive/">Archive</a>
+                                <a href="/teacher/Archive/" class="dropdown-toggle" data-toggle="dropdown">Archive<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown-header">Options</li>
+                                <li><a href="/teacher/Archive/Courses/">   Courses</a></li>
+                                <li><a href="/teacher/Archive/Students/">    Students</a></li>
+                              </ul>
                             </li>
                         </ul>
                     </nav>
@@ -150,7 +155,8 @@
                                 <a href="/student/MyCourses/" class="dropdown-toggle" data-toggle="dropdown">My Courses<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li class="dropdown-header">Options</li>
-                                    <li><a href="/student/MyCourses/ViewCourse/">   View Course</a></li>
+                                    <li><a href="/student/MyCourses/ViewCourse/">   View Course</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -164,14 +170,6 @@
                     </nav>
                     <!-- /#sidebar-wrapper -->
 
-                    <!-- Page Content -->
-                    <div id="page-content-wrapper">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </button>
-                    </div>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
