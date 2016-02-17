@@ -1,6 +1,6 @@
 <!-- View Worksheet (index.php) for Teacher account -->
 
-<?php include "../../../../base.php"; ?>
+<?php include "../../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,10 +88,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <p>Student(link), date, view submission(link)</p>
                                 </div> 
                             </div>
-                            
-                            
-    
-                              
+                                                   
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>
