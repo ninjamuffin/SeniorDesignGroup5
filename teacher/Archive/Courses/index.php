@@ -61,7 +61,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
                             <h2>Search Courses</h2>
                             <p>Search access for teacher user.  Through this page, the teacher will be able to search for (based on semester, time, type, teacher, etc) all courses in the DB.  This replicated functionality in the Access App  </p>

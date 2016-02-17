@@ -58,7 +58,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                                 <h1>Profile View</h1>
                                 <p>Documentation:</p>
                                 <p>Displays info about the admin account.  TBD</p>

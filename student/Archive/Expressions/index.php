@@ -60,7 +60,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                         <!-- BEGIN PAGE CONTENT -->
                         <h2>Search Expressions</h2>
                         <p>Archive (search expressions) access for student user.  Provides a window with search functionality for searching all previously entered expressions for a given student ID. </p>

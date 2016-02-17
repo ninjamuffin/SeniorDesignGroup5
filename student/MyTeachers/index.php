@@ -60,7 +60,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                         <!-- BEGIN PAGE CONTENT -->
                         <h2>Documentation:</h2>
                         <p>This page has lesser priority.  This will provide students a review of teachers that the student is with at the time.  More importantly, this will provide the path for looking at ViewTeacherProfile, which will be necessary for student features</p>

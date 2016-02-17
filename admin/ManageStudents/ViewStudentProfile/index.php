@@ -58,7 +58,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                                 <h1>View Student Account</h1>
                             <p>Documentation:</p>
                             <p>After accepting a form submission from ManageStudents, this page will display the profile of a given student user</p>

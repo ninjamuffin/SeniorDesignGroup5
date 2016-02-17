@@ -61,7 +61,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
                             <h2> Insert Student Name</h2>
                             <p>Requires form submission from teacher/mystudents for student ID.  Will display student progress, history, and lists of worksheet and expressions that have been entered by the student, in chronological order  </p>

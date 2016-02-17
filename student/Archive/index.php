@@ -60,7 +60,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                         <!-- BEGIN PAGE CONTENT -->
                         <h2>Student Name: Archive</h2>
                         <p>Archive access home for student user.  Through this page, the student will be able to view all non-active courses, and therefore review his/her progress.  Links will be provided in the Archive Sidebar for navigation to different sections of the Archive, including courses, worksheets, and expressions (search functionality included in each)  </p>

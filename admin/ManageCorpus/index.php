@@ -58,7 +58,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                                 <h1>Manage Corpus</h1>
                                 <p>Documentation:</p>
                                 <p>Page will manage the transfer of data from the site to the corpus.  There will be a listing of requests, submitted by teachers, that the administrator will have the option to review, and then submit to the database.  This is how we will manage DB writes.

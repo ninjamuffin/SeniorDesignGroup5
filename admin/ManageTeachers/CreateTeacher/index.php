@@ -58,7 +58,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                                 <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
                                 <p>Register a new teacher account.  Input form: First name, last name, username, default password, school email</p>
                             </div>

@@ -60,7 +60,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                         <!-- BEGIN PAGE CONTENT -->
                         <h2>Documentation:</h2>
                         <p>Page will provide the student user the ability to review one's own profile.  In the first form, this will include contact information and active courses.  In the advanced form, this will include progress track and graphical representation of progress.</p>

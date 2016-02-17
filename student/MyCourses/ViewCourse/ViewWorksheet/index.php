@@ -60,7 +60,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                         <!-- BEGIN PAGE CONTENT -->
                         <h2>Documentation:</h2>
                         <p>After clicking on the appropriate link, this page will display a viewing window of a worksheet posted by a teacher.  There will be a button that takes you to the editing window, at Student/MyCourses/ViewCourse/EditWorksheet/index.html.  This page will display how many submissions have been posted, and whether or not feedback is available</p>

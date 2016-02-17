@@ -61,7 +61,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Collapse/Expand</a>
                             <!-- BEGIN PAGE CONTENT -->
                             <h2>My Students</h2>
                             <p>For a given teacher, will list all active students (according to active courses) and display a link to each student's profile view  </p>
