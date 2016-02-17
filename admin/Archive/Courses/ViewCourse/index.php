@@ -91,9 +91,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </thead>
                                             <tbody>
         <?php
-            $params = array();
+            $params = array($courseID);
             $options = array( "Scrollable" => 'static' );
-            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = $courseID GROUP BY [Worksheet#],[Teachers&ClassesID]";
+            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = ? GROUP BY [Worksheet#],[Teachers&ClassesID]";
             $stmt = sqlsrv_query($con, $query, $params, $options);
             if (!$stmt)
                 die( print_r( sqlsrv_errors(), true));
@@ -113,7 +113,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }
             
             $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-            $page = getPage($stmt, $pageNum, $rowsPerPage);
+            $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
             foreach($page as $row)
             {
                 $worksheetPageLink = "ViewWorksheet/?courseID=$row[1]&worksheetNum=$row[0]";
