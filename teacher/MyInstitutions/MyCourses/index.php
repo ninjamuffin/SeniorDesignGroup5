@@ -72,6 +72,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <h1>Courses</h1>
                             <p>Documentation:</p>
                             <p>Home view for all courses (active) taught by instructor.  Lists links to each course page</p>
+                            <p><a href="ViewCourse/">A Course</a></p>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

@@ -72,6 +72,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <h1>Course Title</h1>
                             
                             <!-- Worksheet Listing -->
+                            <p>Print Course information: ___</p>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">Worksheets</div>
                                 <button class="btn btn-default" type="button" id="CreateWorksheet"><a href="CreateWorksheet/">Create Worksheet</a></button>
