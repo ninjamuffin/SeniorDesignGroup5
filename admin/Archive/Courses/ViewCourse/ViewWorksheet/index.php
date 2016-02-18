@@ -83,6 +83,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet display</div>
+                                    <!-- Select Rows Per Page -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Select rows per page
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="?pp=10">10</a></li>
+                                            <li><a href="?pp=20">20</a></li>
+                                            <li><a href="?pp=30">30</a></li>
+                                            <li><a href="?pp=50">50</a></li>
+                                            
+                                        </ul>
+                                    </div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
@@ -112,7 +126,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             if (!$stmt)
                 die( print_r( sqlsrv_errors(), true));
             
-            $rowsPerPage = 10;
+            $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10;
             $rowsReturned = sqlsrv_num_rows($stmt);
             if($rowsReturned === false)
                 die(print_r( sqlsrv_errors(), true));
@@ -127,28 +141,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }
             
             $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-            $page = getPage($stmt, $pageNum, $rowsPerPage);
+            $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
             foreach($page as $row)
             {
                 $studentPageLink = "/Admin/Archive/Students/ViewStudent/?studentID=$row[5]";
                 echo "<tr><td>$row[0]</td><td><a href='$studentPageLink'>$row[1]</a></td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
             }
             echo "</tbody></table>";
-            if($pageNum > 1)
-                {
-                    $prevPageLink = "?pageNum=".($pageNum - 1)."&courseID=$courseID&worksheetNum=$worksheetNum";
-                    echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
-                }
-            for($i = 1; $i <=$numOfPages; $i++)
-            {
-                $pageLink = "?pageNum=$i&courseID=$courseID&worksheetNum=$worksheetNum";
-                print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-            }   
-            if($pageNum < $numOfPages)
-            {
-                $nextPageLink = "?pageNum=".($pageNum + 1)."&courseID=$courseID&worksheetNum=$worksheetNum";
-                echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
-            }
+            $modulator = 3;
+            Pagination::pageLinksArchiveWorksheet($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator, $courseID, $worksheetNum);
             ?>
 
                                     </div>
