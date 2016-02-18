@@ -19,7 +19,7 @@
                     -webkit-background-size: cover;
                     -moz-background-size: cover;
                     -o-background-size: cover;
-                    background-size: auto;
+                    background-size: 0 100%;
                 
             }
             a{
