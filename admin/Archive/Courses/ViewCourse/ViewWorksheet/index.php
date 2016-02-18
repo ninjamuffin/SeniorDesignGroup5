@@ -90,7 +90,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="?pp=10&courseID=$courseID&worksheetNum=$worksheetNum">10</a></li>
+                                            <li><a href="?pp=10&courseID=<?=$courseID?>&worksheetNum=<?=$worksheetNum?>">10</a></li>
                                             <li><a href="?pp=20&courseID=<?=$courseID?>&worksheetNum=<?=$worksheetNum?>">20</a></li>
                                             <li><a href="?pp=30&courseID=<?=$courseID?>&worksheetNum=<?=$worksheetNum?>">30</a></li>
                                             <li><a href="?pp=50&courseID=<?=$courseID?>&worksheetNum=<?=$worksheetNum?>">50</a></li>
