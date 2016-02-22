@@ -21,7 +21,7 @@ $mail->isHTML(true);                                  // Set email format to HTM
 
 ?>
 <!--  Required Lines for sending Email
-$mail->addAddress('support@contoso.com', 'Support');     // Add a recipient
+$mail->addAddress('someone@example.com');     // Add a recipient
 $mail->Subject = 'Here is the subject'; 
 $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
 
