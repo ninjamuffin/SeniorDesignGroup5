@@ -1,5 +1,6 @@
 <?php
 include 'pagination.php';
+include 'phpmailersetup.php';
 session_start();
 
 /* DB Connection Information */
@@ -19,7 +20,4 @@ function mssql_escape($data) {
     $unpacked = unpack('H*hex', $data);
     return '0x' . $unpacked['hex'];
 }
-
-
-
 ?>
