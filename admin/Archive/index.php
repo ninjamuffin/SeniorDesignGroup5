@@ -16,11 +16,7 @@
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
-    <?php
-        include "../../header.php";
-        include "../../sidebar.php";
-    ?>
-    <!--<script>
+    <script>
         $(function(){
             $("#header").load("/header.php");
         });
@@ -28,7 +24,6 @@
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-    -->
 
     <!-- Background Setup -->
     <style>
