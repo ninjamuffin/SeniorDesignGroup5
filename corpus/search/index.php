@@ -3,20 +3,37 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Snippet - Bootsnipp.com</title>
+    <title>Gonzaga Small Talk</title>
+    
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/SidebarPractice.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-     <link href="/css/advancedsearch.css" rel="stylesheet">
+    <link href="/css/advancedsearch.css" rel="stylesheet">
+    
+    
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    
+    
+    
+    <!-- Bootstrap -->
+    
+
+    <!-- Including Header -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script type="text/javascript">$(function()
     {
         $(document).on('click', '.btn-add', function(e)
@@ -39,6 +56,14 @@
             return false;
         });
     });
+    </script>
+    <script>
+        $(function(){
+            $("#header").load("/header.php");
+        });
+        $(function(){
+            $("#sidebar").load("/corpus/sidebar.php");
+        });
     </script>
     <style>
         .btn-add {
@@ -73,81 +98,94 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-                        
-        <div class="control-group" id="fields">
-        <div class="controls"> 
-        <div class="well"> 
-        <form method="POST" action="../Results/" role="form" autocomplete="off">
-            <div class="form-group">
-                <label for="filter">Level</label>
-                <select class="form-control">
-                    <option value="profileID">1</option>
-                    <option value="profileID">2</option>
-                    <option value="profileID">3</option>
-                    <option value="profileID">4</option>
-                    <option value="profileID">5</option>
-                    <option value="profileID">6</option>
-                    <option value="profileID">7</option>
-                    <option value="profileID">8</option>
-                  </select>
-             </div><br>
-            <label for="contain">Language</label>
-            <div class="form-group">
-                <input class="form-control" type="text">
-            </div><br>
-            <label for="contain">Topic</label>
-            <div class="form-group">
-                <input class="form-control" type="text">
-            </div>
-        <div class="entry col-lg-10">
-        <div class="container">
-        <label for="contain">Word Search</label>
-            <div class="word filter">
-                <div class="row">
-                    <div class="col-md-14">
-                        <div class="input-group" id="adv-search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success btn-add" type="button">
-                                    <span class="glyphicon glyphicon-plus"></span>
+            <div id="header"></div>            
+            <div id="wrapper">
+                <div id="sidebar"></div>
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
                                 </button>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Search for a word">
-                            <div class="input-group-btn">
-                                <div class="btn-group" role="group">
-                                    <div class="dropdown dropdown-lg">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                                        <div class="dropdown-menu dropdown-menu-right" role="menu">
-
-                                            <div class="form-group">
-                                                <h3><label for="filter">Part of Speech</label></h3>
-                                                <br>
-                                                <select class="form-control">
-                                                    <option value="profileID">Verbs</option>
-                                                    <option value="profileID">Nouns</option>
-                                                    <option value="profileID">Pronouns</option>
-                                                    <option value="profileID">Adverbs</option>
-                                                    <option value="profileID">Adjectives</option>
-                                                    <option value="profileID">Prepositions</option>
-                                                    <option value="profileID">Conjunctions</option>
-                                                    <option value="profileID">Interjections</option>
-                                                 </select>
-                                              </div>                                          
-                                        </div>
+                                <form method="POST" action="../Results/" role="form" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="Level">Level</label>
+                                        <select class="form-control" name="Level" id="Level">
+                                            <option value="profileID">1 (099-100)</option>
+                                            <option value="profileID">2 (101-102)</option>
+                                            <option value="profileID">3 (103-104)</option>
+                                            <option value="profileID">4 (105-106)</option>
+                                            <option value="profileID">5 (107-108)</option>
+                                        </select>
                                     </div>
+                                    <label for="Language">Language</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="Language" id="Language">
+                                    </div>
+                                    <label for="Topic">Topic</label>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="Topic" id="Topic">
+                                    </div>
+                                <div class="entry col-lg-10">
+                                <div class="container">
+                                <label for="contain">Word Search</label>
+                                    <div class="word filter">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="input-group" id="adv-search">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-success btn-add" type="button">
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" class="form-control" placeholder="Search for a word">
+                                                    <div class="input-group-btn">
+                                                        <div class="btn-group" role="group">
+                                                            <div class="dropdown dropdown-lg">
+                                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+
+                                                                    <div class="form-group">
+                                                                        <label for="PoS">Part of Speech</label>
+                                                                        <select class="form-control" name="PoS" id="PoS">
+                                                                            <option value="profileID">Verbs</option>
+                                                                            <option value="profileID">Nouns</option>
+                                                                            <option value="profileID">Pronouns</option>
+                                                                            <option value="profileID">Adverbs</option>
+                                                                            <option value="profileID">Adjectives</option>
+                                                                            <option value="profileID">Prepositions</option>
+                                                                            <option value="profileID">Conjunctions</option>
+                                                                            <option value="profileID">Interjections</option>
+                                                                         </select>
+                                                                      </div>                                          
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  
-        </div>
-</div>
+                                    </div>
           
 </div>
 <div class="col-xs-5">
 <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
     <!-- THIS WILL SEARCH THE WHOLE FIELD -->
 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group" id="fields">
+        <div class="controls"> 
+        <div class="well"> 
+        
 </div>
 </div>
 </div>
@@ -155,6 +193,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     <?php
     }
 }
+else
+{
     ?>
+    <!-- To Do: Add alternate corpus view section -->
+    <p>Oops! You are not logged in. We do not yet support access to the corpus without authorization from our administrators.</p>
+    <p>Redirecting to log-in in 5 seconds</p>
+    <p>Click <a href="/">here</a> if you don't want to wait</p>
+    <meta http-equiv='refresh' content='5;/' />
+    <?php
+}
+?>
+
 
 </html>
