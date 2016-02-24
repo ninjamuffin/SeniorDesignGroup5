@@ -33,14 +33,14 @@
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
                 <ul class="nav navbar-nav navbar-right">
                   <label for="year" class="control-label input-group"><?=$_SESSION['Username']?>'s Accounts</label>
-                  <div class="btn-group" data-toggle="buttons">
+                  <li class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default active">
                       <input name="year" href="#" type="radio">Admin
                     </label>
                     <label class="btn btn-default">
                       <input name="year" href="#" type="radio">Teacher
                     </label>
-                  </div>
+                  </li>
                   <li class="dropdown">
                     <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
                       <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
