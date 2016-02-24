@@ -31,7 +31,7 @@
               </div>
                 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
-                <div id="tab" class="btn-group" data-toggle="buttons-radio">
+                <div id="tab" class="btn-group right-offset" data-toggle="buttons-radio">
                   <a href="#" class="btn btn-large btn-info active" data-toggle="tab">Admin</a>
                   <a href="#" class="btn btn-large btn-info" data-toggle="tab">Teacher</a>
                 </div>
