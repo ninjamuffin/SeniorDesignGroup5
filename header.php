@@ -32,10 +32,8 @@
                 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
                 <div id="tab" class="btn-group" data-toggle="buttons-radio">
-                  <a href="#prices2" class="btn btn-large btn-info active" data-toggle="tab">Prices</a>
-                  <a href="#features2" class="btn btn-large btn-info" data-toggle="tab">Features</a>
-                  <a href="#requests2" class="btn btn-large btn-info" data-toggle="tab">Requests</a>
-                  <a href="#contact2" class="btn btn-large btn-info"  data-toggle="tab">Contact</a>
+                  <a href="#" class="btn btn-large btn-info active" data-toggle="tab">Admin</a>
+                  <a href="#" class="btn btn-large btn-info" data-toggle="tab">Teacher</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown">
