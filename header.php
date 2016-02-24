@@ -30,8 +30,14 @@
                 <!--<a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand"> <img src="/media/logo.jpeg"></a>-->
               </div>
 
+              <div id="tab" class="btn-group" data-toggle="buttons-radio">
+                <a href="#prices2" class="btn btn-large btn-info active" data-toggle="tab">Prices</a>
+                <a href="#features2" class="btn btn-large btn-info" data-toggle="tab">Features</a>
+                <a href="#requests2" class="btn btn-large btn-info" data-toggle="tab">Requests</a>
+                <a href="#contact2" class="btn btn-large btn-info"  data-toggle="tab">Contact</a>
+              </div>
+                
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
-
                 <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown">
                     <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
