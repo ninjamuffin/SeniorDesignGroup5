@@ -32,6 +32,7 @@
                 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
                 <ul class="nav navbar-nav navbar-right">
+                  <div class="row"></div>
                   <li class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default active">
                       <input name="year" href="#" type="radio">Admin
