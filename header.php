@@ -48,11 +48,11 @@
                   </li>
                     <label for="year" class="control-label input-group"><?=$_SESSION['Username']?>'s Accounts</label>
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default">
-                            <input name="year" value="2011" type="radio">Admin
+                        <label class="btn btn-default active">
+                            <input name="year" href="#" type="radio">Admin
                         </label>
                         <label class="btn btn-default">
-                            <input name="year" value="2012" type="radio">Teacher
+                            <input name="year" href="#" type="radio">Teacher
                         </label>
                     </div>
                 </ul>
