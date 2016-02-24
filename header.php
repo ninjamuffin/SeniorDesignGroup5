@@ -46,7 +46,6 @@
                         <li><a href="/logout.php">Log out</a></li>
                     </ul>
                   </li>
-                  <form class="form">
                     <label for="year" class="control-label input-group"><?=$_SESSION['Username']?>'s Accounts</label>
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-default">
@@ -56,7 +55,6 @@
                             <input name="year" value="2012" type="radio">Teacher
                         </label>
                     </div>
-                  </form>
                 </ul>
               </div>
             </div>
