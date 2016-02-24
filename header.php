@@ -32,10 +32,6 @@
                 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
                 <ul class="nav navbar-nav navbar-right">
-                  <li id="tab" class="btn-group" data-toggle="buttons-radio">
-                    <a href="#" class="btn btn-large btn-info active" data-toggle="tab">Admin</a>
-                    <a href="#" class="btn btn-large btn-info" data-toggle="tab">Teacher</a>
-                  </li>
                   <li class="dropdown">
                     <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
                       <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
@@ -49,6 +45,10 @@
                         <li class="divider"></li>
                         <li><a href="/logout.php">Log out</a></li>
                     </ul>
+                  </li>
+                  <li id="tab" class="btn-group" data-toggle="buttons-radio">
+                    <a href="#" class="btn btn-large btn-info active" data-toggle="tab">Admin</a>
+                    <a href="#" class="btn btn-large btn-info" data-toggle="tab">Teacher</a>
                   </li>
                 </ul>
               </div>
