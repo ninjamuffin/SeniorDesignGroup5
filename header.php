@@ -47,16 +47,13 @@
                     </ul>
                   </li>
                   <form class="form">
-                    <label for="year" class="control-label input-group"><?=$_SESSION['Role']?>'s Accounts</label>
+                    <label for="year" class="control-label input-group"><?=$_SESSION['Username']?>'s Accounts</label>
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-default">
                             <input name="year" value="2011" type="radio">Admin
                         </label>
                         <label class="btn btn-default">
                             <input name="year" value="2012" type="radio">Teacher
-                        </label>
-                        <label class="btn btn-default">
-                            <input name="year" value="2013" class="active" type="radio">2013
                         </label>
                     </div>
                   </form>
