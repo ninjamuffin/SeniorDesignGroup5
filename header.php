@@ -46,10 +46,20 @@
                         <li><a href="/logout.php">Log out</a></li>
                     </ul>
                   </li>
-                  <div id="tab" class="btn-group" data-toggle="buttons-radio">
-                    <a href="#" class="btn btn-large btn-info active" data-toggle="tab">Admin</a>
-                    <a href="#" class="btn btn-large btn-info" data-toggle="tab">Teacher</a>
-                  </div>
+                  <form class="form">
+                    <label for="year" class="control-label input-group"><?=$_SESSION['Role']?>'s Accounts</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default">
+                            <input name="year" value="2011" type="radio">Admin
+                        </label>
+                        <label class="btn btn-default">
+                            <input name="year" value="2012" type="radio">Teacher
+                        </label>
+                        <label class="btn btn-default">
+                            <input name="year" value="2013" class="active" type="radio">2013
+                        </label>
+                    </div>
+                  </form>
                 </ul>
               </div>
             </div>
