@@ -10,12 +10,14 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/advancedsearch.css" rel="stylesheet">
+    <!-- Including Header -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     
-    
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     
     
     
@@ -31,9 +33,7 @@
     <!-- Bootstrap -->
     
 
-    <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    
     <script type="text/javascript">$(function()
     {
         $(document).on('click', '.btn-add', function(e)
@@ -104,21 +104,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="page-content-wrapper">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
+                                <div class="control-group" id="fields">
+                                <div class="controls"> 
+                                <div class="well"> 
                                 <form method="POST" action="../Results/" role="form" autocomplete="off">
                                     <div class="form-group">
                                         <label for="Level">Level</label>
                                         <select class="form-control" name="Level" id="Level">
-                                            <option value="profileID">1 (099-100)</option>
-                                            <option value="profileID">2 (101-102)</option>
-                                            <option value="profileID">3 (103-104)</option>
-                                            <option value="profileID">4 (105-106)</option>
-                                            <option value="profileID">5 (107-108)</option>
+                                            <option value="1">1 (099-100)</option>
+                                            <option value="2">2 (101-102)</option>
+                                            <option value="3">3 (103-104)</option>
+                                            <option value="4">4 (105-106)</option>
+                                            <option value="5">5 (107-108)</option>
                                         </select>
                                     </div>
                                     <label for="Language">Language</label>
@@ -141,7 +144,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                             <span class="glyphicon glyphicon-plus"></span>
                                                         </button>
                                                     </span>
-                                                    <input type="text" class="form-control" placeholder="Search for a word">
+                                                    <input type="text" class="form-control" name="words[]" placeholder="Search for a word">
                                                     <div class="input-group-btn">
                                                         <div class="btn-group" role="group">
                                                             <div class="dropdown dropdown-lg">
@@ -150,15 +153,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                                                                     <div class="form-group">
                                                                         <label for="PoS">Part of Speech</label>
-                                                                        <select class="form-control" name="PoS" id="PoS">
-                                                                            <option value="profileID">Verbs</option>
-                                                                            <option value="profileID">Nouns</option>
-                                                                            <option value="profileID">Pronouns</option>
-                                                                            <option value="profileID">Adverbs</option>
-                                                                            <option value="profileID">Adjectives</option>
-                                                                            <option value="profileID">Prepositions</option>
-                                                                            <option value="profileID">Conjunctions</option>
-                                                                            <option value="profileID">Interjections</option>
+                                                                        <select class="form-control" name="PoS[]" id="PoS">
+                                                                            <option value="Verb">Verb</option>
+                                                                            <option value="Noun">Noun</option>
+                                                                            <option value="Pronoun">Pronouns</option>
                                                                          </select>
                                                                       </div>                                          
                                                                 </div>
@@ -176,15 +174,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 <div class="col-xs-5">
 <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
     <!-- THIS WILL SEARCH THE WHOLE FIELD -->
+                                </div>
+
 </form>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="control-group" id="fields">
-        <div class="controls"> 
-        <div class="well"> 
+
         
 </div>
 </div>

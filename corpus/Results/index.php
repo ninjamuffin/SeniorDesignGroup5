@@ -1,4 +1,5 @@
 <?php include "../../base.php"; ?>
+<?php include "generateSQL.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +65,51 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
+                                
                                 <p>Display Results</p>
+                                <?php
+       /* foreach($_POST as $POST_var)
+        {
+            ?>
+                                <p><?=$POST_var?></p>
+                                <?php
+        }*/
+        if(!empty($_POST['Level']))
+        {
+            ?>
+            <p><?=$_POST['Level']?></p>
+                                
+            <?php
+        }
+        $words = getArray_POST('words');
+        $PartsOfSpeech = getArray_POST('PoS');
+        foreach($words as $word)
+        {
+            ?>
+                                <p><?=$word?></p>
+                                <?php
+                
+        }
+        /*if(!empty($_POST['words']))
+        {
+            foreach ($_POST['words'] as $word)
+            {
+                ?>
+                <p><?=$word?></p>
+                <?php
+            }                      
+        }*/
+        if(!empty($_POST['PoS']))
+        {
+            foreach ($_POST['PoS'] as $PoS)
+            {
+                ?>
+                <p><?=$PoS?></p>
+                <?php
+            }                      
+        }
+        ?>
+                                
                                 
                             </div>
                         </div>
