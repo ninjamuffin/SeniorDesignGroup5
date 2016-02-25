@@ -12,3 +12,4 @@ function getArray_POST($Post_Array)
         return false;
     return $return_array;
 }
+?>

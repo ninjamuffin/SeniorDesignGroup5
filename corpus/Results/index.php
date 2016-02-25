@@ -74,41 +74,84 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <p><?=$POST_var?></p>
                                 <?php
         }*/
-        if(!empty($_POST['Level']))
+        if(!empty($_POST['words']))
         {
-            ?>
-            <p><?=$_POST['Level']?></p>
-                                
-            <?php
-        }
-        $words = getArray_POST('words');
-        $PartsOfSpeech = getArray_POST('PoS');
-        foreach($words as $word)
-        {
-            ?>
-                                <p><?=$word?></p>
-                                <?php
-                
-        }
-        /*if(!empty($_POST['words']))
-        {
-            foreach ($_POST['words'] as $word)
+            $words = $_POST['words'];//getArray_POST('words');
+            $PartsOfSpeech = $_POST['PoS'];//getArray_POST('PoS');
+            
+            /*for($i = 0; $i < count($words); $i++)
             {
                 ?>
-                <p><?=$word?></p>
+                <p><?=$words[$i]?> is a <?=$PartsOfSpeech[$i]?></p>
                 <?php
-            }                      
-        }*/
-        if(!empty($_POST['PoS']))
-        {
-            foreach ($_POST['PoS'] as $PoS)
+            }*/
+
+            $getExpressionQuery = "SELECT Expression FROM Expressions WHERE Expression LIKE '%";
+            foreach($words as $word)
             {
-                ?>
-                <p><?=$PoS?></p>
-                <?php
-            }                      
+                $getExpressionQuery .= "{$word}%";
+            }
+            $getExpressionQuery .= "'";
+            //echo "$getExpressionQuery";
+            
+
+            
         }
         ?>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Search for a course</div>
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <h3><td>Expression</td></h3>
+                                        
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+    $params = array();
+    $options = array( "Scrollable" => 'static' );
+    
+    $stmt = sqlsrv_query($con, $getExpressionQuery, $params, $options);
+    if ( !$stmt )
+        die( print_r( sqlsrv_errors(), true));
+
+    /* Extract Pagination Paramaters */
+
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 10
+
+
+    $rowsReturned = sqlsrv_num_rows($stmt);
+    if($rowsReturned === false)
+        die(print_r( sqlsrv_errors(), true));
+    elseif($rowsReturned == 0)
+    {
+        echo "No rows returned.";
+        exit();
+    }
+    else
+    {
+        /* Calculate number of pages. */
+        $numOfPages = ceil($rowsReturned/$rowsPerPage);
+    }
+
+    /* Echo results to the page */
+    $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+    $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
+    foreach($page as $row)
+    {
+        //$coursePageLink = "ViewCourse/?courseID=$row[5]";
+        echo "<tr><td>$row[0]</td></tr>";
+    }
+
+    echo "</tbody></table><br />";
+    $modulator = 3;
+    //Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
+    ?>
+                                    </div>
+                                
+                                </div>
                                 
                                 
                             </div>
