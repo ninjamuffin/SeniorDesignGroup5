@@ -10,7 +10,16 @@
         <!-- Bootstrap -->
         
         <link href="/css/bootstrap.css" rel="stylesheet">
-        
+        <link href="/css/custom_theme.css" rel="stylesheet">
+        <style>
+            .logo-center img {
+                max-height: 52px;
+                max-width: auto;
+            }
+        </style>
+        <style type="text/css">
+            .navbar-default { background: rgb(220, 246, 255) !important; }
+        </style>
     </head>
     
     <?php
@@ -21,18 +30,20 @@
         <div class="navbar navbar-default navbar-fixed-top ng-scope">
             <div class="container-fluid">
               <div class="navbar-header">
+                <div class="logo-center">
+                    <img src="/media/smalltalkimage.gif" class="img-responsive center-block">
+                </div>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
                 </button>
                 <!--<a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand"> <img src="/media/logo.jpeg"></a>-->
               </div>
                 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
                 <ul class="nav navbar-nav navbar-right">
-                  <div class="row"></div>
                   <li class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default active">
                       <input name="year" href="#" type="radio">Admin

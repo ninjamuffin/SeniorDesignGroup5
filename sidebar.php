@@ -32,25 +32,22 @@
                             <li class="dropdown">
                               <a href="/admin/ManageCourses/" class="dropdown-toggle" data-toggle="dropdown">Manage Courses<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown-header">Options</li>
-                                <li><a href="/Admin/ManageCourses/CreateCourse/">   Create Course</a></li>
-                                <li><a href="/Admin/ManageCourses/ViewCourse/"> View Course</a></li>
+                                <li><a href="/Admin/ManageCourses/CreateCourse/">   Create Course</a>
+                                <a href="/Admin/ManageCourses/ViewCourse/"> View Course</a></li>
                               </ul>
                             </li>
                             <li class="dropdown">
                               <a href="/admin/ManageTeachers/" class="dropdown-toggle" data-toggle="dropdown">Manage Teachers<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown-header">Options</li>
-                                <li><a href="/Admin/ManageTeachers/CreateTeacher/"> Create Teacher</a></li>
-                                <li><a href="/admin/ManageTeachers/ViewTeacherProfile/">    View Teacher Profile</a></li>
+                                <li><a href="/Admin/ManageTeachers/CreateTeacher/"> Create Teacher</a>
+                                <a href="/admin/ManageTeachers/ViewTeacherProfile/">    View Teacher Profile</a></li>
                               </ul>
                             </li>
                             <li class="dropdown">
                               <a href="/admin/ManageStudents/" class="dropdown-toggle" data-toggle="dropdown">Manage Students<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown-header">Options</li>
-                                <li><a href="/admin/ManageStudents/CreateStudent/"> Create Student</a></li>
-                                <li><a href="/admin/ManageStudents/ViewStudentProfile/">    View Student Profile</a></li>
+                                <li><a href="/admin/ManageStudents/CreateStudent/"> Create Student</a>
+                                <a href="/admin/ManageStudents/ViewStudentProfile/">    View Student Profile</a></li>
                               </ul>
                             </li>
                             <li class="sidebar-brand">
