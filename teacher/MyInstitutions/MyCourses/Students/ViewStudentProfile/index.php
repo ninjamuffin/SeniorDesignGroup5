@@ -1,6 +1,6 @@
-<!-- Archive Home (index.html) for Teacher account -->
+<!-- View student profile (index.php) for Teacher account -->
 
-<?php include "../../base.php"; ?>
+<?php include "../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,8 +69,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <span class="hamb-bottom"></span>
                         </button>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h2>Teacher Name: Archive</h2>
-                            <p>Archive access home for teacher user.  Through this page, the teacher will be able to view all non-active courses (decision to be made: all courses, or only those that are taught by that particular teacher?).  Links will be provided in the Archive Sidebar for navigation to different sections of the Archive, including courses, worksheets, and expressions (search functionality included in each)  </p>
+                            <h2> Insert Student Name</h2>
+                            <p>Requires form submission from teacher/mystudents for student ID.  Will display student progress, history, and lists of worksheet and expressions that have been entered by the student, in chronological order  </p>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

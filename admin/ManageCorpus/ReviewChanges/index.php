@@ -1,4 +1,4 @@
-<?php include "../base.php"; ?>
+<?php include "../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,14 +14,14 @@
     <link href="/css/SidebarPractice.css" rel="stylesheet">
 
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
             $("#header").load("/header.php");
         });
         $(function(){
-            $("#sidebar").load("/corpus/sidebar.php");
+            $("#sidebar").load("/sidebar.php");
         });
     </script>
 
@@ -40,7 +40,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if( !(($_SESSION['Role'] == 'Admin') || ($_SESSION['Role'] == 'Teacher') ))
+    if($_SESSION['Role'] != 'admin')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
@@ -52,7 +52,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>
+            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
@@ -64,10 +64,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
-                                <h1>Corpus Search Home</h1>
+                                <h1>Manage Corpus</h1>
                                 <p>Documentation:</p>
-                                <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) <a href="search">Search the Corpus</a> </p>
-                                
+                                <p>Page will manage the transfer of data from the site to the corpus.  There will be a listing of requests, submitted by teachers, that the administrator will have the option to review, and then submit to the database.  This is how we will manage DB writes.
+</p>
                             </div>
                         </div>
                     </div>
@@ -78,6 +78,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
+            <script src="/js/bootstrap-datepicker.js"></script>
             <script>
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
@@ -92,9 +93,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 else
 {
     ?>
-    <!-- To Do: Add alternate corpus view section -->
-    <p>Oops! You are not logged in. We do not yet support access to the corpus without authorization from our administrators.</p>
-    <p>Redirecting to log-in in 5 seconds</p>
+    <p>Oops! You are not logged in.  Redirecting to log-in in 5 seconds</p>
     <p>Click <a href="/">here</a> if you don't want to wait</p>
     <meta http-equiv='refresh' content='5;/' />
     <?php

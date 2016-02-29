@@ -26,11 +26,10 @@
                 if(!empty($_POST['username']) && !empty($_POST['password']))
                 {
                     $username = $_POST['username'];
-                    $password = md5($_POST['password'] + $salt);
+                    $password = md5($_POST['password'] . $salt);
                     $first_name = $_POST['first_name'];
                     $last_name = $_POST['last_name'];
                     $email = $_POST['email'];
-                    $role = $_POST['role'];
                     
                     $login_sql = "SELECT * FROM SiteUsers WHERE username = ?";
                     
@@ -46,8 +45,8 @@
                     }
                     else
                     {
-                        $params = array($username, $password, $first_name, $last_name, $email, $role);
-                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, first_name, last_name, email, role, date_added) VALUES(?,?,?,?,?,?, GETDATE())", $params, $options);
+                        $params = array($username, $password, $first_name, $last_name, $email);
+                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, first_name, last_name, email,  date_added) VALUES(?,?,?,?,?, GETDATE())", $params, $options);
                         
                         if($registerquery)
                         {
@@ -74,11 +73,11 @@
                         <label for="last_name">Last Name:</label><input type="text" name="last_name" id="last_name" /><br />
                         <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
                         <label for="email">Email Address:</label><input type="text" name="email" id="email" /><br />
-                        <select name="role" id="role">
+                        <!--<select name="role" id="role">
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
                         <option value="admin">Administrator</option><br />
-                        </select>
+                        </select>-->
                         <input type="submit" name="register" id="register" id="register" value="Register" />
                     </fieldset>
                     </form>         

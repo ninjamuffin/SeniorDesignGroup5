@@ -33,19 +33,19 @@
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         // let the user access the main page
-        if ($_SESSION['Role'] == 'admin')
+        if ($_SESSION['Role'] == 'Admin')
         {
             ?>
             <meta http-equiv='refresh' content='0;/Admin/Home/' />
             <?php
         }
-        elseif ($_SESSION['Role'] == 'student')
+        elseif ($_SESSION['Role'] == 'Student')
         {
             ?>
             <meta http-equiv='refresh' content='0;/Student/Home/' />
             <?php
         }
-        elseif ($_SESSION['Role'] == 'teacher')
+        elseif ($_SESSION['Role'] == 'Teacher')
         {
             ?>
             <meta http-equiv='refresh' content='0;/Teacher/Home/' />
@@ -67,10 +67,17 @@
     {
         // let the user login //mssql_escape may cause problems with md5()
         $username = $_POST['username'];
-        $password = md5($_POST['password'] + $salt);
-        $loginquery = "SELECT * FROM SiteUsers WHERE username = ? AND password = ?";
+        $password = md5($_POST['password'] . $salt);
+        $loginquery = "
+SELECT SU.[user_id],SU.[username],SU.[password],SU.[first_name],SU.[last_name],SU.[email],SU.[date_added], R.[Role]
+FROM SiteUsers as SU, RoleInstances as RI, Roles as R
+WHERE SU.username = ? AND
+      SU.[password] = ? AND
+      RI.SiteUsername = SU.username AND
+      RI.RoleInstanceID = (SELECT max(RoleInstanceID) FROM RoleInstances WHERE SiteUsername = ?) AND
+      R.RoleID = RI.RoleID";
         
-        $params = array($username, $password);
+        $params = array($username, $password, $username);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         
         $checklogin = sqlsrv_query($con, $loginquery, $params, $options);
@@ -80,7 +87,7 @@
         {
             $row = sqlsrv_fetch_array($checklogin);
             $email = $row['email'];
-            $role = $row['role'];
+            $role = $row['Role'];
             $first_name = $row['first_name'];
             $last_name = $row['last_name'];
             

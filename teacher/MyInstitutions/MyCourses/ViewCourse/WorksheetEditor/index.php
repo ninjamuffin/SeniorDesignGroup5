@@ -1,6 +1,6 @@
-<!-- Archive Home (index.html) for Teacher account -->
+<!-- Edit Worksheet (index.php) for Teacher account -->
 
-<?php include "../../base.php"; ?>
+<?php include "../../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +43,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'Teacher')
+    if($_SESSION['Role'] != 'teacher')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
@@ -69,8 +69,30 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <span class="hamb-bottom"></span>
                         </button>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h2>Teacher Name: Archive</h2>
-                            <p>Archive access home for teacher user.  Through this page, the teacher will be able to view all non-active courses (decision to be made: all courses, or only those that are taught by that particular teacher?).  Links will be provided in the Archive Sidebar for navigation to different sections of the Archive, including courses, worksheets, and expressions (search functionality included in each)  </p>
+                            <h1>Course Title: Edit Worksheet #_</h1>
+                            <div class="panel panel-primary">
+                                <button class="btn btn-default" type="button" id="PublishWorksheet"><a href="#">Publish</a></button>
+                                <div class="panel-heading">Display Worksheet Information</div>
+                                <div class="panel-body">
+                                    <p>Topic, level, date</p>
+                                </div> 
+                            </div>
+    <?php
+        for ($i = 1; $i <= 10; $i++)
+        {
+    ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Expression <?=$i?></div>
+                                <div class="panel-body">
+                                    <p>Display sentence number, Display student, Text Display[Expression], Text Entry/Text Display{Enter Context/Vocab}, Checkbox[Starred], Update button</p>
+                                    <p>On update, print "Expression updated</p>
+                                </div>
+                            </div>
+    <?php              
+        }
+    ?>
+                            
+                             
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

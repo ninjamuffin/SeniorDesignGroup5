@@ -53,6 +53,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        
+        
     ?>        
 
     <body>
@@ -76,21 +78,34 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <p>Enter <strong>topic</strong>, enter <strong>date</strong>, verify <strong>level</strong> (extracted from course number)</p>
                                 </div> 
                             </div>
-    <?php
-        for ($i = 1; $i <= 10; $i++)
-        {
-    ?>
+    
+                            <div class="well">
+                            <form id="Worksheet" method="post" action="#submit-expression" class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-xs-3">
+                                        <form action="">
+                                        Student: <input type="text" onkeyup="showHint(this.value)"></form>
+                                        <p>Suggestions: <span id="txtHint"></span></p>
+                                    </div>
+                                    <!--<div class="col-xs-6">
+                                        <input type="text" class="form-control" name="Expression" placeholder="Enter Expression" />
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" class="form-control" name="Expression" placeholder="Context/Vocab" />
+                                    </div>
+                                <div class="col-xs-1">
+                                    <button type="button" class="btn btn-default"></button>
+                                </div>    -->
+                                </div>
+                            </form>
+                            </div>
                             <div class="panel panel-default">
-                                <div class="panel-heading">Expression <?=$i?></div>
+                                <div class="panel-heading">Expression Template</div>
                                 <div class="panel-body">
                                     <p>Sentence number, Dropdown{Select Student}, Text Entry{Enter Expression}, Text Entry{Enter Context/Vocab}, Submit</p>
                                     <p>On submit: disable submit, print "Submitted"</p>
                                 </div>
-                            </div>
-    <?php              
-        }
-    ?>
-                            
+                            </div>                   
                              
                             <!-- END PAGE CONTENT -->
                         </div>
@@ -109,6 +124,26 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $("#wrapper").toggleClass("toggled");
         });
         </script>
+        <script>
+       
+        function showHint(str) {
+            if (str.length == 0) { 
+                document.getElementById("txtHint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ChangeRole.php?q=" + str, true);
+                xmlhttp.send();
+            }
+        }
+        
+        </script>
+        
     </body>
     <?php
     }

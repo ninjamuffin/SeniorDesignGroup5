@@ -1,4 +1,4 @@
-<!-- Archive Home (index.html) for Teacher account -->
+<!-- View students (index.php) for basic Teacher account -->
 
 <?php include "../../base.php"; ?>
 <!DOCTYPE html>
@@ -69,8 +69,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <span class="hamb-bottom"></span>
                         </button>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h2>Teacher Name: Archive</h2>
-                            <p>Archive access home for teacher user.  Through this page, the teacher will be able to view all non-active courses (decision to be made: all courses, or only those that are taught by that particular teacher?).  Links will be provided in the Archive Sidebar for navigation to different sections of the Archive, including courses, worksheets, and expressions (search functionality included in each)  </p>
+                            <h2>My Students</h2>
+                            <p>For a given teacher, will list all active students (according to active courses) and display a link to each student's profile view  </p>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

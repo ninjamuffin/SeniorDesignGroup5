@@ -41,7 +41,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if( !(($_SESSION['Role'] == 'admin') || ($_SESSION['Role'] == 'teacher') ))
+    if( !(($_SESSION['Role'] == 'Admin') || ($_SESSION['Role'] == 'Teacher') ))
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
@@ -65,15 +65,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
-                                
-                                <p>Display Results</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Search for a course</div>
+                                    <div class="panel-body">
+                                        
+                                    <p>Search Information</p>
+                                    </div>
+                                </div>
                                 <?php
-       /* foreach($_POST as $POST_var)
-        {
-            ?>
-                                <p><?=$POST_var?></p>
-                                <?php
-        }*/
+       
         if(!empty($_POST['words']))
         {
             $words = $_POST['words'];//getArray_POST('words');

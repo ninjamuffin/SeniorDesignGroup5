@@ -10,66 +10,96 @@
         <!-- Bootstrap -->
         
         <link href="/css/bootstrap.css" rel="stylesheet">
-        <link href="/css/custom_theme.css" rel="stylesheet">
-        <style>
-            .logo-center img {
-                max-height: 52px;
-                max-width: auto;
-            }
-        </style>
-        <style type="text/css">
-            .navbar-default { background: rgb(220, 246, 255) !important; }
-        </style>
+        
     </head>
     
     <?php
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $ListRolesQuery = "SELECT DISTINCT R.Role FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID";
+        $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
+        if( $stmt === false ) {
+             die( print_r( sqlsrv_errors(), true));
+        }
+
+        // Make the first (and in this case, only) row of the result set available for reading.
+        $RolesList = [];
+        while( sqlsrv_fetch( $stmt ) === true) {
+             $RolesList[] = sqlsrv_get_field( $stmt, 0);
+        }
+        
+        
         ?>
         <body>
         <div class="navbar navbar-default navbar-fixed-top ng-scope">
             <div class="container-fluid">
               <div class="navbar-header">
-                <div class="logo-center">
-                    <img src="/media/smalltalkimage.gif" class="img-responsive center-block">
-                </div>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
                 </button>
                 <!--<a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand"> <img src="/media/logo.jpeg"></a>-->
               </div>
                 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
                 <ul class="nav navbar-nav navbar-right">
-                  <li class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default active">
-                      <input name="year" href="#" type="radio">Admin
-                    </label>
-                    <label class="btn btn-default">
-                      <input name="year" href="#" type="radio">Teacher
-                    </label>
-                  </li>
                   <li class="dropdown">
                     <a href="javascript:void(0);" dropdown="" dropdown-toggle data-toggle="dropdown">
                       <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">Profile</a></li>
+                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
                         <li class="divider"></li>
-                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">Settings</a></li>
-                        <li class="divider"></li>
-                        <li>Logged in as: <?=$_SESSION['Role']?></li>
+                        <?php                    
+        foreach($RolesList as $ListedRole)
+        {
+            if ($ListedRole == $_SESSION['Role'])
+            {
+            ?>
+                        <li><a><strong><?=$ListedRole?></strong></a></li>
+                                
+            <?php
+            }
+            else
+            {
+                ?>
+                <li><a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a></li>
+                <?php
+            }
+        }
+        ?>
                         <li class="divider"></li>
                         <li><a href="/logout.php">Log out</a></li>
                     </ul>
-                  </li>
+          
+                            
+                </li>
+                             
                 </ul>
-              </div>
+                </div>
+                  </div>
             </div>
-          </div>
+          <script>
+            function ChangeRole(str) {
+            if (str.length == 0) { 
+                document.getElementById("UserRoles").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        document.getElementById("UserRoles").innerHTML = xmlhttp.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ChangeRole.php?q=" + str, true);
+                xmlhttp.send();
+            }
+        }
+          </script>
     </body>
     <?php
     }
@@ -77,7 +107,7 @@
        {
             ?>
             <!-- Reroute to log-in page if there is no session detected -->
-            <meta http-equiv='refresh' content='0;index.php' />
+            <meta http-equiv='refresh' content='0;/index.php' />
             <?php
        }
     

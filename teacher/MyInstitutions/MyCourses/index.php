@@ -43,7 +43,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'teacher')
+    if($_SESSION['Role'] != 'Teacher')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
@@ -70,9 +70,28 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </button>
                             <!-- BEGIN PAGE CONTENT -->
                             <h1>Courses</h1>
-                            <p>Documentation:</p>
-                            <p>Home view for all courses (active) taught by instructor.  Lists links to each course page</p>
-                            <p><a href="ViewCourse/">A Course</a></p>
+                            
+                            <?php
+        $username = $_SESSION['Username'];
+        $teacherNameQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
+        $params = array($username);
+        $options = array( "Scrollable" => 'static' );
+        $stmt = sqlsrv_query($con, $teacherNameQuery, $params, $array);
+        if( $stmt === false ) {
+            die( print_r( sqlsrv_errors(), true));
+            }
+
+            // Make the first (and in this case, only) row of the result set available for reading.
+        if( sqlsrv_fetch( $stmt ) === false) {
+            die( print_r( sqlsrv_errors(), true));
+        }
+        $name = sqlsrv_get_field( $stmt, 0);
+        echo "$name";
+        $params = array($);
+        $options = array( "Scrollable" => 'static' );
+        $retrieveInstitutionsQuery = "";
+        $stmt = sqlsrv_query($con, $retrieveInstitutionsQuery, $params, $array)
+        ?>
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

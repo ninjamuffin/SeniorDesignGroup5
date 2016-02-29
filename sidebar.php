@@ -16,7 +16,7 @@
     <?php
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
-        if($_SESSION['Role'] == 'admin')
+        if($_SESSION['Role'] == 'Admin')
         {
             ?>
             <body>
@@ -33,7 +33,7 @@
                               <a href="/admin/ManageCourses/" class="dropdown-toggle" data-toggle="dropdown">Manage Courses<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
                                 <li><a href="/Admin/ManageCourses/CreateCourse/">   Create Course</a>
-                                <a href="/Admin/ManageCourses/ViewCourse/"> View Course</a></li>
+                                    <a href="/Admin/ManageCourses/ViewCourse/"> View Course</a></li>
                               </ul>
                             </li>
                             <li class="dropdown">
@@ -86,7 +86,7 @@
             </body>
         <?php
         }
-        elseif($_SESSION['Role'] == 'teacher')
+        elseif($_SESSION['Role'] == 'Teacher')
         {
             ?>
             <body>
@@ -102,9 +102,8 @@
                             <li class="dropdown">
                               <a href="/teacher/MyInstitutions/" class="dropdown-toggle" data-toggle="dropdown">My Institutions<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown-header">Options</li>
-                                <li><a href="/teacher/MyInstitutions/MyCourses/">   My Courses</a></li>
-                                <li><a href="/teacher/MyInstitutions/MyStudents/">  My Students</a></li>
+                                <li><a href="/teacher/MyInstitutions/MyCourses/">   My Courses</a>
+                                <a href="/teacher/MyInstitutions/MyStudents/">  My Students</a></li>
                               </ul>
                             </li>
                             <li class="sidebar-brand">
@@ -113,9 +112,8 @@
                             <li class="sidebar-brand">
                                 <a href="/teacher/Archive/" class="dropdown-toggle" data-toggle="dropdown">Archive<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown-header">Options</li>
-                                <li><a href="/teacher/Archive/Courses/">   Courses</a></li>
-                                <li><a href="/teacher/Archive/Students/">    Students</a></li>
+                                <li><a href="/teacher/Archive/Courses/">   Courses</a>
+                                <a href="/teacher/Archive/Students/">    Students</a></li>
                               </ul>
                             </li>
                         </ul>
@@ -135,7 +133,7 @@
             </body>
             <?php            
         }
-        elseif($_SESSION['Role'] == 'student')
+        elseif($_SESSION['Role'] == 'Student')
         {
             ?>
             <body>
@@ -151,7 +149,6 @@
                             <li class="dropdown">
                                 <a href="/student/MyCourses/" class="dropdown-toggle" data-toggle="dropdown">My Courses<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li class="dropdown-header">Options</li>
                                     <li><a href="/student/MyCourses/ViewCourse/">   View Course</a>
                                     </li>
                                 </ul>
@@ -159,7 +156,6 @@
                             <li class="dropdown">
                                 <a href="/student/MyTeachers/" class="dropdown-toggle" data-toggle="dropdown">My Teachers<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li class="dropdown-header">Options</li>
                                     <li><a href="/student/MyTeachers/ViewTeacherProfile/">   View Teacher Profile</a></li>
                                 </ul>
                             </li>

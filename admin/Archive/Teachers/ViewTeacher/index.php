@@ -42,7 +42,7 @@ include "../../../../base.php";
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'admin')
+    if($_SESSION['Role'] != 'Admin')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>

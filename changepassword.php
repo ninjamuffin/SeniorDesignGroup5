@@ -27,10 +27,10 @@
                 if((((!empty($_POST['username']) && !empty($_POST['password'])) && !empty($_POST['password_verify'])) && !empty($_POST['email'])) && !empty($_POST['new_password']))
                 {
                     $username = $_POST['username'];
-                    $password = md5($_POST['password'] + $salt);
-                    $password_verify = md5($_POST['password_verify'] + $salt);
+                    $password = md5($_POST['password'] . $salt);
+                    $password_verify = md5($_POST['password_verify'] . $salt);
                     $email = $_POST['email'];
-                    $new_password = md5($_POST['new_password'] + $salt);
+                    $new_password = md5($_POST['new_password'] . $salt);
                     
                     $login_sql = "SELECT * FROM SiteUsers WHERE username = ?";
                     

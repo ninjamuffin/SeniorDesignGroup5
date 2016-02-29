@@ -86,7 +86,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if( !(($_SESSION['Role'] == 'admin') || ($_SESSION['Role'] == 'teacher') ))
+    if( !(($_SESSION['Role'] == 'Admin') || ($_SESSION['Role'] == 'Teacher') ))
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
