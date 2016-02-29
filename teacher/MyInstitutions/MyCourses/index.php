@@ -73,10 +73,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             
                             <?php
         $username = $_SESSION['Username'];
-        $teacherNameQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
         $params = array($username);
+        $teacherNameQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
+        
         $options = array( "Scrollable" => 'static' );
-        $stmt = sqlsrv_query($con, $teacherNameQuery, $params, $array);
+        $stmt = sqlsrv_query($con, $teacherNameQuery, $params, $options);
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true));
             }
@@ -87,10 +88,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
         $name = sqlsrv_get_field( $stmt, 0);
         echo "$name";
-        $params = array($);
+        //$params = array($);
         $options = array( "Scrollable" => 'static' );
         $retrieveInstitutionsQuery = "";
-        $stmt = sqlsrv_query($con, $retrieveInstitutionsQuery, $params, $array)
+        $stmt = sqlsrv_query($con, $retrieveInstitutionsQuery, $params, $options)
         ?>
                             <!-- END PAGE CONTENT -->
                         </div>
