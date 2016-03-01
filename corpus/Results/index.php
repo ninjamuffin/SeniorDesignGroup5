@@ -22,7 +22,7 @@
             $("#header").load("/header.php");
         });
         $(function(){
-            $("#sidebar").load("/corpus/sidebar.php");
+            $("#sidebar").load("/sidebar.php");
         });
     </script>
 
