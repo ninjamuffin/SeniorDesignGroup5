@@ -1,6 +1,6 @@
 <!-- Courses Home (index.php) for Teacher account -->
 
-<?php include "../../../base.php"; ?>
+<?php include "../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +53,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $institutionID = isset($_GET['in']) ? $_GET['in'] : 0; // Default Institution = 1
+        if ($institutionID == 0)
+            echo "Error passing GET variable -in-";
+        
+        
     ?>        
 
     <body>
@@ -69,29 +74,71 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <span class="hamb-bottom"></span>
                         </button>
                             <!-- BEGIN PAGE CONTENT -->
-                            <h1>Courses</h1>
+                            
                             
                             <?php
         $username = $_SESSION['Username'];
         $params = array($username);
-        $teacherNameQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
+        $teacherIDQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
         
         $options = array( "Scrollable" => 'static' );
-        $stmt = sqlsrv_query($con, $teacherNameQuery, $params, $options);
+        $stmt = sqlsrv_query($con, $teacherIDQuery, $params, $options);
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true));
-            }
-
-            // Make the first (and in this case, only) row of the result set available for reading.
-        if( sqlsrv_fetch( $stmt ) === false) {
-            die( print_r( sqlsrv_errors(), true));
         }
-        $name = sqlsrv_get_field( $stmt, 0);
-        echo "$name";
-        //$params = array($);
+
+        $teacherID = 0;
+        if ( sqlsrv_fetch( $stmt ) === true) {
+            $teacherID = sqlsrv_get_field( $stmt, 0);
+        }
+        $params = array($institutionID, $teacherID);
         $options = array( "Scrollable" => 'static' );
-        $retrieveInstitutionsQuery = "";
-        $stmt = sqlsrv_query($con, $retrieveInstitutionsQuery, $params, $options)
+        $CoursesQuery = "
+        SELECT TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName
+        FROM TeachersCourses as TC, [Class Names] as CN, [Sessions] as S, SessionNames as SN
+        WHERE TC.InstitutionID = ? AND
+	          TC.InstructorID = ? AND
+		      CN.ClassNamesID = TC.ClassNamesID AND
+		      TC.SessionID > 100 AND
+		      SN.SessionsID = TC.SessionID
+              GROUP BY TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName";
+        $stmt = sqlsrv_query($con, $CoursesQuery, $params, $options);
+        
+        $courseID = [];
+        $ClassNames = [];
+        $Sections = [];
+        $SessionNames = [];
+        if ( $stmt === false)
+            die( print_r( sqlsrv_errors(), true));
+        while (sqlsrv_fetch( $stmt ) === true) {
+            $courseID[] = sqlsrv_get_field( $stmt, 0);
+            $ClassNames[] = sqlsrv_get_field( $stmt, 1);
+            $Sections[] = sqlsrv_get_field( $stmt, 2);
+            $SessionNames[] = sqlsrv_get_field( $stmt, 3);
+        }
+        $length = sqlsrv_num_rows ($stmt);
+        echo "<h1>Courses</h1>";
+
+        for ($i = 0; $i < $length; $i++)
+        {
+            ?>
+                            <div class="row">
+                                <div class="panel panel-primary col-xs-4">
+                                    <div class="panel-body">
+                                        <p>Class Name: <?=$ClassNames[$i]?></p>
+                                        <p>Section: <?=$Sections[$i]?></p>
+                                        <p>Session: <?=$SessionNames[$i]?></p>
+                                        <u1 class="list=group">
+                                            <li class="list-group-item"><a href="ViewCourse/?c=<?=$courseID[$i]?>">Course Page</a></li>
+
+
+                                    </u1>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <?php
+        }
         ?>
                             <!-- END PAGE CONTENT -->
                         </div>

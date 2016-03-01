@@ -1,6 +1,6 @@
 <!-- Course view (index.php) for Teacher account -->
 
-<?php include "../../../../base.php"; ?>
+<?php include "../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +43,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'teacher')
+    if($_SESSION['Role'] != 'Teacher')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
@@ -75,7 +75,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <p>Print Course information: ___</p>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">Worksheets</div>
-                                <button class="btn btn-default" type="button" id="CreateWorksheet"><a href="CreateWorksheet/">Create Worksheet</a></button>
+                                <button class="btn btn-default" type="button" id="CreateWorksheet"><a href="WorksheetEditor/">New Worksheet</a></button>
                                 <div class="panel-body">
                                     <p>Will iterate through worksheets, providing a viewing link (to review submissions), an edit button, a 'publish' button, the worksheet status "in progress/published", and date created. </p>
                                 </div>

@@ -97,9 +97,9 @@
             $params = array($_SESSION['Username']);
             $options = array( "Scrollable" => 'static' );
             $getInstitutionsQuery = "
-            SELECT I.InstitutionName 
+            SELECT I.InstitutionName, I.InstitutionID 
             FROM Institutions as I, TeachingInstance as TI
-            WHERE TI.SiteUsername = 'hunter' AND
+            WHERE TI.SiteUsername = ? AND
 	              I.InstitutionID = TI.InstitutionID";
             $stmt = sqlsrv_query($con, $getInstitutionsQuery, $params, $options);
     
@@ -111,7 +111,7 @@
             $institution_ids = [];
             while( sqlsrv_fetch( $stmt ) === true) {
                 $institutions[] = sqlsrv_get_field( $stmt, 0);
-                $institution_id[] = sqlsrv_get_field( $stmt, 1);
+                $institution_ids[] = sqlsrv_get_field( $stmt, 1);
             }
             
             ?>
@@ -133,8 +133,9 @@
             foreach($institutions as $inst)
             {
                 ?>
-                                <li><a href="/teacher/MyCourses/?in=$institution[$i]"><?=$institutions[$i]?></a></li>  
+                                <li><a href="/teacher/MyCourses/?in=<?=$institution_ids[$i]?>"><?=$inst?></a></li>  
                                   <?php
+                    $i += 1;
             }
                    ?>             
                               </ul>

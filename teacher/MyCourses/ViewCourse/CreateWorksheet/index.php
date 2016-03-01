@@ -1,6 +1,6 @@
 <!-- Create Worksheet (index.php) for Teacher account -->
 
-<?php include "../../../../../base.php"; ?>
+<?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +43,7 @@
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'teacher')
+    if($_SESSION['Role'] != 'Teacher')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>

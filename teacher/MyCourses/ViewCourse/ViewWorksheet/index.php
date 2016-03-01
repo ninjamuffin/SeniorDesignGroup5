@@ -1,6 +1,6 @@
 <!-- View Worksheet (index.php) for Teacher account -->
 
-<?php include "../../../../../base.php"; ?>
+<?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

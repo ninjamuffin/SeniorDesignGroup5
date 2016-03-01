@@ -1,6 +1,6 @@
 <!-- Edit Worksheet (index.php) for Teacher account -->
 
-<?php include "../../../../../base.php"; ?>
+<?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,20 +77,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <p>Topic, level, date</p>
                                 </div> 
                             </div>
-    <?php
-        for ($i = 1; $i <= 10; $i++)
-        {
-    ?>
+
                             <div class="panel panel-default">
-                                <div class="panel-heading">Expression <?=$i?></div>
+                                <div class="panel-heading">Expression Template/div>
                                 <div class="panel-body">
                                     <p>Display sentence number, Display student, Text Display[Expression], Text Entry/Text Display{Enter Context/Vocab}, Checkbox[Starred], Update button</p>
                                     <p>On update, print "Expression updated</p>
                                 </div>
                             </div>
-    <?php              
-        }
-    ?>
                             
                              
                             <!-- END PAGE CONTENT -->
