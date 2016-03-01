@@ -11,6 +11,12 @@
         <link href="/css/bootstrap.css" rel="stylesheet">
         <link href="/css/SidebarPractice.css" rel="stylesheet">
         <link rel="stylesheet/less" type="text/css" href="/datepicker.less">
+        <style>
+            a{
+                display:inline-block;
+                padding:2px;
+            }
+        </style>
     </head>
     
     <?php
@@ -88,6 +94,26 @@
         }
         elseif($_SESSION['Role'] == 'Teacher')
         {
+            $params = array($_SESSION['Username']);
+            $options = array( "Scrollable" => 'static' );
+            $getInstitutionsQuery = "
+            SELECT I.InstitutionName 
+            FROM Institutions as I, TeachingInstance as TI
+            WHERE TI.SiteUsername = 'hunter' AND
+	              I.InstitutionID = TI.InstitutionID";
+            $stmt = sqlsrv_query($con, $getInstitutionsQuery, $params, $options);
+    
+            if( $stmt === false ) {
+            die( print_r( sqlsrv_errors(), true));
+            }
+            
+            $institutions = [];
+            $institution_ids = [];
+            while( sqlsrv_fetch( $stmt ) === true) {
+                $institutions[] = sqlsrv_get_field( $stmt, 0);
+                $institution_id[] = sqlsrv_get_field( $stmt, 1);
+            }
+            
             ?>
             <body>
                 <div id="wrapper">
@@ -102,20 +128,29 @@
                             <li class="dropdown">
                               <a href="/teacher/MyInstitutions/" class="dropdown-toggle" data-toggle="dropdown">My Institutions<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a href="/teacher/MyInstitutions/MyCourses/">   My Courses</a>
-                                <a href="/teacher/MyInstitutions/MyStudents/">  My Students</a></li>
+                                  <?php
+            $i = 0;
+            foreach($institutions as $inst)
+            {
+                ?>
+                                <li><a href="/teacher/MyCourses/?in=$institution[$i]"><?=$institutions[$i]?></a></li>  
+                                  <?php
+            }
+                   ?>             
                               </ul>
                             </li>
-                            <li class="sidebar-brand">
-                                <a href="/corpus/">Corpus</a>
+                            <li>
+                                <a href="/teacher/Archive/">Archive</a>
+                                
                             </li>
-                            <li class="sidebar-brand">
-                                <a href="/teacher/Archive/" class="dropdown-toggle" data-toggle="dropdown">Archive<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a href="/teacher/Archive/Courses/">   Courses</a>
-                                <a href="/teacher/Archive/Students/">    Students</a></li>
-                              </ul>
+                            <li>
+                                <a href="/corpus/" class="dropdown-toggle" data-toggle="dropdown">Corpus<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">About</a>
+                                        <a href="/Corpus/Search/">Search</a></li>
+                                </ul>
                             </li>
+                            
                         </ul>
                     </nav>
                     <!-- /#page-content-wrapper -->

@@ -53,7 +53,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
-                        <li class="divider"></li>
+                        <li><a href="#">Change Password</a></li>
+                        <li class="divider">My Roles</li>
                         <?php                    
         foreach($RolesList as $ListedRole)
         {
