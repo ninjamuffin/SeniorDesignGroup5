@@ -8,9 +8,8 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         
         <!-- Bootstrap -->
-        <link href="/css/bootstrap.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css.css" rel="stylesheet">
         <link href="/css/SidebarPractice.css" rel="stylesheet">
-        <link rel="stylesheet/less" type="text/css" href="/datepicker.less">
         <style>
             a{
                 display:inline-block;

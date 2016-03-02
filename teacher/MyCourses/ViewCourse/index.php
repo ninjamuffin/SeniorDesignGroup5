@@ -13,7 +13,6 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
     
     <!-- Including Header -->

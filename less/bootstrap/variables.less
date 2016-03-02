@@ -18,29 +18,28 @@
 // Brand colors
 // -------------------------
 
-@brand-primary:         #1abc9c;
-@brand-dark:            #34495e;
-@brand-success:         #2ecc71;
-@brand-warning:         #f39c12;
-@brand-danger:          #e74c3c;
-@brand-info:            #3498db;
+@brand-primary:         #428bca;
+@brand-success:         #5cb85c;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+@brand-info:            #5bc0de;
 
 // Scaffolding
 // -------------------------
 
-@body-bg:               #2c3e50;
-@text-color:            #fff;
+@body-bg:               #fff;
+@text-color:            @gray-dark;
 
 // Links
 // -------------------------
 
 @link-color:            @brand-primary;
-@link-hover-color:      lighten(@link-color, 10%);
+@link-hover-color:      darken(@link-color, 15%);
 
 // Typography
 // -------------------------
 
-@font-family-sans-serif:  "Open Sans", Arial, sans-serif;
+@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 @font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
@@ -55,6 +54,12 @@
 @headings-font-family:    @font-family-base;
 @headings-font-weight:    500;
 @headings-line-height:    1.1;
+
+// Iconography
+// -------------------------
+
+@icon-font-path:          "../fonts/";
+@icon-font-name:          "glyphicons-halflings-regular";
 
 
 // Components
@@ -73,9 +78,9 @@
 @line-height-large:              1.33;
 @line-height-small:              1.5;
 
-@border-radius-base:             0px;
-@border-radius-large:            0px;
-@border-radius-small:            0px;
+@border-radius-base:             4px;
+@border-radius-large:            6px;
+@border-radius-small:            3px;
 
 @component-active-bg:            @brand-primary;
 
@@ -89,20 +94,20 @@
 @table-condensed-cell-padding:       5px;
 
 @table-bg:                           transparent; // overall background-color
-@table-bg-accent:                    fade(@brand-primary, 10%); // for striping
-@table-bg-hover:                     fade(@brand-primary, 15%);
-@table-bg-active:                    fade(@brand-primary, 10%);
+@table-bg-accent:                    #f9f9f9; // for striping
+@table-bg-hover:                     #f5f5f5;
+@table-bg-active:                    @table-bg-hover;
 
-@table-border-color:                 fade(lighten(@brand-dark, 12%), 81%); // table and cell border
+@table-border-color:                 #ddd; // table and cell border
 
 
 // Buttons
 // -------------------------
 
-@btn-font-weight:                100;
+@btn-font-weight:                normal;
 
 @btn-default-color:              #333;
-@btn-default-bg:                 darken(@text-color, 5%);
+@btn-default-bg:                 #fff;
 @btn-default-border:             #ccc;
 
 @btn-primary-color:              #fff;
@@ -125,54 +130,51 @@
 @btn-info-bg:                    @brand-info;
 @btn-info-border:                darken(@btn-info-bg, 5%);
 
-@btn-link-disabled-color:        darken(@text-color, 50%);
+@btn-link-disabled-color:        @gray-light;
 
 
 // Forms
 // -------------------------
 
-@input-bg:                       lighten(@brand-dark, 6%);
-@input-bg-disabled:              lighten(@brand-dark, 16%);
+@input-bg:                       #fff;
+@input-bg-disabled:              @gray-lighter;
 
-@input-border:                   @brand-primary;
-@input-border-disabled:          darken(@brand-primary, 12%);
+@input-color:                    @gray;
+@input-border:                   #ccc;
 @input-border-radius:            @border-radius-base;
-@input-border-focus:             lighten(@brand-primary, 10%);
+@input-border-focus:             #66afe9;
 
-@input-color-placeholder:        darken(@text-color, 50%);
-@input-color:                    darken(@text-color, 5%);
+@input-color-placeholder:        @gray-light;
 
 @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
 @input-height-large:             (floor(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
 @input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
 
-@legend-border-color:            fade(lighten(@brand-dark, 12%), 81%);
-@legend-color:                   darken(@text-color, 8%);
+@legend-color:                   @gray-dark;
+@legend-border-color:            #e5e5e5;
 
-@input-group-addon-bg:           @input-bg;
+@input-group-addon-bg:           @gray-lighter;
 @input-group-addon-border-color: @input-border;
 
 
 // Dropdowns
 // -------------------------
 
-@dropdown-bg:                    @brand-primary;
+@dropdown-bg:                    #fff;
 @dropdown-border:                rgba(0,0,0,.15);
 @dropdown-fallback-border:       #ccc;
-@dropdown-divider-bg:            fade(darken(@dropdown-bg, 10%), 41%);
-@dropdown-font-size:             11px;
-@dropdown-margin-top:            12px;
+@dropdown-divider-bg:            #e5e5e5;
 
 @dropdown-link-active-color:     #fff;
-@dropdown-link-active-bg:        fade(@brand-primary, 20%);
+@dropdown-link-active-bg:        @component-active-bg;
 
-@dropdown-link-color:            darken(@text-color, 3%);
+@dropdown-link-color:            @gray-dark;
 @dropdown-link-hover-color:      #fff;
-@dropdown-link-hover-bg:         fade(darken(@brand-primary, 7%), 71%);
+@dropdown-link-hover-bg:         @dropdown-link-active-bg;
 
-@dropdown-link-disabled-color:   fade(@text-color, 20%);
+@dropdown-link-disabled-color:   @gray-light;
 
-@dropdown-header-color:          darken(@text-color, 10%);
+@dropdown-header-color:          @gray-light;
 
 @dropdown-caret-color:           #000;
 
@@ -186,6 +188,7 @@
 // Used for a bird's eye view of components dependent on the z-axis
 // Try to avoid customizing these :)
 
+@zindex-navbar:            1000;
 @zindex-dropdown:          1000;
 @zindex-popover:           1010;
 @zindex-tooltip:           1030;
@@ -197,26 +200,26 @@
 // --------------------------------------------------
 
 // Extra small screen / phone
-@screen-xsmall:              480px;
-@screen-phone:               @screen-xsmall;
+@screen-xs:                  480px;
+@screen-phone:               @screen-xs;
 
 // Small screen / tablet
-@screen-small:               768px;
-@screen-tablet:              @screen-small;
+@screen-sm:                  768px;
+@screen-tablet:              @screen-sm;
 
 // Medium screen / desktop
-@screen-medium:              992px;
-@screen-desktop:             @screen-medium;
+@screen-md:                  992px;
+@screen-desktop:             @screen-md;
 
 // Large screen / wide desktop
-@screen-large:               1200px;
-@screen-large-desktop:       @screen-large;
+@screen-lg:                  1200px;
+@screen-lg-desktop:          @screen-lg;
 
 // So media queries don't overlap when required, provide a maximum
-@screen-phone-max:           (@screen-small - 1);
-@screen-small-max:           (@screen-medium - 1);
-@screen-tablet-max:          (@screen-desktop - 1);
-@screen-desktop-max:         (@screen-large-desktop - 1);
+@screen-xs-max:              (@screen-sm - 1);
+@screen-sm-max:              (@screen-md - 1);
+@screen-md-max:              (@screen-lg - 1);
+
 
 // Grid system
 // --------------------------------------------------
@@ -233,24 +236,22 @@
 // -------------------------
 
 // Basics of a navbar
-@navbar-default-height:                    46px;
-@navbar-default-color:                     @brand-dark;
-@navbar-default-bg:                        @brand-dark;
-@navbar-default-border-radius:             @border-radius-base;
-@navbar-default-padding-horizontal:        floor(@grid-gutter-width / 2);  // ~15px
-@navbar-default-padding-vertical:          ((@navbar-default-height - @line-height-computed) / 2);
-@navbar-default-divider-color:             fade(lighten(@navbar-default-bg, 12%), 41%);
+@navbar-height:                    50px;
+@navbar-margin-bottom:             @line-height-computed;
+@navbar-default-color:             #777;
+@navbar-default-bg:                #f8f8f8;
+@navbar-default-border:            darken(@navbar-default-bg, 6.5%);
+@navbar-border-radius:             @border-radius-base;
+@navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
+@navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
 
 // Navbar links
-@navbar-default-link-padding-horizontal:   25px;
-@navbar-default-link-font-size:            14px;
-@navbar-default-link-disabled-bg:          transparent;
-@navbar-default-link-color:                darken(@text-color, 8%);
-@navbar-default-link-hover-color:          @navbar-default-link-color;
-@navbar-default-link-hover-bg:             @brand-primary;
-@navbar-default-link-active-color:         @brand-primary;
-@navbar-default-link-active-bg:            fade(@brand-primary, 7%);
-@navbar-default-link-disabled-color:       darken(@text-color, 20%);
+@navbar-default-link-color:                #777;
+@navbar-default-link-hover-color:          #333;
+@navbar-default-link-hover-bg:             transparent;
+@navbar-default-link-active-color:         #555;
+@navbar-default-link-active-bg:            darken(@navbar-default-bg, 6.5%);
+@navbar-default-link-disabled-color:       #ccc;
 @navbar-default-link-disabled-bg:          transparent;
 
 // Navbar brand label
@@ -259,24 +260,25 @@
 @navbar-default-brand-hover-bg:            transparent;
 
 // Navbar toggle
-@navbar-toggle-hover-bg:           #ddd;
-@navbar-toggle-icon-bar-bg:        #ccc;
-@navbar-toggle-border-color:       #ddd;
+@navbar-default-toggle-hover-bg:           #ddd;
+@navbar-default-toggle-icon-bar-bg:        #ccc;
+@navbar-default-toggle-border-color:       #ddd;
+
 
 // Inverted navbar
 //
 // Reset inverted navbar basics
 @navbar-inverse-color:                      @gray-light;
-@navbar-inverse-bg:                         @brand-primary;
-@navbar-inverse-divider-color:              fade(darken(@navbar-inverse-bg, 10%), 41%);
+@navbar-inverse-bg:                         #222;
+@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
-@navbar-inverse-link-color:                 darken(@text-color, 8%);
+@navbar-inverse-link-color:                 @gray-light;
 @navbar-inverse-link-hover-color:           #fff;
-@navbar-inverse-link-hover-bg:              @navbar-default-bg;
+@navbar-inverse-link-hover-bg:              transparent;
 @navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
-@navbar-inverse-link-active-bg:             fade(darken(@brand-primary, 7%), 71%);
-@navbar-inverse-link-disabled-color:        darken(@navbar-default-link-color, 10%);
+@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 10%);
+@navbar-inverse-link-disabled-color:        #444;
 @navbar-inverse-link-disabled-bg:           transparent;
 
 // Inverted navbar brand label
@@ -300,22 +302,23 @@
 // Navs
 // -------------------------
 
-@nav-link-hover-bg:                         @brand-primary;
+@nav-link-padding:                          10px 15px;
+@nav-link-hover-bg:                         @gray-lighter;
 
 @nav-disabled-link-color:                   @gray-light;
 @nav-disabled-link-hover-color:             @gray-light;
 
-@nav-open-link-hover-color:                 @brand-primary;
-@nav-open-caret-border-color:               @brand-primary;
+@nav-open-link-hover-color:                 #fff;
+@nav-open-caret-border-color:               #fff;
 
 // Tabs
-@nav-tabs-border-color:                     darken(@brand-primary, 12%);
+@nav-tabs-border-color:                     #ddd;
 
-@nav-tabs-link-hover-border-color:          @brand-primary;
+@nav-tabs-link-hover-border-color:          @gray-lighter;
 
-@nav-tabs-active-link-hover-bg:             @brand-dark;
-@nav-tabs-active-link-hover-color:          @brand-primary;
-@nav-tabs-active-link-hover-border-color:   darken(@brand-primary, 12%);
+@nav-tabs-active-link-hover-bg:             @body-bg;
+@nav-tabs-active-link-hover-color:          @gray;
+@nav-tabs-active-link-hover-border-color:   #ddd;
 
 @nav-tabs-justified-link-border-color:            #ddd;
 @nav-tabs-justified-active-link-border-color:     @body-bg;
@@ -328,46 +331,51 @@
 // Pagination
 // -------------------------
 
-@pagination-bg:                        @brand-dark;
-@pagination-hover-bg:				   @brand-primary;
+@pagination-bg:                        #fff;
 @pagination-border:                    #ddd;
+
+@pagination-hover-bg:                  @gray-lighter;
+
 @pagination-active-bg:                 @brand-primary;
-@pagination-active-color:              @text-color;
-@pagination-disabled-color:            darken(@text-color, 50%);
-@pagination-divider-color:             fade(lighten(@pagination-bg, 12%), 41%);
+@pagination-active-color:              #fff;
+
+@pagination-disabled-color:            @gray-light;
+
 
 // Pager
 // -------------------------
 
 @pager-border-radius:                  15px;
-@pager-disabled-color:                 darken(@text-color, 50%);
+@pager-disabled-color:                 @gray-light;
 
 
 // Jumbotron
 // -------------------------
 
-@jumbotron-bg:                   @brand-dark;
+@jumbotron-padding:              30px;
+@jumbotron-color:                inherit;
+@jumbotron-bg:                   @gray-lighter;
+
 @jumbotron-heading-color:        inherit;
-@jumbotron-lead-color:           inherit;
 
 
 // Form states and alerts
 // -------------------------
 
-@state-warning-text:             @text-color;
-@state-warning-bg:               @brand-warning;
+@state-warning-text:             #c09853;
+@state-warning-bg:               #fcf8e3;
 @state-warning-border:           darken(spin(@state-warning-bg, -10), 3%);
 
-@state-danger-text:              @text-color;
-@state-danger-bg:                @brand-danger;
+@state-danger-text:              #b94a48;
+@state-danger-bg:                #f2dede;
 @state-danger-border:            darken(spin(@state-danger-bg, -10), 3%);
 
-@state-success-text:             @text-color;
-@state-success-bg:               @brand-success;
+@state-success-text:             #468847;
+@state-success-bg:               #dff0d8;
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
 
-@state-info-text:                @text-color;
-@state-info-bg:                  @brand-info;
+@state-info-text:                #3a87ad;
+@state-info-bg:                  #d9edf7;
 @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
 
 
@@ -375,7 +383,7 @@
 // -------------------------
 @tooltip-max-width:           200px;
 @tooltip-color:               #fff;
-@tooltip-bg:                  fade(@brand-primary, 80%);
+@tooltip-bg:                  #000;
 
 @tooltip-arrow-width:         5px;
 @tooltip-arrow-color:         @tooltip-bg;
@@ -383,7 +391,7 @@
 
 // Popovers
 // -------------------------
-@popover-bg:                          @brand-primary;
+@popover-bg:                          #fff;
 @popover-max-width:                   276px;
 @popover-border-color:                rgba(0,0,0,.2);
 @popover-fallback-border-color:       #ccc;
@@ -391,7 +399,7 @@
 @popover-title-bg:                    darken(@popover-bg, 3%);
 
 @popover-arrow-width:                 10px;
-@popover-arrow-color:                 @brand-primary;
+@popover-arrow-color:                 #fff;
 
 @popover-arrow-outer-width:           (@popover-arrow-width + 1);
 @popover-arrow-outer-color:           rgba(0,0,0,.25);
@@ -401,7 +409,8 @@
 // Labels
 // -------------------------
 
-@label-default-bg:            @brand-primary;
+@label-default-bg:            @gray-light;
+@label-primary-bg:            @brand-primary;
 @label-success-bg:            @brand-success;
 @label-info-bg:               @brand-info;
 @label-warning-bg:            @brand-warning;
@@ -418,13 +427,13 @@
 @modal-title-padding:         15px;
 @modal-title-line-height:     @line-height-base;
 
-@modal-content-bg:                             @brand-dark;
+@modal-content-bg:                             #fff;
 @modal-content-border-color:                   rgba(0,0,0,.2);
 @modal-content-fallback-border-color:          #999;
 
 @modal-backdrop-bg:           #000;
-@modal-header-border-color:   fade(lighten(@brand-dark, 12%), 81%);
-@modal-footer-border-color:   fade(lighten(@brand-dark, 12%), 81%);
+@modal-header-border-color:   #e5e5e5;
+@modal-footer-border-color:   @modal-header-border-color;
 
 
 // Alerts
@@ -433,26 +442,26 @@
 @alert-border-radius:         @border-radius-base;
 @alert-link-font-weight:      bold;
 
-@alert-bg:                    @brand-warning;
-@alert-text:                  lighten(@brand-warning, 30%);
-@alert-border:                @state-warning-border;
-
-@alert-success-bg:            @brand-success;
-@alert-success-text:          lighten(@brand-success, 30%);
+@alert-success-bg:            @state-success-bg;
+@alert-success-text:          @state-success-text;
 @alert-success-border:        @state-success-border;
 
-@alert-danger-bg:             @brand-danger;
-@alert-danger-text:           lighten(@brand-danger, 30%);
-@alert-danger-border:         @state-danger-border;
-
-@alert-info-bg:               @brand-info;
-@alert-info-text:             lighten(@brand-info, 30%);
+@alert-info-bg:               @state-info-bg;
+@alert-info-text:             @state-info-text;
 @alert-info-border:           @state-info-border;
+
+@alert-warning-bg:            @state-warning-bg;
+@alert-warning-text:          @state-warning-text;
+@alert-warning-border:        @state-warning-border;
+
+@alert-danger-bg:             @state-danger-bg;
+@alert-danger-text:           @state-danger-text;
+@alert-danger-border:         @state-danger-border;
 
 
 // Progress bars
 // -------------------------
-@progress-bg:                 @brand-dark;
+@progress-bg:                 #f5f5f5;
 @progress-bar-color:          #fff;
 
 @progress-bar-bg:             @brand-primary;
@@ -464,88 +473,86 @@
 
 // List group
 // -------------------------
-@list-group-bg:               lighten(@brand-dark, 3%);
-@list-group-border:           fade(lighten(@brand-dark, 12%), 81%);
+@list-group-bg:               #fff;
+@list-group-border:           #ddd;
 @list-group-border-radius:    @border-radius-base;
 
-@list-group-hover-bg:         @brand-primary;
+@list-group-hover-bg:         #f5f5f5;
 @list-group-active-color:     #fff;
 @list-group-active-bg:        @component-active-bg;
 @list-group-active-border:    @list-group-active-bg;
 
-@list-group-link-color:          @text-color;
-@list-group-link-heading-color:  @text-color;
+@list-group-link-color:          #555;
+@list-group-link-heading-color:  #333;
 
 
 // Panels
 // -------------------------
-@panel-bg:                    lighten(@brand-dark, 3%);
-@panel-border:                fade(lighten(@brand-dark, 12%), 81%);
+@panel-bg:                    #fff;
+@panel-inner-border:          #ddd;
 @panel-border-radius:         @border-radius-base;
-@panel-heading-bg:            @brand-dark;
-@panel-footer-bg:             @brand-dark;
+@panel-footer-bg:             #f5f5f5;
+
+@panel-default-text:          @gray-dark;
+@panel-default-border:        #ddd;
+@panel-default-heading-bg:    #f5f5f5;
 
 @panel-primary-text:          #fff;
 @panel-primary-border:        @brand-primary;
 @panel-primary-heading-bg:    @brand-primary;
 
-@panel-success-text:          lighten(@brand-success, 30%);
-@panel-success-border:        @brand-success;
-@panel-success-heading-bg:    @brand-success;
+@panel-success-text:          @state-success-text;
+@panel-success-border:        @state-success-border;
+@panel-success-heading-bg:    @state-success-bg;
 
-@panel-warning-text:          lighten(@brand-warning, 30%);
-@panel-warning-border:        @brand-warning;
-@panel-warning-heading-bg:    @brand-warning;
+@panel-warning-text:          @state-warning-text;
+@panel-warning-border:        @state-warning-border;
+@panel-warning-heading-bg:    @state-warning-bg;
 
-@panel-danger-text:           lighten(@brand-danger, 30%);
-@panel-danger-border:         @brand-danger;
-@panel-danger-heading-bg:     @brand-danger;
+@panel-danger-text:           @state-danger-text;
+@panel-danger-border:         @state-danger-border;
+@panel-danger-heading-bg:     @state-danger-bg;
 
-@panel-info-text:             lighten(@brand-info, 30%);
-@panel-info-border:           @brand-info;
-@panel-info-heading-bg:       @brand-info;
+@panel-info-text:             @state-info-text;
+@panel-info-border:           @state-info-border;
+@panel-info-heading-bg:       @state-info-bg;
 
 
 // Thumbnails
 // -------------------------
-@thumbnail-caption-color:       darken(@text-color, 10%);
-@thumbnail-bg:                  @brand-dark;
-@thumbnail-border:              fade(lighten(@brand-dark, 12%), 81%);
-@thumbnail-border-radius:       @border-radius-base;
+@thumbnail-padding:           4px;
+@thumbnail-bg:                @body-bg;
+@thumbnail-border:            #ddd;
+@thumbnail-border-radius:     @border-radius-base;
 
-@thumbnail-caption-label-color: @brand-primary;
-@thumbnail-caption-padding:     9px;
+@thumbnail-caption-color:     @text-color;
+@thumbnail-caption-padding:   9px;
+
 
 // Wells
 // -------------------------
-@well-bg:                     @brand-dark;
-
-
-// Accordion
-// -------------------------
-@accordion-border-color:      fade(lighten(@brand-dark, 12%), 81%);
-@accordion-group-bg:          @brand-dark;
+@well-bg:                     #f5f5f5;
 
 
 // Badges
 // -------------------------
 @badge-color:                 #fff;
 @badge-link-hover-color:      #fff;
-@badge-bg:                    @brand-dark;
+@badge-bg:                    @gray-light;
 
 @badge-active-color:          @link-color;
 @badge-active-bg:             #fff;
 
-@badge-font-weight:           400;
+@badge-font-weight:           bold;
 @badge-line-height:           1;
 @badge-border-radius:         10px;
 
 
 // Breadcrumbs
 // -------------------------
-@breadcrumb-bg:               @brand-dark;
+@breadcrumb-bg:               #f5f5f5;
 @breadcrumb-color:            #ccc;
-@breadcrumb-active-color:     darken(@text-color, 30%);
+@breadcrumb-active-color:     @gray-light;
 
 
 // Carousel
@@ -554,47 +561,47 @@
 @carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6);
 
 @carousel-control-color:                      #fff;
-@carousel-control-width:                      10%;
-@carousel-control-opacity:                    .7;
+@carousel-control-width:                      15%;
+@carousel-control-opacity:                    .5;
 @carousel-control-font-size:                  20px;
 
-@carousel-indicator-active-bg:                @text-color;
-@carousel-indicator-border-color:             @text-color;
+@carousel-indicator-active-bg:                #fff;
+@carousel-indicator-border-color:             #fff;
 
-@carousel-caption-color:                      @text-color;
+@carousel-caption-color:                      #fff;
 
 
 // Close
 // ------------------------
-@close-color:                 @text-color;
+@close-color:                 #000;
 @close-font-weight:           bold;
-@close-text-shadow:           none;
+@close-text-shadow:           0 1px 0 #fff;
 
 
 // Code
 // ------------------------
-@code-color:                  lighten(@brand-dark, 10%);
-@code-bg:                     darken(@text-color, 5%);
+@code-color:                  #c7254e;
+@code-bg:                     #f9f2f4;
 
-@pre-bg:                      darken(@brand-dark, 5%);
+@pre-bg:                      #f5f5f5;
+@pre-color:                   @gray-dark;
 @pre-border-color:            #ccc;
-@pre-color:                   darken(@text-color, 10%);
 @pre-scrollable-max-height:   340px;
 
 // Type
 // ------------------------
 @text-muted:                  @gray-light;
 @abbr-border-color:           @gray-light;
-@headings-small-color:        darken(@text-color, 50%);
+@headings-small-color:        @gray-light;
 @blockquote-small-color:      @gray-light;
-@blockquote-border-color:     @brand-primary;
-@page-header-border-color:    darken(@text-color, 50%);
+@blockquote-border-color:     @gray-lighter;
+@page-header-border-color:    @gray-lighter;
 
 // Miscellaneous
 // -------------------------
 
 // Hr border color
-@hr-border:                   darken(@text-color, 50%);
+@hr-border:                   @gray-lighter;
 
 // Horizontal forms & lists
 @component-offset-horizontal: 180px;
@@ -604,10 +611,10 @@
 // --------------------------------------------------
 
 // Small screen / tablet
-@container-tablet:          720px;
+@container-tablet:            ((720px + @grid-gutter-width));
 
 // Medium screen / desktop
-@container-desktop:         940px;
+@container-desktop:           ((940px + @grid-gutter-width));
 
 // Large screen / wide desktop
-@container-large-desktop:   1140px;
+@container-lg-desktop:        ((1140px + @grid-gutter-width));
