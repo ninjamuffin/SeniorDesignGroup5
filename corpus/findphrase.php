@@ -85,7 +85,7 @@ $dbName = 'mysqldbproject';
 $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 //get search term
 $searchTerm = $_GET['term'];
-
+echo $searchTerm;
 //"SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
 //get matched data from skills table
 $query = $db->query("SELECT * FROM expressions_full WHERE expression LIKE '%".$searchTerm."%'");
