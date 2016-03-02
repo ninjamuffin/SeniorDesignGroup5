@@ -50,6 +50,28 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $username = $_SESSION['Username'];
+        $role = $_SESSION['Role'];
+        $params = array( $username, $username);
+        $options = array( "Scrollable" => 'static' );
+        $UserInfoQuery = "
+        SELECT R.Designation, I.InstitutionName
+        FROM RoleInstances as RI, Roles as R, Administrators as A, Institutions as I
+        WHERE  RI.SiteUsername = ? AND
+	           R.RoleID = RI.RoleID AND
+		       R.Role = 'Admin' AND
+		       A.SiteUsername = ? AND
+		       I.InstitutionID = A.InstitutionID";
+        $stmt = sqlsrv_query($con, $UserInfoQuery, $params, $options);
+        if ( $stmt === false)
+            die( print_r( sqlsrv_errors(), true));
+        $Designation = "";
+        $Institution = "";
+        if ( sqlsrv_fetch( $stmt ) === true)
+        {
+            $Designation = sqlsrv_get_field( $stmt, 0);
+            $Institution = sqlsrv_get_field( $stmt, 1);
+        }
         ?>
         <body>
             <div id="header"></div>           
@@ -65,10 +87,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                                 </button>
                                 <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
-                                <p>Documentation:</p>
-                                <p>Page provides admin user home.  Eventual content will be a site activity queue, listing all teacher/student actions in chronological order.  Will eventually handle requests for corpus changes from teacher members</p>
-                                <p>Sidebar will include admin navigation: ManageStudents, ManageTeachers, ManageCorpus, Archive</p>
-                                <p>Nav bar will include basic account access (same regardless of role)</p>
+                                <h3><?=$Designation?> Admin for <?=$Institution?></h3>
+                                
+                                
+                                
                             </div>
                         </div>
                     </div>

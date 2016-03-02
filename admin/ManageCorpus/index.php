@@ -65,8 +65,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                                 </button>
                                 <h1>Manage Corpus</h1>
-                                <p>Documentation:</p>
-                                <p>Page will manage the transfer of data from the site to the corpus.  There will be a listing of requests, submitted by teachers, that the administrator will have the option to review, and then submit to the database.  This is how we will manage DB writes.
+                                <p>Home for corpus management.  Unique for Gonzaga Admin (James Hunter); for the monitoring of corpus traffic, activity, etc</p>
 </p>
                             </div>
                         </div>

@@ -18,7 +18,7 @@
     {
         $params = array($_SESSION['Username']);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $ListRolesQuery = "SELECT DISTINCT R.Role FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID";
+        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
         $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
         if( $stmt === false ) {
              die( print_r( sqlsrv_errors(), true));
@@ -53,7 +53,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
-                        <li class="divider"></li>
+                        <li><a href="#">Change Password</a></li>
+                        <li class="divider">My Roles</li>
                         <?php                    
         foreach($RolesList as $ListedRole)
         {

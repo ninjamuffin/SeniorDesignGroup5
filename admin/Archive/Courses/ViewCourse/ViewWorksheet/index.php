@@ -113,7 +113,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $params = array();
             $options = array( "Scrollable" => 'static' );
             $query = 
-       "SELECT E.[Sentence number], S.[Last Name], C.Country, E.Expression, E.[Context/Vocabulary], E.Student_ID
+       "SELECT E.[Sentence number], S.[LastName], C.Country, E.Expression, E.[Context/Vocabulary], E.Student_ID
         FROM Expressions as E, 
              Students as S, 
 	         Country as C
