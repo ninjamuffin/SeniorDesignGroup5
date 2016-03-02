@@ -6,10 +6,9 @@
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
-  
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
 }
 body {
   margin: 0;
@@ -151,7 +150,7 @@ input[type="radio"] {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-  padding: 0;
+  padding: 10;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -3732,6 +3731,7 @@ tbody.collapse.in {
   position: relative;
   display: table;
   border-collapse: separate;
+    
 }
 .input-group[class*="col-"] {
   float: none;

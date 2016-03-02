@@ -6,56 +6,116 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bootstrap 101 Template</title>
+        <title>Gonzaga Small Talk</title>
 
         <!-- Bootstrap -->
         <link href="css/bootstrap.css" rel="stylesheet">
-        
+    
         <!-- Header File -->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>
-            $(function(){
-                $("#header").load("header.html");
-            });
-        </script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <style>
+            body{
+                background: url(Media/GonzagaBackground.jpg) no-repeat center center fixed;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: auto;
+                
+            }
+            a{
+                color:white;
+                text-decoration: underline;
+            }
+        </style>
     </head>
     
     <?php
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         // let the user access the main page
+        if ($_SESSION['Role'] == 'Admin')
+        {
+            ?>
+            <meta http-equiv='refresh' content='0;/Admin/Home/' />
+            <?php
+        }
+        elseif ($_SESSION['Role'] == 'Student')
+        {
+            ?>
+            <meta http-equiv='refresh' content='0;/Student/Home/' />
+            <?php
+        }
+        elseif ($_SESSION['Role'] == 'Teacher')
+        {
+            ?>
+            <meta http-equiv='refresh' content='0;/Teacher/Home/' />
+            <?php
+        }
         ?>
-        <h1>Success</h1>
-    <p>Welcome, <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>.</p>
-    <a href="logout.php">Logout</a>
-    
+        <?php
+        /*
+        <h1>Gonzaga Smalltalk</h1>
+        <p>You are currently logged in as <code><?=$_SESSION['Username']?></code> your email: <code><?=$_SESSION['EmailAddress']?></code>. Redirecting to your home page</p>
+        
+        
+        <a href="logout.php">Logout</a>
+        */
+        ?>
         <?php
     }
     elseif(!empty($_POST['username']) && !empty($_POST['password']))
     {
         // let the user login //mssql_escape may cause problems with md5()
         $username = $_POST['username'];
-        $password = md5($_POST['password']);
+        $password = md5($_POST['password'] . $salt);
+        $loginquery = "
+SELECT SU.[user_id],SU.[username],SU.[password],SU.[first_name],SU.[last_name],SU.[email],SU.[date_added], R.[Role]
+FROM SiteUsers as SU, RoleInstances as RI, Roles as R
+WHERE SU.username = ? AND
+      SU.[password] = ? AND
+      RI.SiteUsername = SU.username AND
+      RI.RoleInstanceID = (SELECT max(RoleInstanceID) FROM RoleInstances WHERE SiteUsername = ?) AND
+      R.RoleID = RI.RoleID";
         
-        $checklogin = sqlsrv_query($con, "SElECT * FROM SiteUsers WHERE username = '".$username."' AND password = '".$password."'");
+        $params = array($username, $password, $username);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        
+        $checklogin = sqlsrv_query($con, $loginquery, $params, $options);
+        
         
         if(sqlsrv_num_rows($checklogin) == 1)
         {
             $row = sqlsrv_fetch_array($checklogin);
-            $email = $row['EmailAddress'];
+            $email = $row['email'];
+            $role = $row['Role'];
+            $first_name = $row['first_name'];
+            $last_name = $row['last_name'];
+            
             
             $_SESSION['Username'] = $username;
             $_SESSION['EmailAddress'] = $email;
-            $_SESSION['LoggedIn'] = 1;
+            $_SESSION['FirstName'] = $first_name;
+            $_SESSION['LastName'] = $last_name;
             
-            echo "<h1>Success</h1>";
-            echo "<p>redirecting...</p>";
-            echo "<meta http-equiv='refresh' content='=2;index.php' />";
+            $_SESSION['LoggedIn'] = 1;
+            $_SESSION['Role'] = $role;
+            
+            echo "<meta http-equiv='refresh' content='0;/' />";
         }
         else
-        {
-            echo "<h1>Error</h1>";
-            echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";
+        {?>
+            <body>
+                <div class ="well col-xs-12">
+                    <h1 class="form-signin-heading text-right"><font color="white">Error</font></h1>
+                    <p><font color="white">Sorry, your account could not be found</font></p>
+                    <p><font color="white">Please <a href="/">click here to try again</a></font></p>
+                    <p><font color="white">If you are having trouble accessing your account, contact your administrator</font></p>
+                </div>    
+            
+            </body>
+        <?php
+           
+    
         }
     }
     else
@@ -63,52 +123,31 @@
         // display the login form
         ?>
     
-        <h1>Login</h1>
-    
-        <p>Login below or <a href= "register.php">click here to register</a>.</p>
-    
-        <form method ="post" action="index.php" name="loginform" id="loginform">
-        <fieldset>
-            <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
-            <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
-            <input type="submit" name="login" id="login" value="Login" />
-        </fieldset>
-        </form>
-    
-        <?php
-    }
-    ?>
-    <body background="GonzagaBackground.jpg">
-        <div class="jumbotron">
-            <div class="well">
-                <div class="container">
-                    <div class="col-xs-10 col-md-6 col-lg-8" >
-                        <form class="form-signin">
-                            <h2 class="form-signin-heading">Sign-in</h2>
-                            <label for="inputEmail" class="sr-only">Email address</label>
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-                            <label for="inputPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                              </label>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit" href="TeacherHome.html">Login</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <!-- <body background="GonzagaBackground.jpg"> -->
+        <body>
+            <div class="well col-xs-12 pull-right">
+                <form class="form-signin" method ="post" action="/" name="loginform" id="loginform">
+                <h1 class="form-signin-heading text-right"><font color="white">Sign-in</font></h1>
+                    <!--<h4 class="form-signin-heading text-right"><font color="white">Login below or <a href= "register.php">click here to register</a>.</font></h4>-->
+                    
+                <fieldset>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="" autofocus"">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                </fieldset>
+                <h4 class="form-signin-heading text-right"><a href="#">Forgot Username?</a></h4>
+                <h4 class="form-signin-heading text-right"><a href="#">Forgot Password?</a></h4>
+                <h4 class="form-signin-heading text-right"><a href="register.php">Register</a></h4>
+                </form>
             </div>
-        </div>
-        
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
     </body>
+    <?php
+    }
+    ?>
 </html>
