@@ -69,7 +69,7 @@
         $username = $_POST['username'];
         $password = md5($_POST['password'] . $salt);
         $loginquery = "
-SELECT SU.[user_id],SU.[username],SU.[password],SU.[date_added], R.[Role]
+SELECT DISTINCT SU.[user_id],SU.[username],SU.[password],SU.[date_added], R.[Role]
 FROM SiteUsers as SU, RoleInstances as RI, Roles as R
 WHERE SU.username = ? AND
       SU.[password] = ? AND
