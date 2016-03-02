@@ -11,10 +11,10 @@
     <title> Gonzaga Small Talk</title>
 
     <!-- Bootstrap -->
-    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -30,13 +30,7 @@
 
     <!-- Background Setup -->
     <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
+      
     </style>
 </head>
         
@@ -53,58 +47,140 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
+        $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
+        if( $stmt === false ) {
+             die( print_r( sqlsrv_errors(), true));
+        }
+
+        // Make the first (and in this case, only) row of the result set available for reading.
+        $RolesList = [];
+        while( sqlsrv_fetch( $stmt ) === true) {
+             $RolesList[] = sqlsrv_get_field( $stmt, 0);
+        }
     ?>        
 
     <body>
-        <div id="header"></div>
-        <div id="wrapper">
-            <div id = "sidebar"></div>
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
+        
+        <nav class="navbar navbar-inverse" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="/"><img src="/media/logo.jpeg" style="width:200px;height:40px;"></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu">
+                      <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
+                    </a>
+                      
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
+                        <li><a href="#">Change Password</a></li>
+                        <li class="divider">My Roles</li>
+                         <?php                    
+        foreach($RolesList as $ListedRole)
+        {
+            if ($ListedRole == $_SESSION['Role'])
+            {
+            ?>
+                        <li><a><strong><?=$ListedRole?></strong></a></li>
+                                
+            <?php
+            }
+            else
+            {
+                ?>
+                <li><a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a></li>
+                <?php
+            }
+        }
+        ?>
+                        <li class="divider"></li>
+                        <li><a href="/logout.php">Log out</a></li>
+                    </ul>
+          
+                            
+                </li>
+                             
+                </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        <section class="container col-xs-12">
+            <!--navbar-->
+                     
+            <!--body-->
+            <div id="wrapper">
+                
+                <div id = "sidebar"></div>
+                <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                                </button>
+                                    <!-- BEGIN PAGE CONTENT -->
+                                    <div class="row">
                         <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <h1>Course Title: Edit Worksheet #_</h1>
-                            <div class="panel panel-primary">
-                                <button class="btn btn-default" type="button" id="PublishWorksheet"><a href="#">Publish</a></button>
-                                <div class="panel-heading">Display Worksheet Information</div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Details</div>
                                 <div class="panel-body">
-                                    <p>Topic, level, date</p>
-                                </div> 
+                                    <h2 class="page-header">Course 121</h2>
+                                    <h5>Worksheet #1</h5>
+                                    <h5>Date: 3/2/16</h5>
+                                    <h5>Topic: English</h5>
+                                </div>
                             </div>
 
                             <div class="panel panel-default">
-                                <div class="panel-heading">Expression Template/div>
+                                <div class="panel-heading">Worksheet</div>
                                 <div class="panel-body">
-                                    <p>Display sentence number, Display student, Text Display[Expression], Text Entry/Text Display{Enter Context/Vocab}, Checkbox[Starred], Update button</p>
-                                    <p>On update, print "Expression updated</p>
+                                    <div class="modal-dialog">
+                                        <!--<div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+
+                                        </div>--><!-- /.modal-content -->
+                                    </div>
                                 </div>
                             </div>
-                            
-                             
-                            <!-- END PAGE CONTENT -->
+                        </div>
+                        </div>
+                                    <!-- END PAGE CONTENT -->
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
-        </div>
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="/js/bootstrap.min.js"></script>
-        <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-        </script>
-    </body>
+            
+        </section>
+        
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="/flatUI/js/bootstrap.min.js"></script>
+        
+        </body>
     <?php
     }
 }

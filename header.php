@@ -10,7 +10,7 @@
         <!-- Bootstrap -->
         
         <link href="/css/bootstrap.css" rel="stylesheet">
-        
+
     </head>
     
     <?php
@@ -33,6 +33,7 @@
         
         ?>
         <body>
+            
         <div class="navbar navbar-default navbar-fixed-top ng-scope">
             <div class="container-fluid">
               <div class="navbar-header">
@@ -42,7 +43,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <!--<a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand"> <img src="/media/logo.jpeg"></a>-->
+                <a href="/<?=$_SESSION['Role']?>/Home/" class="navbar-brand pull-right"> <img src="/media/logo.jpeg" style="width:200px;height:30px;"></a>
               </div>
                 
               <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
@@ -55,7 +56,7 @@
                         <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
                         <li><a href="#">Change Password</a></li>
                         <li class="divider">My Roles</li>
-                        <?php                    
+                       <?php                    
         foreach($RolesList as $ListedRole)
         {
             if ($ListedRole == $_SESSION['Role'])
@@ -84,23 +85,7 @@
                 </div>
                   </div>
             </div>
-          <script>
-            function ChangeRole(str) {
-            if (str.length == 0) { 
-                document.getElementById("UserRoles").innerHTML = "";
-                return;
-            } else {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                        document.getElementById("UserRoles").innerHTML = xmlhttp.responseText;
-                    }
-                };
-                xmlhttp.open("GET", "ChangeRole.php?q=" + str, true);
-                xmlhttp.send();
-            }
-        }
-          </script>
+          
     </body>
     <?php
     }
