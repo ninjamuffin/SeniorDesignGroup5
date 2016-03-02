@@ -56,14 +56,25 @@
                                 <a href="/admin/ManageStudents/ViewStudentProfile/">    View Student Profile</a></li>
                               </ul>
                             </li>
-                            <li class="sidebar-brand">
-                                <a href="/Admin/ManageCorpus/">Manage Corpus</a>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown">Manage Corpus<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/Admin/ManageCorpus/">Home</a>
+                                        <a href="/Admin/ManageCorpus/ReviewChanges/">Review Changes</a>
+                                    </li>
+                              </ul>
                             </li>
-                            <li class="sidebar-brand">
+                            <li>
                                 <a href="/corpus/">Corpus</a>
                             </li>
-                            <li class="sidebar-brand">
-                                <a href="/Admin/Archive/">Archive</a>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown">Archive<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/Admin/Archive/Courses/" >Courses</a>
+                                        <a href="/Admin/Archive/Students/">Students</a>
+                                        <a href="/admin/Archive/Teachers/">Teachers</a>
+                                    </li>
+                              </ul>
                             </li>
                         </ul>
                     </nav>

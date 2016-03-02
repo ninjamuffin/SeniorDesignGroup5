@@ -109,12 +109,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $params = array();
     $options = array( "Scrollable" => 'static' );
     $query = 
-"SELECT S.[First Name], S.[Last Name], C.[Country], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
+"SELECT S.[FirstName], S.[LastName], C.[Country], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
 FROM Students as S, Country as C, Expressions as E
 WHERE C.[ID] = S.[Citizenship] AND
 S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
 E.[Student_ID] = S.[ID]
-GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
+GROUP BY S.[FirstName], S.[LastName], C.[Country], S.[ID]";
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
         die( print_r( sqlsrv_errors(), true));
@@ -137,7 +137,7 @@ GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
 
     /* Echo results to the page */
     $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-    $page = getPage($stmt, $pageNum, $rowsPerPage);
+    $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
         $studentPageLink = "ViewStudent/?studentID=$row[3]";
@@ -145,7 +145,8 @@ GROUP BY S.[First Name], S.[Last Name], C.[Country], S.[ID]";
     }
 
     echo "</tbody></table><br />";
-    pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
+    $modulator = 2;
+    Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                             
                                     </div>

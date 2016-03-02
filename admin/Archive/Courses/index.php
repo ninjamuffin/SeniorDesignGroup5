@@ -105,8 +105,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Course</td>
                                                     <td>Section</td>
                                                     <td>Instructor</td>
-                                                    <td>Year</td>
-                                                    <td>Session</td>
+                                                    <td>Session Name</td>
                                                     <td>Course Page</td>
                                                 </tr>
                                             </thead>
@@ -116,15 +115,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     /* Set up and declare query entity */
     $params = array();
     $options = array( "Scrollable" => 'static' );
-    $query = "  SELECT  CN.[Course #], TC.[Section], A.[Advisor], Y.[Year], S.[Session], TC.[Teachers&ClassesID], TC.[Instructor]
-                FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
+    $query = "  SELECT  CN.[ClassName], TC.[Section], T.[LastName], SN.SessionName, TC.[CoursesID], TC.[InstructorID]
+                FROM [TeachersCourses] as TC, [Teachers] as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN
                 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
-                TC.[Instructor] = A.[ID] AND 
+                TC.[InstructorID] = T.[TeacherID] AND 
                 TC.[SessionID] = Ss.[SessionsID] AND
-                TC.[Teachers&ClassesID] in (SELECT [Teachers&ClassesID] from Expressions) AND
-                Y.[ID] = Ss.[Year_ID] AND
-                S.[ID] = Ss.[Session_ID]
-                ORDER BY Y.[Year] desc";
+                TC.CoursesID in (SELECT [Teachers&ClassesID] from Expressions) AND
+                SN.[SessionsID] = Ss.[SessionSID]
+                ORDER BY Ss.[SessionsID] desc";
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
         die( print_r( sqlsrv_errors(), true));
@@ -153,8 +151,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
-        $coursePageLink = "ViewCourse/?courseID=$row[5]";
-        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+        $coursePageLink = "ViewCourse/?courseID=$row[4]";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
     }
 
     echo "</tbody></table><br />";

@@ -17,6 +17,8 @@ include "../../../../base.php";
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+
     <script>
         $(function(){
             $("#header").load("/header.php");
@@ -85,90 +87,58 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Course Number</td>
                                                     <td>Section</td>
                                                     <td>Instructor Last Name</td>
-                                                    <td>Year</td>
-                                                    <td>Session</td>
+                                                    <td>Session Name</td>
                                                     <td>Course Page</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
-                                            <?php
-                                                /* Set up and declare query entity */
-                                                $params = array();
-                                                $options = array( "Scrollable" => 'static' );
-                                                $query = 
-"SELECT  CN.[Course #], TC.[Section], A.[Advisor], Y.[Year], S.[Session], TC.[Teachers&ClassesID]
-FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
+<?php
+/* Set up and declare query entity */
+$params = array($studentID);
+$options = array( "Scrollable" => 'static' );
+$query = 
+"SELECT  CN.[ClassName], TC.[Section], T.[LastName], SN.[SessionName], TC.[CoursesID], T.[TeacherID]
+FROM [TeachersCourses] as TC, Teachers as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
-      TC.[Instructor] = A.[ID] AND 
+      TC.[InstructorID] = T.[TeacherID] AND 
 	  TC.[SessionID] = Ss.[SessionsID] AND
-	  Y.[ID] = Ss.[Year_ID] AND
-	  S.[ID] = Ss.[Session_ID] AND
-      TC.[Teachers&ClassesID] in (SELECT DISTINCT OtherExpressions.[Teachers&ClassesID] FROM Expressions as OtherExpressions WHERE OtherExpressions.[Student_ID] = $studentID)
-ORDER BY Y.[Year] desc";
-                                                $stmt = sqlsrv_query($con, $query, $params, $options);
-                                                if ( !$stmt )
-                                                    die( print_r( sqlsrv_errors(), true));
-                                                
-                                                /* Extract Pagination Paramaters */
-                                                $rowsPerPage = 10;
-                                                $rowsReturned = sqlsrv_num_rows($stmt);
-                                                if($rowsReturned === false)
-                                                    die(print_r( sqlsrv_errors(), true));
-                                                elseif($rowsReturned == 0)
-                                                {
-                                                    echo "No rows returned.";
-                                                    exit();
-                                                }
-                                                else
-                                                {
-                                                    /* Calculate number of pages. */
-                                                    $numOfPages = ceil($rowsReturned/$rowsPerPage);
-                                                }
-                                                
-                                                /* Echo results to the page */
-                                                $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-                                                $page = getPage($stmt, $pageNum, $rowsPerPage);
-                                                foreach($page as $row)
-                                                {
-                                                    $coursePageLink = "/Admin/Archive/Courses/ViewCourse/?courseID=$row[5]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
-                                                }
-                                                    
-                                                echo "</tbody></table><br />";
-                                                if($pageNum > 1)
-                                                {
-                                                    $prevPageLink = "?pageNum=".($pageNum - 1)."&studentID=$studentID";
-                                                    echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
-                                                }
-                                                $num = 1;
-                                                $firstPageLink = "?pageNum=$num&studentID=$studentID";
-                                                print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
-                                                if($numOfPages < 20)
-                                                {
-                                                    for($i = 2; $i <=$numOfPages; $i++)
-                                                    {
-                                                        $pageLink = "?pageNum=$i&studentID=$studentID";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }   
-                                                }
-                                                else
-                                                {
-                                                    for($i = 10; $i <$numOfPages; $i+= 10)
-                                                    {
-                                                        $pageLink = "?pageNum=$i&studentID=$studentID";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages&studentID=$studentID";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                // Display Next Page link if applicable.
-                                                if($pageNum < $numOfPages)
-                                                {
-                                                    $nextPageLink = "?pageNum=".($pageNum + 1)."&studentID=$studentID";
-                                                    echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
-                                                }
-                                            ?>
+	  SN.[SessionsID] = Ss.[SessionsID] AND
+      TC.[CoursesID] in (SELECT DISTINCT OtherExpressions.[Teachers&ClassesID] FROM Expressions as OtherExpressions WHERE OtherExpressions.[Student_ID] = ?)
+ORDER BY Ss.[SessionsID] desc";
+$stmt = sqlsrv_query($con, $query, $params, $options);
+if ( !$stmt )
+    die( print_r( sqlsrv_errors(), true));
+
+/* Extract Pagination Paramaters */
+$rowsPerPage = 10;
+$rowsReturned = sqlsrv_num_rows($stmt);
+if($rowsReturned === false)
+    die(print_r( sqlsrv_errors(), true));
+elseif($rowsReturned == 0)
+{
+    echo "No rows returned.";
+    exit();
+}
+else
+{
+    /* Calculate number of pages. */
+    $numOfPages = ceil($rowsReturned/$rowsPerPage);
+}
+
+/* Echo results to the page */
+$pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+$page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
+foreach($page as $row)
+{
+    $coursePageLink = "/Admin/Archive/Courses/ViewCourse/?courseID=$row[4]";
+    $teacherPageLink = "/Admin/Archive/Teachers/ViewTeacher/?tid=$row[5]";
+    echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink''>$row[2]</a></td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+}
+
+echo "</tbody></table><br />";
+
+?>
                                             
                                     </div>
                                 </div>

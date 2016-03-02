@@ -102,13 +102,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $params = array();
     $options = array( "Scrollable" => 'static' );
     $query = 
-"SELECT A.[InstructoFirstName], A.[Advisor], A.[ID]
-FROM Advisor as A, Expressions as E, [Teachers&Classes] as TC
-WHERE A.[ID] in (   SELECT DISTINCT TCalt.[Instructor]
-                    FROM [Teachers&Classes] as TCalt  
-                ) AND
-      TC.[Instructor] = A.[ID]
-GROUP BY A.[Advisor], A.[InstructoFirstName], A.[ID]";
+"SELECT T.[FirstName], T.[LastName], T.[TeacherID]
+FROM Teachers as T";
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
         die( print_r( sqlsrv_errors(), true));
@@ -131,15 +126,16 @@ GROUP BY A.[Advisor], A.[InstructoFirstName], A.[ID]";
 
     /* Echo results to the page */
     $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-    $page = getPage($stmt, $pageNum, $rowsPerPage);
+    $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
-        $teacherPageLink = "ViewTeacher/?teacherID=$row[2]";
+        $teacherPageLink = "ViewTeacher/?tid=$row[2]";
         echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Visit Page</a></td></tr>";
     }
 
     echo "</tbody></table><br />";
-    pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned);
+    $modulator = 3;
+    Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                             
                                     </div>

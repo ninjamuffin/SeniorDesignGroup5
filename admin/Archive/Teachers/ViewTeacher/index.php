@@ -52,8 +52,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $teacherID = isset($_GET['teacherID']) ? $_GET['teacherID'] : 0;
-        if ($teacherID == 0)
+        $tid = isset($_GET['tid']) ? $_GET['tid'] : 0;
+        if ($tid == 0)
             echo "<meta http-equiv='refresh' content=0;../";
         else
         {
@@ -74,7 +74,69 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Teacher Information</div>
                                     <div class="panel-body">
-                                        <p>Show teacher history (new data will include number of classes, time frame of activity, list of institutions, etc.)</p>
+                                        <?php
+            $params = array($tid);
+            $options = array( "Scrollable" => 'static' );
+            $teacherNameQuery = "SELECT T.FirstName, T.LastName
+            FROM Teachers as T
+            WHERE T.TeacherID = ?";
+            $stmt = sqlsrv_query( $con, $teacherNameQuery, $params, $options);
+            if ($stmt === false)
+                die(print_r(sqlsrv_errors(), true));
+            if( sqlsrv_fetch($stmt) === true)
+            {
+                $firstName = sqlsrv_get_field( $stmt, 0);
+                $lastName = sqlsrv_get_field( $stmt, 1);
+            }
+            
+            
+            $institutionsQuery = "SELECT I.InstitutionName
+            FROM Teachers as T,  TeachingInstance as TI, Institutions as I
+            WHERE T.TeacherID = ? AND
+                  TI.SiteUsername = T.SiteUsername AND
+                  I.InstitutionID = TI.InstitutionID";
+            $stmt = sqlsrv_query( $con, $institutionsQuery, $params, $options);
+            if ($stmt === false)
+                die(print_r(sqlsrv_errors(), true));
+            $institutions = [];
+            while( sqlsrv_fetch($stmt) === true)
+                $institutions[] = sqlsrv_get_field( $stmt, 0);
+            
+            $firstYearRangeQuery = "
+            SELECT min(Y.Year) 
+	        FROM Year as Y, Sessions as Ss, TeachersCourses as TC 
+	        WHERE	TC.InstructorID = ? AND
+			        Ss.SessionsID = TC.SessionID AND
+			        Y.ID = Ss.Year_ID";
+                  
+            $stmt = sqlsrv_query( $con, $firstYearRangeQuery, $params, $options);
+            if ($stmt === false)
+                die(print_r(sqlsrv_errors(), true));
+            
+            if( sqlsrv_fetch($stmt) === true)
+                $firstYear = sqlsrv_get_field( $stmt, 0);
+
+            $lastYearRangeQuery = "
+            SELECT max(Y.Year) 
+	        FROM Year as Y, Sessions as Ss, TeachersCourses as TC 
+	        WHERE	TC.InstructorID = ? AND
+			        Ss.SessionsID = TC.SessionID AND
+			        Y.ID = Ss.Year_ID";
+                  
+            $stmt = sqlsrv_query( $con, $lastYearRangeQuery, $params, $options);
+            if ($stmt === false)
+                die(print_r(sqlsrv_errors(), true));
+            
+            if( sqlsrv_fetch($stmt) === true)
+                $lastYear = sqlsrv_get_field( $stmt, 0);
+            
+            echo "<p>Name: $firstName $lastName</p>";
+            echo "<p>Active with Smalltalk from: $firstYear - $lastYear</p>";
+            echo "<p>Institutions: </p>";
+            foreach($institutions as $inst)
+                echo "<p>   $inst</p>";
+            
+            ?>
                                     </div>
                                 </div>
                                 <div class="panel panel-primary">
@@ -84,9 +146,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <td>Course Number</td>
+                                                    <td>Institution</td>
                                                     <td>Section</td>
-                                                    <td>Year</td>
-                                                    <td>Session</td>
+                                                    <td>Session Name</td>
                                                     <td>Course Page</td>
                                                 </tr>
                                             </thead>
@@ -94,84 +156,53 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                                             <?php
                                                 /* Set up and declare query entity */
-                                                $params = array();
+                                                $params = array($tid);
                                                 $options = array( "Scrollable" => 'static' );
                                                 $query = 
-"SELECT  CN.[Course #], TC.[Section], Y.[Year], S.[Session], TC.[Teachers&ClassesID]
-FROM [Teachers&Classes] as TC, [Advisor] as A, [Class Names] as CN, [Session] as S, [Sessions] as Ss, [Year] as Y
+"SELECT  CN.[ClassName], I.InstitutionName, TC.[Section], SN.[SessionName], TC.[CoursesID]
+FROM [TeachersCourses] as TC, [Teachers] as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN, Institutions as I, TeachingInstance as TI
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
-      TC.[Instructor] = A.[ID] AND 
+      TC.[InstructorID] = T.[TeacherID] AND 
+      TC.CoursesID in (SELECT [Teachers&ClassesID] from Expressions) AND
+      T.[TeacherID] = ? AND
+      TI.[SiteUsername] = T.[SiteUsername] AND
+      I.InstitutionID = TI.[InstitutionID] AND
 	  TC.[SessionID] = Ss.[SessionsID] AND
-	  Y.[ID] = Ss.[Year_ID] AND
-	  S.[ID] = Ss.[Session_ID] AND
-      TC.[Teachers&ClassesID] in (SELECT DISTINCT OtherE.[Teachers&ClassesID] 
-								  FROM Expressions as OtherE, [Teachers&Classes] as OtherTC 
-								  WHERE OtherE.[Teachers&ClassesID] = OtherTC.[Teachers&ClassesID] AND
-										OtherTC.[Instructor] = 94)
-ORDER BY Y.[Year] desc";
-                                                $stmt = sqlsrv_query($con, $query, $params, $options);
-                                                if ( !$stmt )
-                                                    die( print_r( sqlsrv_errors(), true));
-                                                
-                                                /* Extract Pagination Paramaters */
-                                                $rowsPerPage = 10;
-                                                $rowsReturned = sqlsrv_num_rows($stmt);
-                                                if($rowsReturned === false)
-                                                    die(print_r( sqlsrv_errors(), true));
-                                                elseif($rowsReturned == 0)
-                                                {
-                                                    echo "No rows returned.";
-                                                    exit();
-                                                }
-                                                else
-                                                {
-                                                    /* Calculate number of pages. */
-                                                    $numOfPages = ceil($rowsReturned/$rowsPerPage);
-                                                }
-                                                
-                                                /* Echo results to the page */
-                                                $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-                                                $page = getPage($stmt, $pageNum, $rowsPerPage);
-                                                foreach($page as $row)
-                                                {
-                                                    $coursePageLink = "/Admin/Archive/Courses/ViewCourse/?courseID=$row[4]";
-                                                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
-                                                }
-                                                    
-                                                echo "</tbody></table><br />";
-                                                if($pageNum > 1)
-                                                {
-                                                    $prevPageLink = "?pageNum=".($pageNum - 1)."&teacherID=$teacherID";
-                                                    echo "<a href='$prevPageLink'>Previous Page</a>&nbsp;&nbsp;";
-                                                }
-                                                $num = 1;
-                                                $firstPageLink = "?pageNum=$num&teacherID=$teacherID";
-                                                print("<a href=$firstPageLink>$num</a>&nbsp;&nbsp;");
-                                                if($numOfPages < 20)
-                                                {
-                                                    for($i = 2; $i <=$numOfPages; $i++)
-                                                    {
-                                                        $pageLink = "?pageNum=$i&teacherID=$teacherID";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }   
-                                                }
-                                                else
-                                                {
-                                                    for($i = 10; $i <$numOfPages; $i+= 10)
-                                                    {
-                                                        $pageLink = "?pageNum=$i&teacherID=$teacherID";
-                                                        print("<a href=$pageLink>$i</a>&nbsp;&nbsp;");
-                                                    }
-                                                    $pageLink = "?pageNum=$numOfPages&teacherID=$teacherID";
-                                                    print("<a href=$pageLink>$numOfPages</a>&nbsp;&nbsp;");
-                                                }
-                                                // Display Next Page link if applicable.
-                                                if($pageNum < $numOfPages)
-                                                {
-                                                    $nextPageLink = "?pageNum=".($pageNum + 1)."&teacherID=$teacherID";
-                                                    echo "&nbsp;&nbsp;<a href='$nextPageLink'>Next Page</a>";
-                                                }
-                                            ?>
+	  SN.[SessionsID] = Ss.[SessionsID]
+ORDER BY Ss.[SessionsID] desc";
+$stmt = sqlsrv_query($con, $query, $params, $options);
+if ( !$stmt )
+    die( print_r( sqlsrv_errors(), true));
+
+/* Extract Pagination Paramaters */
+$rowsPerPage = 10;
+$rowsReturned = sqlsrv_num_rows($stmt);
+if($rowsReturned === false)
+    die(print_r( sqlsrv_errors(), true));
+elseif($rowsReturned == 0)
+{
+    echo "No rows returned.";
+    exit();
+}
+else
+{
+    /* Calculate number of pages. */
+    $numOfPages = ceil($rowsReturned/$rowsPerPage);
+}
+
+/* Echo results to the page */
+$pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+$page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
+foreach($page as $row)
+{
+    $coursePageLink = "/Admin/Archive/Courses/ViewCourse/?courseID=$row[4]";
+    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+}
+
+echo "</tbody></table><br />";
+$modulator = 3;
+Pagination::pageLinksArchiveViewTeacher($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator, $tid);
+?>
                                             
                                     </div>
                                 </div>
