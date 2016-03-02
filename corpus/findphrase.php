@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-table, td, th{
-    border: 1px solid black;
-    padding: 5px;
-}
-caption {
-    display: table-caption;
-    text-align: center;
-}
-th {text-align: left;}
+<!--<style type="text/css">-->
+<!--table {-->
+<!--    width: 100%;-->
+<!--    border-collapse: collapse;-->
+<!--}-->
+<!--table, td, th{-->
+<!--    border: 1px solid black;-->
+<!--    padding: 5px;-->
+<!--}-->
+<!--caption {-->
+<!--    display: table-caption;-->
+<!--    text-align: center;-->
+<!--}-->
+<!--th {text-align: left;}-->
     
-</style>
+<!--</style>-->
 </head>
 <body>
 
@@ -54,7 +54,7 @@ $result = mysqli_query($con,$sql);
 while($row = mysqli_fetch_array($result)) {
     // echo "<tr>";
     // echo "<td>" . $row['expression_id'] . "</td>";
-    echo $row['expression'] . "\n";
+    $data = $row['expression'];
     // echo "<td>" . $row['level_id'] . "</td>";
     // echo "<td>" . $row['topic_id'] . "</td>";
     // echo "<td>" . $row['language_id'] . "</td>";
@@ -62,6 +62,7 @@ while($row = mysqli_fetch_array($result)) {
 }
 //output the table with values in it
 //echo "</table>";
+echo json_encode($data);
 mysqli_close($con);
 ?>
 </body>
