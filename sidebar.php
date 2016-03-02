@@ -182,6 +182,10 @@
         }
         elseif($_SESSION['Role'] == 'Student')
         {
+            /* DB interaction: retrieve student's ID using SiteUsername; lookup all courses in [Enrollment]; print the active ones (with links) and provide a link to "...more" */
+            
+            
+            
             ?>
             <body>
                 <div id="wrapper">
