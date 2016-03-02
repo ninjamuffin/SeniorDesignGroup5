@@ -93,12 +93,60 @@ WHERE SU.username = ? AND
             
             
             $_SESSION['Username'] = $username;
+            $_SESSION['LoggedIn'] = 1;
+            $_SESSION['Role'] = $role;
+            
+            if ($role == 'Admin')
+            {
+                $params = array($username);
+                $options = array( "Scrollable" => 'static');
+                $query = "SELECT FirstName, LastName, Email FROM Administrators WHERE SiteUsername = ?";
+                $stmt = sqlsrv_query($con, $query, $params, $options);
+                if ($stmt === false)
+                    die( print_r( sqlsrv_errors(), true));
+                if (sqlsrv_fetch($stmt) === true)
+                {
+                    $first_name = sqlsrv_get_field( $stmt, 0);
+                    $last_name = sqlsrv_get_field( $stmt, 1);
+                    $email = sqlsrv_get_field( $stmt, 2);
+                }
+            }
+            elseif ($role == 'Teacher')
+            {
+                $params = array($username);
+                $options = array( "Scrollable" => 'static');
+                $query = "SELECT FirstName, LastName, Email FROM Teachers WHERE SiteUsername = ?";
+                $stmt = sqlsrv_query($con, $query, $params, $options);
+                if ($stmt === false)
+                    die( print_r( sqlsrv_errors(), true));
+                if (sqlsrv_fetch($stmt) === true)
+                {
+                    $first_name = sqlsrv_get_field( $stmt, 0);
+                    $last_name = sqlsrv_get_field( $stmt, 1);
+                    $email = sqlsrv_get_field( $stmt, 2);
+                }
+            }
+            elseif ($role == 'Student')
+            {
+                $params = array($username);
+                $options = array( "Scrollable" => 'static');
+                $query = "SELECT FirstName, LastName, Email FROM Students WHERE SiteUsername = ?";
+                $stmt = sqlsrv_query($con, $query, $params, $options);
+                if ($stmt === false)
+                    die( print_r( sqlsrv_errors(), true));
+                if (sqlsrv_fetch($stmt) === true)
+                {
+                    $first_name = sqlsrv_get_field( $stmt, 0);
+                    $last_name = sqlsrv_get_field( $stmt, 1);
+                    $email = sqlsrv_get_field( $stmt, 2);
+                }
+            }
+            
             $_SESSION['EmailAddress'] = $email;
             $_SESSION['FirstName'] = $first_name;
             $_SESSION['LastName'] = $last_name;
             
-            $_SESSION['LoggedIn'] = 1;
-            $_SESSION['Role'] = $role;
+            
             
             echo "<meta http-equiv='refresh' content='0;/' />";
         }

@@ -114,7 +114,7 @@
             $stmt = sqlsrv_query($con, $getInstitutionsQuery, $params, $options);
     
             if( $stmt === false ) {
-            die( print_r( sqlsrv_errors(), true));
+                die( print_r( sqlsrv_errors(), true));
             }
             
             $institutions = [];

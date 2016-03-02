@@ -27,9 +27,7 @@
                 {
                     $username = $_POST['username'];
                     $password = md5($_POST['password'] . $salt);
-                    $first_name = $_POST['first_name'];
-                    $last_name = $_POST['last_name'];
-                    $email = $_POST['email'];
+                    
                     
                     $login_sql = "SELECT * FROM SiteUsers WHERE username = ?";
                     
@@ -45,19 +43,20 @@
                     }
                     else
                     {
-                        $params = array($username, $password, $first_name, $last_name, $email);
-                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, first_name, last_name, email,  date_added) VALUES(?,?,?,?,?, GETDATE())", $params, $options);
+                        $params = array($username, $password);
+                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, date_added) VALUES(?,?, GETDATE())", $params, $options);
                         
-                        if($registerquery)
-                        {
-                            echo "<h1>Success</h1>";
-                            echo "<p>Your account was successfully created. <a href=\"index.php\">Click here to login</a>.</p>";
-                        }
-                        else
+                        if($registerquery === false)
                         {
                             echo "<h1>Error</h1>";
                             echo "<p>Registration failed. <a href =\"register.php\">Please try again.</a></p>";
                         }
+                        else
+                        {
+                            echo "<h1>Success</h1>";
+                            echo "<p>Your account was successfully created. <a href=\"index.php\">Click here to login</a>.</p>";
+                        }
+                      
                     }
                 }
                 else
@@ -69,10 +68,9 @@
                     <form method="post" action="register.php" name="registerform" id="registerform">
                     <fieldset>
                         <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
-                        <label for="first_name">First Name:</label><input type="text" name="first_name" id="first_name" /><br />
-                        <label for="last_name">Last Name:</label><input type="text" name="last_name" id="last_name" /><br />
+                        
                         <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
-                        <label for="email">Email Address:</label><input type="text" name="email" id="email" /><br />
+                        
                         <!--<select name="role" id="role">
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
