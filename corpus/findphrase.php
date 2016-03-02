@@ -70,10 +70,10 @@
 <!--</html>-->
 
 <?php
-$dbHost = 'localhost';
-$dbUsername = 'root';
-$dbPassword = '';
-$dbName = 'codexworld';
+$dbHost = 'us-cdbr-azure-west-c.cloudapp.net';
+$dbUsername = 'b2a3214e88e413';
+$dbPassword = '325ebc40';
+$dbName = 'mysqldbproject';
 
 
 
@@ -86,11 +86,12 @@ $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 //get search term
 $searchTerm = $_GET['term'];
 
+//"SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
 //get matched data from skills table
-$query = $db->query("SELECT * FROM skills WHERE skill LIKE '%".$searchTerm."%' ORDER BY skill ASC");
+$query = $db->query("SELECT * FROM expressions_full WHERE expression LIKE '%".$searchTerm."%'");
 
 while ($row = $query->fetch_assoc()) {
-    $data[] = $row['skill'];
+    $data[] = $row['expression'];
 }
 //return json data
 echo json_encode($data);
