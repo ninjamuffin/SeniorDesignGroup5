@@ -1,45 +1,89 @@
 <html>
 <head>
-<TITLE>jQuery AJAX Autocomplete - Country Example</TITLE>
-<head>
-<style>
-body{width:610px;}
-.frmSearch {border: 1px solid #F0F0F0;background-color:#C8EEFD;margin: 2px 0px;padding:40px;}
-#country-list{float:left;list-style:none;margin:0;padding:0;width:190px;}
-#country-list li{padding: 10px; background:#FAFAFA;border-bottom:#F0F0F0 1px solid;}
-#country-list li:hover{background:#F0F0F0;}
-#search-box{padding: 10px;border: #F0F0F0 1px solid;}
-</style>
-<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script>
-$(document).ready(function(){
-	$("#search-box").keyup(function(){
-		$.ajax({
-		type: "POST",
-		url: "findphrase.php",
-		data:'keyword='+$(this).val(),
-		beforeSend: function(){
-			$("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
-		},
-		success: function(data){
-			$("#suggesstion-box").show();
-			$("#suggesstion-box").html(data);
-			$("#search-box").css("background","#FFF");
-		}
-		});
-	});
-});
+<script data-cfasync="false" type="text/javascript">
 
-function selectCountry(val) {
-$("#search-box").val(val);
-$("#suggesstion-box").hide();
+var myAjax = ajax();
+function ajax() {
+        var ajax = null;
+        if (window.XMLHttpRequest) {
+                try {
+                        ajax = new XMLHttpRequest();
+                }
+                catch(e) {}
+        }
+        else if (window.ActiveXObject) {
+                try {
+                        ajax = new ActiveXObject("Msxm12.XMLHTTP");
+                }
+                catch (e){
+                        try{
+                                ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        catch (e) {}
+                }
+        }
+        return ajax;
+}
+function request(str) {
+	//Don't forget to modify the path according to your theme
+        myAjax.open("POST", "findphrase.php");
+        myAjax.onreadystatechange = result;
+        myAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        myAjax.send("search="+str);
+}
+function result() {
+        if (myAjax.readyState == 4) {
+                var liste = myAjax.responseText;
+                var cible = document.getElementById('tag_update').innerHTML = liste;
+               // document.getElementById('tag_update').style.display = "block";
+        }
+}
+function selected(choice){
+        var cible = document.getElementById('s');
+        cible.value = choice;
+        document.getElementById('tag_update').style.display = "none";
 }
 </script>
+<style type="text/css">
+#tag_update {
+        display: block;
+        border-left: 1px solid #373737;
+        border-right: 1px solid #373737;
+        border-bottom: 1px solid #373737;
+        position:absolute;
+        z-index:1;
+}
+#tag_update ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+}
+#tag_update li{
+        display:block;
+        clear:both;
+}
+#tag_update a {
+        width:134px;
+        display: block;
+        padding: .2em .3em;
+        text-decoration: none;
+        color: #fff;
+        background-color: #1B1B1C;
+        text-align: left;
+}
+#tag_update a:hover{
+        color: #fff;
+        background-color: #373737;
+        background-image: none;
+}
+</style>
+<style type="text/css"></style>
 </head>
-<body>
-<div class="frmSearch">
-<input type="text" id="search-box" placeholder="Country Name" />
-<div id="suggesstion-box"></div>
-</div>
-</body>
+<form method="get" id="searchform" action="findphrase.php">
+    <div>
+        <input autocomplete="off" type="text" value="" name="s" id="s" onkeyup="request(this.value);">
+        <input type="submit" id="searchsubmit" value="Search" class="button">
+    </div>
+    <div id="tag_update"></div>
+</form>
 </html>
