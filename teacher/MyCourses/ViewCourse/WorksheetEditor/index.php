@@ -14,7 +14,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
-    <link href="/css/theme.css" rel="stylesheet" media="screen">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -47,13 +47,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
+        $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
+        if( $stmt === false ) {
+             die( print_r( sqlsrv_errors(), true));
+        }
+
+        // Make the first (and in this case, only) row of the result set available for reading.
+        $RolesList = [];
+        while( sqlsrv_fetch( $stmt ) === true) {
+             $RolesList[] = sqlsrv_get_field( $stmt, 0);
+        }
     ?>        
 
     <body>
-        <section class="container">
-            <!--navbar-->
         
-            <nav class="navbar navbar-inverse" role="navigation">
+        <nav class="navbar navbar-inverse" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
@@ -62,136 +73,112 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="/"><img src="/media/logo.jpeg" style="width:200px;height:40px;"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex8-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
+                <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu">
+                      <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
+                    </a>
+                      
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
+                        <li><a href="#">Change Password</a></li>
+                        <li class="divider">My Roles</li>
+                         <?php                    
+        foreach($RolesList as $ListedRole)
+        {
+            if ($ListedRole == $_SESSION['Role'])
+            {
+            ?>
+                        <li><a><strong><?=$ListedRole?></strong></a></li>
+                                
+            <?php
+            }
+            else
+            {
+                ?>
+                <li><a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a></li>
+                <?php
+            }
+        }
+        ?>
+                        <li class="divider"></li>
+                        <li><a href="/logout.php">Log out</a></li>
                     </ul>
+          
+                            
+                </li>
+                             
+                </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
-            
+        <section class="container col-xs-12">
+            <!--navbar-->
+                     
             <!--body-->
+            <div id="wrapper">
+                
+                <div id = "sidebar"></div>
+                <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                                </button>
+                                    <!-- BEGIN PAGE CONTENT -->
+                                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Details</div>
+                                <div class="panel-body">
+                                    <h2 class="page-header">Course 121</h2>
+                                    <h5>Worksheet #1</h5>
+                                    <h5>Date: 3/2/16</h5>
+                                    <h5>Topic: English</h5>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Worksheet</div>
+                                <div class="panel-body">
+                                    <div class="modal-dialog">
+                                        <!--<div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+
+                                        </div>--><!-- /.modal-content -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                                    <!-- END PAGE CONTENT -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
             
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Details</div>
-                        <div class="panel-body">
-                            <h2 class="page-header">Course 121</h2>
-                            <h5>Worksheet #1</h5>
-                            <h5>Date: 3/2/16</h5>
-                            <h5>Topic: English</h5>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Worksheet</div>
-                        <div class="panel-body">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
-                                    </div>
-                                    <div class="modal-body">
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-
-                                </div><!-- /.modal-content -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Content formating</div>
-                            <div class="panel-body">
-                                <p class="lead">This is lead paragraph</p>
-                                <p>This is an <b>ordinary paragraph</b> that is <i>long enough</i> to wrap to <u>multiple lines</u> so that you can see how the line spacing looks.</p>
-
-                                <hr/>
-
-                                <p class="text-muted">Muted color paragraph.</p>
-                                <p class="text-warning">Warning color paragraph.</p>
-                                <p class="text-danger">Danger color paragraph.</p>
-                                <p class="text-info">Info color paragraph.</p>
-                                <p class="text-success">Success color paragraph.</p>
-
-                                <p><small>This is text in a <code>small</code> wrapper. <abbr title="No Big Deal">NBD</abbr>, right?</small></p>
-
-                                <hr/>
-
-                                <div class="row">
-                                    <address class="col-lg-6">
-                                        <strong>Twitter, Inc.</strong><br>
-                                        795 Folsom Ave, Suite 600<br>
-                                        San Francisco, CA 94107<br>
-                                        <abbr title="Phone">P:</abbr> (123) 456-7890
-                                    </address>
-                                    <address class="col-lg-6">
-                                        <strong>Full Name</strong><br>
-                                        <a href="mailto:#">first.last@example.com</a>
-                                    </address>
-                                </div>
-
-                                <hr/>
-
-                                <blockquote>Here's what a blockquote looks like in Bootstrap. <small>Use <code>small</code> to identify the source.</small>
-                                </blockquote>
-
-                                <hr/>
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <ul>
-                                            <li>Normal Unordered List</li>
-                                            <li>Can Also Work
-                                                <ul>
-                                                    <li>With Nested Children</li>
-                                                </ul>
-                                            </li>
-                                            <li>Adds Bullets to Page</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-6">
-                                        <ol>
-                                            <li>Normal Ordered List</li>
-                                            <li>Can Also Work
-                                                <ol>
-                                                    <li>With Nested Children</li>
-                                                </ol>
-                                            </li>
-                                            <li>Adds Bullets to Page</li>
-                                        </ol>
-                                    </div>
-                                </div>
-
-                                <hr/>
-
-                                <pre>
-            function preFormatting() {
-                // looks like this;
-
-                var something = somethingElse;
-
-                return true;
-            }</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        </section>
         
-            <script src="http://code.jquery.com/jquery.js"></script>
-            <script src="js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="/flatUI/js/bootstrap.min.js"></script>
         
         </body>
     <?php
