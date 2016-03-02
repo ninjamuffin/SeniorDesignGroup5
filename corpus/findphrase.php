@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
 <!--<style type="text/css">-->
 <!--table {-->
 <!--    width: 100%;-->
@@ -17,29 +17,29 @@
 <!--th {text-align: left;}-->
     
 <!--</style>-->
-</head>
-<body>
+<!--</head>-->
+<!--<body>-->
 
 
 
-<?php
+<!--<?php-->
 //get the q parameter from URL
-$q=$_GET["q"];
+<!--//$q=$_GET["q"];-->
 // connects to DB
-$con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');
-if (!$con) {
-    die('Could not connect: ' . mysqli_error($con));
-}
+<!--//$con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');-->
+<!--//if (!$con) {-->
+<!--  //  die('Could not connect: ' . mysqli_error($con));-->
+<!--}-->
     
     
     
     
     
 //Search results for echo ($q);
-mysqli_select_db($con,"mysqldbproject");
-$sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
+<!--//mysqli_select_db($con,"mysqldbproject");-->
+<!--//$sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";-->
 //echo ($sql);  //Tests the sql statement
-$result = mysqli_query($con,$sql);
+<!--.//$result = mysqli_query($con,$sql);-->
 //Create table template
 // echo "<table>
 // <caption>Search Results:</caption>
@@ -51,19 +51,47 @@ $result = mysqli_query($con,$sql);
 // <th>language_id</th>
 // </tr>";
 //Input values into table
-while($row = mysqli_fetch_array($result)) {
+<!--//while($row = mysqli_fetch_array($result)) {-->
     // echo "<tr>";
     // echo "<td>" . $row['expression_id'] . "</td>";
-    $data = $row['expression'];
+<!-- //   $data = $row['expression'];-->
+<!--  //  echo "<td>" . $row['level_id'] . "</td>"-->
     // echo "<td>" . $row['level_id'] . "</td>";
     // echo "<td>" . $row['topic_id'] . "</td>";
     // echo "<td>" . $row['language_id'] . "</td>";
     // echo "</tr>";
-}
+<!--}-->
 //output the table with values in it
 //echo "</table>";
+<!--//echo json_encode($data);-->
+<!--//mysqli_close($con);-->
+<!--?>-->
+<!--</body>-->
+<!--</html>-->
+
+<?php
+$dbHost = 'localhost';
+$dbUsername = 'root';
+$dbPassword = '';
+$dbName = 'codexworld';
+
+
+
+
+
+
+
+//connect with the database
+$db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
+//get search term
+$searchTerm = $_GET['term'];
+
+//get matched data from skills table
+$query = $db->query("SELECT * FROM skills WHERE skill LIKE '%".$searchTerm."%' ORDER BY skill ASC");
+
+while ($row = $query->fetch_assoc()) {
+    $data[] = $row['skill'];
+}
+//return json data
 echo json_encode($data);
-mysqli_close($con);
 ?>
-</body>
-</html>
