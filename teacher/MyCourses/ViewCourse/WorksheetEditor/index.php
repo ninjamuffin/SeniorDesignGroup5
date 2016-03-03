@@ -19,6 +19,9 @@
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    
+    
+    
     <script>
         $(function(){
             $("#header").load("/header.php");
@@ -27,7 +30,29 @@
             $("#sidebar").load("/sidebar.php");
         });
     </script>
+    <script type="text/javascript">$(function()
+    {
+        $(document).on('click', '.btn-add', function(e)
+        {
+            e.preventDefault();
 
+            var controlForm = $('.controls form:last'),
+                currentEntry = $(this).parents('.entry:first'),
+                newEntry = $(controlForm.clone()).appendTo(controlForm);
+
+            newEntry.find('input').val('');
+            controlForm.find('.entry:not(:last) .btn-add')
+                .removeClass('btn-add').addClass('btn-remove')
+                .removeClass('btn-success').addClass('btn-danger')
+                .html('<span class="glyphicon glyphicon-minus"></span>');
+        }).on('click', '.btn-remove', function(e)
+        {
+            $(this).parents('.entry:last').remove();
+            e.preventDefault();
+            return false;
+        });
+    });
+    </script>
     <!-- Background Setup -->
     <style>
       
@@ -73,7 +98,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand" href="/"><img src="/media/logo.jpeg" style="width:200px;height:40px;"></a>
+<!--                <a class="navbar-brand" href="/"><img src="/media/smalltalkimage.gif" style="width:200px;height:40px;"></a>-->
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -136,38 +161,59 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
-                                <div class="panel-heading">Details</div>
+                                <div class="panel-heading">Worksheet Info</div>
                                 <div class="panel-body">
-                                    <h2 class="page-header">Course 121</h2>
-                                    <h5>Worksheet #1</h5>
-                                    <h5>Date: 3/2/16</h5>
-                                    <h5>Topic: English</h5>
+                                    <h2 class="page-header">Course: Generated from page</h2>
+                                    <h5>Worksheet Number: Generated from page</h5>
+                                    <h5>Date: Generated dynamically</h5>
+                                    <h5>Topic: Form submission</h5>
                                 </div>
                             </div>
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Worksheet</div>
-                                <div class="panel-body">
-                                    <div class="modal-dialog">
-                                        <!--<div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                            <div class="entry panel panel-default" style="top-margin:40px;">
+                                <div class="panel-heading">Expressions</div>
+                                <div class=" panel-body">
+                                        <div class="control-group" id="fields">
+                                            <div class="controls"> 
+                                                <form class=" form-inline">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-2">
+                                                            <select class="form-control">
+                                                                <option selected="selected">--Student--</option>
+                                                                <option>Student 1</option>
+                                                                <option>Student 2</option>
+                                                                <option>Student 3</option>
+                                                                <option>Student 4</option>
+                                                                <option>Student 5</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <input type="text" class="form-control input-md" placeholder="Expression" style="width: 100%; margin-top:10px;">
+                                                    <br>
+                                                    <input type="text" class="form-control input-md" placeholder="Vocab/Context" style="width: 100%;margin-top:10px;">
+                                                    <br>
+                                                    <div class="row" style="padding-right:15px;"><button type="submit"  class="btn btn-primary pull-right">Save</button></div>
+                                                     
+                                                </form>
+                                           
                                             </div>
-                                            <div class="modal-body">
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-
-                                        </div>--><!-- /.modal-content -->
-                                    </div>
-                                </div>
+                                            
+                                            
+                                        </div>
+                                        
+                                </div>  
+                                
                             </div>
+                            <div class="input-group" id="adv-search">
+                                                        <span class="input-group-btn">
+                                                        <button class="btn btn-success btn-add" type="button">
+                                                        New Expression
+                                                        </button>
+                                                        </span>
+                                                    </div>
+                            
                         </div>
-                        </div>
+                    </div>
                                     <!-- END PAGE CONTENT -->
                                 </div>
                             </div>
@@ -178,7 +224,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         </section>
         
         <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="/flatUI/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
         
         </body>
     <?php
