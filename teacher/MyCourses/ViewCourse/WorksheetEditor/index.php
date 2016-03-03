@@ -55,7 +55,9 @@
     </script>
     <!-- Background Setup -->
     <style>
-      
+        .dropdown-backdrop {
+            position: static;
+        } 
     </style>
 </head>
         
