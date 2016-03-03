@@ -86,12 +86,10 @@ WHERE SU.username = ? AND
         if(sqlsrv_num_rows($checklogin) == 1)
         {
             $row = sqlsrv_fetch_array($checklogin);
-            $email = $row['email'];
             $role = $row['Role'];
-            $first_name = $row['first_name'];
-            $last_name = $row['last_name'];
             
             
+            echo $role;
             $_SESSION['Username'] = $username;
             $_SESSION['LoggedIn'] = 1;
             $_SESSION['Role'] = $role;
@@ -110,6 +108,7 @@ WHERE SU.username = ? AND
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
                 }
+                
             }
             elseif ($role == 'Teacher')
             {
@@ -125,6 +124,8 @@ WHERE SU.username = ? AND
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
                 }
+                else
+                    echo "Teacher...shit";
             }
             elseif ($role == 'Student')
             {
@@ -140,6 +141,8 @@ WHERE SU.username = ? AND
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
                 }
+                else
+                    echo "Shit";
             }
             
             $_SESSION['EmailAddress'] = $email;
@@ -148,7 +151,7 @@ WHERE SU.username = ? AND
             
             
             
-            echo "<meta http-equiv='refresh' content='0;/' />";
+            echo "<meta http-equiv='refresh' content='10;/' />";
         }
         else
         {?>

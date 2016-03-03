@@ -13,6 +13,8 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -26,16 +28,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+    
 </head>
 
 <?php
@@ -53,30 +46,92 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
-                                <h1>Courses Listing</h1>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                
+                                <h1>Courses</h1>
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Documentation</div>
+                                    <div class="panel-heading">Add New Course</div>
                                     <div class="panel-body">
-                                        <p>Courses view for admin user.  Displays list of courses, as well as a button at the top to navigate to CreateCourse.  Each element in the list is a link to a ViewCourse page, which submits a form. </p>
+                                         <form method="POST" id="filterActivityQueue" action="">
+                                            <div class="form-group row">
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="Institution" id="Institution">
+                                                        <option selected="selected">--Institution--</option>
+                                                        <option value="1">Gonzaga University</option>
+                                                        <option value="2">Spokane Falls CC</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="Session">
+                                                        <option selected="selected">--Session--</option>
+                                                        <option>Fall I 2015</option>
+                                                        <option>Fall II 2015</option>
+                                                        <option>Summer I 2015</option>
+                                                        <option>Summer II 2015</option>
+                                                        <option>Spring I 2016</option>
+                                                        <option>Spring II 2016</option>
+                                                    
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="CourseName" id="CourseName">
+                                                        <option selected="selected">--Level--</option>
+                                                        <option>Entry</option>
+                                                        <option>Basic</option>
+                                                        <option>Intermediate</option>
+                                                        <option>Advanced</option>
+                                                        <option>Seminar</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="Section" id="Section">
+                                                        <option selected="selected">--Section--</option>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                             <button type="submit" class="btn btn-primary pull-right">Create Course</button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Documentation</div>
-                                    <table class="table">
-                                        
-                                    </table>
+                                    <div class="panel-heading">Active Courses</div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <td>Institution</td>
+                                                    <td>Session Name</td>
+                                                    <td>Course Name</td> <!-- Link to page -->
+                                                    <td>Section</td>
+                                                    <td>Teacher Name</td> <!-- Link to page -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Gonzaga University</td>
+                                                    <td>Fall II 2014</td>
+                                                    <td>Advanced...</td>
+                                                    <td>1</td>
+                                                    <td>Hunter</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
                                 </div>
                                     
                             </div>

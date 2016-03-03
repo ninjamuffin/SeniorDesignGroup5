@@ -14,6 +14,8 @@ include "../../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -27,16 +29,6 @@ include "../../../../base.php";
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
 
 <?php
@@ -59,18 +51,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Teacher Information</div>
                                     <div class="panel-body">
@@ -90,17 +82,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }
             
             
-            $institutionsQuery = "SELECT I.InstitutionName
-            FROM Teachers as T,  TeachingInstance as TI, Institutions as I
-            WHERE T.TeacherID = ? AND
-                  TI.SiteUsername = T.SiteUsername AND
-                  I.InstitutionID = TI.InstitutionID";
-            $stmt = sqlsrv_query( $con, $institutionsQuery, $params, $options);
-            if ($stmt === false)
-                die(print_r(sqlsrv_errors(), true));
-            $institutions = [];
-            while( sqlsrv_fetch($stmt) === true)
-                $institutions[] = sqlsrv_get_field( $stmt, 0);
+            
             
             $firstYearRangeQuery = "
             SELECT min(Y.Year) 
@@ -132,13 +114,53 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             
             echo "<p>Name: $firstName $lastName</p>";
             echo "<p>Active with Smalltalk from: $firstYear - $lastYear</p>";
-            echo "<p>Institutions: </p>";
-            foreach($institutions as $inst)
-                echo "<p>   $inst</p>";
             
             ?>
                                     </div>
                                 </div>
+                                
+                                
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Active Institutions
+                                    </div>
+                                    <div class="panel-body">
+                                    <?php
+            $params = array($tid);
+            $options = array( "Scrollable" => 'static');
+            $institutionsQuery = "SELECT I.InstitutionName
+            FROM Teachers as T,  TeachingInstance as TI, Institutions as I
+            WHERE T.TeacherID = ? AND
+                  TI.SiteUsername = T.SiteUsername AND
+                  I.InstitutionID = TI.InstitutionID";
+            $stmt = sqlsrv_query( $con, $institutionsQuery, $params, $options);
+            if ($stmt === false)
+                die(print_r(sqlsrv_errors(), true));
+            $institutions = [];
+            while( sqlsrv_fetch($stmt) === true)
+                $institutions[] = sqlsrv_get_field( $stmt, 0);
+            ?>
+                                    
+                                        <div class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <?php
+                foreach($institutions as $institution)
+                    echo "<td>$institution</td>";
+                ?>
+                                                </tr>
+                                            </thead>
+                                        </div>
+                                        </div>
+                                </div>
+                                
+            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Teacher's Course Listing (sort by most recent)</div>
                                     <div class="panel-body">
@@ -206,7 +228,6 @@ Pagination::pageLinksArchiveViewTeacher($numOfPages, $pageNum, $rowsPerPage, $ro
                                             
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>

@@ -14,6 +14,8 @@ include "../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -28,15 +30,7 @@ include "../../../base.php";
     </script>
 
     <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+
 </head>
 
 <?php
@@ -55,18 +49,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-8">
                                 <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
+                                
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Search for a course</div>
                                     <div class="panel-body">
@@ -98,7 +92,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     
-                                    <div class="panel-body">                           
+                                    <div class="panel-body" style="min-height: 400px; max-height: 400px;overflow-y: scroll">                           
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -152,7 +146,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     foreach($page as $row)
     {
         $coursePageLink = "ViewCourse/?courseID=$row[4]";
-        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+        $teacherPageLink = "/Admin/Archive/Teachers/ViewTeacher/?tid=$row[5]";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>$row[2]</a></td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
     }
 
     echo "</tbody></table><br />";

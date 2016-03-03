@@ -35,34 +35,17 @@
                                 <a href="/Admin/Home/">Admin Home</a>
                             </li>
                             <li class="dropdown">
-                              <a href="/admin/ManageCourses/" class="dropdown-toggle" data-toggle="dropdown">Manage Courses<span class="caret"></span></a>
+                              <a class="dropdown-toggle" data-toggle="dropdown">Manage Website<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a href="/Admin/ManageCourses/CreateCourse/">   Create Course</a>
-                                    <a href="/Admin/ManageCourses/ViewCourse/"> View Course</a></li>
+                                <li>
+                                    <a href="/Admin/ManageCorpus/">Corpus</a>
+                                    <a href="/Admin/ManageCourses/">Courses</a>
+                                    <a href="/Admin/ManageTeachers/">Teachers</a>
+                                    <a href="/Admin/ManageStudents/">Students</a>
+                                  </li>  
                               </ul>
                             </li>
-                            <li class="dropdown">
-                              <a href="/admin/ManageTeachers/" class="dropdown-toggle" data-toggle="dropdown">Manage Teachers<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a href="/Admin/ManageTeachers/CreateTeacher/"> Create Teacher</a>
-                                <a href="/admin/ManageTeachers/ViewTeacherProfile/">    View Teacher Profile</a></li>
-                              </ul>
-                            </li>
-                            <li class="dropdown">
-                              <a href="/admin/ManageStudents/" class="dropdown-toggle" data-toggle="dropdown">Manage Students<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a href="/admin/ManageStudents/CreateStudent/"> Create Student</a>
-                                <a href="/admin/ManageStudents/ViewStudentProfile/">    View Student Profile</a></li>
-                              </ul>
-                            </li>
-                            <li>
-                                <a class="dropdown-toggle" data-toggle="dropdown">Manage Corpus<span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/Admin/ManageCorpus/">Home</a>
-                                        <a href="/Admin/ManageCorpus/ReviewChanges/">Review Changes</a>
-                                    </li>
-                              </ul>
-                            </li>
+                            
                             <li>
                                 <a href="/corpus/">Corpus</a>
                             </li>

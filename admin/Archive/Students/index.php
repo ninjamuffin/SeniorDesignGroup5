@@ -14,6 +14,8 @@ include "../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -27,16 +29,6 @@ include "../../../base.php";
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
 
 <?php
@@ -54,25 +46,35 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Student Search</div>
+                                    <div class="panel-heading">Filter Results</div>
                                     <div class="panel-body">
-                                        <p>This window will have a search interface for looking up students in the DB. </p>
+                                        <form method="POST" id="filterTeachers" action="">
+                                            <div class="form-group row">
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="LastName" type="text" placeholder="Student Last Name" />       
+                                                </div> 
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Apply Filter</button>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="panel panel-primary">
+                            </div>
+                            <div class="col-lg-9">
+                                
+                                <div class="panel panel-primary" style="max-height:600px;overflow-y: scroll;">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
                                     
                                     <div class="dropdown">
@@ -81,6 +83,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="?pp=10">10</a></li>
                                             <li><a href="?pp=50">50</a></li>
                                             <li><a href="?pp=100">100</a></li>
                                             <li><a href="?pp=200">200</a></li>
@@ -94,8 +97,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <tr>
                                                     <td>First Name</td>
                                                     <td>Last Name</td>
-                                                    <td>Citizenship</td>
-                                                    <!--<td>Language</td>-->
+                                                    <td>Language</td>
                                                     <!--<td>Joined Site</td>-->
                                                     <!--<td>Last active session</td>-->
                                                     <td>Link to Student's Page</td>
@@ -109,12 +111,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $params = array();
     $options = array( "Scrollable" => 'static' );
     $query = 
-"SELECT S.[FirstName], S.[LastName], C.[Country], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
-FROM Students as S, Country as C, Expressions as E
-WHERE C.[ID] = S.[Citizenship] AND
+"SELECT S.[FirstName], S.[LastName], L.[Language], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
+FROM Students as S, Expressions as E, Languages as L
+WHERE L.[LanguageID] = S.[Language] AND
 S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
 E.[Student_ID] = S.[ID]
-GROUP BY S.[FirstName], S.[LastName], C.[Country], S.[ID]";
+GROUP BY S.[FirstName], S.[LastName], S.[ID], L.Language";
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
         die( print_r( sqlsrv_errors(), true));
@@ -145,7 +147,7 @@ GROUP BY S.[FirstName], S.[LastName], C.[Country], S.[ID]";
     }
 
     echo "</tbody></table><br />";
-    $modulator = 2;
+    $modulator = 4;
     Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                             

@@ -14,6 +14,8 @@ include "../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -27,16 +29,6 @@ include "../../../base.php";
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
 
 <?php
@@ -54,24 +46,36 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Teacher Search</div>
+                                    <div class="panel-heading">Filter Results</div>
                                     <div class="panel-body">
-                                        <p>This window will have a search interface for looking up teachers </p>
+                                        <form method="POST" id="filterTeachers" action="">
+                                            <div class="form-group row">
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="LastName" type="text" placeholder="Teacher Last Name" />
+                                                    
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Apply Filter</button>
+                                        </form>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Teacher listing (only SmallTalk contributors, listed alphabetically by last name</div>
                                     <div class="dropdown">
@@ -92,6 +96,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <tr>
                                                     <td>First Name</td>
                                                     <td>Last Name</td>
+                                                    <td>Site Username</td>
                                                     <td>Link to Teacher's Page</td>
                                                 </tr>
                                             </thead>
@@ -102,7 +107,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $params = array();
     $options = array( "Scrollable" => 'static' );
     $query = 
-"SELECT T.[FirstName], T.[LastName], T.[TeacherID]
+"SELECT T.[FirstName], T.[LastName], T.SiteUsername, T.[TeacherID]
 FROM Teachers as T";
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
@@ -129,8 +134,8 @@ FROM Teachers as T";
     $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
-        $teacherPageLink = "ViewTeacher/?tid=$row[2]";
-        echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Visit Page</a></td></tr>";
+        $teacherPageLink = "ViewTeacher/?tid=$row[3]";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td><a href='$teacherPageLink'>Visit Page</a></td></tr>";
     }
 
     echo "</tbody></table><br />";
