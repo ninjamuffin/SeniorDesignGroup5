@@ -141,8 +141,7 @@ WHERE SU.username = ? AND
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
                 }
-                else
-                    echo "Shit";
+
             }
             
             $_SESSION['EmailAddress'] = $email;
@@ -151,7 +150,7 @@ WHERE SU.username = ? AND
             
             
             
-            echo "<meta http-equiv='refresh' content='10;/' />";
+            echo "<meta http-equiv='refresh' content='0;/$role/Home/' />";
         }
         else
         {?>
