@@ -227,6 +227,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script>
+        $('.dropdown-toggle').click(function(e) {
+            e.preventDefault();
+            setTimeout($.proxy(function() {
+                if ('ontouchstart' in document.documentElement) {
+                    $(this).siblings('.dropdown-backdrop').off().remove();
+                }
+            }, this), 0);
+        });
         
         </body>
     <?php
