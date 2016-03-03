@@ -23,6 +23,19 @@
     {
         if($_SESSION['Role'] == 'Admin')
         {
+            $params = array($_SESSION['Username']);
+            $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+            $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
+            $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
+            if( $stmt === false ) {
+                 die( print_r( sqlsrv_errors(), true));
+            }
+
+            // Make the first (and in this case, only) row of the result set available for reading.
+            $RolesList = [];
+            while( sqlsrv_fetch( $stmt ) === true) {
+                 $RolesList[] = sqlsrv_get_field( $stmt, 0);
+            }
             ?>
             <body>
                 <div id="wrapper">
@@ -32,8 +45,38 @@
                     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                         <ul class="nav sidebar-nav">
                             <li class="sidebar-brand">
-                                <a href="/Admin/Home/">Admin Home</a>
+                                <a href="/Admin/Home/">Home</a>
                             </li>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['Username']?><span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="dropdown-header">My Roles</li>
+                                    <li>
+                                         <?php                    
+        foreach($RolesList as $ListedRole)
+        {
+            if ($ListedRole == $_SESSION['Role'])
+            {
+            ?>
+                        <strong><a><?=$ListedRole?></a></strong>
+                                
+            <?php
+            }
+            else
+            {
+                ?>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a>
+                                        <?php
+                    
+            }
+
+        }
+        ?>
+                
+                                    </li>
+                              </ul>
+                            </li>
+                            <li class="nav-divider"></li>
                             <li class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown">Manage Website<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
@@ -58,6 +101,15 @@
                                     </li>
                               </ul>
                             </li>
+                            
+                            <li class="nav-divider"></li>
+                            <li>
+                                <a href="#">Change Password</a>
+                            </li>
+                            <li>
+                                <a href="/Logout.php">Logout</a>
+                            </li>
+                            
                         </ul>
                     </nav>
                     <!-- /#sidebar-wrapper -->
