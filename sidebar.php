@@ -21,21 +21,22 @@
     <?php
     if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
+        $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
+        if( $stmt === false ) {
+             die( print_r( sqlsrv_errors(), true));
+        }
+
+        // Make the first (and in this case, only) row of the result set available for reading.
+        $RolesList = [];
+        while( sqlsrv_fetch( $stmt ) === true) {
+             $RolesList[] = sqlsrv_get_field( $stmt, 0);
+        }
         if($_SESSION['Role'] == 'Admin')
         {
-            $params = array($_SESSION['Username']);
-            $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-            $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
-            $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
-            if( $stmt === false ) {
-                 die( print_r( sqlsrv_errors(), true));
-            }
-
-            // Make the first (and in this case, only) row of the result set available for reading.
-            $RolesList = [];
-            while( sqlsrv_fetch( $stmt ) === true) {
-                 $RolesList[] = sqlsrv_get_field( $stmt, 0);
-            }
+            
             ?>
             <body>
                 <div id="wrapper">
@@ -168,23 +169,58 @@
                     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                         <ul class="nav sidebar-nav">
                             <li class="sidebar-brand">
-                                <a href="/teacher/Home/">Teacher Home</a>
+                                <a href="/teacher/Home/">Home</a>
                             </li>
-                            <li class="dropdown">
-                              <a href="/teacher/MyInstitutions/" class="dropdown-toggle" data-toggle="dropdown">My Institutions<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                  <?php
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['Username']?><span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="dropdown-header">My Roles</li>
+                                    <li>
+                                         <?php                    
+        foreach($RolesList as $ListedRole)
+        {
+            if ($ListedRole == $_SESSION['Role'])
+            {
+            ?>
+                        <strong><a><?=$ListedRole?></a></strong>
+                                
+            <?php
+            }
+            else
+            {
+                ?>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a>
+                                        <?php
+                    
+            }
+
+        }
+        ?>
+                
+                                    </li>
+                              </ul>
+                            </li>
+                            <li class="nav-divider"></li>
+                            <?php
             $i = 0;
             foreach($institutions as $inst)
             {
                 ?>
-                                <li><a href="/teacher/MyCourses/?in=<?=$institution_ids[$i]?>"><?=$inst?></a></li>  
-                                  <?php
-                    $i += 1;
-            }
-                   ?>             
+                            <li class="dropdown">
+                              <a href="/teacher/MyInstitutions/" class="dropdown-toggle" data-toggle="dropdown"><?=$inst?><span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li>
+                                      <a href="/Teacher/MyCourses/?in=<?=$institution_ids[$i]?>">Courses</a>
+                                      <a href="/Teacher/MyStudents/?in=<?=$institution_ids[$i]?>">Students</a>
+                                      
+                                  </li>
+           
                               </ul>
                             </li>
+                            <?php
+                $i += 1;
+            }
+                            ?>
                             <li>
                                 <a href="/teacher/Archive/">Archive</a>
                                 
@@ -195,6 +231,13 @@
                                     <li><a href="#">About</a>
                                         <a href="/Corpus/Search/">Search</a></li>
                                 </ul>
+                            </li>
+                            <li class="nav-divider"></li>
+                            <li>
+                                <a href="#">Change Password</a>
+                            </li>
+                            <li>
+                                <a href="/Logout.php">Logout</a>
                             </li>
                             
                         </ul>

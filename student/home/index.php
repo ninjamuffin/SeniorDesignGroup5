@@ -14,7 +14,9 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
-    
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
+
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
@@ -27,16 +29,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+    
 </head>
         
 <?php
@@ -51,33 +44,117 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
     }
     else
-    {
-    ?>        
-
-    <body>
-        <div id="header"></div>
-        <div id="wrapper">
-            <div id = "sidebar"></div>
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                <span class="hamb-top"></span>
-                                <span class="hamb-middle"></span>
-                                <span class="hamb-bottom"></span>
-                            </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <h1><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></h1>
-                            <p>Page provides student user home.  Eventual content will be a site activity queue, listing all relevant course postings by teachers.  </p>
-                            <p>Sidebar will include student navigation: Home, Courses {Worksheets}, My Archive {courses {worksheets}}</p>
-                            <p>Nav bar will include basic account access (same regardless of role)</p>
-                            <!-- END PAGE CONTENT -->
+    { $username = $_SESSION['Username'];
+        $role = $_SESSION['Role'];
+        $params = array( $username, $username);
+        $options = array( "Scrollable" => 'static' );
+        $UserInfoQuery = "
+        SELECT R.Designation, I.InstitutionName
+        FROM RoleInstances as RI, Roles as R, Administrators as A, Institutions as I
+        WHERE  RI.SiteUsername = ? AND
+	           R.RoleID = RI.RoleID AND
+		       R.Role = 'Admin' AND
+		       A.SiteUsername = ? AND
+		       I.InstitutionID = A.InstitutionID";
+        $stmt = sqlsrv_query($con, $UserInfoQuery, $params, $options);
+        if ( $stmt === false)
+            die( print_r( sqlsrv_errors(), true));
+        $Designation = "";
+        $Institution = "";
+        if ( sqlsrv_fetch( $stmt ) === true)
+        {
+            $Designation = sqlsrv_get_field( $stmt, 0);
+            $Institution = sqlsrv_get_field( $stmt, 1);
+        }
+        ?>
+        <body>
+<!--
+            <div id="header"></div>           
+-->
+            <div id="wrapper">
+                <div id="sidebar"></div>
+                <div id="page-content-wrapper">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                                </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h1>Student Home</h1>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></p>
+                                        <p>Role:  Student <small class="text-muted"><?=$Designation?></small></p>
+                                        <p>Institution: <?=$Institution?></p>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4>My Courses</h4>
+                                    </div>
+                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course Name</th>
+                                                    <th>Teacher</th>
+                                                    <th>Session</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                                
+                                            <tbody>
+                                                
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4>My Activity Queue</h4>
+                                    </div>
+                                    <div class="panel-body" style="min-height: 250px;max-height: 250px;overflow-y: scroll">
+                                        
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Course Name</th>
+                                                    <th>Action Type</th>
+                                                    <th>Status</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>2/1/2016</td>
+                                                    <td>101 A</td>
+                                                    <td>New Worksheet Posted</td>
+                                                    <td class="text-danger">Incomplete</td>
+                                                    <td><button class="btn btn-primary" href="/Student/MyCourses/ViewCourse/WorksheetEditor/">Complete it</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-        </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

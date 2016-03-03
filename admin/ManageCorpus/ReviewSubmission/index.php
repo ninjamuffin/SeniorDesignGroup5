@@ -12,6 +12,8 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -25,16 +27,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+
 </head>
 
 <?php
@@ -52,21 +45,62 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
-                                <h1>Manage Corpus</h1>
-                                <p>Documentation:</p>
-                                <p>Page will manage the transfer of data from the site to the corpus.  There will be a listing of requests, submitted by teachers, that the administrator will have the option to review, and then submit to the database.  This is how we will manage DB writes.
+                    </button>
+                    <div class="container-fluid">
+                        
+                        
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <button class="btn btn-primary" href="../">Approve Worksheet</button>
+                                
+</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4>Submission to the corpus</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Institution:</p>
+                                        <p>Contributor name:</p>
+                                        <p>Source Class name:</p>
+                                        <p>Worksheet Number:</p>
+                                    </div>
+                                </div>
+                                
+</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4>Submitted Expressions</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <td>Sentence Number</td>
+                                                    <td>Student Name</td>
+                                                    <td>Expression</td>
+                                                    <td>Vocab/Context</td>
+                                                    <td>Pronunciation</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+
 </p>
                             </div>
                         </div>

@@ -12,6 +12,8 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -25,16 +27,6 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
 
 <?php
@@ -52,20 +44,98 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                     <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
-                                <h1>Manage Corpus</h1>
-                                <p>Home for corpus management.  Unique for Gonzaga Admin (James Hunter); for the monitoring of corpus traffic, activity, etc</p>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h1>Gonzaga Smalltalk Corpus</h1>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Date: </p>
+                                        <p>Total Additions This Month:</p>
+                                        <p>From Gonzaga University This Month:</p>
+                                        <p>Expressions in the Corpus:</p>
+                                        <p>Number of Contributors:</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-5">
+                                <div class="panel panel-primary" style="min-height: 310px;max-height: 310px;overflow-y: scroll">
+                                    <div class="panel-heading">
+                                        <h1>Corpus Administrators</h1>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <td>Institution</td>
+                                                    <td>Name</td>
+                                                    <td>Role</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Gonzaga University</td>
+                                                    <td>Fname Lname</td>
+                                                    <td>Graduate Student</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>  
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4>Corpus Additions</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Institution</th>
+                                                    <th>Contributor</th>
+                                                    <th>Submission Title</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>2/20/16</td>
+                                                    <td>Gonzaga</td>
+                                                    <td>Teacher Name</td>
+                                                    <td><a href="ReviewSubmission/">Worksheet Submission</a></td>
+                                                    <td>Approved</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2/20/16</td>
+                                                    <td>Gonzaga</td>
+                                                    <td>Teacher Name</td>
+                                                    <td><a href="ReviewSubmission/">Worksheet Submission</a></td>
+                                                    <td><button class="btn btn-primary">Approve</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                                
 </p>
                             </div>
                         </div>
@@ -80,7 +150,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <script src="/js/bootstrap-datepicker.js"></script>
             <script>
             $("#menu-toggle").click(function(e) {
-                e.preventDefault();
+                e.preventhefault();
                 $("#wrapper").toggleClass("toggled");
             });
             </script>
