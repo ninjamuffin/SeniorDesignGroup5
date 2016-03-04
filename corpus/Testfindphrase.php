@@ -40,15 +40,15 @@ $sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
 //echo ($sql);  //Tests the sql statement
 $result = mysqli_query($con,$sql);
 //Create table template
-echo "<table>
-<caption>Search Results:</caption>
-<tr>
-<th>student_id</th>
-<th>expression</th>
-<th>level_id</th>
-<th>topic_id</th>
-<th>language_id</th>
-</tr>";
+// echo "<table>
+// <caption>Search Results:</caption>
+// <tr>
+// <th>student_id</th>
+// <th>expression</th>
+// <th>level_id</th>
+// <th>topic_id</th>
+// <th>language_id</th>
+// </tr>";
 //Input values into table
 while($row = mysqli_fetch_array($result)) {
     echo "<tr>";
