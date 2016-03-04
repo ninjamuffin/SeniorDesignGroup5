@@ -61,6 +61,7 @@ echo '</u>';
 //echo "</table>";
 
 mysqli_close($con);
+exit;
 ?>
 </body>
 </html>
