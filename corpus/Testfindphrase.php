@@ -24,7 +24,7 @@ th {text-align: left;}
 
 <?php
 //get the q parameter from URL
-$q=$_POST["search"];
+$q= htmlentities($_POST["search"]);
 // connects to DB
 $con = mysqli_connect('us-cdbr-azure-west-c.cloudapp.net','b2a3214e88e413','325ebc40','mysqldbproject');
 if (!$con) {
@@ -33,9 +33,10 @@ if (!$con) {
 
 echo $q;
 
-    
 //Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
+echo $q;
+
 $sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
 //echo ($sql);  //Tests the sql statement
 $result = mysqli_query($con,$sql);
