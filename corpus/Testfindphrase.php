@@ -52,9 +52,9 @@ $result = mysqli_query($con,$sql);
 //Input values into table
 //echo '<ul>';
 
-while($row = mysqli_fetch_array($result)) {
-    echo "<td>" . $row['expression'] . "</td>";
-}
+//while($row = mysqli_fetch_array($result)) {
+  //  echo "<td>" . $row['expression'] . "</td>";
+//}
 
 //output the table with values in it
 //echo "</table>";
