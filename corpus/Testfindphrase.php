@@ -31,11 +31,9 @@ if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
 
-echo $q;
 
 //Search results for echo ($q);
 mysqli_select_db($con,"mysqldbproject");
-echo $q;
 
 $sql= "SELECT * FROM expressions_full WHERE expression LIKE '%{$q}%'";
 //echo ($sql);  //Tests the sql statement
@@ -51,12 +49,14 @@ $result = mysqli_query($con,$sql);
 // <th>language_id</th>
 // </tr>";
 //Input values into table
-//echo '<ul>';
 
-//while($row = mysqli_fetch_array($result)) {
-  //  echo "<td>" . $row['expression'] . "</td>";
-//}
+echo '<ul>';
 
+while($row = mysqli_fetch_array($result)) {
+    echo '<li><a href="#" onclick="selected(this.innerHTML);">'. htmlentities($row['expression'])"</li>";
+}
+
+echo '</u>';
 //output the table with values in it
 //echo "</table>";
 
