@@ -50,17 +50,14 @@ $result = mysqli_query($con,$sql);
 // <th>language_id</th>
 // </tr>";
 //Input values into table
+//echo '<ul>';
+
 while($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    echo "<td>" . $row['expression_id'] . "</td>";
     echo "<td>" . $row['expression'] . "</td>";
-    echo "<td>" . $row['level_id'] . "</td>";
-    echo "<td>" . $row['topic_id'] . "</td>";
-    echo "<td>" . $row['language_id'] . "</td>";
-    echo "</tr>";
 }
+
 //output the table with values in it
-echo "</table>";
+//echo "</table>";
 
 mysqli_close($con);
 ?>
