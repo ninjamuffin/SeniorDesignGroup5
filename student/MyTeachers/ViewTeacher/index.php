@@ -1,5 +1,5 @@
-<!-- My Teachers page (index.html) for Student account -->
-<?php include "../../base.php"; ?>
+<!-- View Teacher Profile page (index.html) for Student account -->
+<?php include "../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@
         });
     </script>
 
-    
+  
 </head>
         
 <?php
@@ -57,35 +57,56 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </button>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="panel panel-primary" style="min-height: 450px;max-height: 450px;overflow-y: scroll">
+                    <div class="col-lg-9">
+                        <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3>Teachers</h3>
+                                <h4>Teacher Info</h4>
+                            </div>
+                            <div class="panel-body">
+                                <p>Name:</p>
+                                <p>Institution(s):</p>
+                                <p>Active with Smalltalk:</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4>Recent Courses</h4>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Teacher Name</th>
-                                            <th>Status</th>
-                                            <th>Visit Page</th>
+                                            <th>Institution</th>
+                                            <th>Course Number</th>
+                                            <th>Course Name</th>
+                                            <th>Session</th>
+                                            <th>Course Page</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Bob Loblaw</td>
-                                            <td>Active</td>
-                                            <td><a href="ViewTeacher/">View Teacher</a></td>
+                                            <td>Gonzaga University</td>
+                                            <td>ELCT 106</td>
+                                            <td>Advanced Oral Communication</td>
+                                            <td>Summer II 2013</td>
+                                            <td><a href="/Student/MyCourses/ViewCourse/">Visit Course Page</a></td>
                                         </tr>
                                         <tr>
-                                            <td>Not Bob</td>
-                                            <td>Previous</td>
-                                            <td><a href="ViewTeacher">View Teacher</a></td>
+                                            <td>Gonzaga University</td>
+                                            <td>ELCT 105</td>
+                                            <td>Advanced Oral Communication</td>
+                                            <td>Summer I 2013</td>
+                                            <td>Not Enrolled</td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        
                         
                     </div>
                 </div>

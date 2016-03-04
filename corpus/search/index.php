@@ -10,8 +10,10 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/advancedsearch.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
+    
+    
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
@@ -19,15 +21,10 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     
-    
-    
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    
+
     
     
     <!-- Bootstrap -->
@@ -81,16 +78,8 @@
             min-width: 569px;
         }
     </style>
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+
+
 </head>
     
 <?php
@@ -108,99 +97,125 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>            
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
                                 </button>
-                                <div class="control-group" id="fields">
-                                <div class="controls"> 
-                                 
-                                <form method="POST" action="../Results/" role="form" autocomplete="off">
-                                    <!--<div class="col-xs-5">
+                    <div class="container-fluid">
+                        <div class="control-group" id="fields">
+                            <div class="controls">  
+                                <form method="POST" action="" role="form" autocomplete="off">
+                                    <div class="row">
+                                        <div class="col-xs-5">
 <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-     THIS WILL SEARCH THE WHOLE FIELD 
-</div>-->
-                                    
-                                    
-                                    
+</div>
+                                    </div>
                                     <!--Data entry for Level, Language, Topic-->
-                                    <div class="form-group">
-                                        <select style="width:150px;" class="form-control" name="Level" id="Level">
-                                            <option selected="selected">Level</option>
-                                            <option value="1">1 (099-100)</option>
-                                            <option value="2">2 (101-102)</option>
-                                            <option value="3">3 (103-104)</option>
-                                            <option value="4">4 (105-106)</option>
-                                            <option value="5">5 (107-108)</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <input style="width:150px;" class="form-control" type="text" onkeyup="showHint(this.value)" name="Language" id="Language" placeholder="Language" >
-                                    <p>Suggestions: <span id="txtHint"></span></p>
-
-                                    </div>
-
-       
-                                    <div class="form-group">
-                                        <input style="width:150px;" class="form-control" type="text" name="Topic" id="Topic" placeholder="Topic" >
-                                    </div>
-                                    <div class="entry col-lg-10">
-                                        <div class="container">
-                                            <label for="contain">Word Search</label>
-                                            <div class="word filter">
-                                                <!--<div class="row">-->
-                                                    <div class="col-md-12">
-                                                        <div class="input-group" id="adv-search">
-                                                            <span class="input-group-btn">
-                                                            <button class="btn btn-success btn-add" type="button">
-                                                            <span class="glyphicon glyphicon-plus"></span>
-                                                            </button>
-                                                            </span>
-                                                            <input type="text" class="form-control" name="words[]" placeholder="Search for a word">
-                                                            <div class="input-group-btn">
-                                                                <div class="btn-group" role="group">
-                                                                    <div class="dropdown dropdown-lg">
-                                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                                                                        <div class="dropdown-menu dropdown-menu-right" role="menu">
-
-                                                                            <div class="form-group">
-                                                                                <label for="PoS">Part of Speech</label>
-                                                                                <select class="form-control" name="PoS[]" id="PoS">
-                                                                                    <option value="Verb">Verb</option>
-                                                                                    <option value="Noun">Noun</option>
-                                                                                    <option value="Pronoun">Pronouns</option>
-                                                                                </select>
-                                                                            </div>                                          
-                                                                        </div>
+                                      
+                                    <div class="entry row">
+                                            <div class=" container">
+                                                <div class=" panel panel-primary">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                        <div class="col-lg-10">
+                                                            <div class="form-group row" id="adv-search">
+                                                                <div class="col-lg-1"><span class="input-group-btn">
+                                                                <button class="btn btn-success btn-add" type="button">
+                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                                </button>
+                                                                </span>
                                                                     </div>
-                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                <input type="text" class="form-control" name="words[]" placeholder="Search for a word">
+                                                                    </div>
+                                                                <div class="col-lg-3">
+                                                                <select class="form-control" name="PoS_One" id="PoS_One">
+                                                                    <option selected="selected">--PartOfSpeech Category</option>
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                </select>
+                                                                    </div>
+                                                                
                                                             </div>
                                                         </div>
+                                                            </div>
+    <!--
+    -->
                                                     </div>
-                                                <!--</div>-->
+                                                </div>
+
+
                                             </div>
-                                            
-                                        </div>
                                         
                                     </div>
-                                    
-                                    
-          
-
-
-</form>
+                                </form>                                     
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                                
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <form method="POST" action="" role="form">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>Filter Results</h4>
+                                        </div>
+                                                <div class="panel-body">
+                                                    <div class="form-group row">
+                                                        <div class="form-group col-lg-4">
+                                                            <select style="width:150px;" class="form-control" name="Level" id="Level">
+                                                                <option selected="selected">Level</option>
+                                                                <option value="1">1 (099-100)</option>
+                                                                <option value="2">2 (101-102)</option>
+                                                                <option value="3">3 (103-104)</option>
+                                                                <option value="4">4 (105-106)</option>
+                                                                <option value="5">5 (107-108)</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-lg-4">
+                                                            <input style="width:150px;" class="form-control" type="text" onkeyup="showHint(this.value)" name="Language" id="Language" placeholder="Language" >
+                                                        <p>Suggestions: <span id="txtHint"></span></p>
+
+                                                        </div>
+                                                        <div class="form-group col-lg-4">
+                                                            <input style="width:150px;" class="form-control" type="text" name="Topic" id="Topic" placeholder="Topic" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                
+                                </form>
+                                    </div>
+                                </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4>Search Results</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Expression</th>
+                                                    <th>Vocab/Context</th>
+                                                    <th>Topic</th>
+                                                    <th>Language</th>
+                                                    <th>Level</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
         
 </div>

@@ -81,7 +81,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h1>Student Home</h1>
@@ -93,10 +93,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h4>My Courses</h4>
+                                        <h4><a href="/Student/MyCourses/">My Courses </a></h4>
+                                            
+                                            
                                     </div>
                                     <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
                                         <table class="table table-hover">
@@ -120,7 +122,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             
                         </div>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-8 col-md-8">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4>My Activity Queue</h4>

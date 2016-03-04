@@ -14,6 +14,7 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -27,16 +28,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+    
 </head>
         
 <?php
@@ -55,23 +47,48 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 ?>        
 
 <body>
-    <div id="header"></div>
     <div id="wrapper">
         <div id="sidebar"></div>
         <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                             <span class="hamb-top"></span>
                             <span class="hamb-middle"></span>
                             <span class="hamb-bottom"></span>
                         </button>
-                        <!-- BEGIN PAGE CONTENT -->
-                        <h2>Courses</h2>
-                <p>For the student user, this page displays a list of links to a course page, each link containing the name/ID of the course.  These courses are pulled by a SQL query that retrieves all active, enrolled courses of the student user name, which is accessed from the session data  </p>
-                <p>Standard Student sidebar, standard header bar</p>
-                        <!-- END PAGE CONTENT -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-xs-12 col-md-8">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3>Courses</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Course Number</th>
+                                            <th>Course Name</th>
+                                            <th>Session Name</th>
+                                            <th>Teacher</th>
+                                            <th>Visit Course Page</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ELCT 101</td>
+                                            <td>Basic Oral Communication</td>
+                                            <td>Fall II 2015</td>
+                                            <td>Hunter</td>
+                                            <td><a href="ViewCourse/?cid=">View Course</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                        </div>   
+                        
+                    
+                
                     </div>
                 </div>
             </div>

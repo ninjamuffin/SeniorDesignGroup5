@@ -64,14 +64,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body">
                                          <form method="POST" id="filterActivityQueue" action="">
                                             <div class="form-group row">
-                                                <div class="col-lg-3">
-                                                    <select class="form-control" name="Institution" id="Institution">
-                                                        <option selected="selected">--Institution--</option>
-                                                        <option value="1">Gonzaga University</option>
-                                                        <option value="2">Spokane Falls CC</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-3">
+                                                
+                                                <div class="col-lg-4">
                                                     <select class="form-control" name="Session">
                                                         <option selected="selected">--Session--</option>
                                                         <option>Fall I 2015</option>
@@ -83,7 +77,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-4">
                                                     <select class="form-control" name="CourseName" id="CourseName">
                                                         <option selected="selected">--Level--</option>
                                                         <option>Entry</option>
@@ -93,7 +87,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <option>Seminar</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-4">
                                                     <select class="form-control" name="Section" id="Section">
                                                         <option selected="selected">--Section--</option>
                                                         <option>1</option>
@@ -103,7 +97,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 
                                                 
                                             </div>
-                                             <button type="submit" class="btn btn-primary pull-right">Create Course</button>
+                                             <div class="form-group row" style="padding-right: 15px;">
+                                                 <div class="col-lg-9">
+                                                    <input class="form-control" type="text" name="SelectTeacher" id="SelectTeacher" placeholder="Teacher" />
+                                                 </div>
+                                                    <button type="submit" class="btn btn-primary pull-right">Create Course</button>
+                                             
                                         </form>
                                     </div>
                                 </div>

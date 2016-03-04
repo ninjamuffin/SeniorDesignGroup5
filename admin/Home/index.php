@@ -25,16 +25,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-<!--    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>-->
+
 </head>
 
 <?php
@@ -90,7 +81,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h1>Administrator Home</h1>
+                                        <h3>Administrator Home</h3>
                                     </div>
                                     <div class="panel-body">
                                         <p><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></p>
@@ -160,7 +151,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body" style="min-height: 250px;max-height: 250px;overflow-y: scroll">
                                         <form method="POST" id="filterActivityQueue" action="">
                                             <div class="form-group row">
-                                                <div class="col-lg-2">
+                                                <div class="col-lg-3">
                                                     <select class="form-control">
                                                         <option selected="selected">--Author Type--</option>
                                                         <option>Primary Admin</option>
@@ -170,7 +161,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <option>Student</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-2">
+                                                <div class="col-lg-3">
                                                     <select class="form-control" style="display:inline">
                                                         <option selected="selected">--Action Type--</option>
                                                         <option>Create</option>
@@ -180,7 +171,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <option>Insert</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-2">
+                                                <div class="col-lg-3">
                                                     <select class="form-control">
                                                         <option selected="selected">--Object Type--</option>
                                                         <option>Corpus/Archive Expression</option>

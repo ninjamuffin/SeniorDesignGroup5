@@ -31,8 +31,10 @@
 
         // Make the first (and in this case, only) row of the result set available for reading.
         $RolesList = [];
+        $NumRoles = 0;
         while( sqlsrv_fetch( $stmt ) === true) {
              $RolesList[] = sqlsrv_get_field( $stmt, 0);
+            $NumRoles += 1;
         }
         if($_SESSION['Role'] == 'Admin')
         {
@@ -51,7 +53,9 @@
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['Username']?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
+<!--
                                     <li class="dropdown-header">My Roles</li>
+-->
                                     <li>
                                          <?php                    
         foreach($RolesList as $ListedRole)
@@ -174,7 +178,9 @@
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['Username']?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
+<!--
                                     <li class="dropdown-header">My Roles</li>
+-->
                                     <li>
                                          <?php                    
         foreach($RolesList as $ListedRole)
@@ -272,21 +278,84 @@
                     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                         <ul class="nav sidebar-nav">
                             <li class="sidebar-brand">
-                                <a href="/student/home/">Student Home</a>
+                                <a href="/student/home/">Home</a>
                             </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?=$_SESSION['Username']?><span class="caret"></span></a>
+                                <?php
+                if ($NumRoles == 1)
+                {
+                    ?>
+                                <ul class="dropdown-menu" role="menu">
+                                    
+                                    <li><a>Role: Student</a>
+                                    <a>School: Gonzaga</a></li>
+                                </ul>
+                                <?php
+                }
+                else
+                {
+                    ?>
+                                <ul class="dropdown-menu" role="menu">
+<!--
+                                    <li class="dropdown-header">My Roles:</li>
+-->
+                                    <li>
+                                    <?php
+                    foreach($RolesList as $ListedRole)
+                    {
+                        if ($ListedRole == $_SESSION['Role'])
+                        {
+                            ?>
+                                        <strong><a><?=$ListedRole?></a></strong>
+                                        <?php
+                        }
+                        else
+                        {
+                            ?>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a>
+                                        <?php
+                        }
+                            
+                        
+                    }?>
+                                    
+                                    </li>
+                                </ul>
+                    <?php
+                }?>
+                                
+                                
+                            
+                            </li>
+                            <li class="nav-divider"></li>
                             <li class="dropdown">
                                 <a href="/student/MyCourses/" class="dropdown-toggle" data-toggle="dropdown">My Courses<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/student/MyCourses/ViewCourse/">   View Course</a>
+                                    <li>
+                                        <a href="/Student/MyCourses/">Courses Home</a>
+                                        <div class="nav-divider"></div>
+                                        <a href="/Student/MyCourses/ViewCourse/?cid=">Course 1</a>
+                                        <a href="/Student/MyCourses/ViewCourse/?cid=">Course 2</a>
+                                        <a href="/Student/MyCourses/ViewCourse/?cid=">Course 3</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="/student/MyTeachers/" class="dropdown-toggle" data-toggle="dropdown">My Teachers<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/student/MyTeachers/ViewTeacherProfile/">   View Teacher Profile</a></li>
+                                    <li>
+                                        <a href="/student/MyTeachers/">Teachers Home</a>
+                                        <div class="nav-divider"></div>
+                                        <a href="/student/MyTeachers/ViewTeacherProfile/">   Teacher 1</a>
+                                    <a href="/student/MyTeachers/ViewTeacherProfile/">Teacher 2</a>
+                                    <a href="/student/MyTeachers/ViewTeacherProfile/">Teacher 3</a></li>
                                 </ul>
                             </li>
+                            <li><a href="#">Practice!</a></li>
+                            <li class="nav-divider"></li>
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="/Logout.php">Logout</a></li>
                         </ul>
                     </nav>
                     <!-- /#sidebar-wrapper -->
