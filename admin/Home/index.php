@@ -101,6 +101,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if (sqlsrv_fetch( $stmt ) === true)
             $adminType = sqlsrv_get_field ($stmt, 0);
         echo $adminType;
+        ?>
                             <div class="col-lg-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
