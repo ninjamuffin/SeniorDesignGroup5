@@ -78,7 +78,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h1>Teacher Home</h1>
@@ -89,7 +89,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4>My Students</h4>
@@ -143,7 +143,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             
                         </div>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-8 col-md-8">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4>My Site Activity Queue</h4>
@@ -151,14 +151,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body" style="min-height: 250px;max-height: 250px;overflow-y: scroll">
                                         <form method="POST" id="filterActivityQueue" action="">
                                             <div class="form-group row">
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-3 col-md-3 col-sm-4">
                                                     <select class="form-control">
                                                         <option selected="selected">--Institution--</option>
                                                         <option>Gonzaga</option>
                                                         <option>Spokane Falls CC</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-3 col-md-3 col-sm-4">
                                                     <select class="form-control" style="display:inline">
                                                         <option selected="selected">--Course--</option>
                                                         <option>Course Info</option>
@@ -166,7 +166,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <option>Course Info</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-3 col-md-3 col-sm-4">
                                                     <select class="form-control">
                                                         <option selected="selected">--Action Type--</option>
                                                         <option>Submitted Worksheet</option>
@@ -193,7 +193,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>1/28/2016</td>
                                                     <td>Gonzaga University</td>
                                                     <td>Seminar: Spring I 2016</td>
-                                                    <td>Worksheet Submission</td>
+                                                    <td><a href="/Teacher/MyCourses/ViewCourse/ViewWorksheet/ViewSubmission/">Worksheet Submission</a></td>
                                                     
                                                     <td><a href="/Teacher/MyStudents/ViewStudentProfile/">Student Name</a></td>
                                                 </tr>

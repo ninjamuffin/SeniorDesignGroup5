@@ -152,7 +152,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>101 A</td>
                                                     <td>New Worksheet Posted</td>
                                                     <td class="text-danger">Incomplete</td>
-                                                    <td><form method="POST" action="/Student/MyCourses/ViewCourse/WorksheetEditor/">
+                                                    <td><form method="POST" action="/Student/MyCourses/ViewCourse/WorksheetEditor/"
+                                                              >
                                                             <button type="submit" class="btn btn-primary">Complete it</button>
                                                         </form></td>
                                                 </tr>
