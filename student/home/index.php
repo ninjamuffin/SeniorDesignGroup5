@@ -100,7 +100,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             
                                     </div>
                                     <div class="panel-body" style="min-height: 146px; max-height: 146px;overflow-y: scroll">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" data-link="row">
                                             <thead>
                                                 <tr>
                                                     <th>Course Name</th>
@@ -152,8 +152,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>101 A</td>
                                                     <td>New Worksheet Posted</td>
                                                     <td class="text-danger">Incomplete</td>
-                                                    <td><form method="POST">
-                                                            <button type="submit" action="/Student/MyCourses/ViewCourse/WorksheetEditor/" class="btn btn-primary">Complete it</button>
+                                                    <td><form method="POST" action="/Student/MyCourses/ViewCourse/WorksheetEditor/">
+                                                            <button type="submit" class="btn btn-primary">Complete it</button>
                                                         </form></td>
                                                 </tr>
                                             </tbody>
