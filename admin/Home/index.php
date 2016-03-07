@@ -100,8 +100,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             die (print_r(sqlsrv_errors(), true));
         if (sqlsrv_fetch( $stmt ) === true)
             $adminType = sqlsrv_get_field ($stmt, 0);
-        echo $adminType;
-        ?>
+        if ($adminType == 'Super')
+        {
+            ?>
                             <div class="col-lg-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -152,6 +153,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            
+        }
+        ?>
+        
+                            
                             
                         </div>
                         <div class="row">
