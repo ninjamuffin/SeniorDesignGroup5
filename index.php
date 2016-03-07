@@ -69,12 +69,12 @@
         $username = $_POST['username'];
         $password = md5($_POST['password'] . $salt);
         $loginquery = "
-SELECT DISTINCT SU.[user_id],SU.[username],SU.[password],SU.[date_added], R.[Role], R.Type
+SELECT DISTINCT SU.[user_id],SU.[username],SU.[password],SU.[date_added], R.[Role], R.[Type]
 FROM SiteUsers as SU, RoleInstances as RI, Roles as R
 WHERE SU.username = ? AND
       SU.[password] = ? AND
       RI.SiteUsername = SU.username AND
-      RI.RoleInstanceID = (SELECT max(RoleInstanceID) FROM RoleInstances WHERE SiteUsername = ?) AND
+      RI.RoleInstanceID = (SELECT min(RoleInstanceID) FROM RoleInstances WHERE SiteUsername = ?) AND
       R.RoleID = RI.RoleID";
         
         $params = array($username, $password, $username);
