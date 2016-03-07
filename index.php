@@ -69,7 +69,7 @@
         $username = $_POST['username'];
         $password = md5($_POST['password'] . $salt);
         $loginquery = "
-SELECT DISTINCT SU.[user_id],SU.[username],SU.[password],SU.[date_added], R.[Role]
+SELECT DISTINCT SU.[user_id],SU.[username],SU.[password],SU.[date_added], R.[Role], R.Type
 FROM SiteUsers as SU, RoleInstances as RI, Roles as R
 WHERE SU.username = ? AND
       SU.[password] = ? AND
@@ -93,6 +93,7 @@ WHERE SU.username = ? AND
             $_SESSION['Username'] = $username;
             $_SESSION['LoggedIn'] = 1;
             $_SESSION['Role'] = $role;
+            $_SESSION['AccessType'] = $row['Type'];
             
             if ($role == 'Admin')
             {
