@@ -90,6 +90,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div> 
                             </div>
+                        <?php
+        $params = array($_SESSION['Username'], $_SESSION['Role']);
+        $options = array( "Scrollable" => 'static' );
+        $AdminTypeQuery = "
+        SELECT R.Type FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND R.RoleID = RI.RoleID AND R.Role = ?";
+        $stmt = sqlsrv_query($con, $AdminTypeQuery, $params, $options);
+        if ($stmt === false)
+            die (print_r(sqlsrv_errors(), true));
+        if (sqlsrv_fetch( $stmt ) === true)
+            $adminType = sqlsrv_get_field ($stmt, 0);
+        echo $adminType;
                             <div class="col-lg-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
