@@ -46,16 +46,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     { $username = $_SESSION['Username'];
         $role = $_SESSION['Role'];
-        $params = array( $username, $username);
+        $params = array( $username, $role);
         $options = array( "Scrollable" => 'static' );
         $UserInfoQuery = "
         SELECT R.Designation, I.InstitutionName
-        FROM RoleInstances as RI, Roles as R, Administrators as A, Institutions as I
+        FROM RoleInstances as RI, Roles as R, Institutions as I, Students as S
         WHERE  RI.SiteUsername = ? AND
 	           R.RoleID = RI.RoleID AND
-		       R.Role = 'Admin' AND
-		       A.SiteUsername = ? AND
-		       I.InstitutionID = A.InstitutionID";
+		       R.Role = ? AND
+		       I.InstitutionID = S.InstitutionID";
         $stmt = sqlsrv_query($con, $UserInfoQuery, $params, $options);
         if ( $stmt === false)
             die( print_r( sqlsrv_errors(), true));
