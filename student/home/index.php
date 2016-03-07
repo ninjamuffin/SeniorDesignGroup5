@@ -121,7 +121,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             
                         </div>
                         <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-4 col-xs-4">
+                            <div class="col-lg-8 col-md-8 col-sm-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4>My Activity Queue</h4>
