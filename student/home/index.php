@@ -99,7 +99,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             
                                             
                                     </div>
-                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
+                                    <div class="panel-body" style="min-height: 146px; max-height: 146px;overflow-y: scroll">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
@@ -111,8 +111,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </thead>
                                                 
                                             <tbody>
-                                                
-                                                
+                                                <tr>
+                                                    <td><a href="/Student/MyCourses/ViewCourse/?cid=">Seminar</a></td>
+                                                    <td>Hunter</td>
+                                                    <td>Fall II 2015</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="/Student/MyCourses/ViewCourse/?cid=">Advanced</a></td>
+                                                    <td>Momono</td>
+                                                    <td>Fall II 2015</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -144,7 +152,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>101 A</td>
                                                     <td>New Worksheet Posted</td>
                                                     <td class="text-danger">Incomplete</td>
-                                                    <td><button class="btn btn-primary" href="/Student/MyCourses/ViewCourse/WorksheetEditor/">Complete it</button></td>
+                                                    <td><button class="btn btn-primary" ><a href="/Student/MyCourses/ViewCourse/WorksheetEditor/">Complete it</a></button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
