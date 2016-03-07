@@ -66,14 +66,14 @@
             if ($ListedRole == $_SESSION['Role'])
             {
             ?>
-                        <strong><a><?=$ListedRole?> <small class="text-muted"><?=Designations[$count]?></small></a></strong>
+                        <strong><a><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a></strong>
                                 
             <?php
             }
             else
             {
                 ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?> <small class="text-muted"><?=Designations[$count]?></small></a>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
                                         <?php
                     
             }
