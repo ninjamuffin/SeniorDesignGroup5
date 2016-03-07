@@ -192,14 +192,14 @@
             if ($ListedRole == $_SESSION['Role'])
             {
             ?>
-                        <strong><a><?=$ListedRole?></a></strong><small class="text-muted"><?=$Designations[$count]?></small>
+                        <strong><a><?=$ListedRole?><small class="text-muted"><?=$Designations[$count]?></small></a></strong>
                                 
             <?php
             }
             else
             {
                 ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a><small class="text-muted"><?=$Designations[$count]?></small>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?><small class="text-muted"><?=$Designations[$count]?></small></a>
                                         <?php
                     
             }
@@ -312,13 +312,13 @@
                         if ($ListedRole == $_SESSION['Role'])
                         {
                             ?>
-                                        <strong><a><?=$ListedRole?></a></strong><small class="text-muted"><?=$Designations[$count]?></small>
+                                        <strong><a><?=$ListedRole?><small class="text-muted"><?=$Designations[$count]?></small></a></strong>
                                         <?php
                         }
                         else
                         {
                             ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a><small class="text-muted"><?=$Designations[$count]?></small>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?><small class="text-muted"><?=$Designations[$count]?></small></a>
                                         <?php
                         }
                          $count++;   
