@@ -119,7 +119,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <tr>
                                                     <td><a href="/Student/MyCourses/ViewCourse/?cid=">Advanced</a></td>
                                                     <td>Momono</td>
-                                                    <td>Fall II 2015</td>
+                                                    <td>Fall I 2015</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -152,7 +152,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>101 A</td>
                                                     <td>New Worksheet Posted</td>
                                                     <td class="text-danger">Incomplete</td>
-                                                    <td><button class="btn btn-primary" ><a href="/Student/MyCourses/ViewCourse/WorksheetEditor/">Complete it</a></button></td>
+                                                    <td><form method="POST">
+                                                            <button type="submit" action="/Student/MyCourses/ViewCourse/WorksheetEditor/" class="btn btn-primary">Complete it</button>
+                                                        </form></td>
                                                 </tr>
                                             </tbody>
                                         </table>
