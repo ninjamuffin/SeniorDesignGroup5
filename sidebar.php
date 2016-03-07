@@ -23,7 +23,7 @@
     {
         $params = array($_SESSION['Username']);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
+        $ListRolesQuery = "SELECT DISTINCT R.Role, R.Designation FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
         $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
         if( $stmt === false ) {
              die( print_r( sqlsrv_errors(), true));
@@ -31,9 +31,11 @@
 
         // Make the first (and in this case, only) row of the result set available for reading.
         $RolesList = [];
+        $Designations = [];
         $NumRoles = 0;
         while( sqlsrv_fetch( $stmt ) === true) {
-             $RolesList[] = sqlsrv_get_field( $stmt, 0);
+            $RolesList[] = sqlsrv_get_field( $stmt, 0);
+            $Designations[] = sqlsrv_get_field( $stmt, 1);
             $NumRoles += 1;
         }
         if($_SESSION['Role'] == 'Admin')
@@ -57,24 +59,25 @@
                                     <li class="dropdown-header">My Roles</li>
 -->
                                     <li>
-                                         <?php                    
+                                         <?php   
+                $count = 0;
         foreach($RolesList as $ListedRole)
         {
             if ($ListedRole == $_SESSION['Role'])
             {
             ?>
-                        <strong><a><?=$ListedRole?></a></strong>
+                        <strong><a><?=$ListedRole?> <small class="text-muted"><?=Designations[$count]?></small></a></strong>
                                 
             <?php
             }
             else
             {
                 ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?> <small class="text-muted"><?=Designations[$count]?></small></a>
                                         <?php
                     
             }
-
+            $count++;
         }
         ?>
                 

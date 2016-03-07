@@ -43,18 +43,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
     }
     else
-    {$username = $_SESSION['Username'];
+    {
+        $username = $_SESSION['Username'];
         $role = $_SESSION['Role'];
-        $params = array( $username, $username);
+        $params = array( $username, $role);
         $options = array( "Scrollable" => 'static' );
         $UserInfoQuery = "
-        SELECT R.Designation, I.InstitutionName
-        FROM RoleInstances as RI, Roles as R, Administrators as A, Institutions as I
-        WHERE  RI.SiteUsername = ? AND
-	           R.RoleID = RI.RoleID AND
-		       R.Role = 'Admin' AND
-		       A.SiteUsername = ? AND
-		       I.InstitutionID = A.InstitutionID";
+        SELECT R.Designation 
+        FROM RoleInstances as RI, Roles as R 
+        WHERE  RI.SiteUsername = ? AND 
+               R.Role = ? AND 
+               R.RoleID = RI.RoleID";
         $stmt = sqlsrv_query($con, $UserInfoQuery, $params, $options);
         if ( $stmt === false)
             die( print_r( sqlsrv_errors(), true));
@@ -63,7 +62,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if ( sqlsrv_fetch( $stmt ) === true)
         {
             $Designation = sqlsrv_get_field( $stmt, 0);
-            $Institution = sqlsrv_get_field( $stmt, 1);
         }
         ?>
         <body>
@@ -88,7 +86,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body">
                                         <p><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></p>
                                         <p>Role: Teacher <small class="text-muted"><?=$Designation?></small> </p>
-                                        <p>Institution: <?=$Institution?></p>
                                     </div>
                                 </div> 
                             </div>
