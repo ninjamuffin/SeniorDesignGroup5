@@ -185,24 +185,25 @@
                                     <li class="dropdown-header">My Roles</li>
 -->
                                     <li>
-                                         <?php                    
+                                         <?php      
+                $count = 0;
         foreach($RolesList as $ListedRole)
         {
             if ($ListedRole == $_SESSION['Role'])
             {
             ?>
-                        <strong><a><?=$ListedRole?></a></strong>
+                        <strong><a><?=$ListedRole?></a></strong><small class="text-muted"><?=$Designations[$count]?></small>
                                 
             <?php
             }
             else
             {
                 ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a><small class="text-muted"><?=$Designations[$count]?></small>
                                         <?php
                     
             }
-
+            $count++;
         }
         ?>
                 
@@ -284,7 +285,7 @@
                                 <a href="/student/home/">Home</a>
                             </li>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?=$_SESSION['Username']?><span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['Username']?><span class="caret"></span></a>
                                 <?php
                 if ($NumRoles == 1)
                 {
@@ -305,21 +306,22 @@
 -->
                                     <li>
                                     <?php
+                    $count=0;
                     foreach($RolesList as $ListedRole)
                     {
                         if ($ListedRole == $_SESSION['Role'])
                         {
                             ?>
-                                        <strong><a><?=$ListedRole?></a></strong>
+                                        <strong><a><?=$ListedRole?></a></strong><small class="text-muted"><?=$Designations[$count]?></small>
                                         <?php
                         }
                         else
                         {
                             ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a><small class="text-muted"><?=$Designations[$count]?></small>
                                         <?php
                         }
-                            
+                         $count++;   
                         
                     }?>
                                     
