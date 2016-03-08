@@ -78,7 +78,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h3>Administrator Home</h3>
@@ -91,19 +91,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div> 
                             </div>
                         <?php
-        $params = array($_SESSION['Username'], $_SESSION['Role']);
-        $options = array( "Scrollable" => 'static' );
-        $AdminTypeQuery = "
-        SELECT R.Type FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND R.RoleID = RI.RoleID AND R.Role = ?";
-        $stmt = sqlsrv_query($con, $AdminTypeQuery, $params, $options);
-        if ($stmt === false)
-            die (print_r(sqlsrv_errors(), true));
-        if (sqlsrv_fetch( $stmt ) === true)
-            $adminType = sqlsrv_get_field ($stmt, 0);
-        if ($adminType == 'Super')
+    
+        if ($_SESSION['AccessType'] == 'Super')
         {
             ?>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4>All Site Administrators</h4>
@@ -162,7 +154,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             
                         </div>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-8 col-md-8 col-sm-10">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4><?=$Institution?> Activity Queue</h4>

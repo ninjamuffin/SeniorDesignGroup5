@@ -89,6 +89,13 @@
                               <a class="dropdown-toggle" data-toggle="dropdown">Manage Website<span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
                                 <li>
+                                    <?php
+            if ($_SESSION['AccessType'] == 'Super')
+            {
+                ?>
+                                    <a href="/Admin/ManageAdmins/">Admins <small class="text-muted">Superuser Domain</small></a>
+                                    <?php
+            }?>
                                     <a href="/Admin/ManageCorpus/">Corpus</a>
                                     <a href="/Admin/ManageCourses/">Courses</a>
                                     <a href="/Admin/ManageTeachers/">Teachers</a>
