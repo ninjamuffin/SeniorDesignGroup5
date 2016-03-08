@@ -50,7 +50,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "Error passing GET variable -in-";
         $params = array($institutionID);
         $options = ( "Scrollable" => 'static' );
-        $stmt = "SELECT InstitutionName FROM Institutions WHERE InstitutionID = ?";
+        $instNameQuery = "SELECT InstitutionName FROM Institutions WHERE InstitutionID = ?";
+        $stmt = sqlsrv_query( $con, $instNameQuery, $params, $options );
         if ($stmt === false)
             die (print_r(sqlsrv_errors(), true));
         if (sqlsrv_fetch($stmt) === true)
