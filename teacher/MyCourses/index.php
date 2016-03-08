@@ -126,9 +126,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
                             <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h4>COURRRSESSS</h4>
-                                </div>
+                                
                                 <div class="panel-body">
                                     <table class="table table-hover">
                                         <thead>
@@ -140,7 +138,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <!--
+                                        <?php
         for ($i = 0; $i < $length; $i++)
         {
             echo "<tr>";
@@ -150,7 +148,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<td><a href='ViewCourse/?cid=$courseID[$i]'>Go To</a></td>";
             echo "</tr>";
 
-        }-->
+        }?>
                                             
                                         </tbody>
                                     </table>
