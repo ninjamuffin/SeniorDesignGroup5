@@ -110,11 +110,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div id = "sidebar"></div>
             <div id="page-content-wrapper">
                 <div class="row">
-                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                <span class="hamb-top"></span>
-                                <span class="hamb-middle"></span>
-                                <span class="hamb-bottom"></span>
-                    </button>
+                    <div class="col-lg-12">
+                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                        </button>
+                    </div>
+                        
                 </div>
                 
                 <div class="container-fluid">
