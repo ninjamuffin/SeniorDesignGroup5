@@ -119,12 +119,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
+                        <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
                             <h2><?=$instName?> Courses</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
+                        <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
                             <div class="panel panel-primary">
                                 
                                 <div class="panel-body">
