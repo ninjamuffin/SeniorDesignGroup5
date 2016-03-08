@@ -122,19 +122,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel-body">
                                     <table class="table table-hover">
                                         <thead>
-                                            <th>Session</th>
-                                            <th>Course Name</th>
-                                            <th>Section</th>
-                                            <th>Action</th>
+                                            <tr>
+                                                <th>Session</th>
+                                                <th>Course Name</th>
+                                                <th>Section</th>
+                                                <th>Action</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             <?php
         for ($i = 0; $i < $length; $i++)
         {
-            echo "<td><?=$SessionNames[$i]?></td>";
-            echo "<td><?=$ClassNames[$i]?></td>";
-            echo "<td><?=$Sections[$i]?></td>";
-            echo "<td><a href='ViewCourse/?cid=<?=$courseID[$i]?>'>Go To</a></td>";
+            echo "<tr>";
+            echo "<td>$SessionNames[$i]</td>";
+            echo "<td>$ClassNames[$i]</td>";
+            echo "<td>$Sections[$i]</td>";
+            echo "<td><a href='ViewCourse/?cid=$courseID[$i]'>Go To</a></td>";
+            echo "</tr>";
 
         }
                                             ?>
