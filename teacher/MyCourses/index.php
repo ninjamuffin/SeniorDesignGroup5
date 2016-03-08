@@ -49,7 +49,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if ($institutionID == 0)
             echo "Error passing GET variable -in-";
         $params = array($institutionID);
-        $options = ( "Scrollable" => 'static' );
+        $options = array( "Scrollable" => 'static' );
         $instNameQuery = "SELECT InstitutionName FROM Institutions WHERE InstitutionID = ?";
         $stmt = sqlsrv_query( $con, $instNameQuery, $params, $options );
         
@@ -87,7 +87,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 		      SN.SessionsID = TC.SessionID
               GROUP BY TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName";
         $stmt = sqlsrv_query($con, $CoursesQuery, $params, $options);
-        $length = sqlsrv_num_rows ($stmt);
+        $length = 0;
 
         $courseID = [];
         $ClassNames = [];
@@ -101,6 +101,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $ClassNames[] = sqlsrv_get_field( $stmt, 1);
             $Sections[] = sqlsrv_get_field( $stmt, 2);
             $SessionNames[] = sqlsrv_get_field( $stmt, 3);
+            $length++;
         }
     ?>        
 
