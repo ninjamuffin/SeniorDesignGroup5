@@ -1,5 +1,5 @@
 <?php 
-include "../../../../base.php";
+include "../../../../../base.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,50 +61,32 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-12">
-                                
+                            <div>
+                                <button class="btn btn-primary">Annotate This Worksheet</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Student Information</div>
+                                    <div class="panel-heading">Expressions</div>
                                     <div class="panel-body">
-                                        
-                                    </div>
-                                </div>
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">Worksheets</div>
-                                    <div class="panel-body">
-                                        <form>
-                                            <p>Filter Worksheet:</p>
-                                            <div class="form-group row">
-                                                <div class="col-lg-3">
-                                                    <input type="text" name=""
-                                                </div>
-                                            </div>
-                                        </form>
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Worksheet Number</th>
-                                                    <th>Level</th>
-                                                    <th>Session</th>
-                                                    <th>Teacher</th>
-                                                    <th>Go To</th>
+                                                    <th>#</th>
+                                                    <th>Expression</th>
+                                                    <th>Vocab/Context</th>
+                                                    <th>Pronunciation</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>1</td>
-                                                    <td>Basic</td>
-                                                    <td>Summer I 2012</td>
-                                                    <td>Nollenberger</td>
-                                                    <td><a href="ViewWorksheet/">View Worksheet</a></td>
+                                                    <td>What a expression</td>
+                                                    <td>Making a template</td>
+                                                    <td>expression/espression</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Basic</td>
-                                                    <td>Summer I 2012</td>
-                                                    <td>Nollenberger</td>
-                                                    <td><a href="ViewWorksheet/">View Worksheet</a></td>
-                                                </tr>
+                                                
                                                 
                                             </tbody>
                                         </table>
@@ -113,7 +95,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
       
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
