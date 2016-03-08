@@ -139,7 +139,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
+                                        <!--
         for ($i = 0; $i < $length; $i++)
         {
             echo "<tr>";
@@ -149,8 +149,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<td><a href='ViewCourse/?cid=$courseID[$i]'>Go To</a></td>";
             echo "</tr>";
 
-        }
-                                            ?>
+        }-->
+                                            
                                         </tbody>
                                     </table>
                                 </div>
