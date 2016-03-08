@@ -61,7 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-3 col-md-9 col-sm-9">
+                            <div class="col-lg-3 col-md-3 col-sm-3" style="min-height: 300px;max-height: 300px;">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Student Information</div>
                                     <div class="panel-body">
@@ -72,7 +72,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                             <div class="col-lg-9 col-md-9 col-sm-9">        
-                                <div class="panel panel-primary" style="min-height: 400px;max-height: 400px; overflow-y: scroll">
+                                <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; overflow-y: scroll">
                                     <div class="panel-heading">
                                         Statistics
                                     </div>
@@ -83,10 +83,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-10 col-md-10">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Worksheets</div>
+                                    <div class="panel-heading">Courses</div>
                                     <div class="panel-body">
                                         <form>
-                                            <p>Filter Worksheet:</p>
+                                            <p>Filter Courses:</p>
                                             <div class="form-group row">
                                                 <div class="col-lg-3">
                                                     <input type="text" name="Session" id="Session" placeholder="Session">
@@ -102,33 +102,27 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>Session</th>
                                                     <th>Level</th>
-                                                    <th>Performance</th>
                                                     <th>Go To</th>
+                                                    <th>Annotation Editor</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>1</td>
+                                                    <td>Fall I 2012</td>
                                                     <td>Basic</td>
-                                                    <td>Summer I 2012</td>
-                                                    <td><div class="progress">
-                                                            <div class="progress-bar progress-bar-info" style="width: 100%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><a href="ViewWorksheet/?sid=1">View Worksheet</a></td>
+                                                    
+                                                    <td><a href="/Teacher/Achive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
+                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&WorksheetNum=1">Annotation Editor</a></td>
+
                                                 </tr>
                                                 <tr>
-                                                    <td>2</td>
-                                                    <td>Basic</td>
-                                                    <td>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-info" style="width: 80%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><a href="ViewWorksheet/?sid=1">View Worksheet</a></td>
-                                                    <td><a href="ViewWorksheet/AnnotationEditor/">Annotate</a></td>
+                                                    <td>Fall II 2012</td>
+                                                    <td>Intermediate</td>
+                                                
+                                                    <td><a href="/Teacher/Achive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
+                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&WorksheetNum=1">Annotation Editor</a></td>
                                                 </tr>
                                                 
                                             </tbody>
