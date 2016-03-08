@@ -93,7 +93,7 @@
             if ($_SESSION['AccessType'] == 'Super')
             {
                 ?>
-                                    <a href="/Admin/ManageAdmins/">Admins <small class="text-muted">Superuser Domain</small></a>
+                                    <a href="/Admin/ManageAdmins/">Admins <small class="text-muted">Superuser</small></a>
                                     <?php
             }?>
                                     <a href="/Admin/ManageCorpus/">Corpus</a>
@@ -105,7 +105,7 @@
                             </li>
                             
                             <li>
-                                <a href="/corpus/">Corpus</a>
+                                <a href="/corpus/Search/">Corpus</a>
                             </li>
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown">Archive<span class="caret"></span></a>
@@ -239,7 +239,7 @@
             }
                             ?>
                             <li>
-                                <a href="/teacher/Archive/">Archive</a>
+                                <a href="/teacher/Archive/Students/">Archive</a>
                                 
                             </li>
                             <li>
