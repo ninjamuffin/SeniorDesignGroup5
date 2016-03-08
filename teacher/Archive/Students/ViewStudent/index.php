@@ -89,11 +89,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <p>Filter Courses:</p>
                                             <div class="form-group row">
                                                 <div class="col-lg-3">
-                                                    <input type="text" name="Session" id="Session" placeholder="Session">
+                                                    <input class="form-control" type="text" name="Session" id="Session" placeholder="Session">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <div>
+                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                                     <button class="btn btn-primary" type="submit">Apply Filter</button>
                                             
                                                 </div>
