@@ -113,7 +113,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Fall I 2012</td>
                                                     <td>Basic</td>
                                                     
-                                                    <td><a href="/Teacher/Achive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
+                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
                                                     <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&WorksheetNum=1">Annotation Editor</a></td>
 
                                                 </tr>
@@ -121,7 +121,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Fall II 2012</td>
                                                     <td>Intermediate</td>
                                                 
-                                                    <td><a href="/Teacher/Achive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
+                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
                                                     <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&WorksheetNum=1">Annotation Editor</a></td>
                                                 </tr>
                                                 
