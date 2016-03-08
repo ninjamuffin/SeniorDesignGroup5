@@ -52,8 +52,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $options = ( "Scrollable" => 'static' );
         $instNameQuery = "SELECT InstitutionName FROM Institutions WHERE InstitutionID = ?";
         $stmt = sqlsrv_query( $con, $instNameQuery, $params, $options );
+        
         if ($stmt === false)
             die (print_r(sqlsrv_errors(), true));
+        
+        $instName = '';
         if (sqlsrv_fetch($stmt) === true)
             $instName = sqlsrv_get_field( $stmt, 0);
         $username = $_SESSION['Username'];
@@ -67,9 +70,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
 
         $teacherID = 0;
-        if ( sqlsrv_fetch( $stmt ) === true) {
+        if ( sqlsrv_fetch( $stmt ) === true)
             $teacherID = sqlsrv_get_field( $stmt, 0);
-        }
+        else
+            echo "SQL ERROR";
+        
         $params = array($institutionID, $teacherID);
         $options = array( "Scrollable" => 'static' );
         $CoursesQuery = "
@@ -82,20 +87,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 		      SN.SessionsID = TC.SessionID
               GROUP BY TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName";
         $stmt = sqlsrv_query($con, $CoursesQuery, $params, $options);
-        
+        $length = sqlsrv_num_rows ($stmt);
+
         $courseID = [];
         $ClassNames = [];
         $Sections = [];
         $SessionNames = [];
         if ( $stmt === false)
             die( print_r( sqlsrv_errors(), true));
-        while (sqlsrv_fetch( $stmt ) === true) {
+        while (sqlsrv_fetch( $stmt ) === true) 
+        {
             $courseID[] = sqlsrv_get_field( $stmt, 0);
             $ClassNames[] = sqlsrv_get_field( $stmt, 1);
             $Sections[] = sqlsrv_get_field( $stmt, 2);
             $SessionNames[] = sqlsrv_get_field( $stmt, 3);
         }
-        $length = sqlsrv_num_rows ($stmt);
     ?>        
 
     <body>
@@ -119,6 +125,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
                             <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4>COURRRSESSS</h4>
+                                </div>
                                 <div class="panel-body">
                                     <table class="table table-hover">
                                         <thead>
