@@ -15,6 +15,7 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -28,16 +29,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+    
 </head>
         
 <?php
@@ -56,27 +48,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $institutionID = isset($_GET['in']) ? $_GET['in'] : 0; // Default Institution = 1
         if ($institutionID == 0)
             echo "Error passing GET variable -in-";
-        
-        
-    ?>        
-
-    <body>
-        <div id="header"></div>
-        <div id="wrapper">
-            <div id = "sidebar"></div>
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            
-                            
-                            <?php
+        $params = array($institutionID);
+        $options = ( "Scrollable" => 'static' );
+        $stmt = "SELECT InstitutionName FROM Institutions WHERE InstitutionID = ?";
+        if ($stmt === false)
+            die (print_r(sqlsrv_errors(), true));
+        if (sqlsrv_fetch($stmt) === true)
+            $instName = sqlsrv_get_field( $stmt, 0);
         $username = $_SESSION['Username'];
         $params = array($username);
         $teacherIDQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
@@ -117,32 +95,56 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $SessionNames[] = sqlsrv_get_field( $stmt, 3);
         }
         $length = sqlsrv_num_rows ($stmt);
-        echo "<h1>Courses</h1>";
+    ?>        
 
+    <body>
+        <div id="wrapper">
+            <div id = "sidebar"></div>
+            <div id="page-content-wrapper">
+                <div class="row">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                <span class="hamb-top"></span>
+                                <span class="hamb-middle"></span>
+                                <span class="hamb-bottom"></span>
+                    </button>
+                </div>
+                
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
+                            <h2><?=$instName?> Courses</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th>Session</th>
+                                            <th>Course Name</th>
+                                            <th>Section</th>
+                                            <th>Action</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php
         for ($i = 0; $i < $length; $i++)
         {
             ?>
-                            <div class="row">
-                                <div class="panel panel-primary col-xs-4">
-                                    <div class="panel-body">
-                                        <p>Class Name: <?=$ClassNames[$i]?></p>
-                                        <p>Section: <?=$Sections[$i]?></p>
-                                        <p>Session: <?=$SessionNames[$i]?></p>
-                                        <u1 class="list=group">
-                                            <li class="list-group-item"><a href="ViewCourse/?c=<?=$courseID[$i]?>">Course Page</a></li>
-
-
-                                    </u1>
-                                    </div>
-
+                                            <td><?=$SessionNames[$i]?></td>
+                                            <td><?=$ClassNames[$i}?></td>
+                                            <td><?=$Sections[$i]?></td>
+                                            <td><a href="ViewCourse/?cid=<?=$courseID[$i]?>">Go To</a></td>
+            <?php
+        }?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <?php
-        }
-        ?>
-                            <!-- END PAGE CONTENT -->
                         </div>
+                        
                     </div>
+  
                 </div>
             </div>
         </div>

@@ -190,7 +190,7 @@ WHERE SU.username = ? AND
                 </fieldset>
                 <h4 class="form-signin-heading text-right"><a href="#">Forgot Username?</a></h4>
                 <h4 class="form-signin-heading text-right"><a href="#">Forgot Password?</a></h4>
-                <h4 class="form-signin-heading text-right"><a href="register.php">Register</a></h4>
+               <!-- <h4 class="form-signin-heading text-right"><a href="register.php">Register</a></h4> -->
                 </form>
             </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
