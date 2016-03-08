@@ -61,7 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3" style="min-height: 300px;max-height: 300px;">
+                            <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Student Information</div>
                                     <div class="panel-body">
@@ -71,7 +71,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-md-9 col-sm-9">        
+                            <div class="col-lg-7 col-md-7 col-sm-7">        
                                 <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; overflow-y: scroll">
                                     <div class="panel-heading">
                                         Statistics
@@ -114,7 +114,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Basic</td>
                                                     
                                                     <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
-                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&WorksheetNum=1">Annotation Editor</a></td>
+                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&worksheetNum=1">Annotation Editor</a></td>
 
                                                 </tr>
                                                 <tr>
@@ -122,7 +122,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Intermediate</td>
                                                 
                                                     <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
-                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&WorksheetNum=1">Annotation Editor</a></td>
+                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&worksheetNum=1">Annotation Editor</a></td>
                                                 </tr>
                                                 
                                             </tbody>
