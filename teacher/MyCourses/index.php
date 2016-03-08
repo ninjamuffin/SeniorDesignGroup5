@@ -131,13 +131,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <?php
         for ($i = 0; $i < $length; $i++)
         {
-            ?>
-                                            <td><?=$SessionNames[$i]?></td>
-                                            <td><?=$ClassNames[$i}?></td>
-                                            <td><?=$Sections[$i]?></td>
-                                            <td><a href="ViewCourse/?cid=<?=$courseID[$i]?>">Go To</a></td>
-            <?php
-        }?>
+            echo "<td><?=$SessionNames[$i]?></td>";
+            echo "<td><?=$ClassNames[$i]?></td>";
+            echo "<td><?=$Sections[$i]?></td>";
+            echo "<td><a href='ViewCourse/?cid=<?=$courseID[$i]?>'>Go To</a></td>";
+
+        }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
