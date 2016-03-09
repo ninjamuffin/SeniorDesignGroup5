@@ -58,8 +58,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3">
-                                <div class="panel panel-primary" style="min-height:280px;max-height:280px">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="panel panel-primary" style="min-height:180px;max-height:180px">
                                     <div class="panel-heading">
                                         <h3>Admin Information</h3>
                                     </div>

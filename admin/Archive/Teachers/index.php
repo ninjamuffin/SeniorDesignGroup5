@@ -53,11 +53,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-2">
-                                
+                            <div class="col-lg-8 col-md-8">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Filter Results</div>
                                     <div class="panel-body">
@@ -67,15 +66,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <input class="form-control" id="LastName" type="text" placeholder="Teacher Last Name" />
                                                     
                                                 </div>
-                                                
-                                                
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="Institution" type="text" placeholder="Institution" />
+                                                </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Apply Filter</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Teacher listing (only SmallTalk contributors, listed alphabetically by last name</div>
                                     <div class="dropdown">

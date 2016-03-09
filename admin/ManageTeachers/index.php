@@ -50,17 +50,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
                                 <h1>Gonzaga University Teachers</h1>
                             </div>
                             
 
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-sm-8">
                                 
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Add New Teacher (Manually)</div>
@@ -95,7 +95,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                     
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-md-3 col-sm-4">
                                 
                                 
                                 <div class="panel panel-primary" style="min-height: 225px;max-height: 225px;">
@@ -116,7 +116,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-9 col-md-9">
 
                                 <div class="panel panel-primary" style="min-height: 400px; max-height: 400px; overflow-y: scroll">
                                     <div class="panel-heading">Teachers</div>

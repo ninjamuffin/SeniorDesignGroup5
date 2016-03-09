@@ -54,8 +54,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                     </button>
                     <div class="container-fluid">
-                        
-                        
                         <div class="row">
                             <div class="col-lg-2">
                                 <button class="btn btn-primary" href="../">Approve Worksheet</button>
@@ -64,7 +62,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-10 col-md-10">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h4>Submission to the corpus</h4>
@@ -81,7 +79,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-10 col-md-10">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h4>Submitted Expressions</h4>
@@ -90,13 +88,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td>Sentence Number</td>
+                                                    <td>#</td>
                                                     <td>Student Name</td>
                                                     <td>Expression</td>
                                                     <td>Vocab/Context</td>
                                                     <td>Pronunciation</td>
                                                 </tr>
                                             </thead>
+                                            <tbody>
+                                            
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>

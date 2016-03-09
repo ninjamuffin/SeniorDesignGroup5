@@ -58,12 +58,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
-                    <div class="container-fluid">
-                        
+                    </button>
+                    <div class="container-fluid">        
                         <div class="row">
-                            <div class="col-lg-3">
-                                
+                            <div class="col-lg-3 col-md-4 col-sm-6">     
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Info</div>
                                     <div class="panel-body">
@@ -97,12 +95,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         ?>
                                     
                                     </div>
-                                </div>
-                                
-                                
+                                </div> 
                             </div>
-                            <div class="col-lg-4">
-                                <div class="panel panel-primary">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="panel panel-primary" style="max-height:350px; overflow-y: scroll">
                                     <div class="panel-heading">Worksheet display</div>
                                     <div class="panel-body">
                                         <table class="table">

@@ -54,10 +54,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <h1>Gonzaga Smalltalk Corpus</h1>
+                                        <h3>Gonzaga Smalltalk Corpus</h3>
                                     </div>
                                     <div class="panel-body">
                                         <p>Date: </p>
@@ -70,10 +70,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                             
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 col-md-5 col-sm-6">
                                 <div class="panel panel-primary" style="min-height: 310px;max-height: 310px;overflow-y: scroll">
                                     <div class="panel-heading">
-                                        <h1>Corpus Administrators</h1>
+                                        <h4>Corpus Administrators</h4>
                                     </div>
                                     <div class="panel-body">
                                         <table class="table table-hover">
@@ -97,7 +97,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div> 
                         </div>
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-9 col-md-9">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h4>Corpus Additions</h4>

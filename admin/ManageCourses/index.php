@@ -53,12 +53,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-6">
-                                
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                 <h1>Courses</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-10">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Add New Course</div>
                                     <div class="panel-body">
@@ -102,10 +105,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <input class="form-control" type="text" name="SelectTeacher" id="SelectTeacher" placeholder="Teacher" />
                                                  </div>
                                                     <button type="submit" class="btn btn-primary pull-right">Create Course</button>
+                                             </div>
                                              
                                         </form>
                                     </div>
-                                </div>
+                                </div>       
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-10">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Active Courses</div>
                                     <div class="panel-body">
@@ -132,7 +140,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                     
                                 </div>
-                                    
                             </div>
                         </div>
                     </div>

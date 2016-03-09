@@ -52,14 +52,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                     </button>
                     <div class="container-fluid">
-                        
                         <div class="row">
                             <div class="col-lg-10">
                                 <h2>Firstname Lastname</h2>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-md-3">
                                 <div class="panel panel-primary" style="min-height:280px;max-height:280px">
                                     <div class="panel-heading">
                                         <h3>Teacher Information</h3>
@@ -72,7 +71,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>   
                             </div>
-                            <div class="col-lg-7">
+                            <div class="col-lg-7 col-md-7">
                                 <div class="panel panel-primary" style="min-height:280px;max-height:280px;overflow-y:scroll">
                                     <div class="panel-heading">
                                         <h3>Courses</h3>
@@ -110,7 +109,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-10">
+                            <div class="col-lg-10 col-md-10">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h3>Teacher Activity </h3>

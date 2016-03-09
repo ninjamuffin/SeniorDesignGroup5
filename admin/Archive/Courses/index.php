@@ -52,55 +52,88 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
-                                
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">Search for a course</div>
-                                    <div class="panel-body">
-                                        <form method="POST" action="Search/" name="SubmitCourseSearch">
-                                            <fieldset>
-                                                <select>
-                                                    <option selected="selected"></option>
-                                                    <option value=""</option>
-                                                </select>
-                                            </fieldset>
-                                        </form> 
-                                    </div>
-                                
-                                </div>
-                                <div class="panel panel-primary">
+                    </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                Archive Courses
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <div class="panel panel-primary" style="min-height: 500px; max-height: 500px;overflow-y: scroll">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>
                                     <!-- Select Rows Per Page -->
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <div class="row">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             Select rows per page
                                             <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="?pp=10">10</a></li>
-                                            <li><a href="?pp=25">25</a></li>
-                                            <li><a href="?pp=50">50</a></li>
-                                            <li><a href="?pp=100">100</a></li>
-                                            
-                                        </ul>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li><a href="?pp=10">10</a></li>
+                                                <li><a href="?pp=25">25</a></li>
+                                                <li><a href="?pp=50">50</a></li>
+                                                <li><a href="?pp=100">100</a></li>
+
+                                            </ul>
+                                        </div>
                                     </div>
+                                    <form method="POST" action="" name="Filter" id="Filter">  
+                                        <div class="form-group row">
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                <select class="form-control">
+                                                    <option selected="selected">--Institution--</option>
+                                                    <option>Gonzaga University</option>
+                                                    <option>Spokane Falls CC</option>
+                                                    <option>Other...</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                <select class="form-control">
+                                                    <option selected="selected">--Teacher--</option>
+                                                    <option>Hunter</option>
+                                                    <option>Momono</option>
+                                                    <option>Other...</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                <select class="form-control">
+                                                    <option selected="selected">--Level--</option>
+                                                    <option>Entry</option>
+                                                    <option>Basic</option>
+                                                    <option>Intermediate</option>
+                                                    <option>Advanced</option>
+                                                    <option>Seminar</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                <select class="form-control">
+                                                    <option selected="selected">--Year--</option>
+                                                    <option>2016</option>
+                                                    <option>2015</option>
+                                                    <option>2014</option>
+                                                    <option>...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                                        </div>
+                                    </form>
                                     
-                                    <div class="panel-body" style="min-height: 400px; max-height: 400px;overflow-y: scroll">                           
+                                    <div class="panel-body" >                           
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <td>Course</td>
-                                                    <td>Section</td>
                                                     <td>Instructor</td>
                                                     <td>Session Name</td>
-                                                    <td>Course Page</td>
+                                                    <td>Go To</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -147,7 +180,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         $coursePageLink = "ViewCourse/?courseID=$row[4]";
         $teacherPageLink = "/Admin/Archive/Teachers/ViewTeacher/?tid=$row[5]";
-        echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>$row[2]</a></td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+        echo "<tr><td>$row[0]</td><td><a href='$teacherPageLink'>$row[2]</a></td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
     }
 
     echo "</tbody></table><br />";

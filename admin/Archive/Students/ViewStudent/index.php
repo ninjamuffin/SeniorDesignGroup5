@@ -14,6 +14,7 @@ include "../../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
 
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -28,16 +29,6 @@ include "../../../../base.php";
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
 
 <?php
@@ -60,32 +51,43 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <h4>Student Name</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
+                                
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Student Information</div>
                                     <div class="panel-body">
-                                        <p>Show student info: country, language, history (new data will include number of classes, time frame of activity, etc)</p>
+                                        <p>Institution:</p>
+                                        <p>Joined Smalltalk:</p>
+                                        <p>Number of Courses:</p>
+                                        <p>Language:</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Student's Course Listing (sort by most recent)</div>
+                                    <div class="panel-heading">Student Courses</div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <td>Course Number</td>
-                                                    <td>Section</td>
                                                     <td>Instructor Last Name</td>
                                                     <td>Session Name</td>
                                                     <td>Course Page</td>
@@ -133,13 +135,12 @@ foreach($page as $row)
 {
     $coursePageLink = "/Admin/Archive/Courses/ViewCourse/?courseID=$row[4]";
     $teacherPageLink = "/Admin/Archive/Teachers/ViewTeacher/?tid=$row[5]";
-    echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink''>$row[2]</a></td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+    echo "<tr><td>$row[0]</td><td><a href='$teacherPageLink'>$row[2]</a></td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
 }
 
-echo "</tbody></table><br />";
-
 ?>
-                                            
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 

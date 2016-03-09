@@ -53,26 +53,33 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-2">
-                                
+                            <div class="col-lg-8 col-md-10">  
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Filter Results</div>
                                     <div class="panel-body">
                                         <form method="POST" id="filterTeachers" action="">
                                             <div class="form-group row">
                                                 <div class="col-lg-10">
-                                                    <input class="form-control" id="LastName" type="text" placeholder="Student Last Name" />       
+                                                    <input class="form-control" id="LastName" type="text" placeholder="Student Last Name" />
+                                                    
                                                 </div> 
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="Language" type="text" placeholder="Language" />
+                                                </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Apply Filter</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-9">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10">
                                 
                                 <div class="panel panel-primary" style="max-height:600px;overflow-y: scroll;">
                                     <div class="panel-heading">Course Listing (sort by most recent)</div>

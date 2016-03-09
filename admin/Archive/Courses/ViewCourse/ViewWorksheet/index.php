@@ -55,15 +55,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        
-                        <div class="row">
-                            <div class="col-lg-5">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
+                    <div class="container-fluid"> 
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="panel panel-primary" >
                                     <div class="panel-heading">
                                         Course Details
@@ -106,7 +105,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                                 
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 col-md-5 col-sm-5">
                                 <div class="panel panel-primary" style="min-height:220px">
                                     <div class="panel-heading">
                                         Worksheet Details
@@ -159,7 +158,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <td>Sentence Number</td>
+                                                    <td>#</td>
                                                     <td>Student</td>
                                                     <td>Expression</td>
                                                     <td>Context/Vocab</td>

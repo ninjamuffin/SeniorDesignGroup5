@@ -53,7 +53,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-10">        
@@ -61,7 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3">        
+                            <div class="col-lg-3 col-md-3 col-sm-4">        
                                 <div class="panel panel-primary" style="min-height: 280px;">
                                     <div class="panel-heading">
                                         <h4>Student Info</h4>
@@ -72,7 +72,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7"> 
+                            <div class="col-lg-7 col-md-7 col-sm-8"> 
                                 <div class="panel panel-primary" style="min-height: 280px;max-height: 280px;overflow-y: scroll">
                                     <div class="panel-heading">
                                         <h4>Recent Courses</h4>
@@ -112,22 +112,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row">
-                            <div class="col-lg-9">        
-                                <h1>Student Progress</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-10">        
-                                <div class="panel panel-primary" style="min-height: 400px;max-height: 400px; overflow-y: scroll">
-                                    <div class="panel-heading">
-                                        <h3>Statistics</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-10">        
+                            <div class="col-lg-10 col-md-10">        
                                 <div class="panel panel-primary" style="min-height: 400px;max-height: 400px; overflow-y: scroll">
                                     <div class="panel-heading">
                                         <h3>Completed Worksheets</h3>
