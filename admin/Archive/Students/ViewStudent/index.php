@@ -87,10 +87,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td>Course Number</td>
-                                                    <td>Instructor Last Name</td>
-                                                    <td>Session Name</td>
-                                                    <td>Course Page</td>
+                                                    <th>Course Number</th>
+                                                    <th>Instructor Last Name</th>
+                                                    <th>Session Name</th>
+                                                    <th>Course Page</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

@@ -80,7 +80,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <div class="row">
                             <div class="col-lg-8 col-md-10">
-                                <div class="panel panel-primary">
+                                <div class="panel panel-primary" style="max-height:500px;overflow-y: scroll;">
                                     <div class="panel-heading">Teachers</div>
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -95,13 +95,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table table-hover" style="max-height:500px;overflow-y: scroll;">
+                                        <table class="table table-hover" >
                                             <thead>
                                                 <tr>
-                                                    <td>First Name</td>
-                                                    <td>Last Name</td>
-                                                    <td>Site Username</td>
-                                                    <td>Link to Teacher's Page</td>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Site Username</th>
+                                                    <th>Go To</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

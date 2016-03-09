@@ -158,11 +158,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td>#</td>
-                                                    <td>Student</td>
-                                                    <td>Expression</td>
-                                                    <td>Context/Vocab</td>
-                                                    <td>Pronunciation</td>
+                                                    <th>#</th>
+                                                    <th>Student</th>
+                                                    <th>Expression</th>
+                                                    <th>Context/Vocab</th>
+                                                    <th>Pronunciation</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

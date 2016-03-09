@@ -126,10 +126,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td>Course</td>
-                                                    <td>Instructor</td>
-                                                    <td>Session Name</td>
-                                                    <td>Go To</td>
+                                                    <th>Course</th>
+                                                    <th>Instructor</th>
+                                                    <th>Session Name</th>
+                                                    <th>Go To</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

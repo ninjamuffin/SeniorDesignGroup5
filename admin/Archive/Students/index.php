@@ -81,7 +81,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-8 col-md-10">
                                 
-                                <div class="panel panel-primary" >
+                                <div class="panel panel-primary" style="max-height:600px;overflow-y: scroll;">
                                     <div class="panel-heading">Student Archive</div>
                                     
                                     <div class="dropdown">
@@ -99,16 +99,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table table-hover" style="max-height:600px;overflow-y: scroll;">
+                                        <table class="table table-hover" >
                                             <thead>
                                                 <tr>
-                                                    <td>First Name</td>
-                                                    <td>Last Name</td>
-                                                    <td>Language</td>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Language</th>
                                                     <!--<td>Joined Site</td>-->
                                                     <!--<td>Last active session</td>-->
-                                                    <td>Go To</td>
-                                                    <td>Courses Taken</td>
+                                                    <th>Go To</th>
+                                                    <th>Courses Taken</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

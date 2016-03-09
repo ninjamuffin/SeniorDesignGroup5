@@ -104,9 +104,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td>Worksheet Number</td>
-                                                    <td>Link to worksheet page</td>
-                                                    <td>Annotate this worksheet</td>
+                                                    <th>#</th>
+                                                    <th>Go To</th>
+                                                    <th>Annotate this worksheet</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
