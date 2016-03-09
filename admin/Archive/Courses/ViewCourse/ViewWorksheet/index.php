@@ -155,7 +155,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <td>#</td>

@@ -81,7 +81,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-8 col-md-10">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Teacher listing (only SmallTalk contributors, listed alphabetically by last name</div>
+                                    <div class="panel-heading">Teachers</div>
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             Select rows per page
@@ -95,7 +95,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table">
+                                        <table class="table table-hover" style="max-height:500px;overflow-y: scroll;">
                                             <thead>
                                                 <tr>
                                                     <td>First Name</td>

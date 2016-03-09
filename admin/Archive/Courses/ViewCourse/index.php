@@ -101,7 +101,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary" style="max-height:350px; overflow-y: scroll">
                                     <div class="panel-heading">Worksheet display</div>
                                     <div class="panel-body">
-                                        <table class="table">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <td>Worksheet Number</td>

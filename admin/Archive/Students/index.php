@@ -81,8 +81,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-8 col-md-10">
                                 
-                                <div class="panel panel-primary" style="max-height:600px;overflow-y: scroll;">
-                                    <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                <div class="panel panel-primary" >
+                                    <div class="panel-heading">Student Archive</div>
                                     
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -99,7 +99,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table">
+                                        <table class="table table-hover" style="max-height:600px;overflow-y: scroll;">
                                             <thead>
                                                 <tr>
                                                     <td>First Name</td>
@@ -107,8 +107,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Language</td>
                                                     <!--<td>Joined Site</td>-->
                                                     <!--<td>Last active session</td>-->
-                                                    <td>Link to Student's Page</td>
-                                                    <td>Number of Courses Taken</td>
+                                                    <td>Go To</td>
+                                                    <td>Courses Taken</td>
                                                 </tr>
                                             </thead>
                                             <tbody>

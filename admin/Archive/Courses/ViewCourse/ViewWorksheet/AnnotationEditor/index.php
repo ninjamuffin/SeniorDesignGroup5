@@ -55,6 +55,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-10">
@@ -92,11 +97,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <div class="row">
                             <div class="col-lg-10">
-                                <div class="panel panel-primary" style="min-heigth: 500px;max-height: 500px; overflow-y:scroll">
+                                <div class="panel panel-primary" style="min-height: 500px;max-height: 500px; overflow-y:scroll">
                                     <div class="panel-heading">
                                         Editor
                                     </div>
-                                    <div class="body">
+                                    <div class="panel-body">
                                         <p>Documentation: Editor contents:</p>
                                         <p>   -An 'Add New Annotation' Space, with text for highlighting and a field for selecting errors<br />
                                             Additionally, will have the parts of speech displayed, giving option for corrections. <br />

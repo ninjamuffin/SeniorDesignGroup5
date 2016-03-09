@@ -58,29 +58,27 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                     </button>
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-10">
-                                Archive Courses
-                            </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-lg-10">
                                 <div class="panel panel-primary" style="min-height: 500px; max-height: 500px;overflow-y: scroll">
-                                    <div class="panel-heading">Course Listing (sort by most recent)</div>
+                                    <div class="panel-heading">Courses Archive</div>
                                     <!-- Select Rows Per Page -->
                                     <div class="row">
-                                        <div class="dropdown">
-                                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            Select rows per page
-                                            <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                <li><a href="?pp=10">10</a></li>
-                                                <li><a href="?pp=25">25</a></li>
-                                                <li><a href="?pp=50">50</a></li>
-                                                <li><a href="?pp=100">100</a></li>
+                                        <div class="col-xs-10">
+                                            <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Select rows per page
+                                                <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                    <li><a href="?pp=10">10</a></li>
+                                                    <li><a href="?pp=25">25</a></li>
+                                                    <li><a href="?pp=50">50</a></li>
+                                                    <li><a href="?pp=100">100</a></li>
 
-                                            </ul>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <form method="POST" action="" name="Filter" id="Filter">  
@@ -121,13 +119,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <button type="submit" class="btn btn-primary">Apply Filters</button>
-                                        </div>
+                                        <button type="submit" class="btn btn-primary">Apply Filters</button>
                                     </form>
                                     
                                     <div class="panel-body" >                           
-                                        <table class="table">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <td>Course</td>
