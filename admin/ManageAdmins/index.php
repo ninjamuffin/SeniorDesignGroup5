@@ -41,6 +41,30 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $params = array();
+        $options = array( "Scrollable" => 'static');
+        $adminsQuery = "
+        SELECT I.InstitutionName, A.FirstName, A.LastName, R.Designation
+        FROM Institutions as I, Administrators as A, RoleInstances as RI, Roles as R
+        WHERE A.RoleInstanceID = RI.RoleInstanceID AND
+              RI.RoleID = R.RoleID AND
+              R.Role = 'Admin' AND
+              I.InstitutionID = A.InstitutionID";
+        $stmt = sqlsrv_query($con, $adminsQuery, $params, $options);
+        if ($stmt === false)
+            die(print_r(sqlsrv_errors(), true));
+        while (sqlsrv_fetch($stmt) === true)
+        {
+            $institution = sqlsrv_get_field($stmt, 0);
+            $fname = sqlsrv_get_field($stmt, 1);
+            $lname = sqlsrv_get_field($stmt, 2);
+            $designation = sqlsrv_get_field($stmt, 3);
+            
+            echo "<tr>";
+            echo "<td>$institution</td>";
+            echo "<td>$fname $lname</td>";
+            echo "<td>$designation</td>";
+        }
         ?>
         <body>
             <div id="wrapper">
