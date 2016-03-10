@@ -186,7 +186,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     input.placeholder = "Enter Term " + i;*/
                     container.appendChild(input);
                     container.appendChild(document.createElement("br"));
-            }    
+                }  
+            }
             </script>
         </body> 
         <?php        
