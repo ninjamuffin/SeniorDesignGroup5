@@ -177,8 +177,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 }
                 var formrow = document.createElement("div");
                 formrow.class="form-group row";
+                formrow.id="termsrow";
+                formrow.name="termsrow";
                 var formdiv = document.createElement("div");
                 formdiv.class="col-xs-10";
+                formdiv.id="termsdiv";
+                formdiv.name="termsdiv";
                 for (i=1;i<=number;i++){
                     var input = document.createElement("input");
                     input.type = "text";
