@@ -114,9 +114,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <input type="text" id="NumTerms" name="NumTerms" value="" />
                                                     <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
                                                 </div>
-                                                <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8" id="TermContainer">
+                                                <!--<div class="col-lg-9 col-md-8 col-sm-8 col-xs-8" id="TermContainer">
                                                     
-                                                </div>
+                                                </div>-->
+                                                 <div id="container"/>
                                                 
                                             </div>
                                         </form>
@@ -172,17 +173,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <script>
             function addFields(){
                 var number = document.getElementById("NumTerms").value;
-                var container = document.getElementById("TermContainer");
+                var container = document.getElementById("container");
                 while (container.hasChildNodes()) {
                     container.removeChild(container.lastChild);
                 }
                 for (i=1;i<=number;i++){
                     var input = document.createElement("input");
                     input.type = "text";
-                    input.class = "form-control";
+                    /*input.class = "form-control";
                     input.name = "term" + i;
                     input.name = "term" + i;
-                    input.placeholder = "Enter Term " + i;
+                    input.placeholder = "Enter Term " + i;*/
                     container.appendChild(input);
                     container.appendChild(document.createElement("br"));
             }    
