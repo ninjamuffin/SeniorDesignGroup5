@@ -155,6 +155,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
             <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+            <link href="/css/bootstrap/bootstrap-editable.css" rel="stylesheet">
+            <script src="/js/bootstrap-editable.js"></script>
             <script>
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
@@ -164,9 +166,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <script type="text/javascript">
             $('#institutions a').editable({
                 type: 'text',
-                name: 'username',
+                name: 'date',
                 url: '/post',
-                title: 'Enter username'
+                title: 'Enter date'
             });
 
             //ajax emulation
