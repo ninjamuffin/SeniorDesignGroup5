@@ -37,7 +37,7 @@
         while( sqlsrv_fetch( $stmt ) === true) {
             $RolesList[] = sqlsrv_get_field( $stmt, 0);
             $Designations[] = sqlsrv_get_field( $stmt, 1);
-            $AccessPriv[] = sqlsrv_get_field( $stmt, 2);
+            $AccessPriv[] = sqlsrv_get_field( $stmt, 3);
             $NumRoles += 1;
         }
         if($_SESSION['Role'] == 'Admin')
