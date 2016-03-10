@@ -100,7 +100,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <div class="divider"></div>
                                             <div class="form-group row">
                                                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8">
-                                                    <select class="form-control" name="NumTerms" id="NumTerms">
+                                                    <select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
                                                         <option selected="selected">--Number of Terms</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
