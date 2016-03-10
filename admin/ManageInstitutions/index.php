@@ -113,10 +113,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </select>
                               
                                                 </div>
+                                                <div  class="col-lg-9 col-md-8 col-sm-8 col-xs-10" id="TermContainer">
                                                 
+                                                </div>
                                                 
                                             </div>
-                                            <div  id="TermContainer"></div>
+                                            
                                             
                                             <button class="btn btn-primary" type="submit">Create Institution</button>
                                         </form>
@@ -176,14 +178,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 while (container.hasChildNodes()) {
                     container.removeChild(container.lastChild);
                 }
-                var formrow = document.createElement("div");
-                formrow.class="form-group row";
-                formrow.id="termsrow";
-                formrow.name="termsrow";
-                var formdiv = document.createElement("div");
-                formdiv.class="col-xs-10";
-                formdiv.id="termsdiv";
-                formdiv.name="termsdiv";
                 for (i=1;i<=number;i++){
                     var input = document.createElement("input");
                     input.type = "text";
@@ -191,11 +185,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     input.name = "term" + i;
                     input.id = "term" + i;
                     input.placeholder = "Enter Term " + i;
-                    formdiv.appendChild(input);
-                    formdiv.appendChild(document.createElement("br"));
+                    container.appendChild(input);
+                    //container.appendChild(document.createElement("br"));
                 }  
-                formrow.appendChild(formdiv);
-                container.appendChild(formrow);
             }
             </script>
         </body> 
