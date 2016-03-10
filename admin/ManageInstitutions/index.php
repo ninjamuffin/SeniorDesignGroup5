@@ -98,8 +98,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
-                                            <div class="form-group row" id="Copier1">
-                                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8" id="Copier2">
+                                            <div class="form-group row">
+                                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8">
                                                     <select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
                                                         <option selected="selected">--Number of Terms</option>
                                                         <option value="1">1</option>
@@ -113,9 +113,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </select>
                               
                                                 </div>
-                                                <!--<div class="col-lg-9 col-md-8 col-sm-8 col-xs-8" id="TermContainer">
-                                                    
-                                                </div>-->
+                                                
                                                 
                                             </div>
                                             
@@ -174,14 +172,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             function addFields(){
                 var number = document.getElementById("NumTerms").value;
                 var container = document.getElementById("TermContainer");
-                /*while (container.hasChildNodes()) {
+                while (container.hasChildNodes()) {
                     container.removeChild(container.lastChild);
-                }*/
-                var rowcopied = document.getElementById("Copier1");
-                var row = rowcopied.cloneNode(false);
-                var divcopied = document.getElementById("Copier2");
-                var div = divcopied.cloneNode(false);
-                
+                }
+                var formrow = document.createElement("div");
+                formrow.class="form-group row";
+                var formdiv = document.createElement("div");
+                formdiv.class="col-xs-10";
                 for (i=1;i<=number;i++){
                     var input = document.createElement("input");
                     input.type = "text";
@@ -189,11 +186,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     input.name = "term" + i;
                     input.id = "term" + i;
                     input.placeholder = "Enter Term " + i;
-                    div.appendChild(input);
-                    div.appendChild(document.createElement("br"));
+                    formdiv.appendChild(input);
+                    formdiv.appendChild(document.createElement("br"));
                 }  
-                row.appendChild(div);
-                container.appendChild(row);
+                formrow.appendChild(formdiv);
+                container.appendChild(formrow);
             }
             </script>
         </body> 
