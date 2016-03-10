@@ -167,7 +167,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             </script>
             <script type="text/javascript">
             $('#institutions a').editable({
-                type: 'text',
+                type: 'select',
                 name: 'date',
                 url: '/post',
                 title: 'Enter date'
