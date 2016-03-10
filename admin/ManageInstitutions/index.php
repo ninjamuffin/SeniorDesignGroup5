@@ -81,7 +81,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <h3>Add Institution</h3>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="panel-body" id="TermContainer">
                                         <form method="POST" id="NewInstitution" name="NewInstitution" action="">
                                             <div class="form-group row">
                                                 <div class="col-lg-4 col-md-5 col-sm-5">
@@ -98,8 +98,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
-                                            <div class="form-group row" id="TermContainer">
-                                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8">
+                                            <div class="form-group row" id="Copier1">
+                                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8" id="Copier2">
                                                     <select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
                                                         <option selected="selected">--Number of Terms</option>
                                                         <option value="1">1</option>
@@ -111,9 +111,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <option value="7">7</option>
                                                         <option value="8">8</option>
                                                     </select>
-                                                    
-                                                    <!--<input type="text" id="NumTerms" name="NumTerms" value="" />
-                                                    <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>-->
+                              
                                                 </div>
                                                 <!--<div class="col-lg-9 col-md-8 col-sm-8 col-xs-8" id="TermContainer">
                                                     
@@ -179,6 +177,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 while (container.hasChildNodes()) {
                     container.removeChild(container.lastChild);
                 }
+                var rowcopied = document.getElementById("Copier1");
+                var row = rowcopied.cloneNode(false);
+                var divcopied = document.getElementById("Copier2");
+                var div = divcopied.cloneNode(false);
+                
                 for (i=1;i<=number;i++){
                     var input = document.createElement("input");
                     input.type = "text";
@@ -186,9 +189,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     input.name = "term" + i;
                     input.id = "term" + i;
                     input.placeholder = "Enter Term " + i;
-                    container.appendChild(input);
-                    container.appendChild(document.createElement("br"));
+                    div.appendChild(input);
+                    div.appendChild(document.createElement("br"));
                 }  
+                row.appendChild(div);
+                container.appendChild(row);
             }
             </script>
         </body> 
