@@ -81,7 +81,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <h3>Add Institution</h3>
                                     </div>
-                                    <div class="panel-body" id="TermContainer">
+                                    <div class="panel-body">
                                         <form method="POST" id="NewInstitution" name="NewInstitution" action="">
                                             <div class="form-group row">
                                                 <div class="col-lg-4 col-md-5 col-sm-5">
@@ -116,6 +116,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 
                                                 
                                             </div>
+                                            <div  id="TermContainer"></div>
                                             
                                             <button class="btn btn-primary" type="submit">Create Institution</button>
                                         </form>
