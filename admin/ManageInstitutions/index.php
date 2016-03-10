@@ -101,7 +101,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
-                                            <label for="NumTerms">Enter the number of terms (semesters/quarts) and enter their names</label>
+                                            <label for="NumTerms">Enter the number of terms in a year and enter their names (Spring I, Fall, Winter II, etc)</label>
                                             <div class="form-group row">
                                                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8">
                                                     <select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
@@ -118,13 +118,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                               
                                                 </div>
                                                 <div class="col-lg-9 col-md-8 col-sm-8 col-xs-10" id="TermContainer">
-                                                
                                                 </div>
-                                                
                                             </div>
-                                            
-                                            
-                                            <button class="btn btn-primary" type="submit">Create Institution</button>
+                                            <button class="btn btn-primary pull-right" type="submit">Create Institution</button>
                                         </form>
                                     </div>
                                 </div>
@@ -144,6 +140,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Location</th>
                                                     <th>Number of Teachers</th>
                                                     <th>Active Courses</th>
+                                                    <th>Go To</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -152,6 +149,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Spokane, WA, USA</td>
                                                     <td>32</td>
                                                     <td>5</td>
+                                                    <td><a href="ViewInstitution/">View/Edit</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
