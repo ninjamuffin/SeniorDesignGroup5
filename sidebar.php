@@ -23,7 +23,7 @@
     {
         $params = array($_SESSION['Username']);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $ListRolesQuery = "SELECT DISTINCT R.Role, R.Designation, R.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY R.RoleID, R.Designation";
+        $ListRolesQuery = "SELECT DISTINCT R.Role, R.Designation, R.RoleID, R.Type FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY R.RoleID, R.Designation, R.Type";
         $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
         if( $stmt === false ) {
              die( print_r( sqlsrv_errors(), true));
@@ -32,10 +32,12 @@
         // Make the first (and in this case, only) row of the result set available for reading.
         $RolesList = [];
         $Designations = [];
+        $AccessPriv = [];
         $NumRoles = 0;
         while( sqlsrv_fetch( $stmt ) === true) {
             $RolesList[] = sqlsrv_get_field( $stmt, 0);
             $Designations[] = sqlsrv_get_field( $stmt, 1);
+            $AccessPriv[] = sqlsrv_get_field( $stmt, 2);
             $NumRoles += 1;
         }
         if($_SESSION['Role'] == 'Admin')
@@ -73,7 +75,7 @@
             else
             {
                 ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>&t=<?=$AccessPriv[$count]?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
                                         <?php
                     
             }
@@ -206,7 +208,7 @@
             else
             {
                 ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>&t=<?=$AccessPriv[$count]?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
                                         <?php
                     
             }
@@ -325,7 +327,7 @@
                         else
                         {
                             ?>
-                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
+                                        <a href="/ChangeRole.php?q=<?=$ListedRole?>&t=<?=$AccessPriv[$count]?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
                                         <?php
                         }
                          $count++;   

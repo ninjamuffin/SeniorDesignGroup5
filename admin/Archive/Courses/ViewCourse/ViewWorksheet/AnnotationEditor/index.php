@@ -56,9 +56,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
                     <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                    <span class="hamb-top"></span>
-                                    <span class="hamb-middle"></span>
-                                    <span class="hamb-bottom"></span>
+                        <span class="hamb-top"></span>
+                        <span class="hamb-middle"></span>
+                        <span class="hamb-bottom"></span>
                     </button>
                     <div class="container-fluid">
                         <div class="row">

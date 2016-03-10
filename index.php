@@ -74,7 +74,7 @@ FROM SiteUsers as SU, RoleInstances as RI, Roles as R
 WHERE SU.username = ? AND
       SU.[password] = ? AND
       RI.SiteUsername = SU.username AND
-      RI.RoleInstanceID = (SELECT min(RoleInstanceID) FROM RoleInstances WHERE SiteUsername = ?) AND
+      RI.Priority = 'Default' AND
       R.RoleID = RI.RoleID";
         
         $params = array($username, $password, $username);
