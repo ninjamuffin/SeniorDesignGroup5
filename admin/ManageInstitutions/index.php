@@ -113,7 +113,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </select>
                               
                                                 </div>
-                                                <div  class="col-lg-9 col-md-8 col-sm-8 col-xs-10" id="TermContainer">
+                                                <div class="col-lg-9 col-md-8 col-sm-8 col-xs-10" id="TermContainer">
                                                 
                                                 </div>
                                                 
@@ -181,7 +181,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 for (i=1;i<=number;i++){
                     var input = document.createElement("input");
                     input.type = "text";
-                    //input.class = "form-control";
+                    input.className = "form-control";
                     input.name = "term" + i;
                     input.id = "term" + i;
                     input.placeholder = "Enter Term " + i;
