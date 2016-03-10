@@ -98,7 +98,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
-                                            <div class="form-group row">
+                                            <div class="form-group row" id="TermContainer">
                                                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8">
                                                     <select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
                                                         <option selected="selected">--Number of Terms</option>
@@ -111,14 +111,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <option value="7">7</option>
                                                         <option value="8">8</option>
                                                     </select>
+                                                    
                                                     <!--<input type="text" id="NumTerms" name="NumTerms" value="" />
                                                     <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>-->
                                                 </div>
-                                                <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8" id="TermContainer">
+                                                <!--<div class="col-lg-9 col-md-8 col-sm-8 col-xs-8" id="TermContainer">
                                                     
-                                                </div>
+                                                </div>-->
                                                 
                                             </div>
+                                            
                                             <button class="btn btn-primary" type="submit">Create Institution</button>
                                         </form>
                                     </div>
@@ -182,7 +184,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     input.type = "text";
                     input.class = "form-control";
                     input.name = "term" + i;
-                    input.name = "term" + i;
+                    input.id = "term" + i;
                     input.placeholder = "Enter Term " + i;
                     container.appendChild(input);
                     container.appendChild(document.createElement("br"));
