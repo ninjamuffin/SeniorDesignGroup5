@@ -181,7 +181,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 for (i=1;i<=number;i++){
                     var input = document.createElement("input");
                     input.type = "text";
-                    input.class = "form-control";
+                    //input.class = "form-control";
                     input.name = "term" + i;
                     input.id = "term" + i;
                     input.placeholder = "Enter Term " + i;
