@@ -83,25 +83,29 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                     <div class="panel-body">
                                         <form method="POST" id="NewInstitution" name="NewInstitution" action="">
+                                            <label for="Name">Institution Name and Location</label>
                                             <div class="form-group row">
-                                                <div class="col-lg-4 col-md-5 col-sm-5">
+                                                <div class="col-lg-6 col-md-8 col-sm-8">
                                                     <input type="text" class="form-control" id="Name" name="Name" placeholder="Name" />
                                                 </div>
-                                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     <input type="text" class="form-control" id="City" name="City" placeholder="City" />
                                                 </div>
-                                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     <input type="text" class="form-control" id="StateRegionProvince" name="StateRegionProvince" placeholder="State/Region/Province" />
                                                 </div>
-                                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                                <div class="col-lg-3 col-md-4 col-sm-4">
                                                     <input type="text" class="form-control" id="Country" name="Country" placeholder="Country" />
                                                 </div>
                                             </div>
                                             <div class="divider"></div>
+                                            <label for="NumTerms">Enter the number of terms (semesters/quarts) and enter their names</label>
                                             <div class="form-group row">
                                                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8">
                                                     <select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
-                                                        <option selected="selected">--Number of Terms</option>
+                                                        <option selected="selected">--Number of Terms--</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
