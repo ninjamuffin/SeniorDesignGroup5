@@ -100,7 +100,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <div class="divider"></div>
                                             <div class="form-group row">
                                                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-8">
-                                                    <!--<select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
+                                                    <select class="form-control" name="NumTerms" id="NumTerms" onchange="addFields();">
                                                         <option selected="selected">--Number of Terms</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -110,15 +110,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <option value="6">6</option>
                                                         <option value="7">7</option>
                                                         <option value="8">8</option>
-                                                    </select>-->
-                                                    <input type="text" id="NumTerms" name="NumTerms" value="" />
-                                                    <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
+                                                    </select>
+                                                    <!--<input type="text" id="NumTerms" name="NumTerms" value="" />
+                                                    <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>-->
                                                 </div>
                                                 <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8" id="TermContainer">
                                                     
                                                 </div>
                                                 
                                             </div>
+                                            <button class="btn btn-primary" type="submit">Create Institution</button>
                                         </form>
                                     </div>
                                 </div>
