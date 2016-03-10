@@ -174,9 +174,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             function addFields(){
                 var number = document.getElementById("NumTerms").value;
                 var container = document.getElementById("TermContainer");
-                while (container.hasChildNodes()) {
+                /*while (container.hasChildNodes()) {
                     container.removeChild(container.lastChild);
-                }
+                }*/
                 var rowcopied = document.getElementById("Copier1");
                 var row = rowcopied.cloneNode(false);
                 var divcopied = document.getElementById("Copier2");
