@@ -170,7 +170,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 $("#wrapper").toggleClass("toggled");
             });
             </script>
-            <script>
+            <script type="text/javascript">
             function addFields(){
                 var number = document.getElementById("NumTerms").value;
                 var container = document.getElementById("container");
