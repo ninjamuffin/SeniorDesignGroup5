@@ -122,6 +122,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         Term Sessions
                                     </div>
                                     <div class="panel-body">
+                                        <a href="#" id="username" data-type="text" data-placement="right" data-title="Enter username" class="editable editable-click" data-original-title="" title="">superuser</a>
+                                        
+                                        
                                         <table class="table table-hover" id="institutions">
                                             <thead>
                                                 <tr>
