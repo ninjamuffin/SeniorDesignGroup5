@@ -14,29 +14,17 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet">
     
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
-            $("#header").load("/header.php");
-        });
-        $(function(){
             $("#sidebar").load("/sidebar.php");
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
         
 <?php
@@ -55,38 +43,108 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     ?>        
 
     <body>
-        <div id="header"></div>
         <div id="wrapper">
             <div id = "sidebar"></div>
             <div id="page-content-wrapper">
+                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <span class="hamb-top"></span>
+                    <span class="hamb-middle"></span>
+                    <span class="hamb-bottom"></span>
+                </button>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <h1>Course Title</h1>
-                            
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3>Course Info</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>Name:</p>
+                                    <p>Institution:</p>
+                                    <p>Session:</p>
+                                    <p>Section:</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3>Students</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Go To</th>
+                                                <th>Go To (Archive)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Stu Dent</td>
+                                                <td><a href="Students/ViewStudentProfile/">Student Page</a></td>
+                                                <td><a href="/Teacher/Archive/Students/ViewStudent/?sid=">View in Archive</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10">
                             <!-- Worksheet Listing -->
-                            <p>Print Course information: ___</p>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">Worksheets</div>
-                                <button class="btn btn-default" type="button" id="CreateWorksheet"><a href="WorksheetEditor/">New Worksheet</a></button>
+                                
                                 <div class="panel-body">
-                                    <p>Will iterate through worksheets, providing a viewing link (to review submissions), an edit button, a 'publish' button, the worksheet status "in progress/published", and date created. </p>
+                                    <form method="POST" action="WorksheetEditor/" name="NewWorksheet">
+                                        <div class="form-group row">
+                                            <div class="col-xs-4 col-sm-3">
+                                                <input type="hidden" name="Number" value="1">
+                                                <button class="btn btn-primary" type="submit"</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Go To</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>3/4/2016</td>
+                                                <td>In Progress</td>
+                                                <td><a href="WorksheetEditor/?wid=">Edit Worksheet</a></td>
+                                                <td><button class="btn btn-primary" type="button"><a href="#">Publish</a></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>2/27/2016</td>
+                                                <td>In Progress</td>
+                                                <td><a href="WorksheetEditor/?wid=">Edit Worksheet</a></td>
+                                                <td><button class="btn btn-primary" type="button"><a href="#">Publish</a></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>3/4/2016</td>
+                                                <td>Published</td>
+                                                <td><a href="ViewWorksheet/?wid=">View Worksheet</a></td>
+                                                <td><button class="btn btn-primary" disabled type="button"><a>Published</a></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             
-                            <!-- Student listing -->
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">Students</div>
-                                <div class="panel-body">
-                                    <p>Will iterate through students, giving brief summary stats (worksheets completed, incomplete worksheets, etc), a link to each students profile, and an option to search that student in the archive</p>
-                                </div>
-                            </div>
+                            
                             <!-- END PAGE CONTENT -->
                         </div>
                     </div>

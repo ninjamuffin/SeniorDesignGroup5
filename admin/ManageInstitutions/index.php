@@ -41,28 +41,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $username = $_SESSION['Username'];
-        $role = $_SESSION['Role'];
-        $params = array( $username, $username);
-        $options = array( "Scrollable" => 'static' );
-        $UserInfoQuery = "
-        SELECT R.Designation, I.InstitutionName
-        FROM RoleInstances as RI, Roles as R, Administrators as A, Institutions as I
-        WHERE  RI.SiteUsername = ? AND
-	           R.RoleID = RI.RoleID AND
-		       R.Role = 'Admin' AND
-		       A.SiteUsername = ? AND
-		       I.InstitutionID = A.InstitutionID";
-        $stmt = sqlsrv_query($con, $UserInfoQuery, $params, $options);
-        if ( $stmt === false)
-            die( print_r( sqlsrv_errors(), true));
-        $Designation = "";
-        $Institution = "";
-        if ( sqlsrv_fetch( $stmt ) === true)
-        {
-            $Designation = sqlsrv_get_field( $stmt, 0);
-            $Institution = sqlsrv_get_field( $stmt, 1);
-        }
         ?>
         <body>
 

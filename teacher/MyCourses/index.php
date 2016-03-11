@@ -109,13 +109,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <div id="wrapper">
             <div id = "sidebar"></div>
             <div id="page-content-wrapper">
+                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <span class="hamb-top"></span>
+                    <span class="hamb-middle"></span>
+                    <span class="hamb-bottom"></span>
+                </button>
                 <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                    <span class="hamb-top"></span>
-                                    <span class="hamb-middle"></span>
-                                    <span class="hamb-bottom"></span>
-                        </button>
+                    <div class="col-lg-10">
+                        
                     </div>
                         
                 </div>
@@ -135,12 +136,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <thead>
                                             <tr>
                                                 <th>Session</th>
-                                                <th>Course Name</th>
+                                                <th>Level</th>
                                                 <th>Section</th>
-                                                <th>Action</th>
+                                                <th>Go To</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <td>Fall II 2014</td>
+                                                <td>Entry</td>
+                                                <td>1</td>
+                                                <td><a href="ViewCourse/?cid=1">Course Page</a></td>
+                                            </tr>
                                         <?php
         for ($i = 0; $i < $length; $i++)
         {
@@ -148,7 +155,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<td>$SessionNames[$i]</td>";
             echo "<td>$ClassNames[$i]</td>";
             echo "<td>$Sections[$i]</td>";
-            echo "<td><a href='ViewCourse/?cid=$courseID[$i]'>Go To</a></td>";
+            echo "<td><a href='ViewCourse/?cid=$courseID[$i]'>Course Page</a></td>";
             echo "</tr>";
 
         }?>

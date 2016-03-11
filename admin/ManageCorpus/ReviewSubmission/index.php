@@ -58,7 +58,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-2">
                                 <button class="btn btn-primary" href="../">Approve Worksheet</button>
                                 
-</p>
                             </div>
                         </div>
                         <div class="row">
@@ -75,7 +74,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                                 
-</p>
                             </div>
                         </div>
                         <div class="row">
@@ -102,7 +100,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
 
-</p>
                             </div>
                         </div>
                     </div>
