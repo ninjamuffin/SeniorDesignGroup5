@@ -123,21 +123,29 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <td>3/4/2016</td>
                                                 <td>In Progress</td>
                                                 <td><a href="WorksheetEditor/?wid=">Edit Worksheet</a></td>
-                                                <td><button class="btn btn-primary" type="button"><a href="#">Publish</a></button></td>
+                                                <td>
+                                                    <form method="POST" action="PublishWorksheet.php?num=3">
+                                                        <button class="btn btn-primary" type="submit">Publish</button>
+                                                    </form> 
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>2/27/2016</td>
                                                 <td>In Progress</td>
                                                 <td><a href="WorksheetEditor/?wid=">Edit Worksheet</a></td>
-                                                <td><button class="btn btn-primary" type="button"><a href="#">Publish</a></button></td>
+                                                <td>
+                                                    <form method="POST" action="PublishWorksheet.php?num=2">
+                                                        <button class="btn btn-primary" type="submit">Publish</button>
+                                                    </form> 
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
                                                 <td>3/4/2016</td>
                                                 <td>Published</td>
                                                 <td><a href="ViewWorksheet/?wid=">View Worksheet</a></td>
-                                                <td><button class="btn btn-primary" disabled type="button"><a>Published</a></button></td>
+                                                <td>No Action</td>
                                             </tr>
                                         </tbody>
                                     </table>
