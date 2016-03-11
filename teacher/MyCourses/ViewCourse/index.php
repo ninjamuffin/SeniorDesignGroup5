@@ -103,7 +103,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <div class="form-group row">
                                             <div class="col-xs-4 col-sm-3">
                                                 <input type="hidden" name="Number" value="1">
-                                                <button class="btn btn-primary" type="submit"</button>
+                                                <button class="btn btn-primary" type="submit">New Worksheet</button>
                                             </div>
                                         </div>
                                     </form>
