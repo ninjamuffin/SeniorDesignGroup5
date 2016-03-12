@@ -72,68 +72,69 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
                     <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                    <span class="hamb-top"></span>
-                                    <span class="hamb-middle"></span>
-                                    <span class="hamb-bottom"></span>
-                                </button>
+                        <span class="hamb-top"></span>
+                        <span class="hamb-middle"></span>
+                        <span class="hamb-bottom"></span>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h1>Teacher Home</h1>
-                                    </div>
+                            <div class="col-lg-10">
+                                <h3>Firstname Lastname</h3>
+                                <div class="panel panel-primary">
                                     <div class="panel-body">
-                                        <p><?=$_SESSION['FirstName']?> <?=$_SESSION['LastName']?></p>
-                                        <p>Role: Teacher <small class="text-muted"><?=$Designation?></small> </p>
+                                        Teacher User Info:
                                     </div>
-                                </div> 
+                                </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h4>My Students</h4>
+                                        <h4><a href="/Teacher/MyCourses/">Active Courses</a></h4>
                                     </div>
                                     <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Institution</th>
-                                                    <th>Name</th>
-                                                    <th>Review Student</th>
+                                                    <th>Course</th>
+                                                    <th>Go To</th>
                                                 </tr>
                                             </thead>
-                                            
-                                            <?php
-       /* $params = array();
-        $options = array( "Scrollable" => 'static');
-        $adminsQuery = "
-        SELECT T.FirstName, T.LastName
-        FROM Institutions as I, Teachers as T, RoleInstances as RI, Roles as R
-        WHERE A.RoleInstanceID = RI.RoleInstanceID AND
-              RI.RoleID = R.RoleID AND
-              R.Role = 'Teacher' AND
-              
-              I.InstitutionID = T.InstitutionID";
-        $stmt = sqlsrv_query($con, $adminsQuery, $params, $options);
-        if ($stmt === false)
-            die(print_r(sqlsrv_errors(), true));
-        while (sqlsrv_fetch($stmt) === true)
-        {
-            $institution = sqlsrv_get_field($stmt, 0);
-            $fname = sqlsrv_get_field($stmt, 1);
-            $lname = sqlsrv_get_field($stmt, 2);
-            $designation = sqlsrv_get_field($stmt, 3);
-            
-            echo "<tr>";
-            echo "<td>$institution</td>";
-            echo "<td>$fname $lname</td>";
-            echo "<td>$designation</td>";
-        }*/
-        ?>
+                                        
                                                 
                                             <tbody>
+                                                <tr>
+                                                    <td>ELCT 101</td>
+                                                    <td><a href="/Teacher/MyCourses/ViewCourse/?cid=">View Course</a></td>
+                                                </tr>
                                                 
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4><a href="/Teacher/MyStudents/">My Students</a></h4>
+                                    </div>
+                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Go To</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                                
+                                            <tbody>
+                                                <tr>
+                                                    <td>Stu Dent</td>
+                                                    <td><a href="/Teacher/MyStudents/ViewStudentProfile/">View Profile</a></td>
+                                                </tr>
                                                 
                                             </tbody>
                                         </table>
