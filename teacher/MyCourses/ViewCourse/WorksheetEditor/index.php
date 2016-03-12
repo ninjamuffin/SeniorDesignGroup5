@@ -154,7 +154,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         </div>
                                                         
                                                     </div>
-                                                    <button type="submit"  class="btn btn-primary pull-right">Save</button>
+                                                    <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
                                                     <hr>
                                                      
                                                 </form>
