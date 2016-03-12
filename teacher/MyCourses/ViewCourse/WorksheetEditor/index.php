@@ -20,7 +20,18 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     
-    
+    <style>
+    .glyphicon:before {
+     visibility: visible;
+    }
+    .glyphicon.glyphicon-star-empty:checked:before {
+       content: "\e006";
+    }
+    input[type=checkbox].glyphicon{
+        visibility: hidden;
+
+    }
+    </style>
     
     <script>
         
@@ -134,8 +145,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                             </select>
                                                         </div>
                                                         <div class="col-xs-2 pull-right">
-                                                            <label for="StarredExpression">Starred</label>
-                                                            <input type="checkbox" class="form-control" id="StarredExpression" name="StarredExpression">
+                                                            <!--<label for="StarredExpression">Starred</label>
+                                                            <input type="checkbox" class="form-control" id="StarredExpression" name="StarredExpression">-->
+                                                            <input type="checkbox" class="glyphicon glyphicon-star-empty" >
+
                                                         </div>
                                                         
                                                     </div>
