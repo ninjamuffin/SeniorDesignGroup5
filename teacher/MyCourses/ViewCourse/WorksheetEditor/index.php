@@ -133,7 +133,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                                 <option>Student 5</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-xs-2">
+                                                        <div class="col-xs-2 pull-right">
                                                             <label for="StarredExpression">Starred</label>
                                                             <input type="checkbox" class="form-control" id="StarredExpression" name="StarredExpression">
                                                         </div>
@@ -155,6 +155,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         
                                                     </div>
                                                     <button type="submit"  class="btn btn-primary pull-right">Save</button>
+                                                    <hr>
                                                      
                                                 </form>
                                            
