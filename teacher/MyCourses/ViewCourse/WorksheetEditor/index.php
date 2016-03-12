@@ -121,7 +121,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class=" panel-body">
                                         <div class="control-group" id="fields">
                                             <div class="controls"> 
-                                                <form class=" form-inline">
+                                                <form method="POST" name="Expressions[]" id="Expressions[]">
                                                     <div class="form-group row">
                                                         <div class="col-xs-4 col-sm-2">
                                                             <select class="form-control">
