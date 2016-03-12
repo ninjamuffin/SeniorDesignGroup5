@@ -78,7 +78,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-10">
+                            <div class="col-lg-8 col-md-8">
                                 <h3>Firstname Lastname</h3>
                                 <div class="panel panel-primary">
                                     <div class="panel-body">

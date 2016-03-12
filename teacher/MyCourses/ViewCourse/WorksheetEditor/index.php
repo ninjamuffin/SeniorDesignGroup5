@@ -23,9 +23,7 @@
     
     
     <script>
-        $(function(){
-            $("#header").load("/header.php");
-        });
+        
         $(function(){
             $("#sidebar").load("/sidebar.php");
         });
@@ -91,61 +89,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
     <body>
         
-        <nav class="navbar navbar-inverse" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-<!--                <a class="navbar-brand" href="/"><img src="/media/smalltalkimage.gif" style="width:200px;height:40px;"></a>-->
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
-                <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu">
-                      <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
-                    </a>
-                      
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
-                        <li><a href="#">Change Password</a></li>
-                        <li class="divider">My Roles</li>
-                         <?php                    
-        foreach($RolesList as $ListedRole)
-        {
-            if ($ListedRole == $_SESSION['Role'])
-            {
-            ?>
-                        <li><a><strong><?=$ListedRole?></strong></a></li>
-                                
-            <?php
-            }
-            else
-            {
-                ?>
-                <li><a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a></li>
-                <?php
-            }
-        }
-        ?>
-                        <li class="divider"></li>
-                        <li><a href="/logout.php">Log out</a></li>
-                    </ul>
-          
-                            
-                </li>
-                             
-                </ul>
-                </div><!-- /.navbar-collapse -->
-            </nav>
-        <section class="container col-xs-12">
-            <!--navbar-->
-                     
+        
+        <section class="container col-xs-12">                     
             <!--body-->
             <div id="wrapper">
                 
@@ -178,7 +123,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <div class="controls"> 
                                                 <form class=" form-inline">
                                                     <div class="form-group row">
-                                                        <div class="col-lg-2">
+                                                        <div class="col-xs-4 col-sm-2">
                                                             <select class="form-control">
                                                                 <option selected="selected">--Student--</option>
                                                                 <option>Student 1</option>
@@ -188,13 +133,28 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                                 <option>Student 5</option>
                                                             </select>
                                                         </div>
+                                                        <div class="col-xs-2">
+                                                            <label for="StarredExpression">Starred</label>
+                                                            <input type="checkbox" class="form-control" id="StarredExpression" name="StarredExpression">
+                                                        </div>
                                                         
                                                     </div>
-                                                    <input type="text" class="form-control input-md" placeholder="Expression" style="width: 100%; margin-top:10px;">
-                                                    <br>
-                                                    <input type="text" class="form-control input-md" placeholder="Vocab/Context" style="width: 100%;margin-top:10px;">
-                                                    <br>
-                                                    <div class="row" style="padding-right:15px;"><button type="submit"  class="btn btn-primary pull-right">Save</button></div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <input type="text" class="form-control input-md" placeholder="Expression">
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-xs-7">
+                                                            <input type="text" class="form-control input-md" placeholder="Vocab/Context">
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <input type="text" class="form-control input-md" placeholder="Pronunciation">
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <button type="submit"  class="btn btn-primary pull-right">Save</button>
                                                      
                                                 </form>
                                            
