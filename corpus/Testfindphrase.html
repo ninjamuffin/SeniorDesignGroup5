@@ -26,7 +26,7 @@ function ajax() {
 }
 function request(str) {
 	//Don't forget to modify the path according to your theme
-        myAjax.open("POST", "Testfindphrase.php");
+        myAjax.open("POST", "findphrase.php");
         myAjax.onreadystatechange = result;
         myAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         myAjax.send("search="+str);
@@ -79,7 +79,7 @@ function selected(choice){
 </style>
 </head>
 
-<form method="get" id="searchform" action="Testfindphrase.php">
+<form method="get" id="searchform" action="findphrase.php">
     <div>
         <input autocomplete="off" value="" name="s" id="s" onkeyup="request(this.value);" type="text">
         <input id="searchsubmit" value="Search" class="button" type="submit">
