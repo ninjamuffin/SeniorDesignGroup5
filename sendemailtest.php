@@ -27,15 +27,6 @@
                 {
                     $email = $_POST['email'];
                     
-                    $checkemail_sql = "SELECT * FROM SiteUsers WHERE email = ?";
-                    
-                    $params = array($email);
-                    $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-                    
-                    $checkemail = sqlsrv_query($con, $checkemail_sql, $params, $options);
-                    
-                    if(sqlsrv_num_rows($checkemail) == 1)
-                    {
                         $subject = "Gonzaga Smalltalk ELC Password Reset";
                         $message = "<html>
                             <head>
@@ -60,12 +51,6 @@
                             echo "<h1>Email Failed</h1>";
                             echo "<p>The confirmation email failed to send. <a href=\"resetpassword.php\">Please try again</a>.</p>";
                         }
-                    }
-                    else
-                    {
-                      echo "<h1>Error</h1>";
-                      echo "<p>That email does not appear to be registered. <a href=\"resetpassword.php\">Please try again.</a></p>";
-                    }
                 }
                 else
                 {
