@@ -28,6 +28,13 @@ include "../../../base.php";
             $("#sidebar").load("/sidebar.php");
         });
     </script>
+    <style>
+        #names-list{float:left;list-style:none;margin:0;width:100%;padding:0;}
+        #names-list li{padding: 10px;background-color: #8b8b8b; border-bottom:#F0F0F0 1px solid;border-width:#F0F0F0 1px solid;}
+        #names-list li:hover{background: rgba(56, 110, 128, 1);}
+    </style>
+    
+    
 
 </head>
 
@@ -49,6 +56,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
+                    <!--<div class="col-lg-10">
+                                                    <input class="form-control" id="search-box" type="text" placeholder="Student Last Name" />
+                                                    <div id="suggesstion-box"></div>
+                                                    
+                                                </div> -->
                     <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
@@ -60,19 +72,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Filter Results</div>
                                     <div class="panel-body">
-                                        <form method="POST" id="filterTeachers" action="">
+                                        <form method="POST" id="filterStudents"  action="" autocomplete="off">
                                             <div class="form-group row">
-                                                <div class="col-lg-10">
-                                                    <input class="form-control" id="LastName" type="text" placeholder="Student Last Name" />
+                                                <div class="col-xs-6">
+                                                    <input class="form-control" id="search-box" name="studentLastName" type="text" placeholder="Student Last Name" />
+                                                    <div id="suggesstion-box"></div>
                                                     
                                                 </div> 
+
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-10">
-                                                    <input class="form-control" id="Language" type="text" placeholder="Language" />
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Apply Filter</button>
+                                            <button type="submit" class="btn btn-primary pull-right">Apply Filter</button>
                                         </form>
                                     </div>
                                 </div>
@@ -122,8 +131,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 FROM Students as S, Expressions as E, Languages as L
 WHERE L.[LanguageID] = S.[Language] AND
 S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
-E.[Student_ID] = S.[ID]
-GROUP BY S.[FirstName], S.[LastName], S.[ID], L.Language";
+E.[Student_ID] = S.[ID]";
+    if (!(empty($_POST['studentLastName'])))
+    {
+        $query .= " AND S.[LastName] = ?";
+        $params = array($_POST['studentLastName']);
+    }
+    $query .= " GROUP BY S.[FirstName], S.[LastName], S.[ID], L.Language";
+
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
         die( print_r( sqlsrv_errors(), true));
@@ -167,7 +182,7 @@ GROUP BY S.[FirstName], S.[LastName], S.[ID], L.Language";
                 </div>
             </div>
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
             <script>
@@ -175,6 +190,39 @@ GROUP BY S.[FirstName], S.[LastName], S.[ID], L.Language";
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
             });
+            </script>
+            <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+            <script>
+                // AJAX call for autocomplete 
+            $(document).ready(function(){
+                $("#search-box").keyup(function(){
+                    $.ajax({
+                    type: "POST",
+                    url: "RetrieveStudentNames.php",
+                    data:'keyword='+$(this).val(),
+                    /*beforeSend: function(){
+                        var loadingIcon = document.createElement("span");
+                        loadingIcon.className ="spinner";
+                        var icon = loadingIcon.createElement("i");
+                        icon.className = "icon-spin icon-refresh";
+                        $("#search-box").appendChild(loadingIcon);
+                    },*/
+                    success: function(data){
+                        $("#suggesstion-box").show();
+                        $("#suggesstion-box").html(data);
+                        
+                    }
+                    });
+                });
+            });
+            //To select country name
+            function selectName(val) {
+            $("#search-box").val(val);
+            $("#suggesstion-box").hide();
+            }
+                
+                
+                
             </script>
         </body> 
         <?php        
