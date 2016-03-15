@@ -44,11 +44,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $studentID = isset($_GET['studentID']) ? $_GET['studentID'] : 0;
-        if ($studentID == 0)
-            echo "<meta http-equiv='refresh' content=0;../";
+        /*$studentID = isset($_GET['studentID']) ? $_GET['studentID'] : 0;*/
+        if (empty($_POST['sid']))
+            echo "<meta http-equiv='refresh' content=10;../";
         else
         {
+            $studentID = $_POST['sid'];
         ?>
         <body>
             <div id="wrapper">

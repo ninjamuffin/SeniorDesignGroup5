@@ -4,27 +4,52 @@ include '../../../base.php';
 
 if(!empty($_POST["keyword"]))
 {
-    $query = "SELECT DISTINCT TOP 6 LastName FROM Students WHERE LastName LIKE '" . $_POST["keyword"] . "%' AND ID in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) ORDER BY LastName";
+    $query = "SELECT TOP 6 S.FirstName,S.LastName,min(Y.Year), max(Y.Year), S.ID
+    FROM Students as S, Year as Y, Enrollment as E, TeachersCourses as TC, Sessions as Ss 
+    WHERE S.LastName LIKE '" . $_POST["keyword"] . "%' AND 
+          S.ID in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND 
+          E.StudentID = S.ID AND
+          TC.CoursesID = E.ClassInstanceID AND
+          Ss.SessionsID = TC.SessionID AND
+          Y.ID = Ss.Year_ID
+    GROUP BY S.FirstName, S.LastName, S.ID";
     $options = array( "Scrollable" => 'static');
     $params = array();
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ($stmt === false)
         die(print_r(sqlsrv_errors(), true));
-    $names = [];
+    $fnames = [];
+    $lnames = [];
+    $minyears = [];
+    $maxyears = [];
+    $ids = [];
     while (sqlsrv_fetch($stmt) === true)
     {
-        $names[] = sqlsrv_get_field($stmt, 0);
+        $fnames[] = sqlsrv_get_field($stmt, 0);
+        $lnames[] = sqlsrv_get_field($stmt, 1);
+        $minyears[] = sqlsrv_get_field($stmt, 2);
+        $maxyears[] = sqlsrv_get_field($stmt, 3);
+        $ids[] = sqlsrv_get_field($stmt, 4);
     }
 
-    if(!empty($names))
+    if(!empty($lnames))
     {
         ?>
+<style>
+    span.highlight {
+        background-color: rgb(160,189,81);
+    }
+</style>
 <ul id="names-list">
     <?php
-        foreach($names as $name)
-        {?>
-    <li onClick="selectName('<?=$name?>');"><?=$name?></li>
+        $i = 0;
+        foreach($lnames as $lname)
+        {
+    ?>
+            
+    <li onClick="selectName('<?=$ids[$i]?>');"><?=$fnames[$i]?> <strong><?=$lname?></strong> <span class="pull-right"><small class="text-muted" style="color:white;right:0px; "><?=$minyears[$i]?> - <?=$maxyears[$i]?></small></span></li>
         <?php 
+            $i++;
         }
         ?>
     </ul>

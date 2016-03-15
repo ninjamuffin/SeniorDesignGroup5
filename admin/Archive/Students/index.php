@@ -70,18 +70,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-8 col-md-10">  
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Filter Results</div>
+                                    <div class="panel-heading">Search</div>
                                     <div class="panel-body">
-                                        <form method="POST" id="filterStudents"  action="" autocomplete="off">
+                                        <form method="POST" id="searchStudent"  action="ViewStudent/" autocomplete="off">
                                             <div class="form-group row">
                                                 <div class="col-xs-6">
                                                     <input class="form-control" id="search-box" name="studentLastName" type="text" placeholder="Student Last Name" />
                                                     <div id="suggesstion-box"></div>
                                                     
-                                                </div> 
+                                                </div>
+                                                <input hidden id="sid" name="sid" type="text">
+                                                <input hidden type="submit" value="go">
 
                                             </div>
-                                            <button type="submit" class="btn btn-primary pull-right">Apply Filter</button>
+                                            <!--<button type="submit" class="btn btn-primary pull-right">Search</button>-->
                                         </form>
                                     </div>
                                 </div>
@@ -132,11 +134,11 @@ FROM Students as S, Expressions as E, Languages as L
 WHERE L.[LanguageID] = S.[Language] AND
 S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
 E.[Student_ID] = S.[ID]";
-    if (!(empty($_POST['studentLastName'])))
+    /*if (!(empty($_POST['studentLastName'])))
     {
-        $query .= " AND S.[LastName] = ?";
-        $params = array($_POST['studentLastName']);
-    }
+        $query = " = ?";
+        $params = array($_POST['studentID']);
+    }*/
     $query .= " GROUP BY S.[FirstName], S.[LastName], S.[ID], L.Language";
 
     $stmt = sqlsrv_query($con, $query, $params, $options);
@@ -144,7 +146,7 @@ E.[Student_ID] = S.[ID]";
         die( print_r( sqlsrv_errors(), true));
 
     /* Extract Pagination Paramaters */
-    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 50; // get rows per page, default = 50
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 50
     $rowsReturned = sqlsrv_num_rows($stmt);
     if($rowsReturned === false)
         die(print_r( sqlsrv_errors(), true));
@@ -208,6 +210,7 @@ E.[Student_ID] = S.[ID]";
                         $("#search-box").appendChild(loadingIcon);
                     },*/
                     success: function(data){
+                        
                         $("#suggesstion-box").show();
                         $("#suggesstion-box").html(data);
                         
@@ -217,9 +220,18 @@ E.[Student_ID] = S.[ID]";
             });
             //To select country name
             function selectName(val) {
-            $("#search-box").val(val);
-            $("#suggesstion-box").hide();
+                $("#sid").val(val);
+                $("#searchStudent").submit();
+/*
+                document.getElementById("#searchStudent").submit();
+*/
+/*
+                $("#search-box").val(val);
+*/
+                
+                $("#suggesstion-box").hide();
             }
+            
                 
                 
                 
