@@ -27,15 +27,6 @@
                 {
                     $email = $_POST['email'];
                     
-                    $checkemail_sql = "SELECT * FROM SiteUsers WHERE email = ?";
-                    
-                    $params = array($email);
-                    $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-                    
-                    $checkemail = sqlsrv_query($con, $checkemail_sql, $params, $options);
-                    
-                    if(sqlsrv_num_rows($checkemail) == 1)
-                    {
                         $subject = "Gonzaga Smalltalk ELC Password Reset";
                         $message = "<html>
                             <head>
@@ -58,21 +49,15 @@
                         else
                         {
                             echo "<h1>Email Failed</h1>";
-                            echo "<p>The confirmation email failed to send. <a href=\"resetpassword.php\">Please try again</a>.</p>";
+                            echo "<p>The confirmation email failed to send. <a href=\"sendemailtest.php\">Please try again</a>.</p>";
                         }
-                    }
-                    else
-                    {
-                      echo "<h1>Error</h1>";
-                      echo "<p>That email does not appear to be registered. <a href=\"resetpassword.php\">Please try again.</a></p>";
-                    }
                 }
                 else
                 {
                     ?>             
                     <h1>Forgot Your Password?</h1>
                     <p>Please enter your email address.  An email will be sent with a link to reset your password.</p>
-                    <form method="post" action="resetpassword.php" name="resetform" id="resetform">
+                    <form method="post" action="sendemailtest.php" name="resetform" id="resetform">
                     <fieldset>
                         <label for="email">Email Address:</label><input type="text" name="email" id="email" /><br />
                         <input type="submit" name="reset" id="reset" id="reset" value="Send Email" />
