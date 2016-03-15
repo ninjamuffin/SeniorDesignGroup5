@@ -193,7 +193,9 @@ E.[Student_ID] = S.[ID]";
                 $("#wrapper").toggleClass("toggled");
             });
             </script>
+<!--
             <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+-->
             <script>
                 // AJAX call for autocomplete 
             $(document).ready(function(){
@@ -222,13 +224,6 @@ E.[Student_ID] = S.[ID]";
             function selectName(val) {
                 $("#sid").val(val);
                 $("#searchStudent").submit();
-/*
-                document.getElementById("#searchStudent").submit();
-*/
-/*
-                $("#search-box").val(val);
-*/
-                
                 $("#suggesstion-box").hide();
             }
             
