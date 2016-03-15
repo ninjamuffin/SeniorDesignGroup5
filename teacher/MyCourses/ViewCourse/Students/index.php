@@ -1,6 +1,6 @@
 <!-- View students (index.php) for basic Teacher account -->
 
-<?php include "../../base.php"; ?>
+<?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +15,7 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -28,16 +29,6 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
         
 <?php
@@ -56,22 +47,54 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     ?>        
 
     <body>
-        <div id="header"></div>
         <div id="wrapper">
             <div id = "sidebar"></div>
             <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <h2>My Students</h2>
-                            <p>For a given teacher, will list all active students (according to active courses) and display a link to each student's profile view  </p>
-                            <!-- END PAGE CONTENT -->
+                        <div class="col-md-8">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4>Course Details</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <p>Course Name:</p>
+                                    <p>Institution:</p>
+                                    <p>Session:</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4>Students</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Worksheets Completed</th>
+                                                <th>Go To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Stu Dent</td>
+                                                <td>4/6</td>
+                                                <td><a href="ViewStudentProfile/?sid=">Review Student</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
