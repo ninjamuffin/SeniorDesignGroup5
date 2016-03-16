@@ -144,10 +144,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                                 <option>Student 5</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-xs-2 pull-right">
-                                                            <!--<label for="StarredExpression">Starred</label>
-                                                            <input type="checkbox" class="form-control" id="StarredExpression" name="StarredExpression">-->
-                                                            <input type="checkbox" class="glyphicon glyphicon-star-empty" >
+                                                        <div class="col-xs-2">
+                                                            
+                                                            <input type="checkbox" style="font-size:25px;" class="glyphicon glyphicon-star-empty" >
 
                                                         </div>
                                                         
@@ -199,7 +198,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             
         </section>
         
-        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="//code.jquery.com/jquery.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script>
         $('.dropdown-toggle').click(function(e) {

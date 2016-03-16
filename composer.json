@@ -7,12 +7,12 @@
     "select",
     "replacement"
   ],
-  "homepage": "https://silviomoreto.github.io/bootstrap-select",
+  "homepage": "//silviomoreto.github.io/bootstrap-select",
   "version": "1.7.2",
   "authors": [
     {
       "name": "Silvio Moreto",
-      "homepage": "https://github.com/silviomoreto"
+      "homepage": "//github.com/silviomoreto"
     }
   ],
   "license": "MIT",

@@ -12,7 +12,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         
         <!-- Header File -->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <style>
             body{
                 background: url(Media/GonzagaBackground.jpg) no-repeat center center fixed;
@@ -64,7 +64,7 @@
             <p>Successful creation of a container!</p>
         </div>  
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
     </body>

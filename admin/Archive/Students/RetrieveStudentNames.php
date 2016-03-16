@@ -55,6 +55,15 @@ if(!empty($_POST["keyword"]))
     </ul>
 <?php
     }
+    else
+    {
+        ?>
+<ul id="names-list">
+    <li>There are no matches to your search</li>
+    
+</ul>    
+    <?php
+    }
 }
 
 ?>
