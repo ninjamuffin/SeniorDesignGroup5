@@ -17,7 +17,7 @@ include "../../../../base.php";
     <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
 
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
 
     <script>

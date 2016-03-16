@@ -15,7 +15,7 @@
     <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
 
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
@@ -56,7 +56,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                                 <h1>Corpus Search Home</h1>
                                 <p>Documentation:</p>
-                                <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="http://corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) <a href="search">Search the Corpus</a> </p>
+                                <p>Only accessible to teacher and admin accounts.  Along with a window for submitting a new search form (similar to the one in <a href="//corpus.byu.edu/coca/">COCA</a>) the page will provide corpus navigation via the sidebar.  Within the page window (not the sidebar) will be several options for viewing additional data in the corpus, such as graphical representations of certain types of data, registering with Gonzaga (if not already logged in) and viewing audio data (potentially) <a href="search">Search the Corpus</a> </p>
                                 
                             </div>
                         </div>
