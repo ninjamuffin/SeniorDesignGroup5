@@ -92,7 +92,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h4><a href="/Teacher/MyCourses/">Active Courses</a></h4>
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
+                                            </div>
+                                            <!--<div class="col-xs-1">
+                                                <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a>
+                                            </div>-->
+                                        
+                                        </div>
+                                        
+                                        
+                                        
                                     </div>
                                     <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
                                         <table class="table table-hover">
@@ -210,7 +221,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="/js/bootstrap.min.js"></script>
         <script>
