@@ -102,7 +102,7 @@ $params = array($studentID);
 $options = array( "Scrollable" => 'static' );
 $query = 
 "SELECT  CN.[ClassName], TC.[Section], T.[LastName], SN.[SessionName], TC.[CoursesID], T.[TeacherID]
-FROM [TeachersCourses] as TC, Teachers as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN
+FROM [Courses] as TC, Teachers as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
       TC.[InstructorID] = T.[TeacherID] AND 
 	  TC.[SessionID] = Ss.[SessionsID] AND

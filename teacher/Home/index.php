@@ -96,16 +96,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <div class="col-xs-6">
                                                 <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
                                             </div>
-                                            <!--<div class="col-xs-1">
-                                                <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a>
-                                            </div>-->
+                                        
                                         
                                         </div>
                                         
                                         
                                         
                                     </div>
-                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
+                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
@@ -129,9 +127,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h4><a href="/Teacher/MyStudents/">My Students</a></h4>
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                    <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;overflow-y: scroll">
+                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
@@ -160,7 +162,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <h4>My Site Activity Queue</h4>
                                     </div>
-                                    <div class="panel-body" style="min-height: 250px;max-height: 250px;overflow-y: scroll">
+                                    <div class="panel-body" style="min-height: 250px;max-height: 250px;">
                                         <form method="POST" id="filterActivityQueue" action="">
                                             <div class="form-group row">
                                                 <div class="col-lg-3 col-md-3 col-sm-4">

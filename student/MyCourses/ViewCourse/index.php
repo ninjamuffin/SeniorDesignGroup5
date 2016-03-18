@@ -72,7 +72,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; overflow-y: scroll">
+                        <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; ">
                             <div class="panel-heading">
                                 <h3>Course Activity Queue</h3>
                             </div>

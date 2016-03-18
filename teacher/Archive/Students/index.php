@@ -76,7 +76,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                 
-                                <div class="panel panel-primary" style="max-height:600px;overflow-y: scroll;">
+                                <div class="panel panel-primary" style="max-height:600px;">
                                     <div class="panel-heading">My Student Archive</div>
                                     
                                     <div class="dropdown">

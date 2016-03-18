@@ -2,6 +2,7 @@
 // Array with names
 
 include '../../base.php';
+/*
 $languages = [];
 
 $languages[] = "Afrikaans";
@@ -164,27 +165,38 @@ $languages[] = "Taiwanese";
 $languages[] = "Tigrinya";
 $languages[] = "Bosnian";
 $languages[] = "Marathi";
+*/
 
-// get the q parameter from URL
-$q = $_REQUEST["q"];
+if(!(empty($_POST['keyword']))){
+    
 
-$hint = "";
-
-// lookup all hints from array if $q is different from "" 
-if ($q !== "") {
-    //$q = strtolower($q);
-    $len=strlen($q);
-    foreach($languages as $language) {
-        if (stristr($q, substr($language, 0, $len))) {
-            if ($hint === "") {
-                $hint = $language;
-            } else {
-                $hint .= ", $language";
-            }
-        }
+    $params = array($_POST['keyword']);
+    $options = array( "Scrollable" => 'static' );
+    $query ="SELECT Top 4 Language, LanguageID FROM Languages WHERE Language like '" . $_POST["keyword"] . "%' ORDER BY Language";
+    $stmt = sqlsrv_query($con, $query, $params, $options);
+    if ($stmt === false)
+        die(print_r(sqlsrv_errors(), true));
+    $languages = [];
+    $ids = [];
+    while (sqlsrv_fetch($stmt) === true)
+    {
+        $languages[] = sqlsrv_get_field($stmt, 0);
+        $ids[] = sqlsrv_get_field($stmt, 1);
     }
-}
+    $length = sqlsrv_num_rows($stmt);
 
-// Output "no suggestion" if no hint was found or output correct values 
-echo $hint === "" ? "no suggestion" : $hint;
+    if(!empty($languages)) {
+    ?>
+        <ul id="language-list" class="form-control">
+        <?php
+            for($i = 0; $i < $length; $i++) 
+            {
+                ?>
+                <li onClick="selectLanguage('<?=$languages[$i]?>', '<?=$ids[$i]?>');">
+                    <?=$languages[$i]?>
+                </li>
+                <?php 
+            } ?>
+        </ul>
+    <?php } }
 ?>

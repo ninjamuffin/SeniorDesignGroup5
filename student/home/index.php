@@ -99,7 +99,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             
                                             
                                     </div>
-                                    <div class="panel-body" style="min-height: 146px; max-height: 146px;overflow-y: scroll">
+                                    <div class="panel-body" style="min-height: 146px; max-height: 146px;">
                                         <table class="table table-hover" data-link="row">
                                             <thead>
                                                 <tr>
@@ -134,7 +134,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <h4>My Activity Queue</h4>
                                     </div>
-                                    <div class="panel-body" style="min-height: 250px;max-height: 250px;overflow-y: scroll">
+                                    <div class="panel-body" style="min-height: 250px;max-height: 250px;">
                                         
                                         <table class="table">
                                             <thead>

@@ -61,7 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         
                         <div class="row">
                             <div class="col-lg-10">
-                                <div class="panel panel-primary" style="min-height: 500px; max-height: 500px;overflow-y: scroll">
+                                <div class="panel panel-primary" style="min-height: 500px; max-height: 500px;">
                                     <div class="panel-heading">Courses Archive</div>
                                     <!-- Select Rows Per Page -->
                                     <div class="row">
@@ -139,7 +139,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $params = array();
     $options = array( "Scrollable" => 'static' );
     $query = "  SELECT  CN.[ClassName], TC.[Section], T.[LastName], SN.SessionName, TC.[CoursesID], TC.[InstructorID]
-                FROM [TeachersCourses] as TC, [Teachers] as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN
+                FROM [Courses] as TC, [Teachers] as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN
                 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
                 TC.[InstructorID] = T.[TeacherID] AND 
                 TC.[SessionID] = Ss.[SessionsID] AND

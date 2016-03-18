@@ -80,7 +80,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <div class="row">
                             <div class="col-lg-8 col-md-10">
-                                <div class="panel panel-primary" style="max-height:500px;overflow-y: scroll;">
+                                <div class="panel panel-primary" style="max-height:500px;">
                                     <div class="panel-heading">Teachers</div>
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

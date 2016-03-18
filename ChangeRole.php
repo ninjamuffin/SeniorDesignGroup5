@@ -35,6 +35,27 @@ foreach($RolesList as $ListedRole)
             $valid = true;
             $_SESSION['Role'] = $targetRole;
             $_SESSION['AccessType'] = $targetAccessType;
+            if ($targetRole == 'Admin')
+            {
+                /*$params = array($_SESSION['username']);
+                $options = array( "Scrollable" => 'static' );*/
+                $instQuery = "SELECT I.InstitutionName FROM Institutions as I, Administrators as A WHERE A.SiteUsername = ? AND I.InstitutionID = A.InstitutionID";
+                $stmt = sqlsrv_query( $con, $instQuery, $params, $options);
+                if ($stmt === false)
+                    die (print_r(sqlsrv_errors(), true));
+                if (sqlsrv_fetch( $stmt ) == true)
+                    $_SESSION['Institution'] = sqlsrv_get_field($stmt, 0);
+            }
+            elseif ($targetRole == 'Student')
+            {
+                $instQuery = "SELECT I.InstitutionName FROM Institutions as I, Students as S WHERE S.SiteUsername = ? AND I.InstitutionID = S.InstitutionID";
+                $stmt = sqlsrv_query( $cont, $instQuery, $params, $options);
+                if ($stmt === false)
+                    die (print_r(sqlsrv_errors(), true));
+                if (sqlsrv_fetch( $stmt ) === true)
+                    $_SESSION['Institution'] = sqlsrv_get_field( $stmt, 0);
+                
+            }
             echo "<meta http-equiv='refresh' content='0;/$targetRole/Home' />";
         }
     }

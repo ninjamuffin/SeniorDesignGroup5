@@ -4,8 +4,8 @@ include '../../../base.php';
 
 if(!empty($_POST["keyword"]))
 {
-    $query = "SELECT TOP 6 S.FirstName,S.LastName,min(Y.Year), max(Y.Year), S.ID
-    FROM Students as S, Year as Y, Enrollment as E, TeachersCourses as TC, Sessions as Ss 
+    $query = "SELECT TOP 100 S.FirstName,S.LastName,min(Y.Year), max(Y.Year), S.ID
+    FROM Students as S, Year as Y, Enrollment as E, Courses as TC, Sessions as Ss 
     WHERE S.LastName LIKE '" . $_POST["keyword"] . "%' AND 
           S.ID in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND 
           E.StudentID = S.ID AND
@@ -40,7 +40,7 @@ if(!empty($_POST["keyword"]))
         background-color: rgb(160,189,81);
     }
 </style>
-<ul id="names-list">
+<ul id="names-list" style="max-height:300px;overflow-y:scroll">
     <?php
         $i = 0;
         foreach($lnames as $lname)

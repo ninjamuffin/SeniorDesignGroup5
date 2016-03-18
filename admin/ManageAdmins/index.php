@@ -60,10 +60,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $lname = sqlsrv_get_field($stmt, 2);
             $designation = sqlsrv_get_field($stmt, 3);
             
-            echo "<tr>";
+          /*  echo "<tr>";
             echo "<td>$institution</td>";
             echo "<td>$fname $lname</td>";
-            echo "<td>$designation</td>";
+            echo "<td>$designation</td>";*/
         }
         ?>
         <body>
@@ -142,7 +142,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-9 col-md-9">
 
-                                <div class="panel panel-primary" style="min-height: 400px; max-height: 400px; overflow-y: scroll">
+                                <div class="panel panel-primary" style="min-height: 400px; max-height: 400px; ">
                                     <div class="panel-heading">Admins</div>
                                     <div class="panel-body">
                                         <table class="table table-hover">

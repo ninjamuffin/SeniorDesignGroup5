@@ -18,7 +18,7 @@
     <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
@@ -46,19 +46,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         $institutionID = isset($_GET['in']) ? $_GET['in'] : 0; // Default Institution = 1
-        if ($institutionID == 0)
-            echo "Error passing GET variable -in-";
-        $params = array($institutionID);
-        $options = array( "Scrollable" => 'static' );
-        $instNameQuery = "SELECT InstitutionName FROM Institutions WHERE InstitutionID = ?";
-        $stmt = sqlsrv_query( $con, $instNameQuery, $params, $options );
         
-        if ($stmt === false)
-            die (print_r(sqlsrv_errors(), true));
-        
-        $instName = '';
-        if (sqlsrv_fetch($stmt) === true)
-            $instName = sqlsrv_get_field( $stmt, 0);
         $username = $_SESSION['Username'];
         $params = array($username);
         $teacherIDQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
@@ -79,11 +67,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $options = array( "Scrollable" => 'static' );
         $CoursesQuery = "
         SELECT TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName
-        FROM TeachersCourses as TC, [Class Names] as CN, [Sessions] as S, SessionNames as SN
+        FROM Courses as TC, [Class Names] as CN, [Sessions] as S, SessionNames as SN
         WHERE TC.InstitutionID = ? AND
 	          TC.InstructorID = ? AND
 		      CN.ClassNamesID = TC.ClassNamesID AND
-		      TC.SessionID > 100 AND
 		      SN.SessionsID = TC.SessionID
               GROUP BY TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName";
         $stmt = sqlsrv_query($con, $CoursesQuery, $params, $options);
@@ -103,6 +90,20 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $SessionNames[] = sqlsrv_get_field( $stmt, 3);
             $length++;
         }
+        
+        $params = array($teacherID);
+        $institutionsQuery = "SELECT DISTINCT I.InstitutionName, I.InstitutionID FROM Institutions as I, TeachingInstance as TI WHERE TI.TeacherID = ? AND I.InstitutionID = TI.InstitutionID";
+        $stmt = sqlsrv_query( $con, $institutionsQuery, $params, $options);
+        if ($stmt === false)
+            die (print_r(sqlsrv(errors(), true)));
+        $institutions = [];
+        $institutionsIDs = [];
+        while (sqlsrv_fetch($stmt) === true)
+        {
+            $institutions[] = sqlsrv_get_field( $stmt, 0);
+            $institutionIDs[] = sqlsrv_get_field( $stmt, 1);
+        }
+            
     ?>        
 
     <body>
@@ -114,21 +115,54 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <span class="hamb-middle"></span>
                     <span class="hamb-bottom"></span>
                 </button>
-                <div class="row">
-                    <div class="col-lg-10">
-                        
-                    </div>
-                        
-                </div>
+                
                 
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
-                            <h2><?=$instName?> Courses</h2>
+                            <h2>My Courses</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+                        <div class="col-sm-8 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Filter Courses
+                                </div>
+                                <div class="panel-body">
+                                    <form method="POST" action="" id="FilterCourses">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6 col-md-4">
+                                                <select class="form-control">
+                                                <?php
+        $i = 0;
+        foreach($institutions as $inst)
+        {
+            if (($institutionID > 0) && ($institutionIDs[$i] == $institutionID))
+            {
+                ?>
+                                                    <option value="<?=$institutionID?>" selected="selected"><?=$inst?></option>
+                                                    <?php
+            }
+            else
+            {
+                ?>
+                                                    <option value="<?=$institutionID?>"><?=$inst?></option>
+                                                    <?php
+            }
+        }?>
+                                                </select>
+                                            
+                                            </div>
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-6">
                             <div class="panel panel-primary">
                                 
                                 <div class="panel-body">

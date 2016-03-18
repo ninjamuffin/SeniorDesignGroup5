@@ -10,7 +10,9 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+<!--
     <link href="/css/advancedsearch.css" rel="stylesheet">
+-->
     <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     
@@ -45,7 +47,7 @@
             controlForm.find('.entry:not(:last) .btn-add')
                 .removeClass('btn-add').addClass('btn-remove')
                 .removeClass('btn-success').addClass('btn-danger')
-                .html('<span class="glyphicon glyphicon-minus"></span>');
+                .html('<span>Remove Word</span>');
         }).on('click', '.btn-remove', function(e)
         {
             $(this).parents('.entry:first').remove();
@@ -63,6 +65,9 @@
         });
     </script>
     <style>
+        #language-list{float:left;list-style:none;margin:0;width:100%;padding:0;}
+        #language-list li{padding: 10px;background-color: #8b8b8b; border-bottom:#F0F0F0 1px solid;border-width:#F0F0F0 1px solid;}
+        #language-list li:hover{background: rgba(56, 110, 128, 1);}
         .btn-add {
             min-height: 34px;
         }
@@ -70,12 +75,13 @@
             min-height: 34px;
         }
         .btn-primary {
-            float: right; 
-            min-width: 200px;
+            /*float: right; */
+            max-width:180px;
             min-height: 34px;
+            position: static;
         }
         .input-group {
-            min-width: 569px;
+            /*min-width: 569px;*/
         }
     </style>
 
@@ -106,93 +112,73 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                                 </button>
                     <div class="container-fluid">
-                        <div class="control-group" id="fields">
-                            <div class="controls">  
-                                <form method="POST" action="" role="form" autocomplete="off">
-                                    <div class="row">
-                                        <div class="col-xs-5">
-<button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-</div>
-                                    </div>
-                                    <!--Data entry for Level, Language, Topic-->
-                                      
-                                    <div class="entry row">
-                                            <div class=" container">
-                                                <div class=" panel panel-primary">
-                                                    <div class="panel-body">
-                                                        <div class="row">
-                                                        <div class="col-lg-10">
-                                                            <div class="form-group row" id="adv-search">
-                                                                <div class="col-lg-1"><span class="input-group-btn">
-                                                                <button class="btn btn-success btn-add" type="button">
-                                                                <span class="glyphicon glyphicon-plus"></span>
-                                                                </button>
-                                                                </span>
-                                                                    </div>
-                                                                <div class="col-lg-6">
-                                                                <input type="text" class="form-control" name="words[]" placeholder="Search for a word">
-                                                                    </div>
-                                                                <div class="col-lg-3">
-                                                                <select class="form-control" name="PoS_One" id="PoS_One">
-                                                                    <option selected="selected">--PartOfSpeech Category</option>
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                </select>
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                        </div>
-                                                            </div>
-    <!--
-    -->
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        
-                                    </div>
-                                </form>                                     
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <h2>Gonzaga University Smalltalk Corpus</h2>
                             </div>
                         </div>
-                                
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <form method="POST" action="" role="form">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            <h4>Filter Results</h4>
-                                        </div>
-                                                <div class="panel-body">
-                                                    <div class="form-group row">
-                                                        <div class="form-group col-lg-4">
-                                                            <select style="width:150px;" class="form-control" name="Level" id="Level">
-                                                                <option selected="selected">Level</option>
-                                                                <option value="1">1 (099-100)</option>
-                                                                <option value="2">2 (101-102)</option>
-                                                                <option value="3">3 (103-104)</option>
-                                                                <option value="4">4 (105-106)</option>
-                                                                <option value="5">5 (107-108)</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-lg-4">
-                                                            <input style="width:150px;" class="form-control" type="text" onkeyup="showHint(this.value)" name="Language" id="Language" placeholder="Language" >
-                                                        <p>Suggestions: <span id="txtHint"></span></p>
+                        <div class="controls">  
+                            <div class="row">
+                                <form method="POST" role="form" id="WordsForm" autocomplete="off">
 
-                                                        </div>
-                                                        <div class="form-group col-lg-4">
-                                                            <input style="width:150px;" class="form-control" type="text" name="Topic" id="Topic" placeholder="Topic" >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                
-                                </form>
-                                    </div>
-                                </div>
+                                    <div class="entry">    
+                                        <div class="col-sm-5 col-xs-4">
+                                            <input type="text" class="form-control" name="words[]" placeholder="Word">                                             
+                                        </div>
+                                        <div class="col-xs-5 col-sm-3">
+                                            <input class="form-control" name="PoS[]" placeholder="Part of Speech">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-add" type="button">
+                                                    <span>Add a Word</span>
+                                                </button>
+                                            </span>   
+                                        </div>
+                                    </div> 
+                                </form> 
+                            </div>
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button type="submit" class="btn btn-primary" form="WordsForm">
+                                    Search
+                                </button>  
+                            </div>
+                        </div>
+                            
+                        <hr>       
                         
                         <div class="row">
+                            <div class="col-sm-4 col-lg-3">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Filter Results by Category
+                                    </div>
+                                    <div class="panel-body">
+                                        <select form="WordsForm" class="form-control" name="Level" id="Level" value="<?php echo isset($_POST['Level']) ? $_POST['Level'] : '' ?>">
+                                            <option selected="selected"><?php echo isset($_POST['Level']) ? $_POST['Level'] : '--Select Level--' ?></option>
+                                            <option value="Entry">Entry</option>
+                                            <option value="Basic">Basic</option>
+                                            <option value="Intermediate">Intermediate</option>
+                                            <option value="Advanced">Advanced</option>
+                                            <option value="Seminar">Seminar</option>
+                                        </select>
+                                        <input form="WordsForm" class="form-control" type="text" onkeyup="showHint(this.value)" name="language-search" id="language-search" placeholder="Language" value="<?php echo isset($_POST['language-search']) ? $_POST['language-search'] : '' ?>">
+                                        <div id="languages-box"></div>
+                                        <input form="WordsForm" class="form-control" type="text" name="Topic" id="Topic" placeholder="Topic" >
+                                        <input form="WordsForm" hidden id="language-id" name="language-id">
+                                        <input form="WordsForm" hidden id="topic-id" name="topic-id">
+                                        <br>
+                                        <button class="btn btn-primary pull-right" form="WordsForm" type="submit">Submit</button>
+                                    </div>
+                                
+                                </div>
+                                        
+
+                            </div>
                             <div class="col-lg-8">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
@@ -209,11 +195,22 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Level</th>
                                                 </tr>
                                             </thead>
-                                            
+                                            <tbody>
+                                            <?php
+        if (!(empty($_POST['words'])))
+        {
+            $words = $_POST['words'];  
+            
+            foreach($words as $word)
+                echo $word;
+        }
+        ?>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
 
 
@@ -223,22 +220,26 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 </div>
             <script>
             
-            function showHint(str) {
-                if (str.length == 0) { 
-                    document.getElementById("txtHint").innerHTML = "";
-                    return;
-                } else {
-                    var xmlhttp = new XMLHttpRequest();
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                        }
-                    };
-                    xmlhttp.open("GET", "getlanguage.php?q=" + str, true);
-                    xmlhttp.send();
-                }
-            }
             
+            $(document).ready(function(){
+                $("#language-search").keyup(function(){
+                    $.ajax({
+                    type: "POST",
+                    url: "getlanguage.php",
+                    data:'keyword='+$(this).val(),
+                    
+                    success: function(data){
+                        $("#languages-box").show();
+                        $("#languages-box").html(data);
+                    }
+                    });
+                });
+            });
+            function selectLanguage(val, id) {
+                $("#language-search").val(val);
+                $("#language-id").val(id);
+                $("#languages-box").hide();
+            }
             </script>
 </body>
     <?php

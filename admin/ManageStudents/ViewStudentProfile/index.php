@@ -73,7 +73,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-7 col-sm-8"> 
-                                <div class="panel panel-primary" style="min-height: 280px;max-height: 280px;overflow-y: scroll">
+                                <div class="panel panel-primary" style="min-height: 280px;max-height: 280px;">
                                     <div class="panel-heading">
                                         <h4>Recent Courses</h4>
                                     </div>
@@ -115,7 +115,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         
                         <div class="row">
                             <div class="col-lg-10 col-md-10">        
-                                <div class="panel panel-primary" style="min-height: 400px;max-height: 400px; overflow-y: scroll">
+                                <div class="panel panel-primary" style="min-height: 400px;max-height: 400px; ">
                                     <div class="panel-heading">
                                         <h3>Completed Worksheets</h3>
                                     </div>

@@ -42,6 +42,15 @@
         }
         if($_SESSION['Role'] == 'Admin')
         {
+            $params = array($_SESSION['Institution']);
+            $options = array( "Scrollable" => 'static' );
+            $instIDQuery = "SELECT InstitutionID FROM Institutions WHERE InstitutionName = ?";
+            $stmt = sqlsrv_query ( $con, $instIDQuery, $params, $options );
+            if ( $stmt === false )
+                die (print_r(sqlsrv_errors(), true));
+            if ( sqlsrv_fetch ($stmt) === true)
+                $institutionID = sqlsrv_get_field( $stmt, 0);
+            
             
             ?>
             <body>
@@ -96,8 +105,20 @@
             {
                 ?>
                                     <a href="/Admin/ManageAdmins/">Admins <small class="text-muted">Superuser</small></a>
+                                    <a href="/Admin/ManageInstitutions/">Institutions <small class="text-muted">Superuser</small></a>
                                     <?php
-            }?>
+                
+            }
+            else
+            {
+                if ( ($_SESSION['Designation'] == 'Primary') || ($_SESSION['Designation'] == 'Developer'))
+                {
+                    ?>
+                                    <a href="/Admin/ManageInstitutions/ViewInstitution/?in=<?=$institutionID?>"><?=$_SESSION['Institution']?></a>
+                                    <?php
+                }
+            }
+                                    ?>
                                     <a href="/Admin/ManageCorpus/">Corpus</a>
                                     <a href="/Admin/ManageCourses/">Courses</a>
                                     <a href="/Admin/ManageTeachers/">Teachers</a>

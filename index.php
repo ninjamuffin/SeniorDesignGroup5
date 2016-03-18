@@ -69,7 +69,7 @@
         $username = $_POST['username'];
         $password = md5($_POST['password'] . $salt);
         $loginquery = "
-SELECT DISTINCT SU.[user_id],SU.[username],SU.[password],SU.[date_added], R.[Role], R.[Type]
+SELECT DISTINCT SU.[user_id], SU.[username], SU.[password], SU.[date_added], R.[Role], R.[Type], R.[Designation]
 FROM SiteUsers as SU, RoleInstances as RI, Roles as R
 WHERE SU.username = ? AND
       SU.[password] = ? AND
@@ -94,12 +94,13 @@ WHERE SU.username = ? AND
             $_SESSION['LoggedIn'] = 1;
             $_SESSION['Role'] = $role;
             $_SESSION['AccessType'] = $row['Type'];
+            $_SESSION['Designation'] = $row['Designation'];
             
             if ($role == 'Admin')
             {
                 $params = array($username);
                 $options = array( "Scrollable" => 'static');
-                $query = "SELECT FirstName, LastName, Email FROM Administrators WHERE SiteUsername = ?";
+                $query = "SELECT A.FirstName, A.LastName, A.Email, I.InstitutionName FROM Administrators as A, Institutions as I WHERE A.SiteUsername = ? AND I.InstitutionID = A.InstitutionID";
                 $stmt = sqlsrv_query($con, $query, $params, $options);
                 if ($stmt === false)
                     die( print_r( sqlsrv_errors(), true));
@@ -108,6 +109,8 @@ WHERE SU.username = ? AND
                     $first_name = sqlsrv_get_field( $stmt, 0);
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
+                    $institution = sqlsrv_get_field( $stmt, 3);
+                    $_SESSION['Institution'] = $institution;
                 }
                 
             }
@@ -132,7 +135,7 @@ WHERE SU.username = ? AND
             {
                 $params = array($username);
                 $options = array( "Scrollable" => 'static');
-                $query = "SELECT FirstName, LastName, Email FROM Students WHERE SiteUsername = ?";
+                $query = "SELECT S.FirstName, S.LastName, S.Email, I.InstitutionName FROM Students as S, Institutions as I WHERE SiteUsername = ? and I.InstitutionID = S.InstitutionID";
                 $stmt = sqlsrv_query($con, $query, $params, $options);
                 if ($stmt === false)
                     die( print_r( sqlsrv_errors(), true));
@@ -141,6 +144,8 @@ WHERE SU.username = ? AND
                     $first_name = sqlsrv_get_field( $stmt, 0);
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
+                    $institution = sqlsrv_get_field( $stmt, 3);
+                    $_SESSION['Institution'] = $institution;
                 }
 
             }

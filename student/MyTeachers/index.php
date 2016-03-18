@@ -58,7 +58,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="panel panel-primary" style="min-height: 450px;max-height: 450px;overflow-y: scroll">
+                        <div class="panel panel-primary" style="min-height: 450px;max-height: 450px;">
                             <div class="panel-heading">
                                 <h3>Teachers</h3>
                             </div>

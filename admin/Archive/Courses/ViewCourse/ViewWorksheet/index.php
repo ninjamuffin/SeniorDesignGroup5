@@ -73,7 +73,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $options = array( "Scrollable" => 'static');
             $courseInfoQuery = "
               SELECT TC.CoursesID, CN.ClassName, TC.Section, T.FirstName, T.LastName, SN.SessionName, I.InstitutionName
-            FROM TeachersCourses as TC, [Class Names] as CN, Teachers as T, Sessions as Ss, SessionNames as SN, Institutions as I
+            FROM Courses as TC, [Class Names] as CN, Teachers as T, Sessions as Ss, SessionNames as SN, Institutions as I
             WHERE TC.CoursesID = ? AND
                   CN.ClassNamesID = TC.ClassNamesID AND
                   T.TeacherID = TC.InstructorID AND

@@ -70,7 +70,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $options = array( "Scrollable" => 'static');
             $courseInfoQuery = "
             SELECT TC.CoursesID, CN.ClassName, TC.Section, T.FirstName, T.LastName, SN.SessionName, I.InstitutionName
-            FROM TeachersCourses as TC, [Class Names] as CN, Teachers as T, Sessions as Ss, SessionNames as SN, Institutions as I
+            FROM Courses as TC, [Class Names] as CN, Teachers as T, Sessions as Ss, SessionNames as SN, Institutions as I
             WHERE TC.CoursesID = ? AND
                   CN.ClassNamesID = TC.ClassNamesID AND
                   T.TeacherID = TC.InstructorID AND
@@ -98,7 +98,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div> 
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="panel panel-primary" style="max-height:350px; overflow-y: scroll">
+                                <div class="panel panel-primary" style="max-height:350px; ">
                                     <div class="panel-heading">Worksheet display</div>
                                     <div class="panel-body">
                                         <table class="table table-hover">

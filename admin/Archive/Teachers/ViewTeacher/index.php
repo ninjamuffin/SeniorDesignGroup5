@@ -86,7 +86,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             
             $firstYearRangeQuery = "
             SELECT min(Y.Year) 
-	        FROM Year as Y, Sessions as Ss, TeachersCourses as TC 
+	        FROM Year as Y, Sessions as Ss, Courses as TC 
 	        WHERE	TC.InstructorID = ? AND
 			        Ss.SessionsID = TC.SessionID AND
 			        Y.ID = Ss.Year_ID";
@@ -100,7 +100,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
             $lastYearRangeQuery = "
             SELECT max(Y.Year) 
-	        FROM Year as Y, Sessions as Ss, TeachersCourses as TC 
+	        FROM Year as Y, Sessions as Ss, Courses as TC 
 	        WHERE	TC.InstructorID = ? AND
 			        Ss.SessionsID = TC.SessionID AND
 			        Y.ID = Ss.Year_ID";
@@ -182,7 +182,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 $options = array( "Scrollable" => 'static' );
                                                 $query = 
 "SELECT  CN.[ClassName], I.InstitutionName, TC.[Section], SN.[SessionName], TC.[CoursesID]
-FROM [TeachersCourses] as TC, [Teachers] as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN, Institutions as I, TeachingInstance as TI
+FROM [Courses] as TC, [Teachers] as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN, Institutions as I, TeachingInstance as TI
 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
       TC.[InstructorID] = T.[TeacherID] AND 
       TC.CoursesID in (SELECT [Teachers&ClassesID] from Expressions) AND

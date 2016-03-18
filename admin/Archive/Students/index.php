@@ -29,6 +29,11 @@ include "../../../base.php";
         });
     </script>
     <style>
+        #div .bg1
+        {
+            background: url(/Media/circle-loading-gif.gif);
+            background-size: 30px 30px;
+        }
         #names-list{float:left;list-style:none;margin:0;width:100%;padding:0;}
         #names-list li{padding: 10px;background-color: #8b8b8b; border-bottom:#F0F0F0 1px solid;border-width:#F0F0F0 1px solid;}
         #names-list li:hover{background: rgba(56, 110, 128, 1);}
@@ -92,7 +97,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-8 col-md-10">
                                 
-                                <div class="panel panel-primary" style="max-height:600px;overflow-y: scroll;">
+                                <div class="panel panel-primary" style="max-height:600px;">
                                     <div class="panel-heading">Student Archive</div>
                                     
                                     <div class="dropdown">
@@ -204,13 +209,9 @@ E.[Student_ID] = S.[ID]";
                     type: "POST",
                     url: "RetrieveStudentNames.php",
                     data:'keyword='+$(this).val(),
-                    /*beforeSend: function(){
-                        var loadingIcon = document.createElement("span");
-                        loadingIcon.className ="spinner";
-                        var icon = loadingIcon.createElement("i");
-                        icon.className = "icon-spin icon-refresh";
-                        $("#search-box").appendChild(loadingIcon);
-                    },*/
+                    beforeSend: function(){
+                        $("#search-box").css("background", "url(/Media/LoadingIcon.gif)")
+                    },
                     success: function(data){
                         
                         $("#suggesstion-box").show();

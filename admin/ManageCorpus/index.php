@@ -71,7 +71,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                             
                             <div class="col-lg-5 col-md-5 col-sm-6">
-                                <div class="panel panel-primary" style="min-height: 310px;max-height: 310px;overflow-y: scroll">
+                                <div class="panel panel-primary" style="min-height: 310px;max-height: 310px;">
                                     <div class="panel-heading">
                                         <h4>Corpus Administrators</h4>
                                     </div>

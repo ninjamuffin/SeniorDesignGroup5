@@ -118,7 +118,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-9 col-md-9">
 
-                                <div class="panel panel-primary" style="min-height: 400px; max-height: 400px; overflow-y: scroll">
+                                <div class="panel panel-primary" style="min-height: 400px; max-height: 400px; ">
                                     <div class="panel-heading">Students</div>
                                     <div class="panel-body">
                                         <table class="table table-hover">
