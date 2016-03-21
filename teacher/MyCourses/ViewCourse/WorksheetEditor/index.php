@@ -124,7 +124,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <div class="panel panel-default col-md-6">
                                                     <div class="panel-heading">Worksheet Info</div>
                                                         <div class="panel-body">
-                                                            <h2 class="page-header">Course: Generated from page</h2>
+                                                            <h2>Course: Generated from page</h2>
                                                             <h5>Worksheet Number: Generated from page</h5>
                                                             <h5>Date: Generated dynamically</h5>
                                                             <h5>Topic: Form submission</h5>
