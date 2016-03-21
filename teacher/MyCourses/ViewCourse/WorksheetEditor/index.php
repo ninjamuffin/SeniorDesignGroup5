@@ -107,10 +107,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <section class="container col-xs-12">                     
                     <!--body-->
                     <div id="wrapper">
-                        <div id="sidebar"></div>
+                        <div id = "sidebar"></div>
                         <div id="page-content-wrapper">
                                 <div class="container-fluid">
-                                    <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12">
                                         <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                             <span class="hamb-top"></span>
                                             <span class="hamb-middle"></span>
@@ -194,6 +195,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                                             <!-- END PAGE CONTENT -->
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                     </div>
