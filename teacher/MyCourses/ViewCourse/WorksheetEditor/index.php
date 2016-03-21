@@ -121,7 +121,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <!-- BEGIN PAGE CONTENT -->
                                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="panel panel-default row">
+                                    <div class="panel panel-default">
                                         <div class="panel-heading">Worksheet Info</div>
                                         <div class="panel-body">
                                             <h2 class="page-header">Course: Generated from page</h2>
