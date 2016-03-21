@@ -107,12 +107,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <section class="container col-xs-12">                     
                     <!--body-->
                     <div id="wrapper">
-
                         <div id = "sidebar"></div>
                         <div id="page-content-wrapper">
                                 <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-lg-12">
+                                    <div class="col-lg-12">
                                         <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                             <span class="hamb-top"></span>
                                             <span class="hamb-middle"></span>
@@ -123,11 +121,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">Worksheet Info</div>
-                                        <div class="panel-body">
-                                            <h2 class="page-header">Course: Generated from page</h2>
-                                            <h5>Worksheet Number: Generated from page</h5>
-                                            <h5>Date: Generated dynamically</h5>
-                                            <h5>Topic: Form submission</h5>
+                                        <div class="row">
+                                            <div class="panel-body col-md-6">
+                                                <h2 class="page-header">Course: Generated from page</h2>
+                                                <h5>Worksheet Number: Generated from page</h5>
+                                                <h5>Date: Generated dynamically</h5>
+                                                <h5>Topic: Form submission</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="entry panel panel-default" style="top-margin:40px;">
@@ -194,7 +194,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                                             <!-- END PAGE CONTENT -->
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                     </div>
