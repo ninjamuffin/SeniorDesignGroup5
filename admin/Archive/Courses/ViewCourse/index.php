@@ -45,7 +45,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         $courseID = isset($_GET['courseID']) ? $_GET['courseID'] : 0;
-        if ($courseID == 0)
+        if (false)
             echo "<meta http-equiv='refresh' content=0;../";
         else
         {

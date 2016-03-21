@@ -4616,11 +4616,13 @@ a.list-group-item:focus {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
   overflow-x: auto;
+  
 }
     
 }
 .panel-body {
   padding: 15px;
+  
 }
 .panel-body:before,
 .panel-body:after {
