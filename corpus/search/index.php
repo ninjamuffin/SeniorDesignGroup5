@@ -143,8 +143,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </div>
                                         <div class="col-xs-5 col-sm-3">
                                             <input class="form-control" name="PoS[]" id="PoS[]" placeholder="Part of Speech">
+                                            <!--<div class="btn-group" id="PoS-suggest" ></div>-->
                                         </div>
-                                        <div id="PoS-suggest" ></div>
+                                        
                                         <div class="col-xs-2">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success btn-add" type="button">
@@ -184,8 +185,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <option value="Seminar">Seminar</option>
                                         </select>
                                         <input form="WordsForm"class="form-control" type="text" onkeyup="showHint(this.value)" name="language-search" id="language-search" placeholder="Language" value="<?php echo isset($_POST['language-search']) ? $_POST['language-search'] : '' ?>">
-                                        <div class="row" id="languages-box"></div>
-                                        <input form="WordsForm" class="form-control" type="text" name="Topic" id="Topic" placeholder="Topic" >
+                                        <div id="languages-box"></div>
+                                        <input form="WordsForm" class="form-control" type="text" name="Topic" id="Topic" placeholder="Topic Keywords" >
                                         <input form="WordsForm" hidden id="language-id" name="language-id">
                                         <input form="WordsForm" hidden id="topic-id" name="topic-id">
                                         <br>
@@ -246,7 +247,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             
             window.prevFocus = $();
             $(document).on('focusin', ':input', function() {
-                $("#prev").html(prevFocus.text() || prevFocus.val());
+                
                 window.prevFocus = $(this);
             });
             $(document).ready(function(){
@@ -267,7 +268,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     
                    
             });
-            $(document).on("keyup", 'input[name^=PoS]', function(){
+            /*$(document).on("keyup", 'input[name^=PoS]', function(){
                 $(this).closest( "div.entry").css("background-color", "red");
                 $.ajax({
                     type: "POST",
@@ -280,9 +281,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 });
             });
             function selectTag(val) {
-                $(window.prevFocus).val(val);
+                $(window.prevPrevFocus).val(val);
                 $("#PoS-suggest").hide();
-            }
+            }*/
             function selectLanguage(val, id) {
                 $("#language-search").val(val);
                 $("#language-id").val(id);

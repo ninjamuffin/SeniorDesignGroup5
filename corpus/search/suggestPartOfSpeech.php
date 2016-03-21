@@ -28,7 +28,10 @@ if(!(empty($_POST['keyword']))){
 
     if(!empty($tags)) {
     ?>
-        <ul id="tags-list" class="form-control">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            See Suggestions <span class="caret"></span>
+        </button>
+        <ul id="tags-list" class="dropdown-menu">
         <?php
             for($i = 0; $i < $length; $i++) 
             {

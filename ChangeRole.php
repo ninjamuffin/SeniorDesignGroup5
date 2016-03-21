@@ -49,7 +49,7 @@ foreach($RolesList as $ListedRole)
             elseif ($targetRole == 'Student')
             {
                 $instQuery = "SELECT I.InstitutionName FROM Institutions as I, Students as S WHERE S.SiteUsername = ? AND I.InstitutionID = S.InstitutionID";
-                $stmt = sqlsrv_query( $cont, $instQuery, $params, $options);
+                $stmt = sqlsrv_query( $con, $instQuery, $params, $options);
                 if ($stmt === false)
                     die (print_r(sqlsrv_errors(), true));
                 if (sqlsrv_fetch( $stmt ) === true)
