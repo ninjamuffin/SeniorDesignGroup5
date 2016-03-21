@@ -68,6 +68,11 @@
         #language-list{float:left;list-style:none;margin:0;width:100%;padding:0;}
         #language-list li{padding: 10px;background-color: #8b8b8b; border-bottom:#F0F0F0 1px solid;border-width:#F0F0F0 1px solid;}
         #language-list li:hover{background: rgba(56, 110, 128, 1);}
+        
+        #tags-list{float:left;list-style:none;margin:0;width:100%;padding:0;opacity: 1;}
+        #tags-list li{padding: 10px;background-color: #8b8b8b; border-bottom:#F0F0F0 1px solid;border-width:#F0F0F0 1px solid;}
+        #tags-list li:hover{background: rgba(56, 110, 128, 1);}
+        
         .btn-add {
             min-height: 34px;
         }
@@ -82,6 +87,12 @@
         }
         .input-group {
             /*min-width: 569px;*/
+        }
+        .input {
+            position:relative;
+        }
+        .select {
+            position:relative;
         }
     </style>
 
@@ -117,17 +128,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <h2>Gonzaga University Smalltalk Corpus</h2>
                             </div>
                         </div>
+                        <hr>
                         <div class="controls">  
                             <div class="row">
+                                <div class="col-xs-10">
+                                    <strong>Search for a string of words:</strong>    
+                                </div>
+                            </div>
+                            <div class="row">
                                 <form method="POST" role="form" id="WordsForm" autocomplete="off">
-
                                     <div class="entry">    
                                         <div class="col-sm-5 col-xs-4">
                                             <input type="text" class="form-control" name="words[]" placeholder="Word">                                             
                                         </div>
                                         <div class="col-xs-5 col-sm-3">
-                                            <input class="form-control" name="PoS[]" placeholder="Part of Speech">
+                                            <input class="form-control" name="PoS[]" id="PoS[]" placeholder="Part of Speech">
                                         </div>
+                                        <div id="PoS-suggest" ></div>
                                         <div class="col-xs-2">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success btn-add" type="button">
@@ -166,8 +183,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <option value="Advanced">Advanced</option>
                                             <option value="Seminar">Seminar</option>
                                         </select>
-                                        <input form="WordsForm" class="form-control" type="text" onkeyup="showHint(this.value)" name="language-search" id="language-search" placeholder="Language" value="<?php echo isset($_POST['language-search']) ? $_POST['language-search'] : '' ?>">
-                                        <div id="languages-box"></div>
+                                        <input form="WordsForm"class="form-control" type="text" onkeyup="showHint(this.value)" name="language-search" id="language-search" placeholder="Language" value="<?php echo isset($_POST['language-search']) ? $_POST['language-search'] : '' ?>">
+                                        <div class="row" id="languages-box"></div>
                                         <input form="WordsForm" class="form-control" type="text" name="Topic" id="Topic" placeholder="Topic" >
                                         <input form="WordsForm" hidden id="language-id" name="language-id">
                                         <input form="WordsForm" hidden id="topic-id" name="topic-id">
@@ -204,6 +221,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             foreach($words as $word)
                 echo $word;
         }
+        if (!(empty($_POST['PoS'])))
+        {
+            $PoS = $_POST['PoS'];  
+            $len = count($PoS);
+            for($i = 0; $i < $len; $i++)
+                echo $PoS[$i];
+        }
         ?>
                                             </tbody>
                                         </table>
@@ -220,7 +244,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 </div>
             <script>
             
-            
+            window.prevFocus = $();
+            $(document).on('focusin', ':input', function() {
+                $("#prev").html(prevFocus.text() || prevFocus.val());
+                window.prevFocus = $(this);
+            });
             $(document).ready(function(){
                 $("#language-search").keyup(function(){
                     $.ajax({
@@ -234,7 +262,27 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     }
                     });
                 });
+                
+                
+                    
+                   
             });
+            $(document).on("keyup", 'input[name^=PoS]', function(){
+                $(this).closest( "div.entry").css("background-color", "red");
+                $.ajax({
+                    type: "POST",
+                    url: "suggestPartOfSpeech.php",
+                    data:'keyword='+$(this).val(),
+                    success: function(data){
+                        $("#PoS-suggest").show();
+                        $("#PoS-suggest").html(data);
+                    }
+                });
+            });
+            function selectTag(val) {
+                $(window.prevFocus).val(val);
+                $("#PoS-suggest").hide();
+            }
             function selectLanguage(val, id) {
                 $("#language-search").val(val);
                 $("#language-id").val(id);
