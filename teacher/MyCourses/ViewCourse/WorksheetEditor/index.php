@@ -138,7 +138,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                     <div class="entry panel panel-default" style="top-margin:40px;">
                                         <div class="panel-heading">Expressions</div>
-                                        <div class=" panel-body">
+                                        <div class="panel-body">
                                             <div class="control-group controls" id="fields">
                                                 <form method="POST" name="Expressions[]" id="Expressions[]">
                                                     <div class="form-group row">
