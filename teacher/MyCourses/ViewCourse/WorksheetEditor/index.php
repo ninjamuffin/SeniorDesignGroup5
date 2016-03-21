@@ -107,7 +107,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             <section class="container col-xs-12">                     
                     <!--body-->
                     <div id="wrapper">
-                        <div id = "sidebar"></div>
+                        <div id="sidebar"></div>
                         <div id="page-content-wrapper">
                                 <div class="container-fluid">
                                     <div class="col-lg-12">
@@ -117,7 +117,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <span class="hamb-bottom"></span>
                                         </button>
                                             <!-- BEGIN PAGE CONTENT -->
-                                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">Worksheet Info</div>
@@ -191,7 +190,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                             </div>
 
                                 </div>
-                            </div>
                                             <!-- END PAGE CONTENT -->
                                         </div>
                                 </div>
