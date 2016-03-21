@@ -116,7 +116,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <span class="hamb-bottom"></span>
                             </button>
                             <!-- BEGIN PAGE CONTENT -->
-                            <div class="col-lg-12">
+                            <div class="col-xs-12">
                                 <div class="row">
                                     <div class="panel panel-default col-xs-6">
                                         <div class="panel-heading">Worksheet Info</div>
