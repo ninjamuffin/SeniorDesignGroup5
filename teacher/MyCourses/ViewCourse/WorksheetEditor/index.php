@@ -117,7 +117,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                                 </button>
                                 <!-- BEGIN PAGE CONTENT -->
-                                <div class="row">
                                 <div class="col-lg-12">
                                     <div class="row">
                                         <div class="panel panel-default col-md-6">
@@ -170,7 +169,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
                                                 </form>
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
                                     <div class="input-group" id="adv-search">
                                         <span class="input-group-btn">
@@ -180,7 +179,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </span>
                                     </div>
 
-                                </div>
                                 </div>
                                 <!-- END PAGE CONTENT -->
                             </div>
