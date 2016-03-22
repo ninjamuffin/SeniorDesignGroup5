@@ -39,6 +39,7 @@
             $("#sidebar").load("/sidebar.php");
         });
     </script>
+    
     <script type="text/javascript">$(function()
     {
         $(document).on('click', '.btn-add', function(e)
@@ -62,6 +63,7 @@
         });
     });
     </script>
+    
     <!-- Background Setup -->
     <style>
         .dropdown-backdrop {
@@ -143,14 +145,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <form method="POST" action="/Student/MyCourses/ViewCourse/WorksheetEditor/">
-                                                                <td>1</td>
-                                                                <td><div id="Expression">I no understand English<input type="text" name="myInputs[]"></div></td>
-                                                                <td class="text-danger">Incomplete</td>
-                                                                <td>
-                                                                    <button type="submit" class="btn btn-primary">Edit</button>
-                                                                </td>
-                                                            </form>
+                                                            <td>1</td>
+                                                            <td>I no understand English</td>
+                                                            <td class="text-danger">Incomplete</td>
+                                                            <td>
+                                                                <div class="input-group" id="adv-search">
+                                                                    <button type="button" class="btn btn-primary btn-add pull-right">Edit</button>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
