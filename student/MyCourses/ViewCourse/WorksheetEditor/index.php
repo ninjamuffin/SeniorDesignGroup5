@@ -1,4 +1,4 @@
-<!-- Edit Worksheet (index.php) for Teacher account -->
+<!-- Edit Worksheet (index.php) for Student account -->
 
 <?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
@@ -163,34 +163,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body">
                                         <div class="control-group controls" id="fields">
                                             <form method="POST" name="Expressions[]" id="Expressions[]">
-                                                <div class="form-group row">
-                                                    <div class="col-xs-4 col-md-6">
-                                                        <select class="form-control">
-                                                            <option selected="selected">--Student--</option>
-                                                            <option>Student 1</option>
-                                                            <option>Student 2</option>
-                                                            <option>Student 3</option>
-                                                            <option>Student 4</option>
-                                                            <option>Student 5</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        <input type="checkbox" style="font-size:25px;" class="glyphicon glyphicon-star-empty" >
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-xs-12">
-                                                        <input type="text" class="form-control input-md" placeholder="Expression">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-xs-7">
-                                                        <input type="text" class="form-control input-md" placeholder="Vocab/Context">
-                                                    </div>
-                                                    <div class="col-xs-5">
-                                                        <input type="text" class="form-control input-md" placeholder="Pronunciation">
-                                                    </div>
-                                                </div>
                                                 <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
                                             </form>
                                         </div>
