@@ -118,19 +118,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <!-- BEGIN PAGE CONTENT -->
                             <div class="col-xs-12">
                                 <div class="row">
-                                    <div class="panel panel-default col-xs-6">
-                                        <div class="panel-heading">Worksheet Info</div>
-                                        <div class="panel-body">
-                                            <h2>Course: Generated from page</h2>
-                                            <h5>Worksheet Number: Generated from page</h5>
-                                            <h5>Date: Generated dynamically</h5>
-                                            <h5>Topic: Form submission</h5>
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">Worksheet Info</div>
+                                            <div class="panel-body">
+                                                <h2>Course: Generated from page</h2>
+                                                <h5>Worksheet Number: Generated from page</h5>
+                                                <h5>Date: Generated dynamically</h5>
+                                                <h5>Topic: Form submission</h5>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default col-xs-6">
-                                    <div class="panel-heading">Worksheet Overview</div>
-                                        <div class="panel-body">
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default">
+                                        <div class="panel-heading">Worksheet Overview</div>
+                                            <div class="panel-body">
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
