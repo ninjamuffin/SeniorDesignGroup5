@@ -144,7 +144,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <tbody>
                                                         <tr>
                                                             <td>1</td>
-                                                            <td>I no understand English</td>
+                                                            <td><div>I no understand English</div></td>
                                                             <td class="text-danger">Incomplete</td>
                                                             <td>
                                                                 <form method="POST" action="/Student/MyCourses/ViewCourse/WorksheetEditor/">
@@ -167,13 +167,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </form>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="input-group" id="adv-search">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success btn-add" type="button">
-                                            New Expression
-                                        </button>
-                                    </span>
                                 </div>
                             </div>
                             <!-- END PAGE CONTENT -->
