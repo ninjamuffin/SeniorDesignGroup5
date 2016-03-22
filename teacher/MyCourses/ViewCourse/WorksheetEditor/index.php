@@ -158,8 +158,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <input type="checkbox" style="font-size:25px;" class="glyphicon glyphicon-star-empty" >
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-12">
-                                                    <input type="text" class="form-control input-md" placeholder="Expression">
+                                                <div class="form-group row">
+                                                    <div class="col-xs-12">
+                                                        <input type="text" class="form-control input-md" placeholder="Expression">
+                                                    </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-xs-7">
