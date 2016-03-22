@@ -143,14 +143,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td><div>I no understand English</div></td>
-                                                            <td class="text-danger">Incomplete</td>
-                                                            <td>
-                                                                <form method="POST" action="/Student/MyCourses/ViewCourse/WorksheetEditor/">
-                                                                    <button type="submit" class="btn btn-primary">Edit</button>
-                                                                </form>
-                                                            </td>
+                                                            <form method="POST" action="/Student/MyCourses/ViewCourse/WorksheetEditor/">
+                                                                <td>1</td>
+                                                                <td><div id="Expression">I no understand English<input type="text" name="myInputs[]"></div></td>
+                                                                <td class="text-danger">Incomplete</td>
+                                                                <input type="button" value="Edit Expression" onclick="addExpression('Expression')">
+                                                            </form>
                                                         </tr>
                                                     </tbody>
                                                 </table>
