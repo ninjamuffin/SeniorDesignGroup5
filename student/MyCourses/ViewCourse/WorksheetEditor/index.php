@@ -1,4 +1,5 @@
-<!-- Edit Worksheet page (index.html) for Student account -->
+<!-- Edit Worksheet (index.php) for Teacher account -->
+
 <?php include "../../../../base.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,25 +11,63 @@
     <title> Gonzaga Small Talk</title>
 
     <!-- Bootstrap -->
-    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
-    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    
+    <style>
+    .glyphicon:before {
+     visibility: visible;
+    }
+    .glyphicon.glyphicon-star-empty:checked:before {
+       content: "\e006";
+    }
+    input[type=checkbox].glyphicon{
+        visibility: hidden;
+
+    }
+    </style>
+    
     <script>
-        $(function(){
-            $("#header").load("/header.php");
-        });
+        
         $(function(){
             $("#sidebar").load("/sidebar.php");
         });
     </script>
+    <script type="text/javascript">$(function()
+    {
+        $(document).on('click', '.btn-add', function(e)
+        {
+            e.preventDefault();
 
+            var controlForm = $('.controls form:last'),
+                currentEntry = $(this).parents('.entry:first'),
+                newEntry = $(controlForm.clone()).appendTo(controlForm);
 
+            newEntry.find('input').val('');
+            controlForm.find('.entry:not(:last) .btn-add')
+                .removeClass('btn-add').addClass('btn-remove')
+                .removeClass('btn-success').addClass('btn-danger')
+                .html('<span class="glyphicon glyphicon-minus"></span>');
+        }).on('click', '.btn-remove', function(e)
+        {
+            $(this).parents('.entry:last').remove();
+            e.preventDefault();
+            return false;
+        });
+    });
+    </script>
+    <!-- Background Setup -->
+    <style>
+        .dropdown-backdrop {
+            position: static;
+        } 
+    </style>
 </head>
         
 <?php
@@ -44,47 +83,235 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-?>
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
+        $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
+        if( $stmt === false ) {
+             die( print_r( sqlsrv_errors(), true));
+        }
 
-<body>
-    <div id="wrapper">
-        <div id="sidebar"></div>
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </button>
-                        <!-- BEGIN PAGE CONTENT -->
-                        <h2>Documentation:</h2>
-                        <audio controls>
-                            <source src="/media/testaudio.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element
-                        </audio>
-                        <p>For the student, this will provide an editing window/form that the student will fill out.  The contents of this page will allow for text as well as audio data entry, and will eventually contain a speech to text module.  Students will be permitted to submit multiple versions of the assignment, and this tracking data will be both displayed in the window and entered in with each new submission</p>
-                        <p> Standard navbars</p>
+        // Make the first (and in this case, only) row of the result set available for reading.
+        $RolesList = [];
+        while( sqlsrv_fetch( $stmt ) === true) {
+             $RolesList[] = sqlsrv_get_field( $stmt, 0);
+        }
+    ?>        
+
+    <body>
         
-                        <!-- END PAGE CONTENT -->
+    <?php
+        if(true)
+        {
+    ?>
+            <section class="container col-xs-12">                     
+                <!--body-->
+                <div id="wrapper">
+                    <div id="sidebar"></div>
+                    <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                <span class="hamb-top"></span>
+                                <span class="hamb-middle"></span>
+                                <span class="hamb-bottom"></span>
+                            </button>
+                            <!-- BEGIN PAGE CONTENT -->
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">Worksheet Info</div>
+                                            <div class="panel-body">
+                                                <h2>Course: Generated from page</h2>
+                                                <h5>Worksheet Number: Generated from page</h5>
+                                                <h5>Date: Generated dynamically</h5>
+                                                <h5>Topic: Form submission</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default">
+                                        <div class="panel-heading">Worksheet Overview</div>
+                                            <div class="panel-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="entry panel panel-default" style="top-margin:40px;">
+                                    <div class="panel-heading">Expressions</div>
+                                    <div class="panel-body">
+                                        <div class="control-group controls" id="fields">
+                                            <form method="POST" name="Expressions[]" id="Expressions[]">
+                                                <div class="form-group row">
+                                                    <div class="col-xs-4 col-md-6">
+                                                        <select class="form-control">
+                                                            <option selected="selected">--Student--</option>
+                                                            <option>Student 1</option>
+                                                            <option>Student 2</option>
+                                                            <option>Student 3</option>
+                                                            <option>Student 4</option>
+                                                            <option>Student 5</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <input type="checkbox" style="font-size:25px;" class="glyphicon glyphicon-star-empty" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-xs-12">
+                                                        <input type="text" class="form-control input-md" placeholder="Expression">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-xs-7">
+                                                        <input type="text" class="form-control input-md" placeholder="Vocab/Context">
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input type="text" class="form-control input-md" placeholder="Pronunciation">
+                                                    </div>
+                                                </div>
+                                                <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group" id="adv-search">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success btn-add" type="button">
+                                            New Expression
+                                        </button>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <!-- END PAGE CONTENT -->
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </section>
+    <?php    
+        }
+    ?>
+        
+        
+    <?php
+        if (false)
+        {
+    ?>    
+            <section class="container col-xs-12">                     
+                    <!--body-->
+                    <div id="wrapper">
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
+                        <div id = "sidebar"></div>
+                        <div id="page-content-wrapper">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                            <span class="hamb-top"></span>
+                                            <span class="hamb-middle"></span>
+                                            <span class="hamb-bottom"></span>
+                                        </button>
+                                            <!-- BEGIN PAGE CONTENT -->
+                                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Worksheet Info</div>
+                                        <div class="panel-body">
+                                            <h2 class="page-header">Course: Generated from page</h2>
+                                            <h5>Worksheet Number: Generated from page</h5>
+                                            <h5>Date: Generated dynamically</h5>
+                                            <h5>Topic: Form submission</h5>
+                                        </div>
+                                    </div>
+                                    <div class="entry panel panel-default" style="top-margin:40px;">
+                                        <div class="panel-heading">Expressions</div>
+                                        <div class=" panel-body">
+                                                <div class="control-group" id="fields">
+                                                    <div class="controls"> 
+                                                        <form method="POST" name="Expressions[]" id="Expressions[]">
+                                                            <div class="form-group row">
+                                                                <div class="col-xs-4 col-sm-2">
+                                                                    <select class="form-control">
+                                                                        <option selected="selected">--Student--</option>
+                                                                        <option>Student 1</option>
+                                                                        <option>Student 2</option>
+                                                                        <option>Student 3</option>
+                                                                        <option>Student 4</option>
+                                                                        <option>Student 5</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-xs-2">
+
+                                                                    <input type="checkbox" style="font-size:25px;" class="glyphicon glyphicon-star-empty" >
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-lg-12">
+                                                                    <input type="text" class="form-control input-md" placeholder="Expression">
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-xs-7">
+                                                                    <input type="text" class="form-control input-md" placeholder="Vocab/Context">
+                                                                </div>
+                                                                <div class="col-xs-5">
+                                                                    <input type="text" class="form-control input-md" placeholder="Pronunciation">
+                                                                </div>
+
+                                                            </div>
+                                                            <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
+                                                            <hr>
+
+                                                        </form>
+
+                                                    </div>
+
+
+                                                </div>
+
+                                        </div>  
+
+                                    </div>
+                                    <div class="input-group" id="adv-search">
+                                                                <span class="input-group-btn">
+                                                                <button class="btn btn-success btn-add" type="button">
+                                                                New Expression
+                                                                </button>
+                                                                </span>
+                                                            </div>
+
+                                </div>
+                            </div>
+                                            <!-- END PAGE CONTENT -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                </section>
+    <?php
+        }
+    ?>
+        
+        <script src="//code.jquery.com/jquery.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script>
-        $("#menu-toggle").click(function(e) {
+        $('.dropdown-toggle').click(function(e) {
             e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
+            setTimeout($.proxy(function() {
+                if ('ontouchstart' in document.documentElement) {
+                    $(this).siblings('.dropdown-backdrop').off().remove();
+                }
+            }, this), 0);
         });
-        </script>
-      </body>
+        
+        </body>
     <?php
     }
 }

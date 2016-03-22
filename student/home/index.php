@@ -28,8 +28,6 @@
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-
-    
 </head>
         
 <?php
@@ -74,10 +72,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
                     <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                    <span class="hamb-top"></span>
-                                    <span class="hamb-middle"></span>
-                                    <span class="hamb-bottom"></span>
-                                </button>
+                        <span class="hamb-top"></span>
+                        <span class="hamb-middle"></span>
+                        <span class="hamb-bottom"></span>
+                    </button>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -95,9 +93,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h4><a href="/Student/MyCourses/">My Courses </a></h4>
-                                            
-                                            
+                                        <h4><a href="/Student/MyCourses/">My Courses</a></h4>
                                     </div>
                                     <div class="panel-body" style="min-height: 146px; max-height: 146px;">
                                         <table class="table table-hover" data-link="row">
@@ -105,11 +101,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <tr>
                                                     <th>Course Name</th>
                                                     <th>Teacher</th>
-                                                    <th>Session</th>
-                                                    
+                                                    <th>Session</th> 
                                                 </tr>
                                             </thead>
-                                                
                                             <tbody>
                                                 <tr>
                                                     <td><a href="/Student/MyCourses/ViewCourse/?cid=">Seminar</a></td>
