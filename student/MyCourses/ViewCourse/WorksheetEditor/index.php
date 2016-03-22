@@ -147,7 +147,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                                 <td>1</td>
                                                                 <td><div id="Expression">I no understand English<input type="text" name="myInputs[]"></div></td>
                                                                 <td class="text-danger">Incomplete</td>
-                                                                <input type="button" value="Edit Expression" onclick="addExpression('Expression')">
+                                                                <td>
+                                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                                </td>
                                                             </form>
                                                         </tr>
                                                     </tbody>
