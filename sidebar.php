@@ -66,30 +66,26 @@
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['Username']?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-<!--
-                                    <li class="dropdown-header">My Roles</li>
--->
+
                                     <li>
-                                         <?php   
-                $count = 0;
-        foreach($RolesList as $ListedRole)
-        {
-            if ($ListedRole == $_SESSION['Role'])
+        <?php   
+            $count = 0;
+            foreach($RolesList as $ListedRole)
             {
-            ?>
-                        <strong><a><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a></strong>
-                                
-            <?php
-            }
-            else
-            {
-                ?>
+                if ($ListedRole == $_SESSION['Role'])
+                {
+        ?>
+                                        <strong><a><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a></strong>
+        <?php
+                }
+                else
+                {
+        ?>
                                         <a href="/ChangeRole.php?q=<?=$ListedRole?>&t=<?=$AccessPriv[$count]?>"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
-                                        <?php
-                    
+        <?php
+                }
+                $count++;
             }
-            $count++;
-        }
         ?>
                 
                                     </li>
