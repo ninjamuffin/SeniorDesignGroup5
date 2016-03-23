@@ -47,7 +47,7 @@
             newEntry.find('input').val('');
             controlForm.find('.entry:not(:last) .btn-add')
                 .removeClass('btn-add').addClass('btn-remove')
-                .removeClass('btn-success').addClass('btn-danger')
+                .removeClass('btn-primary').addClass('btn-danger')
                 .html('<span>Remove Word</span>');
         }).on('click', '.btn-remove', function(e)
         {
@@ -131,7 +131,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="controls">  
                             <div class="row">
                                 <div>
-                                    <h4>Filter Results by Category</h4> 
+                                    <h4>Filter Results by Category <a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=500,height=150')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a></h4> 
                                 </div>
                             </div>
                             <div class="row">
@@ -160,7 +160,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="row">
                                         <div class="col-md-10">
                                             <span><h2>Search</h2></span>
-                                            <a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=500,height=150')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a>
+                                            
                                         </div>
                                     </div>  
                                     <div class="entry form-group row"> 
@@ -178,7 +178,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </div>
                                             <div class="col-xs-2">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-success btn-add" type="button">
+                                                    <button class="btn btn-primary btn-add" type="button">
                                                         <span>Add a Word</span>
                                                     </button>
                                                 </span>   

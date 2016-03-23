@@ -1303,7 +1303,7 @@ th {
 }
 .table thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 2px solid rgba(74, 104, 133, 0.81);
+  border-bottom: 2px solid rgba(0, 63, 114, 0.81);
 }
 .table caption + thead tr:first-child th,
 .table colgroup + thead tr:first-child th,
@@ -1888,7 +1888,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary {
   color: #ffffff;
-  background-color: #1abc9c;
+  background-color: #003f72;
   border-color: #17a689;
 }
 .btn-primary:hover,
@@ -1897,7 +1897,7 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #15987e;
+  background-color: #6385b6;
   border-color: #0f705d;
 }
 .btn-primary:active,
@@ -1962,8 +1962,8 @@ fieldset[disabled] .btn-warning.active {
 }
 .btn-danger {
   color: #ffffff;
-  background-color: #e74c3c;
-  border-color: #e43725;
+  background-color: #9a3b26;
+  border-color: #000000;
 }
 .btn-danger:hover,
 .btn-danger:focus,
@@ -1972,7 +1972,7 @@ fieldset[disabled] .btn-warning.active {
 .open .dropdown-toggle.btn-danger {
   color: #ffffff;
   background-color: #df2e1b;
-  border-color: #b62516;
+  border-color: #000000;
 }
 .btn-danger:active,
 .btn-danger.active,
@@ -1995,7 +1995,7 @@ fieldset[disabled] .btn-danger:active,
 .btn-danger[disabled].active,
 fieldset[disabled] .btn-danger.active {
   background-color: #e74c3c;
-  border-color: #e43725;
+  border-color: #000000;
 }
 .btn-success {
   color: #ffffff;
@@ -4609,7 +4609,7 @@ a.list-group-item:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #395168;
+  background-color: #666666;
   border: 1px solid transparent;
   border-radius: 0px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -4730,8 +4730,8 @@ a.list-group-item:focus {
 }
 .panel-primary > .panel-heading {
   color: #ffffff;
-  background-color: #1abc9c;
-  border-color: #1abc9c;
+  background-color: #003f72;
+  border-color: #ffffff;
 }
 .panel-primary > .panel-heading + .panel-collapse .panel-body {
   border-top-color: #1abc9c;
