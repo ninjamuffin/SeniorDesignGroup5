@@ -6,7 +6,7 @@ body,
 html { height: 100%;}
 .nav .open > a, 
 .nav .open > a:hover, 
-.nav .open > a:focus {background-color: transparent;}
+.nav .open > a:focus;
 
 /*-------------------------------*/
 /*           Wrappers            */
@@ -94,7 +94,7 @@ html { height: 100%;}
 }
 .sidebar-nav li:first-child a {
     color: #fff;
-    background-color: #28e1bd;
+    background-color: #1a1a1a;
 }
 .sidebar-nav li:nth-child(2):before {
     background-color: #28e1bd;   
