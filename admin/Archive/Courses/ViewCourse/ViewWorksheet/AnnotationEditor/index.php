@@ -19,6 +19,7 @@ include "../../../../../../base.php";
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    <script type="text/javascript" src="/js/getText.js"></script>
     <script>
         $(function(){
             $("#header").load("/header.php");
@@ -27,8 +28,9 @@ include "../../../../../../base.php";
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-
-    
+    <script>
+        var selection = "<---------->";
+    </script>
 </head>
 
 <?php
@@ -102,11 +104,25 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         Editor
                                     </div>
                                     <div class="panel-body">
-                                        <p>Documentation: Editor contents:</p>
-                                        <p>   -An 'Add New Annotation' Space, with text for highlighting and a field for selecting errors<br />
-                                            Additionally, will have the parts of speech displayed, giving option for corrections. <br />
-                                            - Ideas: for PoS, on-hover display of full tag name; for highlighting, click-and-drag
-                                        </p>
+
+                                        <input type="text" id="input" class="form-control" placeholder="Highlight to Select">
+
+                                        <!--Working here-->
+                                        
+                                        
+                                        <div class="container" id="text-container"></div>
+                                        
+                                        <h3>Expressions:</h3>
+                                        <h5>1. I no understand how to talk English</h5>
+                                        <h5>2. How is you today?</h5>
+                                        <h5>3. I drive to home for meal</h5>
+                                        <h5>4. I no understand how to talk English</h5>
+                                        <h5>5. How is you today?</h5>
+                                        <h5>6. I drive to home for meal</h5>
+                                        <h5>7. I no understand how to talk English</h5>
+                                        <h5>8. How is you today?</h5>
+                                        <h5>9. I drive to home for meal</h5>
+                                        <h5>10. I drive to home for meal</h5>
                                     </div>
                                 </div>
                             </div>
