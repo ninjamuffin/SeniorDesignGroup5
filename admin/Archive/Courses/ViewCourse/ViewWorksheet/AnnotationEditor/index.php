@@ -105,12 +105,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                     <div class="panel-body">
 
-                                        <input type="text" id="input" class="form-control" placeholder="Highlight to Select">
+                                        
 
                                         <!--Working here-->
                                         
-                                        
-                                        <div class="container" id="text-container"></div>
+                                        <form onsubmit="printSelection()">
+                                            <input class="btn btn-default" type="submit" id="input"/>
+                                        </form>
                                         
                                         <h3>Expressions:</h3>
                                         <h5>1. I no understand how to talk English</h5>
