@@ -1,6 +1,5 @@
 <?php
 include 'pagination.php';
-//include 'phpmailersetup.php';
 session_start();
 
 /* DB Connection Information */
