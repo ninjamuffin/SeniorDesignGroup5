@@ -19,6 +19,7 @@ include "../../../../../../base.php";
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    <script type="text/javascript" src="/js/getText.js"></script>
     <script>
         $(function(){
             $("#header").load("/header.php");
@@ -27,8 +28,9 @@ include "../../../../../../base.php";
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-
-    
+    <script>
+        var selection = "<---------->";
+    </script>
 </head>
 
 <?php
@@ -96,17 +98,226 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-10">
+                            <div class="col-xs-10">
                                 <div class="panel panel-primary" style="min-height: 500px;max-height: 500px; overflow-y:scroll">
                                     <div class="panel-heading">
                                         Editor
                                     </div>
                                     <div class="panel-body">
-                                        <p>Documentation: Editor contents:</p>
-                                        <p>   -An 'Add New Annotation' Space, with text for highlighting and a field for selecting errors<br />
-                                            Additionally, will have the parts of speech displayed, giving option for corrections. <br />
-                                            - Ideas: for PoS, on-hover display of full tag name; for highlighting, click-and-drag
-                                        </p>
+                                        <div class="col-xs-6">
+                                            <!--Working here-->
+                                            <style>
+                                                fieldset {
+                                                    display: inline-block;
+                                                    padding-left: 220px;
+                                                    padding-top: 60px;
+                                                }
+                                            </style>
+                                            <form onsubmit="printSelection()">
+                                                <fieldset>
+                                                <input type="text" class="form-control"     placeholder="Make Selection" id="input">
+                                                </fieldset>
+                                                <input class="btn btn-default" type="submit"/>
+                                            </form>
+                                            
+                                            <div style="padding-top: 100px;">
+                                                <pre>
+                                                    <h3>Expressions:</h3>
+                                                    <h5>1. I no understand how to talk English</h5>
+                                                    <h5>2. How is you today?</h5>
+                                                    <h5>3. I drive to home for meal</h5>
+                                                    <h5>4. I no understand how to talk English</h5>
+                                                    <h5>5. How is you today?</h5>
+                                                    <h5>6. I drive to home for meal</h5>
+                                                    <h5>7. I no understand how to talk English</h5>
+                                                    <h5>8. How is you today?</h5>
+                                                    <h5>9. I drive to home for meal</h5>
+                                                    <h5>10. I drive to home for meal</h5>
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-xs-6" style="padding-top: 100px;">
+                                            <div id="expression">
+                                                
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Verbs <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Nouns <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Pronouns <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Adjective <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Adverb <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Preposition <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Conjunctions <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    Interjections <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-header">Dropdown header</li>
+                                                    <li class="disabled">
+                                                        <a tabindex="-1" href="#">Disabled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Another action</a>
+                                                    </li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a tabindex="-1" href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

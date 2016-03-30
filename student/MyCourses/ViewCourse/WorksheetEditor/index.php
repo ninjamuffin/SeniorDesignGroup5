@@ -73,7 +73,7 @@
     {
         function cloneRow() {
           var row = document.getElementById("rowToClone"); // find row to copy
-          var table = document.getElementById("tableToModify"); // find table to append to
+          var editor = document.getElementById("editor"); // find table to append to
           var clone = row.cloneNode(true); // copy children too
           clone.id = "newID"; // change id or other attributes/contents
           table.appendChild(clone); // add new row to end of table
@@ -182,13 +182,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="entry panel panel-default" style="top-margin:40px;">
                                     <div class="panel-heading">Expression Edit Window</div>
                                     <div class="panel-body">
-                                        <div class="control-form">
+                                        <div class="control-form" id="editor">
                                             <audio controls>
                                                 <source src="/media/testaudio.mp3" type="audio/mpeg">
                                                 Your browser does not support the audio element
                                             </audio>
                                             <form method="POST" name="Expressions[]" id="Expressions[]">
-                                                <button type="submit"  class="btn btn-primary pull-right">Submit</button><br>
+                                                <button type="submit"  class="btn btn-primary pull-right">Submit</button>
                                             </form>
                                         </div>
                                     </div>
