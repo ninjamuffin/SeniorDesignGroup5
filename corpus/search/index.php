@@ -1,4 +1,7 @@
-<?php include '../../base.php'; ?>
+<?php 
+include '../../base.php'; 
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,6 +48,7 @@
                 newEntry = $(currentEntry.clone()).appendTo(controlForm);
 
             newEntry.find('input').val('');
+            newEntry.find('input[name^=offset]').val(0);
             controlForm.find('.entry:not(:last) .btn-add')
                 .removeClass('btn-add').addClass('btn-remove')
                 .removeClass('btn-primary').addClass('btn-danger')
@@ -82,7 +86,9 @@
         }
         .btn-primary {
             /*float: right; */
+/*
             max-width:180px;
+*/
             min-height: 34px;
             position: static;
         }
@@ -128,123 +134,218 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <hr style="border-top: medium double;">
-                        <div class="controls">  
-                            <div class="row">
-                                <div>
-                                    <h4>Filter Results by Category <a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=500,height=150')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a></h4> 
-                                </div>
-                            </div>
-                            <div class="row">
-                                <form method="POST" role="form" id="WordsForm" autocomplete="off">
-                                    <div class="form-group row">
-                                        <div class="col-md-10">
-                                            <div class="col-xs-4">
-                                                <input class="form-control" type="text" id="language-search" name="language-search" placeholder="Language" value="<?php echo isset($_POST['language-search']) ? $_POST['language-search'] : '--Select Level--' ?>">
-                                                <div id="languages-box"></div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input class="form-control" type="text" id="topic" name="topic" placeholder="Topic Keywords" value="<?php echo isset($_POST['topic']) ? $_POST['topic'] : '' ?>">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <select class="form-control" name="level" id="level">
-                                                    <option selected="selected" value="<?php echo isset($_POST['level']) ? $_POST['level'] : '--Select Level--' ?>"><?php echo isset($_POST['level']) ? $_POST['level'] : '--Select Level--' ?></option>
-                                                    <option value="Entry">Entry</option>
-                                                    <option value="Basic">Basic</option>
-                                                    <option value="Intermediate">Intermediate </option>
-                                                    <option value="Advanced">Advanced</option>
-                                                    <option value="Seminar">Seminar</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                        <div class="row">
+                            <div class="controls col-md-3">  
+                                <div class="row">
+                                    <div>
+                                        <h4><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank"><class="text-muted">Input Instructions</a></h4> 
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <span><h2>Search</h2></span>
-                                            
-                                        </div>
-                                    </div>  
-                                    <div class="entry form-group row"> 
-                                        <div class="col-md-10">
-                                            <div class="col-xs-3">
-                                                <input type="text" class="form-control" name="words[]" placeholder="Word">                                             
+                                </div>
+                                <div class="row">
+                                    <form method="POST" action="" role="form" id="WordsForm" autocomplete="off">
+                                        <!--<div class="form-group row">
+                                            <div class="col-md-10">
+                                                <div class="col-xs-4">
+                                                    <input class="form-control" type="text" id="language-search" name="language-search" placeholder="Language" value="<?php echo isset($_POST['language-search']) ? $_POST['language-search'] : '' ?>">
+                                                    <div id="languages-box"></div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <input class="form-control" type="text" id="topic" name="topic" placeholder="Topic Keywords" value="<?php echo isset($_POST['topic']) ? $_POST['topic'] : '' ?>">
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <select class="form-control" name="level" id="level">
+                                                        <option selected="selected" value="<?php echo isset($_POST['level']) ? $_POST['level'] : '--Select Level--' ?>"><?php echo isset($_POST['level']) ? $_POST['level'] : '--Select Level--' ?></option>
+                                                        <option value="Entry">Entry</option>
+                                                        <option value="Basic">Basic</option>
+                                                        <option value="Intermediate">Intermediate </option>
+                                                        <option value="Advanced">Advanced</option>
+                                                        <option value="Seminar">Seminar</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-3">
-                                                <input class="form-control" name="PoS[]" id="PoS[]" placeholder="Part of Speech">
-                                                <!--<div class="btn-group" id="PoS-suggest" ></div>-->
-                                            </div>
-                                            
-                                            <div class="col-xs-3">
-                                                <label><input class="form-control" type="number" min="0" id="offset[]" name="offset[]" placeholder="Word Offset"></label>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-primary btn-add" type="button">
-                                                        <span>Add a Word</span>
-                                                    </button>
-                                                </span>   
-                                            </div>
-                                        </div>
-                                    </div> 
-                                        
-                                    
-                                    
-                                </form> 
-                            </div>
+                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="row">
+                                                    <span><h2>New Search</h2><button type="submit" class="btn btn-primary pull-right">
+                                                        Load search data into selector ==>
+                                                    </button> </span>
+                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 pull-right">
+                                                        <hr>
+                                                    </div>
 
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <button type="submit" class="btn btn-primary" form="WordsForm">
-                                    Search
-                                </button>  
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="entry form-group row"> 
+                                            <div class="col-md-10">
+                                                <div class="col-xs-5">
+                                                    <input type="text" class="form-control" name="words[]" placeholder="Word">                                             
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <input class="form-control" name="PoS[]" id="PoS[]" placeholder="Part of Speech">
+                                                    <!--<div class="btn-group" id="PoS-suggest" ></div>-->
+                                                </div>
+
+                                                <!--<div class="col-xs-3">
+                                                    <label><input class="form-control" type="number" min="0" value=0 id="offset[]" name="offset[]" placeholder="Word Offset"></label>
+                                                </div>-->
+                                                <div class="col-xs-2">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary btn-add" type="button">
+                                                            <span>Add a Word</span>
+                                                        </button>
+                                                    </span>   
+                                                </div>
+                                            </div>
+                                        </div> 
+
+
+
+                                    </form> 
+                                </div>
+
                             </div>
-                        </div>
-                            
-                        <hr>       
-                        
-                        <div class="row">
-                            
-                            <div class="col-md-10">
-                                <div class="panel panel-primary">
+                            <div class="col-md-3">
+                                <div class="panel panel-primary" style="min-height:500px;max-height:500px; overflow-y:scroll">
                                     <div class="panel-heading">
-                                        <h4>Search Results</h4>
+                                        Select Search Parameters 
+                                            <button type="submit" class="btn btn-default pull-right">Preview</button>
+                                        <br>
+                                        <br>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table table-hover">
-                                            <thead>
+                                            
+                                                <?php
+            if ((!(empty($_POST['words']))) && (!(empty($_POST['PoS']))))
+            {
+                $query_count = 0;
+                
+                $words = $_POST['words'];  
+                $tags = $_POST['PoS'];
+                $num_entries = max(count($words), count($tags));
+                for ($i = 0; $i < $num_entries; $i++)
+                {
+                    if ( ( strlen($words[$i]) > 0 ) || ( strlen($tags[$i]) > 0))
+                        $query_count++;
+                }
+                
+                if ( $query_count > 0)
+                {
+                    echo "<table class='table table-hover'><thead>
                                                 <tr>
-                                                    <th>Expression</th>
-                                                    <th>Vocab/Context</th>
-                                                    <th>Topic</th>
-                                                    <th>Language</th>
-                                                    <th>Level</th>
+                                                    <th><label><input type='checkbox' id='checkAll'> Select All </label></th>
+                                                    <th>Form</th>
+                                                    <th>Tag</th>
+                                                    <th>Frequency</th>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php
-        if (!(empty($_POST['words'])))
-        {
-            $words = $_POST['words'];  
+                                            </thead>";
+                    $query_index = 1;
+                    $query_stem = "SELECT WordID, Form, PoS, Frequency FROM Dictionary WHERE ";
+                    
+                    $options = array( "Scrollable" => 'static' );
+                    echo "<tbody>";
+                    while ($query_index <= $query_count)
+                    {
+                        $condition = "";
+                        if ( (strlen($words[$query_index - 1]) > 0) && (strlen($tags[$query_index - 1]) > 0))
+                        {
+                            $condition = "Form = ? AND PoS = ?";
+                            $query = $query_stem . $condition;
+                            $params = array($words[$query_index - 1], $tags[$query_index - 1]);
+                            $display_string = $params[0] . " with Part-of-Speech " . $params[1];
+                        }
+                        elseif (strlen($words[$query_index - 1]) > 0)
+                        {
+                            $condition = "Form = ?";
+                            $query = $query_stem . $condition;
+                            $params = array($words[$query_index - 1]);
+                            $display_string = $params[0] . " with any Part-of-Speech";
+                        }
+                        elseif (strlen($tags[$query_index - 1]) > 0)
+                        {
+                            $query = "SELECT PoS, count(*) FROM Dictionary WHERE PoS=? GROUP BY PoS";
+                            $params = array($tags[$query_index - 1]);
+                            $stmt = sqlsrv_query($con, $query, $params, $options);
+                            if ($stmt === false)
+                                die (print_r(sqlsrv_errors(), true));
+                            $result_length = sqlsrv_num_rows($stmt);
+                            $tags_ = [];
+                            $freq = [];
+                            $forms = [];
+                            $ids = [];
+                            while (sqlsrv_fetch($stmt) === true)
+                            {
+                                $tags_[] = sqlsrv_get_field($stmt, 0);
+                                $freq[] = sqlsrv_get_field($stmt, 1);
+                                $ids[] = '';
+                                $forms[] = '';
+                            }
+                            echo "<tr><td>$query_index [Tag Only]</td><td></td><td></td><td></td></tr>";
+                            for ($i = 0; $i < $result_length; $i++)
+                                echo "<tr><td><input type='checkbox'></td><td>$forms[$i]</td><td>$tags_[$i]</td><td>$freq[$i]</td></tr>";
+
+                            $query_index++;
+                            continue;
+                        }
+                        
+                        $stmt = sqlsrv_query($con, $query, $params, $options);
+                        if ($stmt === false)
+                            die (print_r(sqlsrv_errors(), true));
+                        $result_length = sqlsrv_num_rows($stmt);
+                        $ids = [];
+                        $forms = [];
+                        $tags_ = [];
+                        $freq = [];
+                        while (sqlsrv_fetch($stmt) === true)
+                        {
+                            $ids[] = sqlsrv_get_field($stmt, 0);
+                            $forms[] = sqlsrv_get_field($stmt, 1);
+                            $tags_[] = sqlsrv_get_field($stmt, 2);
+                            $freq[] = sqlsrv_get_field($stmt, 3);
+                        }
+                        
+                        
+                                                
+                        echo "<tr><td>$query_index</td><td></td><td></td><td></td></tr>";
+                        for ($i = 0; $i < $result_length; $i++)
+                            echo "<tr><td><input type='checkbox'></td><td>$forms[$i]</td><td>$tags_[$i]</td><td>$freq[$i]</td></tr>";
+                       
+                        $query_index++;
+                    }
+                    
+                }
+                else
+                {
+                    echo "<p>To search, enter desired data into the form to the left of this window</p>";
+                }
+            }
             
-            foreach($words as $word)
-                echo $word;
-        }
-        if (!(empty($_POST['PoS'])))
-        {
-            $PoS = $_POST['PoS'];  
-            $len = count($PoS);
-            for($i = 0; $i < $len; $i++)
-                echo $PoS[$i];
-        }
+                
+            
         ?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Preview Search
+                                    </div>
+                                    <div class="panel-body">
+                                        [ WORDS | TAGS | OFFSETS ]
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        
 
 
         
@@ -294,6 +395,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 $("#language-id").val(id);
                 $("#languages-box").hide();
             }
+            $("#checkAll").change(function () {
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            });
             </script>
 </body>
     <?php

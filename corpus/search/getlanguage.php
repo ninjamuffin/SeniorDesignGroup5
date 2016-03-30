@@ -24,7 +24,7 @@ if(!(empty($_POST['keyword']))){
 
     if(!empty($languages)) {
     ?>
-        <ul id="language-list" class="form-control">
+        <ul id="language-list">
         <?php
             for($i = 0; $i < $length; $i++) 
             {

@@ -262,8 +262,8 @@ body {
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #ffffff;
-  background-color: #333333;
+  color: #333333;
+  background-color: #ffffff;
 }
 input,
 button,
@@ -280,12 +280,12 @@ textarea {
   background-image: none;
 }
 a {
-  color: #1abc9c;
+  color: #075794; 1abc9c
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #28e1bd;
+  color: #003f72; <!--28e1bd-->
   text-decoration: underline;
 }
 a:focus {
@@ -1299,7 +1299,7 @@ th {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid rgba(74, 104, 133, 0.81);
+  border-top: 1px solid #444444;
 }
 .table thead > tr > th {
   vertical-align: bottom;
@@ -1850,8 +1850,8 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #333333;
-  background-color: #f2f2f2;
+  color: #ffffff;
+  background-color: #888888;
   border-color: #cccccc;
 }
 .btn-default:hover,
@@ -4609,6 +4609,7 @@ a.list-group-item:focus {
 }
 .panel {
   margin-bottom: 20px;
+  color: #ffffff;
   background-color: #666666;
   border: 1px solid transparent;
   border-radius: 0px;
@@ -4668,7 +4669,7 @@ a.list-group-item:focus {
   margin-bottom: 0;
 }
 .panel > .panel-body + .table {
-  border-top: 1px solid rgba(74, 104, 133, 0.81);
+  border-top: 1px solid white; /* rgba(74, 104, 133, 0.81);*/
 }
 .panel-heading {
   padding: 10px 15px;
@@ -4799,9 +4800,9 @@ a.list-group-item:focus {
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: #34495e;
-  border: 1px solid #273747;
-  border-radius: 0px;
+  background-color: #ffffff;
+  border: 4px solid #273747;
+  border-radius: 2px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
