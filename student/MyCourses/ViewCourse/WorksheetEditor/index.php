@@ -74,17 +74,8 @@
         function clone(){
             $(this).parents(".ExpressionTable").clone()
                 .appendTo("body")
-                .attr("id", "clonedInput" +  cloneIndex)
-                .find("*")
-                .each(function() {
-                    var id = this.id || "";
-                    var match = id.match(regex) || [];
-                    if (match.length == 3) {
-                        this.id = match[1] + (cloneIndex);
-                    }
-                })
+                .attr("id", "ExpressionTable" +  cloneIndex)                
                 .on('click', 'button.clone', clone)
-                .on('click', 'button.remove', remove);
             cloneIndex++;
         }
     
