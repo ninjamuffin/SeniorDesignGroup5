@@ -1,25 +1,21 @@
-var t = '';
 
-function gText() {
-    t = (document.all) ? document.selection.createRange().text : document.getSelection();
-    document.getElementById('input').value = t;
+var selection = '';
+
+function gText(e) {
+    selection = (document.all) ? document.selection.createRange().text : document.getSelection();
+    document.getElementById('input').value = selection;
 }
-document.onmouseup = gText;
-if (!document.all) document.captureEvents(Event.MOUSEUP);
 
-/*function getSelection() {
-    var text = ""'
-    if (typeof window.getSelection != "undefined") {
-        text = window.getSelection().toString();
-    } else if (typeof document.selection != "undefined" && document.selection.type == "Text") {
-        text = document.selection.createRange().text;
-    }
-    return text;
-}*/
+/*document.querySelector('textarea').addEventListener('mouseup', function () {
+  window.mySelection = this.value.substring(this.selectionStart, this.selectionEnd)
+  // window.getSelection().toString();
+});*/
+
+window.onmouseup = gText;
 
 function printSelection() {
-    var selection = getSelection();
+    var expr = selection;
     if (selection) {
-        alert("Selection: " + selection);
+        document.getElementById('expression').innerHTML  = expr;
     }
 }
