@@ -40,6 +40,7 @@
         });
     </script>
     
+<!--
     <script type="text/javascript">$(function()
     {
         $(document).on('click', '.btn-add', function(e)
@@ -63,6 +64,36 @@
         });
     });
     </script>
+-->
+    
+    
+    
+    
+    <script type="text/javascript">$(function()
+    {
+        function clone(){
+            $(this).parents(".ExpressionTable").clone()
+                .appendTo("body")
+                .attr("id", "clonedInput" +  cloneIndex)
+                .find("*")
+                .each(function() {
+                    var id = this.id || "";
+                    var match = id.match(regex) || [];
+                    if (match.length == 3) {
+                        this.id = match[1] + (cloneIndex);
+                    }
+                })
+                .on('click', 'button.clone', clone)
+                .on('click', 'button.remove', remove);
+            cloneIndex++;
+        }
+    
+        $("button.clone").on("click", clone);
+    }
+    </script>
+    
+    
+    
     
     <!-- Background Setup -->
     <style>
@@ -144,13 +175,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                        <tr id="ExpressionTable">
                                                             <td>1</td>
-                                                            <td>I no understand English</td>
+                                                            <td>Sample Expression</td>
                                                             <td class="text-danger">Incomplete</td>
                                                             <td>
-                                                                <div class="input-group" id="adv-search">
-                                                                    <button type="button" class="btn btn-primary btn-add pull-right">Edit</button>
+                                                                <div class="action" id="adv-search">
+                                                                    <button type="button" class="Clone">Edit</button>
                                                                 </div>
                                                             </td>
                                                         </tr>
