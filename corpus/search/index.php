@@ -135,7 +135,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <hr style="border-top: medium double;">
                         <div class="row">
-                            <div class="controls col-md-3">  
+                            <div class="controls col-md-4">  
                                 <div class="row">
                                     <div>
                                         <h4><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank"><class="text-muted">Input Instructions</a></h4> 
@@ -211,15 +211,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="panel panel-primary" style="min-height:500px;max-height:500px; overflow-y:scroll">
                                     <div class="panel-heading">
                                         Select Search Parameters 
-                                            <button type="submit" class="btn btn-default pull-right">Preview</button>
-                                        <br>
-                                        <br>
                                     </div>
                                     <div class="panel-body">
+                                        <button type="submit" class="btn btn-default pull-right">Move Selected to Search Preview</button>
                                             
                                                 <?php
             if ((!(empty($_POST['words']))) && (!(empty($_POST['PoS']))))
@@ -334,6 +332,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
