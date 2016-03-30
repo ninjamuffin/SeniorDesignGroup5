@@ -136,11 +136,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <hr style="border-top: medium double;">
                         <div class="row">
                             <div class="controls col-md-4">  
-                                <div class="row">
-                                    <div>
-                                        <h4><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank"><class="text-muted">Input Instructions</a></h4> 
-                                    </div>
-                                </div>
+                                
                                 <div class="row">
                                     <form method="POST" action="" role="form" id="WordsForm" autocomplete="off">
                                         <!--<div class="form-group row">
@@ -167,9 +163,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <div class="row">
-                                                    <span><h2>New Search</h2><button type="submit" class="btn btn-primary pull-right">
-                                                        Load search data into selector ==>
-                                                    </button> </span>
+                                                    <span><h2>New Search</h2>
+                                                        <h4><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a></h4> 
                                                  </div>
                                                 <div class="row">
                                                     <div class="col-md-12 pull-right">
@@ -182,26 +177,34 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                                         </div>
 
-                                        <div class="entry form-group row"> 
+                                        <div class="entry form-group"> 
                                             <div class="col-md-10">
-                                                <div class="col-xs-5">
-                                                    <input type="text" class="form-control" name="words[]" placeholder="Word">                                             
-                                                </div>
-                                                <div class="col-xs-5">
-                                                    <input class="form-control" name="PoS[]" id="PoS[]" placeholder="Part of Speech">
-                                                    <!--<div class="btn-group" id="PoS-suggest" ></div>-->
-                                                </div>
-
-                                                <!--<div class="col-xs-3">
-                                                    <label><input class="form-control" type="number" min="0" value=0 id="offset[]" name="offset[]" placeholder="Word Offset"></label>
-                                                </div>-->
-                                                <div class="col-xs-2">
+                                                <div class="col-xs-4">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-primary btn-add" type="button">
                                                             <span>Add a Word</span>
                                                         </button>
                                                     </span>   
                                                 </div>
+                                                <div class="col-xs-4">
+                                                    <input type="text" class="form-control" name="words[]" placeholder="Word">                                             
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary" >
+                                                            <span>Load word into selector</span>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                                <!--<div class="col-xs-5">
+                                                    <input class="form-control" name="PoS[]" id="PoS[]" placeholder="Part of Speech">
+                                                    <div class="btn-group" id="PoS-suggest" ></div>
+                                                </div>-->
+
+                                                <!--<div class="col-xs-3">
+                                                    <label><input class="form-control" type="number" min="0" value=0 id="offset[]" name="offset[]" placeholder="Word Offset"></label>
+                                                </div>-->
+                                                
                                             </div>
                                         </div> 
 
@@ -212,24 +215,31 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                             </div>
                             <div class="col-md-6">
-                                <div class="panel panel-primary" style="min-height:500px;max-height:500px; overflow-y:scroll">
+                                <div class="panel panel-primary" style="min-height:420px;max-height:500px; overflow-y:scroll">
                                     <div class="panel-heading">
                                         Select Search Parameters 
                                     </div>
                                     <div class="panel-body">
-                                        <button type="submit" class="btn btn-default pull-right">Move Selected to Search Preview</button>
+                                        <div class="row">
+                                            <button class="btn btn-default" type="button">
+                                                <a href= "javascript:window.open('tagset.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank"><class="text-muted">View CLAWS7 Tagset</a>
+                                            </button>
+                                            <button type="submit" class="btn btn-default pull-right">Move Selected to Search Preview</button>
+                                        </div>
                                             
                                                 <?php
-            if ((!(empty($_POST['words']))) && (!(empty($_POST['PoS']))))
+            if (!(empty($_POST['words'])))
             {
                 $query_count = 0;
                 
                 $words = $_POST['words'];  
+/*
                 $tags = $_POST['PoS'];
-                $num_entries = max(count($words), count($tags));
+*/
+                $num_entries = count($words);
                 for ($i = 0; $i < $num_entries; $i++)
                 {
-                    if ( ( strlen($words[$i]) > 0 ) || ( strlen($tags[$i]) > 0))
+                    if ( strlen($words[$i]) > 0 )
                         $query_count++;
                 }
                 
@@ -251,21 +261,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     while ($query_index <= $query_count)
                     {
                         $condition = "";
-                        if ( (strlen($words[$query_index - 1]) > 0) && (strlen($tags[$query_index - 1]) > 0))
-                        {
-                            $condition = "Form = ? AND PoS = ?";
-                            $query = $query_stem . $condition;
-                            $params = array($words[$query_index - 1], $tags[$query_index - 1]);
-                            $display_string = $params[0] . " with Part-of-Speech " . $params[1];
-                        }
-                        elseif (strlen($words[$query_index - 1]) > 0)
+                        if (strlen($words[$query_index - 1]) > 0)
                         {
                             $condition = "Form = ?";
                             $query = $query_stem . $condition;
                             $params = array($words[$query_index - 1]);
-                            $display_string = $params[0] . " with any Part-of-Speech";
                         }
-                        elseif (strlen($tags[$query_index - 1]) > 0)
+                        /*elseif (strlen($tags[$query_index - 1]) > 0)
                         {
                             $query = "SELECT PoS, count(*) FROM Dictionary WHERE PoS=? GROUP BY PoS";
                             $params = array($tags[$query_index - 1]);
@@ -290,7 +292,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                             $query_index++;
                             continue;
-                        }
+                        }*/
                         
                         $stmt = sqlsrv_query($con, $query, $params, $options);
                         if ($stmt === false)
@@ -310,7 +312,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         
                         
                                                 
+/*
                         echo "<tr><td>$query_index</td><td></td><td></td><td></td></tr>";
+*/
                         for ($i = 0; $i < $result_length; $i++)
                             echo "<tr><td><input type='checkbox'></td><td>$forms[$i]</td><td>$tags_[$i]</td><td>$freq[$i]</td></tr>";
                        
@@ -329,6 +333,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         ?>
                                             </tbody>
                                         </table>
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -337,10 +342,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-md-6">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        Preview Search
+                                        Search Preview
                                     </div>
                                     <div class="panel-body">
-                                        [ WORDS | TAGS | OFFSETS ]
+                                        <button class="btn btn-primary" type="submit">Submit Search</button>
+                                        <p>As the user moves selected to this window, it will append them to a search-preview string</p>
+                                        <textarea class="form-control" disabled>Preview String</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -370,10 +377,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 });
                 
                 
+                
                     
                    
             });
-            
+            $(document).on("click", 'input[name=loadWord]', function(){
+                 
+            });
             /*$(document).on("keyup", 'input[name^=PoS]', function(){
                 $(this).closest( "div.entry").css("background-color", "red");
                 $.ajax({
