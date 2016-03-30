@@ -71,15 +71,13 @@
     
     <script type="text/javascript">$(function()
     {
-        function clone(){
-            $(this).parents(".ExpressionTable").clone()
-                .appendTo("body")
-                .attr("id", "ExpressionTable" +  cloneIndex)                
-                .on('click', 'button.clone', clone)
-            cloneIndex++;
+        function cloneRow() {
+          var row = document.getElementById("rowToClone"); // find row to copy
+          var table = document.getElementById("tableToModify"); // find table to append to
+          var clone = row.cloneNode(true); // copy children too
+          clone.id = "newID"; // change id or other attributes/contents
+          table.appendChild(clone); // add new row to end of table
         }
-    
-        $("button.clone").on("click", clone);
     }
     </script>
     
@@ -165,15 +163,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr id="ExpressionTable">
+                                                    <tbody id=ExpressionTable>
+                                                        <tr id="ExpressionRow">
                                                             <td>1</td>
                                                             <td>Sample Expression</td>
                                                             <td class="text-danger">Incomplete</td>
                                                             <td>
-                                                                <div class="action" id="adv-search">
-                                                                    <button type="button" class="Clone">Edit</button>
-                                                                </div>
+                                                                <input type="button" onclick="cloneRow()" value="Edit"/>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -185,9 +181,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="entry panel panel-default" style="top-margin:40px;">
                                     <div class="panel-heading">Expression Edit Window</div>
                                     <div class="panel-body">
-                                        <div class="control-group controls" id="fields">
+                                        <div class="control-form">
+                                            <audio controls>
+                                                <source src="/media/testaudio.mp3" type="audio/mpeg">
+                                                Your browser does not support the audio element
+                                            </audio>
                                             <form method="POST" name="Expressions[]" id="Expressions[]">
-                                                <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
+                                                <button type="submit"  class="btn btn-primary pull-right">Submit</button><br>
                                             </form>
                                         </div>
                                     </div>
