@@ -135,10 +135,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <hr style="border-top: medium double;">
                         <div class="row">
-                            <div class="controls col-md-4">  
+                            <div class="col-md-4">  
                                 
                                 <div class="row">
-                                    <form method="POST" action="" role="form" id="WordsForm" autocomplete="off">
+                                    
                                         <!--<div class="form-group row">
                                             <div class="col-md-10">
                                                 <div class="col-xs-4">
@@ -160,24 +160,92 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                             </div>
                                         </div>-->
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="row">
-                                                    <span><h2>New Search</h2>
-                                                        <h4><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a></h4> 
-                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 pull-right">
-                                                        <hr>
-                                                    </div>
-
-                                                </div>
-
+                                        <div class="panel panel-primary" style="min-height:600px;max-height:600px; overflow-y:auto">
+                                            <div class="panel-heading">
+                                                <h4>Add Search Entity <span><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a></span></h4> 
                                             </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <p>To begin building your search, send one of the following to the selector: a word, a POS tag, or an offset</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <h4>Load in a word:</h4>
+                                                    </div>
+                                                </div>
+                                                <form method="POST" action="" id="word_load">
+                                                <div class="row">
+                                                    <div class="col-xs-8">
 
+                                                        <input type="text" class="form-control" name="new_word" placeholder="Type a word to search">                    
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary">
+                                                                <span>Send to selector ==></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <h4>Load in a part-of-speech tag:</h4>
+                                                    </div>
+                                                </div>
+                                                <form method="POST" action="" id="tag_load">
+                                                <div class="row">
+                                                    <div class="col-xs-8">
+
+                                                        <select class="form-control" name="new_tag">
+                                                            <option selected="selected" value="ALL">Full Tagset (165 Tags)</option>
+                                                            <option value="noun">Noun Tags</option>
+                                                            <option value="pronoun">Pronoun Tags</option>
+                                                            <option value="verb">Verb Tags</option>
+                                                            <option value="adjective">Adjective Tags</option>
+                                                            <option value="adverb">Adverb Tags</option>
+                                                            <option value="preposition">Preposition Tags</option>
+                                                            <option value="conjunction">Conjunction Tags</option>
+                                                            <option value="interjection">Interjection Tags</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary" >
+                                                                <span>Send to selector ==></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <h4>Load an offset/placeholder:</h4>
+                                                    </div>
+                                                </div>
+                                                <form method="POST" action"" id="offset_load">
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <input class="form-control" type="number" name="new_offset" min="0" max="8" value=0>
+                                                    </div>
+                                                    <div class="col-xs-4 pull-right">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary" >
+                                                                <span>Send to selector ==></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div> 
+                                                
+                                                </form>
+                                            </div>
                                         </div>
-
-                                        <div class="entry form-group"> 
+                                        <!--<div class="entry form-group"> 
                                             <div class="col-md-10">
                                                 <div class="col-xs-4">
                                                     <span class="input-group-btn">
@@ -196,158 +264,171 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         </button>
                                                     </span>
                                                 </div>
-                                                <!--<div class="col-xs-5">
+                                                <div class="col-xs-5">
                                                     <input class="form-control" name="PoS[]" id="PoS[]" placeholder="Part of Speech">
                                                     <div class="btn-group" id="PoS-suggest" ></div>
-                                                </div>-->
+                                                </div>
 
-                                                <!--<div class="col-xs-3">
+                                                <div class="col-xs-3">
                                                     <label><input class="form-control" type="number" min="0" value=0 id="offset[]" name="offset[]" placeholder="Word Offset"></label>
-                                                </div>-->
+                                                </div>
                                                 
                                             </div>
-                                        </div> 
+                                        </div> -->
 
 
 
-                                    </form> 
                                 </div>
 
                             </div>
-                            <div class="col-md-6">
-                                <div class="panel panel-primary" style="min-height:420px;max-height:500px; overflow-y:scroll">
+                            <div class="col-md-4">
+                                <div class="panel panel-primary" style="min-height:600px;max-height:600px; overflow-y:auto">
                                     <div class="panel-heading">
-                                        Select Search Parameters 
+                                        <h4>Customize Search Parameters</h4>
                                     </div>
                                     <div class="panel-body">
+                                        <form method="POST" action="" id="SubmitNewEntity" autocomplete="off">
+                                        
                                         <div class="row">
-                                            <button class="btn btn-default" type="button">
-                                                <a href= "javascript:window.open('tagset.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank"><class="text-muted">View CLAWS7 Tagset</a>
-                                            </button>
-                                            <button type="submit" class="btn btn-default pull-right">Move Selected to Search Preview</button>
+                                            <div class="col-md-12">
+                                                <button class='btn btn-danger' type='reset'>Clear field</button>    
+                                                <button type="submit" class="btn btn-primary pull-right">Move to Search Builder ==></button>
+                                            </div>
                                         </div>
+                                        
                                             
                                                 <?php
-            if (!(empty($_POST['words'])))
+            if (!(empty($_POST['new_word'])))
             {
-                $query_count = 0;
+                $query_valid = false;
+                if ( strlen($_POST['new_word']) > 0 )
+                    $query_valid = true;
                 
-                $words = $_POST['words'];  
-/*
-                $tags = $_POST['PoS'];
-*/
-                $num_entries = count($words);
-                for ($i = 0; $i < $num_entries; $i++)
+                if ( $query_valid)
                 {
-                    if ( strlen($words[$i]) > 0 )
-                        $query_count++;
-                }
-                
-                if ( $query_count > 0)
-                {
-                    echo "<table class='table table-hover'><thead>
-                                                <tr>
-                                                    <th><label><input type='checkbox' id='checkAll'> Select All </label></th>
-                                                    <th>Form</th>
-                                                    <th>Tag</th>
-                                                    <th>Frequency</th>
-                                                </tr>
-                                            </thead>";
-                    $query_index = 1;
-                    $query_stem = "SELECT WordID, Form, PoS, Frequency FROM Dictionary WHERE ";
+                    echo "<table class='table table-hover'><thead><tr>";
+                    echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Form</th><th>Tag</th><th>Frequency</th></tr></thead>";
+                                                    
+                    $query = "SELECT WordID, Form, PoS, Frequency FROM Dictionary WHERE Form= ?";
                     
                     $options = array( "Scrollable" => 'static' );
+                    $params = array($_POST['new_word']);
                     echo "<tbody>";
-                    while ($query_index <= $query_count)
-                    {
-                        $condition = "";
-                        if (strlen($words[$query_index - 1]) > 0)
-                        {
-                            $condition = "Form = ?";
-                            $query = $query_stem . $condition;
-                            $params = array($words[$query_index - 1]);
-                        }
-                        /*elseif (strlen($tags[$query_index - 1]) > 0)
-                        {
-                            $query = "SELECT PoS, count(*) FROM Dictionary WHERE PoS=? GROUP BY PoS";
-                            $params = array($tags[$query_index - 1]);
-                            $stmt = sqlsrv_query($con, $query, $params, $options);
-                            if ($stmt === false)
-                                die (print_r(sqlsrv_errors(), true));
-                            $result_length = sqlsrv_num_rows($stmt);
-                            $tags_ = [];
-                            $freq = [];
-                            $forms = [];
-                            $ids = [];
-                            while (sqlsrv_fetch($stmt) === true)
-                            {
-                                $tags_[] = sqlsrv_get_field($stmt, 0);
-                                $freq[] = sqlsrv_get_field($stmt, 1);
-                                $ids[] = '';
-                                $forms[] = '';
-                            }
-                            echo "<tr><td>$query_index [Tag Only]</td><td></td><td></td><td></td></tr>";
-                            for ($i = 0; $i < $result_length; $i++)
-                                echo "<tr><td><input type='checkbox'></td><td>$forms[$i]</td><td>$tags_[$i]</td><td>$freq[$i]</td></tr>";
 
-                            $query_index++;
-                            continue;
-                        }*/
-                        
-                        $stmt = sqlsrv_query($con, $query, $params, $options);
-                        if ($stmt === false)
-                            die (print_r(sqlsrv_errors(), true));
-                        $result_length = sqlsrv_num_rows($stmt);
-                        $ids = [];
-                        $forms = [];
-                        $tags_ = [];
-                        $freq = [];
-                        while (sqlsrv_fetch($stmt) === true)
-                        {
-                            $ids[] = sqlsrv_get_field($stmt, 0);
-                            $forms[] = sqlsrv_get_field($stmt, 1);
-                            $tags_[] = sqlsrv_get_field($stmt, 2);
-                            $freq[] = sqlsrv_get_field($stmt, 3);
-                        }
-                        
-                        
-                                                
-/*
-                        echo "<tr><td>$query_index</td><td></td><td></td><td></td></tr>";
-*/
-                        for ($i = 0; $i < $result_length; $i++)
-                            echo "<tr><td><input type='checkbox'></td><td>$forms[$i]</td><td>$tags_[$i]</td><td>$freq[$i]</td></tr>";
-                       
-                        $query_index++;
+                    $stmt = sqlsrv_query($con, $query, $params, $options);
+                    if ($stmt === false)
+                        die (print_r(sqlsrv_errors(), true));
+                    $result_length = sqlsrv_num_rows($stmt);
+                    $ids = [];
+                    $forms = [];
+                    $tags = [];
+                    $freq = [];
+                    while (sqlsrv_fetch($stmt) === true)
+                    {
+                        $ids[] = sqlsrv_get_field($stmt, 0);
+                        $forms[] = sqlsrv_get_field($stmt, 1);
+                        $tags[] = sqlsrv_get_field($stmt, 2);
+                        $freq[] = sqlsrv_get_field($stmt, 3);
                     }
+
+                    for ($i = 0; $i < $result_length; $i++)
+                        echo "<tr><td><input type='checkbox'></td><td>$forms[$i]</td><td>$tags[$i]</td><td>$freq[$i]</td></tr>";
+                     echo "</tbody></table>";
+                       
                     
                 }
                 else
                 {
-                    echo "<p>To search, enter desired data into the form to the left of this window</p>";
+                    echo "<p>No data received</p>";
                 }
             }
             
+            if (!(empty($_POST['new_tag'])))
+            {
+                echo "<table class='table table-hover'><thead><tr>";
+                echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Tag Name</th><th>Tag Type</th><th>Frequency</th>";
+                echo "</tr></thead><tbody>";
+                
+                if ($_POST['new_tag'] == "ALL")
+                {
+                    $query = "SELECT TOP 40 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
+                }
+                else
+                {
+                    $query = "SELECT TOP 10 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
+                }
+                
+                $options = array( "Scrollable" => 'static' );
+                $params = array();
+                $stmt = sqlsrv_query($con, $query, $params, $options);
+                if ($stmt === false)
+                    die(print_r(sqlsrv_errors(), true));
+                $length = sqlsrv_num_rows($stmt);
+                $tag_names = [];
+                $tag_type = [];
+                $frequency = [];
+                
+                while (sqlsrv_fetch($stmt) === true)
+                {
+                    $frequency[] = sqlsrv_get_field($stmt, 0);
+                    $tag_names[] = sqlsrv_get_field($stmt, 1);
+                    $tag_type[] = "Undetermined";
+                    
+                }
+                
+                for ($i = 0; $i < $length; $i++)
+                {
+                    $tag = $tag_names[$i];
+                    $freq = $frequency[$i];
+                    $type = $tag_type[$i];
+                    echo "<tr><td><input type='checkbox'></td><td>$tag</td><td>$type</td><td>$freq</td>";
+                }
+                echo "</tbody></table>";
+            }
+            if (!(empty($_POST['new_offset'])))
+            {
+                $offset = $_POST['new_offset'];
+                
+                echo "<div class='row'><div class='col-md-12'><span>Offset selected: <code>$offset</code></span><span class='pull-right'>";
+                
+                echo "<label class='radio-inline''><input type='radio' name='offsetType' checked='checked'>Exclude Punctuation</label>";
+                echo "<label class='radio-inline'><input type='radio' name='offsetType'>Include punctuation</label>";
+                
+                echo "</span></div></div>";
+            }
                 
             
         ?>
-                                            </tbody>
-                                        </table>
-                                    
+                                    </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="panel panel-primary">
+                            <div class="col-md-4">
+                                <div class="panel panel-primary" style="min-height:600px;max-height:600px; overflow-y:auto">
                                     <div class="panel-heading">
-                                        Search Preview
+                                        <h4>Build Search Query</h4>
                                     </div>
                                     <div class="panel-body">
-                                        <button class="btn btn-primary" type="submit">Submit Search</button>
-                                        <p>As the user moves selected to this window, it will append them to a search-preview string</p>
-                                        <textarea class="form-control" disabled>Preview String</textarea>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <button class="btn btn-primary" type="submit">Submit Search</button>
+                                                <div class="pull-right">
+                                                    <label class="radio-inline"><input type="radio" name="searchType" checked="checked">Sequential</label>
+                                                    <label class="radio-inline"><input type="radio" name="searchType">Non-Sequential</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Search Entity Type</th>
+                                                    <th>Content</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
