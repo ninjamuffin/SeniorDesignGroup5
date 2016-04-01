@@ -30,6 +30,9 @@ include '../../base.php';
 
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     
     
     <!-- Bootstrap -->
@@ -223,24 +226,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                                 </form>
                                                 <hr>
-                                                <div class="row">
-                                                    <div class="col-md-10">
-                                                        <h4>Load an offset/placeholder:</h4>
-                                                    </div>
-                                                </div>
-                                                <form method="POST" action"" id="offset_load">
-                                                <div class="row">
-                                                    <div class="col-xs-4">
-                                                        <input class="form-control" type="number" name="new_offset" min="0" max="8" value=0>
-                                                    </div>
-                                                    <div class="col-xs-4 pull-right">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-primary" >
-                                                                <span>Send to selector ==></span>
-                                                            </button>
-                                                        </span>
-                                                    </div>
-                                                </div> 
+                                                
                                                 
                                                 </form>
                                             </div>
@@ -289,117 +275,111 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body">
                                         <form method="POST" action="" id="SubmitNewEntity" autocomplete="off">
                                         
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <button class='btn btn-danger' type='reset'>Clear field</button>    
-                                                <button type="submit" class="btn btn-primary pull-right">Move to Search Builder ==></button>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button class='btn btn-danger' name="ClearSelector">Clear field</button>    
+                                                    <button type="button" class="btn btn-primary pull-right" name="SubmitSelector">Move to Search Builder ==></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        
-                                            
-                                                <?php
-            if (!(empty($_POST['new_word'])))
-            {
-                $query_valid = false;
-                if ( strlen($_POST['new_word']) > 0 )
-                    $query_valid = true;
-                
-                if ( $query_valid)
+                                            <div name="DynamicField">
+
+                                                    <?php
+                if (!(empty($_POST['new_word'])))
+                {
+                    $query_valid = false;
+                    if ( strlen($_POST['new_word']) > 0 )
+                        $query_valid = true;
+
+                    if ( $query_valid)
+                    {
+                        echo "<table class='table table-hover'><thead><tr>";
+                        echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Form</th><th>Tag</th><th>Frequency</th></tr></thead>";
+
+                        $query = "SELECT WordID, Form, PoS, Frequency FROM Dictionary WHERE Form= ?";
+
+                        $options = array( "Scrollable" => 'static' );
+                        $params = array($_POST['new_word']);
+                        $word = $_POST['new_word'];
+                        echo "<input hidden type='text' value='$word' name='addedWord'>";
+                        echo "<tbody>";
+
+                        $stmt = sqlsrv_query($con, $query, $params, $options);
+                        if ($stmt === false)
+                            die (print_r(sqlsrv_errors(), true));
+                        $result_length = sqlsrv_num_rows($stmt);
+                        $ids = [];
+                        $forms = [];
+                        $tags = [];
+                        $freq = [];
+                        while (sqlsrv_fetch($stmt) === true)
+                        {
+                            $ids[] = sqlsrv_get_field($stmt, 0);
+                            $forms[] = sqlsrv_get_field($stmt, 1);
+                            $tags[] = sqlsrv_get_field($stmt, 2);
+                            $freq[] = sqlsrv_get_field($stmt, 3);
+                        }
+
+                        for ($i = 0; $i < $result_length; $i++)
+                        {
+                            echo "<tr><input hidden name='wordID[$i]' value='$forms[$i]'><td><input type='checkbox' name='checkbox[$i]'></td><td>$forms[$i]</td><td>$tags[$i]</td><td>$freq[$i]</td></tr>";
+                        }
+                        echo "</tbody></table>";
+
+
+                    }
+                    else
+                    {
+                        echo "<p>No data received</p>";
+                    }
+                }
+
+                if (!(empty($_POST['new_tag'])))
                 {
                     echo "<table class='table table-hover'><thead><tr>";
-                    echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Form</th><th>Tag</th><th>Frequency</th></tr></thead>";
-                                                    
-                    $query = "SELECT WordID, Form, PoS, Frequency FROM Dictionary WHERE Form= ?";
-                    
-                    $options = array( "Scrollable" => 'static' );
-                    $params = array($_POST['new_word']);
-                    echo "<tbody>";
+                    echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Tag Name</th><th>Tag Type</th><th>Frequency</th>";
+                    echo "</tr></thead><tbody>";
 
-                    $stmt = sqlsrv_query($con, $query, $params, $options);
-                    if ($stmt === false)
-                        die (print_r(sqlsrv_errors(), true));
-                    $result_length = sqlsrv_num_rows($stmt);
-                    $ids = [];
-                    $forms = [];
-                    $tags = [];
-                    $freq = [];
-                    while (sqlsrv_fetch($stmt) === true)
+                    if ($_POST['new_tag'] == "ALL")
                     {
-                        $ids[] = sqlsrv_get_field($stmt, 0);
-                        $forms[] = sqlsrv_get_field($stmt, 1);
-                        $tags[] = sqlsrv_get_field($stmt, 2);
-                        $freq[] = sqlsrv_get_field($stmt, 3);
+                        $query = "SELECT TOP 40 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
+                    }
+                    else
+                    {
+                        $query = "SELECT TOP 10 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
                     }
 
-                    for ($i = 0; $i < $result_length; $i++)
-                        echo "<tr><td><input type='checkbox'></td><td>$forms[$i]</td><td>$tags[$i]</td><td>$freq[$i]</td></tr>";
-                     echo "</tbody></table>";
-                       
-                    
+                    $options = array( "Scrollable" => 'static' );
+                    $params = array();
+                    $stmt = sqlsrv_query($con, $query, $params, $options);
+                    if ($stmt === false)
+                        die(print_r(sqlsrv_errors(), true));
+                    $length = sqlsrv_num_rows($stmt);
+                    $tag_names = [];
+                    $tag_type = [];
+                    $frequency = [];
+
+                    while (sqlsrv_fetch($stmt) === true)
+                    {
+                        $frequency[] = sqlsrv_get_field($stmt, 0);
+                        $tag_names[] = sqlsrv_get_field($stmt, 1);
+                        $tag_type[] = "Undetermined";
+
+                    }
+
+                    for ($i = 0; $i < $length; $i++)
+                    {
+                        $tag = $tag_names[$i];
+                        $freq = $frequency[$i];
+                        $type = $tag_type[$i];
+                        echo "<tr><td><input type='checkbox'></td><td>$tag</td><td>$type</td><td>$freq</td>";
+                    }
+                    echo "</tbody></table>";
                 }
-                else
-                {
-                    echo "<p>No data received</p>";
-                }
-            }
-            
-            if (!(empty($_POST['new_tag'])))
-            {
-                echo "<table class='table table-hover'><thead><tr>";
-                echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Tag Name</th><th>Tag Type</th><th>Frequency</th>";
-                echo "</tr></thead><tbody>";
-                
-                if ($_POST['new_tag'] == "ALL")
-                {
-                    $query = "SELECT TOP 40 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
-                }
-                else
-                {
-                    $query = "SELECT TOP 10 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
-                }
-                
-                $options = array( "Scrollable" => 'static' );
-                $params = array();
-                $stmt = sqlsrv_query($con, $query, $params, $options);
-                if ($stmt === false)
-                    die(print_r(sqlsrv_errors(), true));
-                $length = sqlsrv_num_rows($stmt);
-                $tag_names = [];
-                $tag_type = [];
-                $frequency = [];
-                
-                while (sqlsrv_fetch($stmt) === true)
-                {
-                    $frequency[] = sqlsrv_get_field($stmt, 0);
-                    $tag_names[] = sqlsrv_get_field($stmt, 1);
-                    $tag_type[] = "Undetermined";
-                    
-                }
-                
-                for ($i = 0; $i < $length; $i++)
-                {
-                    $tag = $tag_names[$i];
-                    $freq = $frequency[$i];
-                    $type = $tag_type[$i];
-                    echo "<tr><td><input type='checkbox'></td><td>$tag</td><td>$type</td><td>$freq</td>";
-                }
-                echo "</tbody></table>";
-            }
-            if (!(empty($_POST['new_offset'])))
-            {
-                $offset = $_POST['new_offset'];
-                
-                echo "<div class='row'><div class='col-md-12'><span>Offset selected: <code>$offset</code></span><span class='pull-right'>";
-                
-                echo "<label class='radio-inline''><input type='radio' name='offsetType' checked='checked'>Exclude Punctuation</label>";
-                echo "<label class='radio-inline'><input type='radio' name='offsetType'>Include punctuation</label>";
-                
-                echo "</span></div></div>";
-            }
-                
-            
-        ?>
-                                    </form>
+
+
+            ?>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -408,7 +388,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <h4>Build Search Query</h4>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="panel-body" style="height:100%">
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <button class="btn btn-primary" type="submit">Submit Search</button>
@@ -419,16 +399,44 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </div>
                                         </div>
                                         
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" id="sortParams">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>Search Entity Type</th>
+                                                    <th>Type</th>
                                                     <th>Content</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>tag</td>
+                                                    <td>Content</td>
+                                                    <td><button class="btn btn-danger" type="button" name="DeleteRow">Delete</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>tag</td>
+                                                    <td>Content</td>
+                                                    <td><button class="btn btn-danger" type="button" name="DeleteRow">Delete</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>tag</td>
+                                                    <td>Content</td>
+                                                    <td><button class="btn btn-danger" type="button" name="DeleteRow">Delete</button></td>
+                                                </tr>
+                                            </tbody>
                                         </table>
+                                    </div>
+                                    <div class="panel-footer" style="position:absolute; width:95%; bottom:0;">
+                                        <form method="POST" onsubmit="addOffset">
+                                            <div class="row">
+                                                <div class="col-md-12 pull-right">
+                                                
+                                                    <label>Add a placeholder:<input class="form-control" type="number" min="0" max="8" value="0" id="newOffset" name="addOffset"></label>
+                                                    <button class="btn btn-primary" id="addOffsetButton" type="button" >Add to Search Query</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -440,9 +448,64 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 </div>
 </div>
 </div>
+            <script type="text/javascript">
+            
+            var fixHelper = function(e, ui) {
+                ui.children().each(function() {
+                    $(this).width($(this).width());
+                });
+                return ui;
+            };
+            
+            $("#sortParams tbody").sortable({
+                helper: fixHelper
+            }).disableSelection();
+            </script>
             <script>
+            var numOffsets = 0;   
+            $(document).ready(function() {
+                $("#addOffsetButton").click(function() {
+                    var offsetVal = $("#newOffset").val();
+                    var before = '<tr><td>offset</td><td>';
+                    var after = "</td><td><button class='btn btn-danger' type='button' name='DeleteRow'>Delete</button></td>";
+                    var formDataOne = "<input hidden type='text' value='";
+                    var formDataTwo = "' name='offset[";
+                    var formDataThree = "]'></tr>";
+                    
+                    var toAdd = before + offsetVal + after + formDataOne + offsetVal + formDataTwo + numOffsets + formDataThree;
+                    if (offsetVal == 0)
+                        return false;
+
+                    numOffsets = numOffsets + 1;
+                    $("#sortParams").append(toAdd);
+                    alert(toAdd);
+                });
+            });
             
-            
+            $(document).ready(function() {
+                $("ClearSelector").click(function() {
+                    $("div[name='DynamicField']").empty();
+                });
+            });
+            $(document).ready(function() {
+                $("button[name='SubmitSelector']").click(function() {
+                    var addWord = $("input[name='addedWord']").val();
+                    
+                    var before = '<tr><td>word</td><td>';
+                    var after = "</td><td><button class='btn btn-danger' type='button' name='DeleteRow'>Delete</button></td></tr>";
+                    var toAdd = before + addWord + after;
+                    $("#sortParams").append(toAdd);
+                    $("div[name='DynamicField']").empty();
+
+                    
+                });
+            });
+                
+            $(document).on("click", "button[name='DeleteRow']", function() {
+                $(this).closest('tr').remove();
+
+            });
+                
             $(document).ready(function(){
                 $("#language-search").keyup(function(){
                     $.ajax({
