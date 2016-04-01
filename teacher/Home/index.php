@@ -146,7 +146,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     }
                                                     for ($i = 0; $i < $resultlength; $i++)
                                                     {
-                                                        echo "<tr><td>$coursenames[i]</td><td>$sections[i]</td><td>$institutions[i]</td><td>$sessions[i]</td><td><a href=\"/Teacher/MyCourses/ViewCourse/?cid=$courseids[i]\">View Course</a></td></tr>"
+                                                        echo "<tr><td>$coursenames[i]</td><td>$sections[i]</td><td>$institutions[i]</td><td>$sessions[i]</td><td><a href=\"/Teacher/MyCourses/ViewCourse/?cid=$courseids[i]\">View Course</a></td></tr>";
                                                     }
                                                 }
                                                 
