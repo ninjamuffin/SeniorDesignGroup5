@@ -149,11 +149,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     $courseids = [];
                                                     while(sqlsrv_fetch($activecourses) === true)
                                                     {
-                                                        $coursenames[] = sql_srv_get_field($activecourses, 0);
-                                                        $sections[] = sql_srv_get_field($activecourses, 1);
-                                                        $institutions[] = sql_srv_get_field($activecourses, 2);
-                                                        $sessions[] = sql_srv_get_field($activecourses, 3);
-                                                        $courseids[] = sql_srv_get_field($activecourses, 4);
+                                                        $coursenames[] = sqlsrv_get_field($activecourses, 0);
+                                                        $sections[] = sqlsrv_get_field($activecourses, 1);
+                                                        $institutions[] = sqlsrv_get_field($activecourses, 2);
+                                                        $sessions[] = sqlsrv_get_field($activecourses, 3);
+                                                        $courseids[] = sqlsrv_get_field($activecourses, 4);
                                                     }
                                                     for ($i = 0; $i < $resultlength; $i++)
                                                     {
