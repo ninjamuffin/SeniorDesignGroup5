@@ -89,12 +89,14 @@ WHERE SU.username = ? AND
             $role = $row['Role'];
             
             
-            echo $role;
             $_SESSION['Username'] = $username;
             $_SESSION['LoggedIn'] = 1;
             $_SESSION['Role'] = $role;
             $_SESSION['AccessType'] = $row['Type'];
             $_SESSION['Designation'] = $row['Designation'];
+            $_SESSION['UserID'] = $row['user_id'];
+            $_SESSION['firstname'] = $row['firstname'];
+            $_SESSION['lastname'] = $row['lastname'];
             
             if ($role == 'Admin')
             {

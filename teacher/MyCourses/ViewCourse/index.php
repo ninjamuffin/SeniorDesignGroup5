@@ -95,6 +95,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="row">
                         <div class="col-lg-10 col-md-10">
                             <!-- Worksheet Listing -->
+                            <?php
+                                $WorksheetsSQL = "SELECT WorksheetNumber, EditStatus, Date FROM Worksheets
+                                    WHERE CourseID = ?";
+                                $params = array($courseID)
+                                $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+                            ?>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">Worksheets</div>
                                 

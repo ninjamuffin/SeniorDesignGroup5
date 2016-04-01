@@ -66,13 +66,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $params = array($institutionID, $teacherID);
         $options = array( "Scrollable" => 'static' );
         $CoursesQuery = "
-        SELECT TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName
-        FROM Courses as TC, [Class Names] as CN, [Sessions] as S, SessionNames as SN
+        SELECT TC.CourseID, CT.CourseName, TC.Section, S.SessionName
+        FROM Courses as TC, [CourseTypes] as CT, [SessionType] as S, SessionInstance as SI
         WHERE TC.InstitutionID = ? AND
-	          TC.InstructorID = ? AND
-		      CN.ClassNamesID = TC.ClassNamesID AND
-		      SN.SessionsID = TC.SessionID
-              GROUP BY TC.CoursesID, CN.ClassName, TC.Section, SN.SessionName";
+	          TC.TeachingInstance = ? AND
+		      CT.CourseTypeID = TC.CourseTypesID AND
+		      SI.SessionInstanceID = TC.SessionInstanceID AND
+              SI.SessionTypeID = S.ID
+              GROUP BY TC.CoursesID, CT.CourseName, TC.Section, S.SessionName";
         $stmt = sqlsrv_query($con, $CoursesQuery, $params, $options);
         $length = 0;
 
