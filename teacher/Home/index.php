@@ -141,6 +141,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 }
                                                 else
                                                 {
+                                                    echo $resultlength;
                                                     $coursenames = [];
                                                     $sections = [];
                                                     $institutions = [];
