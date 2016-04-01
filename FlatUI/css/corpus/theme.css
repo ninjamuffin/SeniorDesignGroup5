@@ -280,12 +280,12 @@ textarea {
   background-image: none;
 }
 a {
-  color: #075794; 1abc9c
+  color: #1abc9c;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #003f72; <!--28e1bd-->
+  color: #28e1bd;
   text-decoration: underline;
 }
 a:focus {
