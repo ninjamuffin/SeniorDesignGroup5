@@ -118,12 +118,22 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 
                                             <tbody>
                                                 <?php
-                                                $activecoursesSQL = "SELECT CT.CourseName, C.Section, I.InstitutionName, ST.SessionName, C.CourseID FROM Courses as C, TeachingInstance as TI, SessionType as ST, SessionInstance as SI, Institutions as I, CourseTypes as CT WHERE C.TeachingInstanceID = TI.TeachingInstanceID AND TI.SiteUsername = ? AND C.SessionInstanceID = SI.SessionInstanceID AND SI.SessionTypeID = ST.SessionTypeID AND C.InstitutionID = I.InstitutionID AND CT.CourseTypesID = C.CourseTypesID AND C.Status = 'Active'";
+                                                $activecoursesSQL = "SELECT CT.CourseName, C.Section, I.InstitutionName, ST.SessionName, C.CourseID
+                                                FROM Courses as C, TeachingInstance as TI, SessionType as ST, SessionInstance as SI, Institutions as I, CourseTypes as CT
+                                                WHERE C.TeachingInstanceID = TI.TeachingInstanceID
+                                                AND TI.SiteUsername = ?
+                                                AND C.SessionInstanceID = SI.SessionInstanceID
+                                                AND SI.SessionTypeID = ST.SessionTypeID
+                                                AND C.InstitutionID = I.InstitutionID
+                                                AND CT.CourseTypesID = C.CourseTypesID
+                                                AND C.Status = 'Active'";
                                                 
                                                 $params = array($_SESSION['username']);
                                                 $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
                                                 
                                                 $activecourses = sqlsrv_query($con, $activecoursesSQL, $params, $options);
+                                                if($activecourses === false)
+                                                    die (print_r(sqlsrv_errors(), true));
                                                 $resultlength = sqlsrv_num_rows($activecourses);
                                                 if($resultlength == 0)
                                                 {
