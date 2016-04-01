@@ -128,7 +128,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 AND CT.CourseTypesID = C.CourseTypesID
                                                 AND C.Status = 'Active'";
                                                 
-                                                $params = array($_SESSION['username']);
+                                                $params = array($_SESSION['Username']);
                                                 $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
                                                 
                                                 $activecourses = sqlsrv_query($con, $activecoursesSQL, $params, $options);
