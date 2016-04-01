@@ -79,7 +79,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-8 col-md-8">
-                                <h3>Firstname Lastname</h3>
+                                <h3><?php echo $_SESSION['firstname'] . $_SESSION['lastname']; ?></h3>
                                 <div class="panel panel-primary">
                                     <div class="panel-body">
                                         Teacher User Info:
@@ -108,17 +108,49 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <th>Course</th>
+                                                    <th>Section</th>
+                                                    <th>Session</th>
+                                                    <th>Institution</th>
                                                     <th>Go To</th>
                                                 </tr>
                                             </thead>
                                         
                                                 
                                             <tbody>
-                                                <tr>
-                                                    <td>ELCT 101</td>
-                                                    <td><a href="/Teacher/MyCourses/ViewCourse/?cid=">View Course</a></td>
-                                                </tr>
+                                                <?php
+                                                $activecoursesSQL = "SELECT CT.CourseName, C.Section, I.Institution, ST.SessionName, C.CourseID FROM Courses as C, TeachingInstance as TI, SessionType as ST, SessionInstance as SI, Institutions as I, CourseTypes as CT WHERE C.TeachingInstanceID = TI.TeachingInstanceID AND TI.SiteUsername = ? AND C.SessionInstanceID = SI.SessionInstanceID AND SI.SessionTypeID = ST.SessionTypeID AND C.InstitutionID = I.InstitutionID AND CT.CourseTypesID = C.CourseTypesID AND C.Status = 'Active'";
                                                 
+                                                $params = array[$_SESSION['username']];
+                                                $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+                                                
+                                                $activecourses = sqlsrv_query($con, $activecoursesSQL, $params, $options);
+                                                $resultlength = sqlsrv_num_rows($activecourses);
+                                                if($resultlength == 0)
+                                                {
+                                                    echo "No Active Courses!";
+                                                }
+                                                else
+                                                {
+                                                    $coursenames = [];
+                                                    $sections = [];
+                                                    $institutions = [];
+                                                    $sessions = [];
+                                                    $courseids = [];
+                                                    while(sqlsrv_fetch($activecourses) === true)
+                                                    {
+                                                        $coursenames[] = sql_srv_get_field($activecourses, 0);
+                                                        $sections[] = sql_srv_get_field($activecourses, 1);
+                                                        $institutions[] = sql_srv_get_field($activecourses, 2);
+                                                        $sessions[] = sql_srv_get_field($activecourses, 3);
+                                                        $courseids[] = sql_srv_get_field($activecourses, 4);
+                                                    }
+                                                    for ($i = 0; $i < $resultlength; $i++)
+                                                    {
+                                                        echo "<tr><td>$coursenames[i]</td><td>$sections[i]</td><td>$institutions[i]</td><td>$sessions[i]</td><td><a href=\"/Teacher/MyCourses/ViewCourse/?cid=$courseids[i]\">View Course</a></td></tr>"
+                                                    }
+                                                }
+                                                
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
