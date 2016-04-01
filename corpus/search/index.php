@@ -478,7 +478,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                     numOffsets = numOffsets + 1;
                     $("#sortParams").append(toAdd);
-                    alert(toAdd);
                 });
             });
             
