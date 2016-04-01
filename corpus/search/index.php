@@ -186,7 +186,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-primary">
+                                                            <button class="btn btn-primary" type="button" name="new_word_button">
                                                                 <span>Send to selector ==></span>
                                                             </button>
                                                         </span>
@@ -524,8 +524,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     
                    
             });
-            $(document).on("click", 'input[name=loadWord]', function(){
-                 
+            $(document).on("click", "button[name='new_word_button']", function(e){
+                e.preventDefault();
+                var wordVal = $("input[name='new_word']").val();
+                $.ajax({
+                    type: "POST",
+                    url: "index.php",
+                    data:'new_word='+wordVal,
+                    success: function(){
+                        $("input[name='new_word']").empty();
+                    }
+                });
             });
             /*$(document).on("keyup", 'input[name^=PoS]', function(){
                 $(this).closest( "div.entry").css("background-color", "red");
