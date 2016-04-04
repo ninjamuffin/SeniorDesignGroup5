@@ -19,18 +19,21 @@
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
-    
+    <script type="text/javascript" src="/js/dynamicRow.js"></script>
     <style>
-    .glyphicon:before {
-     visibility: visible;
-    }
-    .glyphicon.glyphicon-star-empty:checked:before {
-       content: "\e006";
-    }
-    input[type=checkbox].glyphicon{
-        visibility: hidden;
+        .glyphicon:before {
+            visibility: visible;
+        }
+        .glyphicon.glyphicon-star-empty:checked:before {
+            content: "\e006";
+        }
+        input[type=checkbox].glyphicon{
+            visibility: hidden;
 
-    }
+        }
+        .mycontent-left {
+            border-right: 1px solid #333;
+        }
     </style>
     
     <script>
@@ -65,24 +68,6 @@
     });
     </script>
 -->
-    
-    
-    
-    
-    <script type="text/javascript">$(function()
-    {
-        function cloneRow() {
-          var row = document.getElementById("rowToClone"); // find row to copy
-          var editor = document.getElementById("editor"); // find table to append to
-          var clone = row.cloneNode(true); // copy children too
-          clone.id = "newID"; // change id or other attributes/contents
-          table.appendChild(clone); // add new row to end of table
-        }
-    }
-    </script>
-    
-    
-    
     
     <!-- Background Setup -->
     <style>
@@ -120,81 +105,109 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         }
     ?>        
 
-    <body>
-        
+    
+    <body>    
     <?php
         if(true)
         {
     ?>
-            <section class="container col-xs-12">                     
+            <section class="container-fluid col-xs-12">                     
                 <!--body-->
                 <div id="wrapper">
                     <div id="sidebar"></div>
                     <div id="page-content-wrapper">
                         <div class="container-fluid">
-                            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                <span class="hamb-top"></span>
-                                <span class="hamb-middle"></span>
-                                <span class="hamb-bottom"></span>
-                            </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <div class="col-xs-12">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">Worksheet Info</div>
-                                            <div class="panel-body">
-                                                <h2>Course: Generated from page</h2>
-                                                <h5>Worksheet Number: Generated from page</h5>
-                                                <h5>Date: Generated dynamically</h5>
-                                                <h5>Topic: Form submission</h5>
+                            <div class="row-fluid">
+                                <div class="col-xs-1">
+                                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                        <span class="hamb-top"></span>
+                                        <span class="hamb-middle"></span>
+                                        <span class="hamb-bottom"></span>
+                                    </button>
+                                </div>
+                                <!-- BEGIN PAGE CONTENT -->
+                                <div class="col-xs-11 container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">Worksheet Info</div>
+                                                <div class="panel-body">
+                                                    <h2>Course: Generated from page</h2>
+                                                    <h5>Worksheet Number: Generated from page</h5>
+                                                    <h5>Date: Generated dynamically</h5>
+                                                    <h5>Topic: Form submission</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="panel panel-default">
+                                            <div class="panel-heading">Worksheet Overview</div>
+                                                <div class="panel-body">
+                                                    <table class="table" id="myTable" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Expression</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="ExpressionTable">
+                                                            <tr id="ExpressionRow">
+                                                                <td id="ExpressionNum">1</td>
+                                                                <td id="Expression">This is a sample expression for the purpose of demonstrating how text will wrap when we type too many words.</td>
+                                                                <td class="text-danger" id="ExpressionStatus">Incomplete</td>
+                                                                <td>
+                                                                    <button id="EditExpression" class="btn btn-primary">Edit</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <div class="panel panel-default">
-                                        <div class="panel-heading">Worksheet Overview</div>
-                                            <div class="panel-body">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Expression</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id=ExpressionTable>
-                                                        <tr id="ExpressionRow">
-                                                            <td>1</td>
-                                                            <td>Sample Expression</td>
-                                                            <td class="text-danger">Incomplete</td>
-                                                            <td>
-                                                                <input type="button" onclick="cloneRow()" value="Edit"/>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                    <div class="panel panel-default" style="top-margin:40px;">
+                                        <div class="panel-heading">Expression Edit Window</div>
+                                        <div class="panel-body">
+                                            <div class="col-xs-8" name="left column">
+                                                <div class="col-xs-1" style="text-align: left";>
+                                                    #
+                                                </div>
+                                                <div class="col-xs-11" style="text-align: left";>
+                                                    Expression
+                                                </div>
+
+                                                <!--
+                                                    The following 2 div are used to dynamically call the expression to the edit window
+                                                -->
+                                                <div class="col-xs-1" style="text-align: left" id="EditID"></div>
+                                                <div class="col-xs-11" style="min-height: 100px" id="ExprToEdit">
+                                                </div>
+                                                
+                                                <div class="col-xs-12">
+                                                    <form role="form">
+                                                        <div class="form-group">
+                                                            <label for="CorrectedExpr">Correction:</label>
+                                                            <input type="text" class="form-control" id="CorrectedExpr" placeholder="Enter the correct expression here"/>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-4" name="right column">
+                                                <div class="col-xs-12">
+                                                    
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <button id="SubmitExpr"  class="btn btn-primary pull-right">Submit</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="entry panel panel-default" style="top-margin:40px;">
-                                    <div class="panel-heading">Expression Edit Window</div>
-                                    <div class="panel-body">
-                                        <div class="control-form" id="editor">
-                                            <audio controls>
-                                                <source src="/media/testaudio.mp3" type="audio/mpeg">
-                                                Your browser does not support the audio element
-                                            </audio>
-                                            <form method="POST" name="Expressions[]" id="Expressions[]">
-                                                <button type="submit"  class="btn btn-primary pull-right">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <!-- END PAGE CONTENT -->
+                            </div>
                         </div>
                     </div>
                 </div>

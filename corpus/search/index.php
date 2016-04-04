@@ -218,7 +218,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-primary" >
+                                                            <button class="btn btn-primary" type="button" name="new_tag_button">
                                                                 <span>Send to selector ==></span>
                                                             </button>
                                                         </span>
@@ -277,105 +277,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <button class='btn btn-danger' name="ClearSelector">Clear field</button>    
+                                                    <button class='btn btn-danger' type="button" name="ClearSelector">Clear field</button>    
                                                     <button type="button" class="btn btn-primary pull-right" name="SubmitSelector">Move to Search Builder ==></button>
                                                 </div>
                                             </div>
                                             <div name="DynamicField">
 
                                                     <?php
-                if (!(empty($_POST['new_word'])))
-                {
-                    $query_valid = false;
-                    if ( strlen($_POST['new_word']) > 0 )
-                        $query_valid = true;
+               
 
-                    if ( $query_valid)
-                    {
-                        echo "<table class='table table-hover'><thead><tr>";
-                        echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Form</th><th>Tag</th><th>Frequency</th></tr></thead>";
-
-                        $query = "SELECT WordID, Form, PoS, Frequency FROM Dictionary WHERE Form= ?";
-
-                        $options = array( "Scrollable" => 'static' );
-                        $params = array($_POST['new_word']);
-                        $word = $_POST['new_word'];
-                        echo "<input hidden type='text' value='$word' name='addedWord'>";
-                        echo "<tbody>";
-
-                        $stmt = sqlsrv_query($con, $query, $params, $options);
-                        if ($stmt === false)
-                            die (print_r(sqlsrv_errors(), true));
-                        $result_length = sqlsrv_num_rows($stmt);
-                        $ids = [];
-                        $forms = [];
-                        $tags = [];
-                        $freq = [];
-                        while (sqlsrv_fetch($stmt) === true)
-                        {
-                            $ids[] = sqlsrv_get_field($stmt, 0);
-                            $forms[] = sqlsrv_get_field($stmt, 1);
-                            $tags[] = sqlsrv_get_field($stmt, 2);
-                            $freq[] = sqlsrv_get_field($stmt, 3);
-                        }
-
-                        for ($i = 0; $i < $result_length; $i++)
-                        {
-                            echo "<tr><input hidden name='wordID[$i]' value='$forms[$i]'><td><input type='checkbox' name='checkbox[$i]'></td><td>$forms[$i]</td><td>$tags[$i]</td><td>$freq[$i]</td></tr>";
-                        }
-                        echo "</tbody></table>";
-
-
-                    }
-                    else
-                    {
-                        echo "<p>No data received</p>";
-                    }
-                }
-
-                if (!(empty($_POST['new_tag'])))
-                {
-                    echo "<table class='table table-hover'><thead><tr>";
-                    echo "<th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Tag Name</th><th>Tag Type</th><th>Frequency</th>";
-                    echo "</tr></thead><tbody>";
-
-                    if ($_POST['new_tag'] == "ALL")
-                    {
-                        $query = "SELECT TOP 40 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
-                    }
-                    else
-                    {
-                        $query = "SELECT TOP 10 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
-                    }
-
-                    $options = array( "Scrollable" => 'static' );
-                    $params = array();
-                    $stmt = sqlsrv_query($con, $query, $params, $options);
-                    if ($stmt === false)
-                        die(print_r(sqlsrv_errors(), true));
-                    $length = sqlsrv_num_rows($stmt);
-                    $tag_names = [];
-                    $tag_type = [];
-                    $frequency = [];
-
-                    while (sqlsrv_fetch($stmt) === true)
-                    {
-                        $frequency[] = sqlsrv_get_field($stmt, 0);
-                        $tag_names[] = sqlsrv_get_field($stmt, 1);
-                        $tag_type[] = "Undetermined";
-
-                    }
-
-                    for ($i = 0; $i < $length; $i++)
-                    {
-                        $tag = $tag_names[$i];
-                        $freq = $frequency[$i];
-                        $type = $tag_type[$i];
-                        echo "<tr><td><input type='checkbox'></td><td>$tag</td><td>$type</td><td>$freq</td>";
-                    }
-                    echo "</tbody></table>";
-                }
-
+                
 
             ?>
                                             </div>
@@ -408,21 +319,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>tag</td>
-                                                    <td>Content</td>
-                                                    <td><button class="btn btn-danger" type="button" name="DeleteRow">Delete</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>tag</td>
-                                                    <td>Content</td>
-                                                    <td><button class="btn btn-danger" type="button" name="DeleteRow">Delete</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>tag</td>
-                                                    <td>Content</td>
-                                                    <td><button class="btn btn-danger" type="button" name="DeleteRow">Delete</button></td>
-                                                </tr>
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -482,19 +379,61 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             });
             
             $(document).ready(function() {
-                $("ClearSelector").click(function() {
+                $("button[name='ClearSelector']").click(function() {
                     $("div[name='DynamicField']").empty();
                 });
             });
             $(document).ready(function() {
                 $("button[name='SubmitSelector']").click(function() {
-                    var addWord = $("input[name='addedWord']").val();
+                    var words = [];
+                    var searchedword = $("input[name='searchedword']").val();
+                    $("input[name^='checkwords']").each(function() {
+                        if ($(this).is(':checked')) {
+                            words.push($(this).val());
+                        }
+                    });
+                    var tags = [];
+                    $("input[name^='checktags']").each(function() {
+                        if ($(this).is(':checked')) {
+                            tags.push($(this).val());
+                        }
+                    });
+                    var num_words = words.length;
+                    var num_tags = tags.length;
+                    if (num_words > 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: "buildrow.php",
+                            data: {
+                                'words' : words,
+                                'searchedword' : searchedword
+                            },
+                            success: function(data){
+                                $("div[name='DynamicField']").empty();
+                                $("#sortParams tbody").append(data);
+                            }
+                        });
+                    }
+                    if (num_tags > 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: "buildtagrow.php",
+                            data: {
+                                'tags' : tags
+                            },
+                            success: function(data){
+                                $("div[name='DynamicField']").empty();
+                                $("#sortParams tbody").append(data);
+                            }
+                        });
+                    }
+                    else if ( (num_tags == 0) && (num_words == 0))
+                    {
+                        alert("Please select at least one entry, or clear the list");
+                        return false;
+                    }
                     
-                    var before = '<tr><td>word</td><td>';
-                    var after = "</td><td><button class='btn btn-danger' type='button' name='DeleteRow'>Delete</button></td></tr>";
-                    var toAdd = before + addWord + after;
-                    $("#sortParams").append(toAdd);
-                    $("div[name='DynamicField']").empty();
+                    
 
                     
                 });
@@ -518,46 +457,44 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     }
                     });
                 });
-                
-                
-                
-                    
-                   
             });
+            
+            $('input[name="new_word"]').keypress(function(e){
+                if (e.which == 13) return false;
+            });
+            
             $(document).on("click", "button[name='new_word_button']", function(e){
                 e.preventDefault();
                 var wordVal = $("input[name='new_word']").val();
                 $.ajax({
                     type: "POST",
-                    url: "index.php",
+                    url: "populatewords.php",
                     data:'new_word='+wordVal,
-                    success: function(){
-                        $("input[name='new_word']").empty();
+                    success: function(data){
+                        $("input[name=new_word]").val('');
+                        $("div[name='DynamicField']").empty();
+                        $("div[name='DynamicField']").html(data);
                     }
                 });
             });
-            /*$(document).on("keyup", 'input[name^=PoS]', function(){
-                $(this).closest( "div.entry").css("background-color", "red");
+                
+            $(document).on("click", "button[name='new_tag_button']", function(e){
+                e.preventDefault();
+                var tagVal = $("select[name='new_tag']").val();
                 $.ajax({
                     type: "POST",
-                    url: "suggestPartOfSpeech.php",
-                    data:'keyword='+$(this).val(),
+                    url: "populatetags.php",
+                    data:'new_tag='+tagVal,
                     success: function(data){
-                        $("#PoS-suggest").show();
-                        $("#PoS-suggest").html(data);
+                        $("input[name=new_tag]").val('');
+                        $("div[name='DynamicField']").empty();
+                        $("div[name='DynamicField']").html(data);
                     }
                 });
             });
-            function selectTag(val) {
-                $(window.prevPrevFocus).val(val);
-                $("#PoS-suggest").hide();
-            }*/
-            function selectLanguage(val, id) {
-                $("#language-search").val(val);
-                $("#language-id").val(id);
-                $("#languages-box").hide();
-            }
-            $("#checkAll").change(function () {
+            
+            $(document).on("change", "#checkAll", function(e){
+                e.preventDefault();
                 $("input:checkbox").prop('checked', $(this).prop("checked"));
             });
             </script>
