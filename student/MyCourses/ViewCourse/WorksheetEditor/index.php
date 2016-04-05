@@ -168,29 +168,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </div>
                                     </div>
                                     <div class="panel panel-default" style="top-margin:40px;">
-                                        <div class="panel-heading">Expression Edit Window</div>
+                                        <div class="panel-heading" id="ExprHeading">Expression Edit Window
+                                            <span id="ExprID" class=""></span>
+                                        </div>
+                                        
+                                        
                                         <div class="panel-body">
                                             <div class="col-xs-8" name="left column">
-                                                
-                                                    <div class="col-xs-1" style="text-align: left";>
-                                                        #
-                                                    </div>
-                                                    <div class="col-xs-11" style="text-align: left";>
-                                                        Expression
-                                                    </div>
+                                                <div class="col-xs-11" style="text-align: left";>
+                                                    Expression
+                                                </div>
 
-                                                    <!--
-                                                        The following 2 div are used to dynamically call the expression to the edit window
-                                                    -->
-
-                                                    <div class="col-xs-1" style="text-align: left" id="EditID"></div>
-                                                    <div class="col-xs-11">
-                                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-11">
-                                                        </textarea>
-                                                    </div>
-                                                   
-                                                    
-                                               
+                                                <div class="col-xs-12">
+                                                    <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-11">
+                                                    </textarea>
+                                                </div>
                                                 
                                                 <div class="col-xs-12" style="padding-top: 40px">
                                                     <form role="form">
