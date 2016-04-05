@@ -171,25 +171,32 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <div class="panel-heading">Expression Edit Window</div>
                                         <div class="panel-body">
                                             <div class="col-xs-8" name="left column">
-                                                <div class="col-xs-1" style="text-align: left";>
-                                                    #
-                                                </div>
-                                                <div class="col-xs-11" style="text-align: left";>
-                                                    Expression
-                                                </div>
-
-                                                <!--
-                                                    The following 2 div are used to dynamically call the expression to the edit window
-                                                -->
-                                                <div class="col-xs-1" style="text-align: left" id="EditID"></div>
-                                                <div class="col-xs-11" style="min-height: 100px" id="ExprToEdit">
-                                                </div>
                                                 
-                                                <div class="col-xs-12">
+                                                    <div class="col-xs-1" style="text-align: left";>
+                                                        #
+                                                    </div>
+                                                    <div class="col-xs-11" style="text-align: left";>
+                                                        Expression
+                                                    </div>
+
+                                                    <!--
+                                                        The following 2 div are used to dynamically call the expression to the edit window
+                                                    -->
+
+                                                    <div class="col-xs-1" style="text-align: left" id="EditID"></div>
+                                                    <div class="col-xs-11">
+                                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-11">
+                                                        </textarea>
+                                                    </div>
+                                                   
+                                                    
+                                               
+                                                
+                                                <div class="col-xs-12" style="padding-top: 40px">
                                                     <form role="form">
                                                         <div class="form-group">
                                                             <label for="CorrectedExpr">Correction:</label>
-                                                            <input type="text" class="form-control" id="CorrectedExpr" placeholder="Enter the correct expression here"/>
+                                                            <input type="text" class="form-control" id="CorrectedExpr" placeholder="Enter the correct expression here" />
                                                         </div>
                                                     </form>
                                                 </div>
