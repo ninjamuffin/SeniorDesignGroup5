@@ -165,14 +165,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </div>-->
                                         <div class="panel panel-primary" style="min-height:600px;max-height:600px; overflow-y:auto">
                                             <div class="panel-heading">
-                                                <h4>Add Search Entity <span><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a></span></h4> 
+                                                <h4>Add to Search Query<span><a href= "javascript:window.open('info.php','Gonzaga University Corpus Info','width=700,height=650')" target="_blank" class="pull-right"><class="text-muted">Input Instructions</a></span></h4> 
                                             </div>
                                             <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-md-10">
-                                                        <p>To begin building your search, send one of the following to the selector: a word, a POS tag, or an offset</p>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="row">
                                                     <div class="col-md-10">
                                                         <h4>Load in a word:</h4>
@@ -184,14 +180,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                                                         <input type="text" class="form-control" name="new_word" placeholder="Type a word to search">                    
                                                     </div>
-                                                    <div class="col-xs-4">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-primary" type="button" name="new_word_button">
-                                                                <span>Send to selector ==></span>
-                                                            </button>
-                                                        </span>
-                                                    </div>
+                                                    
                                                 </div>
+                                                <br>
+                                                <button class="btn btn-primary pull-right" type="button" name="new_word_button">
+                                                    <span>Send to selector ==></span>
+                                                </button>
+                                                <br>
                                                 </form>
                                                 <hr>
                                                 <div class="row">
@@ -204,15 +199,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <div class="col-xs-8">
 
                                                         <select class="form-control" name="new_tag">
-                                                            <option selected="selected" value="ALL">Full Tagset (165 Tags)</option>
-                                                            <option value="noun">Noun Tags</option>
-                                                            <option value="pronoun">Pronoun Tags</option>
-                                                            <option value="verb">Verb Tags</option>
-                                                            <option value="adjective">Adjective Tags</option>
-                                                            <option value="adverb">Adverb Tags</option>
-                                                            <option value="preposition">Preposition Tags</option>
-                                                            <option value="conjunction">Conjunction Tags</option>
-                                                            <option value="interjection">Interjection Tags</option>
+                                                            <option selected="selected" value="ALL">Full Tagset (20 Most Frequent)</option>
+                                                            <option value="Noun">Noun</option>
+                                                            <option value="Pronoun">Pronoun</option>
+                                                            <option value="Verb">Verb</option>
+                                                            <option value="Adjective">Adjective</option>
+                                                            <option value="Adverb">Adverb</option>
+                                                            <option value="Preposition">Preposition</option>
+                                                            <option value="Conjunction">Conjunction</option>
+                                                            <option value="Determiner">Determiner</option>
+                                                            <option value="Interjection">Interjection</option>
+                                                            <option value="Other">Other</option>
                                                             
                                                         </select>
                                                     </div>
@@ -270,7 +267,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-md-4">
                                 <div class="panel panel-primary" style="min-height:600px;max-height:600px; overflow-y:auto">
                                     <div class="panel-heading">
-                                        <h4>Customize Search Parameters</h4>
+                                        <h4>Select <span><a href= "javascript:window.open('http://ucrel.lancs.ac.uk/claws7tags.html','width=700,height=650')" target="_blank" class="pull-right"><class="text-muted">About the CLAWS7 Tagset</a></span></h4> 
                                     </div>
                                     <div class="panel-body">
                                         <form method="POST" action="" id="SubmitNewEntity" autocomplete="off">
@@ -280,6 +277,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <button class='btn btn-danger' type="button" name="ClearSelector">Clear field</button>    
                                                     <button type="button" class="btn btn-primary pull-right" name="SubmitSelector">Move to Search Builder ==></button>
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-10" id="LoadingInfo"></div>
                                             </div>
                                             <div name="DynamicField">
 
@@ -385,6 +385,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             });
             $(document).ready(function() {
                 $("button[name='SubmitSelector']").click(function() {
+                    $(this).prop("disabled",true);
                     var words = [];
                     var searchedword = $("input[name='searchedword']").val();
                     $("input[name^='checkwords']").each(function() {
@@ -411,27 +412,38 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             success: function(data){
                                 $("div[name='DynamicField']").empty();
                                 $("#sortParams tbody").append(data);
+                                
                             }
                         });
+                        $(this).prop("disabled",false);
                     }
-                    if (num_tags > 0) {
-                        $.ajax({
-                            type: "POST",
-                            url: "buildtagrow.php",
-                            data: {
-                                'tags' : tags
-                            },
-                            success: function(data){
-                                $("div[name='DynamicField']").empty();
-                                $("#sortParams tbody").append(data);
-                            }
-                        });
-                    }
-                    else if ( (num_tags == 0) && (num_words == 0))
+                    else 
                     {
-                        alert("Please select at least one entry, or clear the list");
-                        return false;
+                        if (num_tags > 0) {
+                            $.ajax({
+                                type: "POST",
+                                url: "buildtagrow.php",
+                                data: {
+                                    'tags' : tags
+                                },
+                                success: function(data){
+                                    $("div[name='DynamicField']").empty();
+                                    $("#sortParams tbody").append(data);
+                                }
+                            });
+                            $(this).prop("disabled",false);
+                        }
+                        else 
+                        {
+                            if ( (num_tags == 0) && (num_words == 0))
+                            {
+                                alert("Please select at least one entry, or clear the list");
+                                $(this).prop("disabled",false);
+                                return false;
+                            }
+                        }
                     }
+                    
                     
                     
 
@@ -465,32 +477,43 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             
             $(document).on("click", "button[name='new_word_button']", function(e){
                 e.preventDefault();
+                $(this).prop("disabled",true);
                 var wordVal = $("input[name='new_word']").val();
+                $("div[name='DynamicField']").empty();
+                $("#LoadingInfo").append("<strong>loading...</strong>");
                 $.ajax({
                     type: "POST",
                     url: "populatewords.php",
                     data:'new_word='+wordVal,
+
                     success: function(data){
+                        $("#LoadingInfo").empty();
                         $("input[name=new_word]").val('');
-                        $("div[name='DynamicField']").empty();
+                        
                         $("div[name='DynamicField']").html(data);
                     }
                 });
+                $(this).prop("disabled",false);
             });
                 
             $(document).on("click", "button[name='new_tag_button']", function(e){
                 e.preventDefault();
+                $(this).prop("disabled",true);
                 var tagVal = $("select[name='new_tag']").val();
+                $("div[name='DynamicField']").empty();
+                $("#LoadingInfo").append("<strong>loading...</strong>");
                 $.ajax({
                     type: "POST",
                     url: "populatetags.php",
                     data:'new_tag='+tagVal,
                     success: function(data){
+                        $("#LoadingInfo").empty();
                         $("input[name=new_tag]").val('');
-                        $("div[name='DynamicField']").empty();
                         $("div[name='DynamicField']").html(data);
                     }
                 });
+                $(this).prop("disabled",false);
+                $(this).prop("selected",false);
             });
             
             $(document).on("change", "#checkAll", function(e){

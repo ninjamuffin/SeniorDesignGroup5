@@ -13,9 +13,9 @@ if (!(empty($_POST['new_word'])))
     {
     ?>
         <table class='table table-hover'><thead><tr>
-        <th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Form</th><th>Tag</th><th>Frequency</th></tr></thead>
+        <th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Form</th><th>Tag</th><th>Type</th><th>Frequency</th></tr></thead>
         <?php
-        $query = "SELECT WordID, Form, PoS, Frequency FROM Dictionary WHERE Form= ?";
+        $query = "SELECT D.WordID, D.Form, D.PoS, C.TagType, D.Frequency FROM Dictionary D, CLAWS7 C WHERE D.Form= ? AND C.Tag = D.PoS";
 
         $options = array( "Scrollable" => 'static' );
         $params = array($_POST['new_word']);
@@ -29,13 +29,15 @@ if (!(empty($_POST['new_word'])))
         $ids = [];
         $forms = [];
         $tags = [];
+        $tagtypes = [];
         $freq = [];
         while (sqlsrv_fetch($stmt) === true)
         {
             $ids[] = sqlsrv_get_field($stmt, 0);
             $forms[] = sqlsrv_get_field($stmt, 1);
             $tags[] = sqlsrv_get_field($stmt, 2);
-            $freq[] = sqlsrv_get_field($stmt, 3);
+            $tagtypes[] = sqlsrv_get_field($stmt, 3);
+            $freq[] = sqlsrv_get_field($stmt, 4);
         }
         ?>
             <tbody>
@@ -50,6 +52,7 @@ if (!(empty($_POST['new_word'])))
                 <td><input type="checkbox" name="checkwords[]" value="<?=$id?>"></td>
                 <td><?=$forms[$i]?></td>
                 <td><?=$tags[$i]?></td>
+                <td><?=$tagtypes[$i]?></td>
                 <td><?=$freq[$i]?></td>
                 <input hidden type="text" name="words[]" value="<?=$id?>">
                 

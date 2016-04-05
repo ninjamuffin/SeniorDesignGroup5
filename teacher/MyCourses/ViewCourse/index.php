@@ -40,6 +40,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
+        if ($courseID == 0)
+            echo "<meta http-equiv='refresh' content='0;../' />";
+    
     ?>        
 
     <body>
@@ -59,10 +63,35 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <h3>Course Info</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <p>Name:</p>
-                                    <p>Institution:</p>
-                                    <p>Session:</p>
-                                    <p>Section:</p>
+                                    <?php
+                                        $courseinfoSQL = "SELECT CT.CourseName, I.InstitutionName, ST.SessionName, SI.Year, C.Section
+                                        From Courses as C, SessionType as ST, SessionInstance as SI, Institutions as I, CourseTypes as CT
+                                        WHERE C.CourseID = ?
+                                        AND CT.CourseTypesID = C.CourseTypesID
+                                        AND I.InstitutionID = C.InstitutionID
+                                        AND SI.SessionInstanceID = C.SessionInstanceID
+                                        AND ST.SessionTypeID = SI.SessionTypeID";
+                                        $params = array($courseID);
+                                        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        
+                                        $courseinfo = sqlsrv_query($con, $courseinfoSQL, $params, $options);
+                                        if ( $courseinfo === false)
+                                            die( print_r( sqlsrv_errors(), true));
+                                        $length = sqlsrv_num_rows($courseinfo);
+
+                                        if (sqlsrv_fetch( $courseinfo ) === true) 
+                                        {
+                                            $ClassName = sqlsrv_get_field( $courseinfo, 0);
+                                            $InstitutionName = sqlsrv_get_field( $courseinfo, 1);
+                                            $SessionName = sqlsrv_get_field( $courseinfo, 2);
+                                            $SessionYear = sqlsrv_get_field( $courseinfo, 3);
+                                            $Section = sqlsrv_get_field( $courseinfo, 4);
+                                        }
+                                    echo "<p>Name: $ClassName</p>
+                                    <p>Institution: $InstitutionName</p>
+                                    <p>Session: $SessionName $SessionYear</p>
+                                    <p>Section: $Section</p>";
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -72,20 +101,56 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <h3>Students</h3>
                                 </div>
                                 <div class="panel-body">
+                                    <?php
+        $params = array($courseID);
+        $options = array( "Scrollable" => 'static' );
+        $coursestudentsSQL = "SELECT S.FirstName, S.LastName, S.StudentID
+                              FROM Students as S, Enrollment as ER, Courses as C
+                              WHERE C.CourseID = ? AND
+                                    ER.CourseID = C.CourseID AND
+                                    S.StudentID = ER.StudentID";
+        $coursestudents = sqlsrv_query($con, $coursestudentsSQL, $params, $options);
+        if ($coursestudents === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_students = sqlsrv_num_rows($coursestudents);
+        $firstnames = [];
+        $lastnames = [];
+        $ids = [];
+        while (sqlsrv_fetch($coursestudents) === true)
+        {
+            $firstnames[] = sqlsrv_get_field($coursestudents, 0);
+            $lastnames[] = sqlsrv_get_field($coursestudents, 1);
+            $ids[] = sqlsrv_get_field($coursestudents, 2);
+        }
+        ?>
+        
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Go To</th>
-                                                <th>Go To (Archive)</th>
+                                                <th>Go To Archive</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Stu Dent</td>
-                                                <td><a href="Students/ViewStudentProfile/">Student Page</a></td>
-                                                <td><a href="/Teacher/Archive/Students/ViewStudent/?sid=">View in Archive</a></td>
-                                            </tr>
+        <?php
+        for($i = 0; $i < $num_students; $i++)
+        {
+            echo "<tr>";
+            echo "<td>$firstnames[$i] $lastnames[$i]</td>";
+            echo "<td>
+                    <form method=\"POST\" action=\"/Teacher/MyStudents/ViewStudent/\">
+                      <input hidden type=\"text\" name=\"studentid\" value=\"$ids[$i]\">
+                      <button class=\"btn btn-primary\">Student Page</button>
+                    </form>
+                  </td>";
+            echo "<td>
+                    <form method=\"POST\" action=\"/Teacher/Archive/Students/ViewStudent/\">
+                      <input hidden type=\"text\" name=\"studentid\" value=\"$ids[$i]\">
+                      <button class=\"btn btn-primary\">Archive Page</button>
+                    </form>
+                  </td>";
+        }?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -98,7 +163,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <?php
                                 $WorksheetsSQL = "SELECT WorksheetNumber, EditStatus, Date FROM Worksheets
                                     WHERE CourseID = ?";
-                                $params = array($courseID)
+                                $params = array($courseID);
                                 $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
                             ?>
                             <div class="panel panel-primary">

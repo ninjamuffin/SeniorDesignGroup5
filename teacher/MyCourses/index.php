@@ -45,9 +45,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $institutionID = isset($_GET['in']) ? $_GET['in'] : 0; // Default Institution = 1
         
-        $username = $_SESSION['Username'];
+        $institutionID = isset($_POST['institutionid']) ? $_POST['institutionid'] : 0;
+        
+        /*$username = $_SESSION['Username'];
         $params = array($username);
         $teacherIDQuery = "SELECT TeacherID FROM Teachers WHERE [SiteUsername] = ?";
         
@@ -61,42 +62,64 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if ( sqlsrv_fetch( $stmt ) === true)
             $teacherID = sqlsrv_get_field( $stmt, 0);
         else
-            echo "SQL ERROR";
+            echo "SQL ERROR";*/
         
-        $params = array($institutionID, $teacherID);
-        $options = array( "Scrollable" => 'static' );
-        $CoursesQuery = "
-        SELECT TC.CourseID, CT.CourseName, TC.Section, S.SessionName
-        FROM Courses as TC, [CourseTypes] as CT, [SessionType] as S, SessionInstance as SI
-        WHERE TC.InstitutionID = ? AND
-	          TC.TeachingInstance = ? AND
-		      CT.CourseTypeID = TC.CourseTypesID AND
-		      SI.SessionInstanceID = TC.SessionInstanceID AND
-              SI.SessionTypeID = S.ID
-              GROUP BY TC.CoursesID, CT.CourseName, TC.Section, S.SessionName";
+        if ($institutionID == 0)
+        {
+            $params = array($_SESSION['Username']);
+            $options = array( "Scrollable" => 'static' );
+            $CoursesQuery = "
+            SELECT C.CourseID, CT.CourseName, C.Section, ST.SessionName, SI.Year
+            FROM Courses as C, [CourseTypes] as CT, [SessionType] as ST, SessionInstance as SI, TeachingInstance as TI
+            WHERE TI.SiteUsername = ? AND
+                  C.TeachingInstanceID = TI.TeachingInstanceID AND
+                  C.Status = 'Active' AND
+                  CT.CourseTypesID = C.CourseTypesID AND
+                  SI.SessionInstanceID = C.SessionInstanceID AND
+                  ST.SessionTypeID = SI.SessionTypeID";
+        }
+        else
+        {
+            $params = array($_SESSION['Username'], $institutionID);
+            $options = array( "Scrollable" => 'static' );
+            $CoursesQuery = "
+            SELECT C.CourseID, CT.CourseName, C.Section, ST.SessionName, SI.Year
+            FROM Courses as C, [CourseTypes] as CT, [SessionType] as ST, SessionInstance as SI, TeachingInstance TI
+            WHERE TI.SiteUsername= ? AND
+                  C.TeachingInstanceID = TI.TeachingInstanceID AND
+                  C.Status = 'Active' AND
+                  C.InstitutionID = ? AND
+                  CT.CourseTypesID = C.CourseTypesID AND
+                  SI.SessionInstanceID = C.SessionInstanceID AND
+                  ST.SessionTypeID = SI.SessionTypeID";
+        }
+        
         $stmt = sqlsrv_query($con, $CoursesQuery, $params, $options);
-        $length = 0;
+        if ( $stmt === false)
+            die( print_r( sqlsrv_errors(), true));
+        $length = sqlsrv_num_rows($stmt);
 
         $courseID = [];
         $ClassNames = [];
         $Sections = [];
         $SessionNames = [];
-        if ( $stmt === false)
-            die( print_r( sqlsrv_errors(), true));
+        $SessionYears = [];
+        
         while (sqlsrv_fetch( $stmt ) === true) 
         {
             $courseID[] = sqlsrv_get_field( $stmt, 0);
             $ClassNames[] = sqlsrv_get_field( $stmt, 1);
             $Sections[] = sqlsrv_get_field( $stmt, 2);
             $SessionNames[] = sqlsrv_get_field( $stmt, 3);
-            $length++;
+            $SessionYears[] = sqlsrv_get_field( $stmt, 4);
         }
         
-        $params = array($teacherID);
-        $institutionsQuery = "SELECT DISTINCT I.InstitutionName, I.InstitutionID FROM Institutions as I, TeachingInstance as TI WHERE TI.TeacherID = ? AND I.InstitutionID = TI.InstitutionID";
+        $params = array($_SESSION['Username']);
+        $institutionsQuery = "SELECT DISTINCT I.InstitutionName, I.InstitutionID FROM Institutions as I, TeachingInstance as TI WHERE TI.SiteUsername = ? AND I.InstitutionID = TI.InstitutionID";
         $stmt = sqlsrv_query( $con, $institutionsQuery, $params, $options);
         if ($stmt === false)
             die (print_r(sqlsrv(errors(), true)));
+        $num_institutions = sqlsrv_num_rows($stmt);
         $institutions = [];
         $institutionsIDs = [];
         while (sqlsrv_fetch($stmt) === true)
@@ -124,8 +147,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <h2>My Courses</h2>
                         </div>
                     </div>
+                    <?php
+        if ($num_institutions > 1)
+        {
+            ?>
                     <div class="row">
-                        <div class="col-sm-8 col-md-6">
+                        <div class="col-sm-4">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     Filter Courses
@@ -133,35 +160,30 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel-body">
                                     <form method="POST" action="" id="FilterCourses">
                                         <div class="form-group row">
-                                            <div class="col-xs-6 col-md-4">
-                                                <select class="form-control">
-                                                <?php
-        $i = 0;
-        foreach($institutions as $inst)
+                                            <div class="col-xs-8">
+                                                <select class="form-control" name="institutionid">
+                                                    <option selected="selected">--Select Institution--</option>
+            <?php
+        for($i = 0; $i < $num_institutions; $i++)
         {
-            if (($institutionID > 0) && ($institutionIDs[$i] == $institutionID))
-            {
                 ?>
-                                                    <option value="<?=$institutionID?>" selected="selected"><?=$inst?></option>
+                                                    <option value="<?=$institutionIDs[$i]?>"><?=$institutions[$i]?></option>
                                                     <?php
-            }
-            else
-            {
-                ?>
-                                                    <option value="<?=$institutionID?>"><?=$inst?></option>
-                                                    <?php
-            }
         }?>
                                                 </select>
                                             
                                             </div>
                                             
                                         </div>
+                                        <button class="btn btn-primary">Filter My Institutions</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+            <?php
+        }?>
+                    
                     <div class="row">
                         <div class="col-md-8 col-sm-6">
                             <div class="panel panel-primary">
@@ -177,21 +199,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Fall II 2014</td>
-                                                <td>Entry</td>
-                                                <td>1</td>
-                                                <td><a href="ViewCourse/?cid=1">Course Page</a></td>
-                                            </tr>
+                                            
                                         <?php
         for ($i = 0; $i < $length; $i++)
         {
             echo "<tr>";
-            echo "<td>$SessionNames[$i]</td>";
+            echo "<td>$SessionNames[$i] $SessionYears[$i]</td>";
             echo "<td>$ClassNames[$i]</td>";
             echo "<td>$Sections[$i]</td>";
-            echo "<td><a href='ViewCourse/?cid=$courseID[$i]'>Course Page</a></td>";
-            echo "</tr>";
+            echo "<td>
+                    <form method=\"POST\" action=\"ViewCourse/\" name=\"course{$courseID[$i]}\"><input hidden type=\"text\" value=\"$courseID[$i]\" name=\"courseID\"><button class=\"btn btn-primary\">Course Page</button></form>";
+            
+            echo "</td></tr>";
 
         }?>
                                             

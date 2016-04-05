@@ -10,17 +10,20 @@ if (!(empty($_POST['new_tag'])))
     <th><label><input type='checkbox' id='checkAll'> Select All </label></th><th>Tag Name</th><th>Tag Type</th><th>Frequency</th>
     </tr></thead><tbody>
 <?php
+    
     if ($_POST['new_tag'] == "ALL")
     {
-        $query = "SELECT TOP 10 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
+        $query = "SELECT TOP 20 Frequency, Tag, TagType FROM CLAWS7 ORDER BY Frequency desc";
+        $params = array();
     }
     else
     {
-        $query = "SELECT TOP 10 sum(Frequency), PoS FROM Dictionary WHERE PoS in (SELECT Tag FROM CLAWS7) GROUP BY PoS ORDER BY sum(Frequency) desc";
+        $query = "SELECT Frequency, Tag, TagType FROM CLAWS7 WHERE TagType = ? ORDER BY Frequency desc";
+        $params = array($_POST['new_tag']);
     }
 
     $options = array( "Scrollable" => 'static' );
-    $params = array();
+    
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ($stmt === false)
         die(print_r(sqlsrv_errors(), true));
@@ -33,7 +36,7 @@ if (!(empty($_POST['new_tag'])))
     {
         $frequency[] = sqlsrv_get_field($stmt, 0);
         $tag_names[] = sqlsrv_get_field($stmt, 1);
-        $tag_type[] = "Undetermined";
+        $tag_type[] = sqlsrv_get_field($stmt, 2);
 
     }
 
