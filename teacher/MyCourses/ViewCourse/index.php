@@ -60,7 +60,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="col-lg-4 col-md-4 col-sm-6">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h3>Course Info</h3>
+                                    <h4>Course Info</h4>
                                 </div>
                                 <div class="panel-body">
                                     <?php
@@ -87,6 +87,31 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             $SessionYear = sqlsrv_get_field( $courseinfo, 3);
                                             $Section = sqlsrv_get_field( $courseinfo, 4);
                                         }
+                                        $WorksheetsSQL = "
+                                        SELECT WorksheetID, WorksheetNumber, EditStatus, CONVERT(VARCHAR(11), Date,106)
+                                        FROM Worksheets
+                                        WHERE CourseID = ? ORDER BY WorksheetNumber";
+                                        $params = array($courseID);
+                                        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+                                        $worksheets = sqlsrv_query($con, $WorksheetsSQL, $params, $options);
+                                        if ($worksheets === false)
+                                            die(print_r(sqlsrv_errors(), true));
+                                        $num_worksheets = sqlsrv_num_rows($worksheets);
+                                        $new_worksheet_number = $num_worksheets + 1;
+                                        $today = date("F j, Y"); 
+
+                                        $worksheetIDs = [];
+                                        $worksheet_numbers = [];
+                                        $statuses = [];
+                                        $dates = [];
+                                        while(sqlsrv_fetch($worksheets) === true)
+                                        {
+                                            $worksheetIDs[] = sqlsrv_get_field($worksheets, 0);
+                                            $worksheet_numbers[] = sqlsrv_get_field($worksheets, 1);
+                                            $statuses[] = sqlsrv_get_field($worksheets, 2);
+                                            $dates[] = sqlsrv_get_field($worksheets, 3);
+                                        }
+
                                     echo "<p>Name: $ClassName</p>
                                     <p>Institution: $InstitutionName</p>
                                     <p>Session: $SessionName $SessionYear</p>
@@ -94,11 +119,49 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     ?>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h3>Students</h3>
+                                    New Worksheet
+                                </div>
+                                <div class="panel-body">
+                                    <form method="POST" action="WorksheetEditor/" name="NewWorksheet">  
+                                        <input type="hidden" name="Number" value="<?=$new_worksheet_number?>">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <h4>Worksheet # <?=$new_worksheet_number?><span class="pull-right"><?=$today?></span></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <input class="form-control" type="text" placeholder="Enter Topic">
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <h4>My Students Will See:</h4>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="worksheetTypeOriginal"> Original Expression</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="worksheetTypeText" value="TextReform">  Text Reformulation</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="worksheetTypeAudio" value="AudioReform">  Audio Reformulation</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <span class="pull-right"><button class="btn btn-primary">Create New Worksheet</button></span>
+                                            
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="panel panel-primary" style="min-height:578px;">
+                                <div class="panel-heading">
+                                    <h4>Students</h4>
                                 </div>
                                 <div class="panel-body">
                                     <?php
@@ -139,14 +202,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<tr>";
             echo "<td>$firstnames[$i] $lastnames[$i]</td>";
             echo "<td>
-                    <form method=\"POST\" action=\"/Teacher/MyStudents/ViewStudent/\">
-                      <input hidden type=\"text\" name=\"studentid\" value=\"$ids[$i]\">
+                    <form method=\"POST\" action=\"/Teacher/MyStudents/ViewStudent/\" name=\"studentview{$i}\">
+                      <input hidden type=\"text\" name=\"studentID\" value=\"$ids[$i]\">
                       <button class=\"btn btn-primary\">Student Page</button>
                     </form>
                   </td>";
             echo "<td>
-                    <form method=\"POST\" action=\"/Teacher/Archive/Students/ViewStudent/\">
-                      <input hidden type=\"text\" name=\"studentid\" value=\"$ids[$i]\">
+                    <form method=\"POST\" action=\"/Teacher/Archive/Students/ViewStudent/\" name=\"archivepage{$i}\">
+                      <input hidden type=\"text\" name=\"studentID\" value=\"$ids[$i]\">
+                      <input hidden type=\"text\" value=\"$firstnames[$i]\" name=\"studentfirstname\">
+                      <input hidden type=\"text\" value=\"$lastnames[$i]\" name=\"studentlastname\">
                       <button class=\"btn btn-primary\">Archive Page</button>
                     </form>
                   </td>";
@@ -160,44 +225,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="row">
                         <div class="col-lg-10 col-md-10">
                             <!-- Worksheet Listing -->
-    <?php
-        $WorksheetsSQL = "
-        SELECT WorksheetID, WorksheetNumber, EditStatus, Date
-        FROM Worksheets
-        WHERE CourseID = ? ORDER BY WorksheetNumber";
-        $params = array($courseID);
-        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $worksheets = sqlsrv_query($con, $WorksheetsSQL, $params, $options);
-        if ($worksheets === false)
-            die(print_r(sqlsrv_errors(), true));
-        $num_worksheets = sqlsrv_num_rows($worksheets);
-        $new_worksheet_number = $num_worksheets + 1;
-        
-        $worksheetIDs = [];
-        $worksheet_numbers = [];
-        $statuses = [];
-        $dates = [];
-        while(sqlsrv_fetch($worksheets) === true)
-        {
-            $worksheetIDs[] = sqlsrv_get_field($worksheets, 0);
-            $worksheet_numbers[] = sqlsrv_get_field($worksheets, 1);
-            $statuses[] = sqlsrv_get_field($worksheets, 2);
-            $dates[] = sqlsrv_get_field($worksheets, 3);
-        }
-
-    ?>
-                            <div class="panel panel-primary">
+                            
+                            <div class="panel panel-primary" style="min-height:400px;">
                                 <div class="panel-heading">Worksheets</div>
                                 
                                 <div class="panel-body">
-                                    <form method="POST" action="WorksheetEditor/" name="NewWorksheet">
-                                        <div class="form-group row">
-                                            <div class="col-xs-4 col-sm-3">
-                                                <input type="hidden" name="Number" value="<?=$new_worksheet_number?>">
-                                                <button class="btn btn-primary" type="submit">New Worksheet</button>
-                                            </div>
-                                        </div>
-                                    </form>
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
@@ -205,25 +237,40 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <th>Date</th>
                                                 <th>Status</th>
                                                 <th>Go To</th>
-                                                <th>Action</th>
+                                                <th>Perform an Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-        echo $num_worksheets;
+        $username = $_SESSION['Username'];
         for($i = 0; $i < $num_worksheets; $i++)
         {
             echo "<tr>";
             echo "<td>$worksheet_numbers[$i]</td>";
             echo "<td>$dates[$i]</td>";
             echo "<td>$statuses[$i]</td>";
-            echo "<td><a href=\"#\">Do Something</a></td>";
-            echo "<td>
-                    <form method=\"POST\" name=\"publishworksheet\" action=\"PublishWorksheet.php\">
+            if ($statuses[$i] == "Released")
+            {
+                echo "<td><form method=\"POST\" action=\"ViewWorksheet/\" name=\"ViewWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><button class=\"btn btn-primary\">Review</button></form></td>";
+            }
+            else
+            {
+                echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"EditWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><button class=\"btn btn-primary\">Edit</button></form></td>";
+            }
+            echo "<td style=\"width:180px;\"><div class=\"row\"><div class=\"col-xs-5\">
+                    <form method=\"POST\" name=\"publishworksheet{$i}\" action=\"PublishWorksheet.php\">
                       <input hidden type=\"text\" name=\"worksheetid\" value=\"$worksheetIDs[$i]\">
+                      <input hidden type=\"text\" name=\"courseid\" value=\"$courseID\">
                       <button class=\"btn btn-primary\">Publish</button>
-                    </form>
-                  </td>";
+                    </form></div>
+                  ";
+            echo "<div class=\"col-xs-5\">
+                    <form method=\"POST\" name=\"deleteworksheet{$i}\" action=\"DeleteWorksheet.php\">
+                      <input hidden type=\"text\" name=\"worksheetid\" value=\"$worksheetIDs[$i]\">
+                      <input hidden type=\"text\" name=\"courseid\" value=\"$courseID\">
+                      <button class=\"btn btn-danger\">Delete</button>
+                    </form></div>
+                  </div></td>";
             echo "</tr>";
         }
         ?>

@@ -208,7 +208,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<td>$ClassNames[$i]</td>";
             echo "<td>$Sections[$i]</td>";
             echo "<td>
-                    <form method=\"POST\" action=\"ViewCourse/\" name=\"course{$courseID[$i]}\"><input hidden type=\"text\" value=\"$courseID[$i]\" name=\"courseID\"><button class=\"btn btn-primary\">Course Page</button></form>";
+                    <form method=\"POST\" action=\"ViewCourse/\" name=\"course{$courseID[$i]}\">
+                        <input hidden type=\"text\" value=\"$courseID[$i]\" name=\"courseID\">
+                        <input hidden type=\"text\" value=\"$SessionNames[$i]\" name=\"sessionname\">
+                        <input hidden type=\"text\" value=\"$SessionYears[$i]\" name=\"sessionyear\">
+                        <input hidden type=\"text\" value=\"$ClassNames[$i]\" name=\"classnames\">
+                        <input hidden type=\"text\" value=\"$Sections[$i]\" name=\"sections\">
+                    <button class=\"btn btn-primary\">Course Page</button></form>";
             
             echo "</td></tr>";
 

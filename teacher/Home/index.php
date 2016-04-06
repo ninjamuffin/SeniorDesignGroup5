@@ -85,11 +85,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <div class="row">
                             
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="panel panel-default">
+                            <div class="col-lg-5 col-md-6 col-sm-7">
+                                <div class="panel panel-default" style="min-height:600px;">
                                     <div class="panel-heading">
                                         <div class="row">
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-10">
                                                 <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
                                             </div>
                                         
@@ -163,16 +163,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="panel panel-default">
+                            <div class="col-lg-4 col-md-6 col-sm-5">
+                                <div class="panel panel-default" style="min-height:600px;">
                                     <div class="panel-heading">
                                         <div class="row">
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-10">
                                                     <h4>My Students <a href="/Teacher/MyStudents/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;">
+                                    <div class="panel-body">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
@@ -232,7 +232,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                             
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-lg-8 col-md-8">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -292,7 +292,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
 

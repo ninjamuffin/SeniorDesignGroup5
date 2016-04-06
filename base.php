@@ -1,5 +1,6 @@
 <?php
 include 'pagination.php';
+date_default_timezone_set('America/Los_Angeles');
 session_start();
 
 /* DB Connection Information */
