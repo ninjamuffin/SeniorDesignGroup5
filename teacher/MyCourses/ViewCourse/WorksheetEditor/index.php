@@ -67,7 +67,7 @@
     <style>
         .dropdown-backdrop {
             position: static;
-        } 
+        }
     </style>
 </head>
         
@@ -140,6 +140,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <table class="table" id="myTable" >
                                                         <thead>
                                                             <tr>
+                                                                <th>Student</th>
                                                                 <th>#</th>
                                                                 <th>Expression</th>
                                                                 <th>Vocab</th>
@@ -150,6 +151,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         </thead>
                                                         <tbody id="ExpressionTable">
                                                             <tr id="ExpressionRow">
+                                                                <td id="Student">Pablo Sanchez</td>
                                                                 <td id="ExprID">1</td>
                                                                 <td id="ExprToEdit">This is a sample expression for the purpose of demonstrating how text will wrap when we type too many words.</td>
                                                                 <td id="Vocab">
@@ -173,11 +175,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">Expressions</div>
                                     <div class="panel-body">
                                         <div class="control-group controls" id="fields">
-                                            <form method="POST" name="Expressions[]" id="Expressions[]">
+                                            <form>
                                                 <div class="form-group row">
                                                     <div class="col-xs-4 col-md-6">
                                                         <select class="form-control">
-                                                            <option selected="selected">--Student--</option>
+                                                            <option  selected="selected">--Student--</option>
                                                             <option>Student 1</option>
                                                             <option>Student 2</option>
                                                             <option>Student 3</option>
@@ -197,13 +199,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-xs-7">
-                                                        <input type="text" class="form-control input-md" placeholder="Vocab/Context">
+                                                        <label for="VocabCorr">Vocab: </label>
+                                                        <input id="VocabCorr" type="text" class="form-control" placeholder="Vocab/Context">
                                                     </div>
                                                     <div class="col-xs-5">
-                                                        <input type="text" class="form-control input-md" placeholder="Pronunciation">
+                                                        <label for="PronCorr">Pronunciation:</label>
+                                                        <input type="text" class="form-control" id="PronCorr" placeholder="Pronunciation"/>
                                                     </div>
                                                 </div>
-                                                <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
+                                                <div class="col-xs-12">
+                                                    <button id="SubmitExpr"  class="btn btn-primary pull-right">Submit</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

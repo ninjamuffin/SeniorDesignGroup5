@@ -7,17 +7,26 @@ $(function(){
     $('#EditExpression').on('click',function(e) {
         var exprRow = exprTable.getElementsByTagName("tr");
         var expr = exprTable.getElementsByTagName("td");
-        
-        document.getElementById("ExprToEdit").innerHTML = expr[1].innerHTML;
-        document.getElementById("ExprID").innerHTML = expr[0].innerHTML;
-        $("#CorrectedExpr").val(expr[1].innerHTML);
+        /*var std = expr.getElementsByTagName("option");*/
+        /*document.getElementById("ExprToEdit").innerHTML = expr[1].innerHTML;*/
+        /*document.getElementById("ExprID").innerHTML = expr[0].innerHTML;*/
+        /*$(std[0]).val(expr[0].innerHTML);*/
+        $("#CorrectedExpr").val(expr[2].innerHTML);
+        $("#VocabCorr").val(expr[3].innerHTML);
+        $("#PronCorr").val(expr[3].innerHTML);
     });
     
     $('#SubmitExpr').on('click',function(e){
         corrExpr = document.getElementById("CorrectedExpr").value;
+        corrVocab = document.getElementById("VocabCorr").value;
+        corrPron = document.getElementById("PronCorr").value;
         document.getElementById("ExpressionStatus").innerHTML='Complete';
-        document.getElementById("Expression").innerHTML=corrExpr;
+        document.getElementById("ExprToEdit").innerHTML=corrExpr;
+        document.getElementById("Vocab").innerHTML=corrVocab;
+        document.getElementById("Pronunciation").innerHTML=corrPron;
         $("#CorrectedExpr").val("");
+        $("#VocabCorr").val("");
+        $("#PronCorr").val("");
     });
     
     /*$("tr").each(function(index) {
