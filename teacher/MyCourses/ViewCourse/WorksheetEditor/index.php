@@ -19,7 +19,7 @@
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
-    <!--<script type="text/javascript" src="/js/dynamicRow.js"></script>-->
+    <script type="text/javascript" src="/js/dynamicRowTeacher.js"></script>
     
     <style>
     .glyphicon:before {
@@ -105,7 +105,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if(true)
         {
     ?>
-            <section class="container col-xs-12">                     
+            <section class="container-fluid col-xs-12">                     
                 <!--body-->
                 <div id="wrapper">
                     <div id="sidebar"></div>
@@ -119,7 +119,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <!-- BEGIN PAGE CONTENT -->
                             <div class="col-xs-12">
                                 <div class="row">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-3">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">Worksheet Info</div>
                                                 <div class="panel-body">
@@ -130,7 +130,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-6">
+                                    
+                                        <div class="col-xs-1"></div>
+                                    
+                                        <div class="col-xs-8">
                                             <div class="panel panel-default">
                                             <div class="panel-heading">Worksheet Overview</div>
                                                 <div class="panel-body">
@@ -139,15 +142,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                             <tr>
                                                                 <th>#</th>
                                                                 <th>Expression</th>
+                                                                <th>Vocab</th>
+                                                                <th>Pronunciation</th>
                                                                 <th>Status</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody id="ExpressionTable">
                                                             <tr id="ExpressionRow">
-                                                                <td id="ExpressionNum">1</td>
-                                                                <td id="Expression">This is a sample expression for the purpose of demonstrating how text will wrap when we type too many words.</td>
-                                                                <td class="text-danger" id="ExpressionStatus">Incomplete</td>
+                                                                <td id="ExprID">1</td>
+                                                                <td id="ExprToEdit">This is a sample expression for the purpose of demonstrating how text will wrap when we type too many words.</td>
+                                                                <td id="Vocab">
+                                                                Talking about hometown and where they came from
+                                                                </td>
+                                                                <td id="Pronunciation">
+                                                                Type of Pronunciation
+                                                                </td>
+                                                                <td id="ExpressionStatus">Incomplete</td>
                                                                 <td>
                                                                     <button id="EditExpression" class="btn btn-primary">Edit</button>
                                                                 </td>
@@ -180,7 +191,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-xs-12">
-                                                        <input type="text" class="form-control input-md" placeholder="Expression">
+                                                        <label for="CorrectedExpr">Correction:</label>
+                                                            <input type="text" class="form-control" id="CorrectedExpr" placeholder="Enter the correct expression here" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -219,7 +231,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if (false)
         {
     ?>    
-            <section class="container col-xs-12">                     
+            <section class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">                     
                     <!--body-->
                     <div id="wrapper">
 
@@ -271,7 +283,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                             </div>
                                                             <div class="form-group row">
                                                                 <div class="col-lg-12">
-                                                                    <input type="text" class="form-control input-md" placeholder="Expression">
+                                                                    
+                                                                    
                                                                 </div>
 
                                                             </div>

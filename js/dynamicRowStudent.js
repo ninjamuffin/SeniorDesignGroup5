@@ -10,7 +10,6 @@ $(function(){
         
         document.getElementById("ExprToEdit").innerHTML = expr[1].innerHTML;
         document.getElementById("ExprID").innerHTML = "- #" + expr[0].innerHTML;
-        document.getElementById("Expression").innerHTML = expr[1].innerHTML;
         $("#CorrectedExpr").val(expr[1].innerHTML);
     });
     
