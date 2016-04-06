@@ -44,11 +44,34 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $studentID = isset($_GET['sid']) ? $_GET['sid'] : 0;
+        $studentID = isset($_POST['studentID']) ? $_POST['studentID'] : 0;
         if ($studentID == 0)
             echo "<meta http-equiv='refresh' content=0;../";
-        else
+        
+        $studentfirstname = isset($_POST['studentfirstname']) ? $_POST['studentfirstname'] : '';
+        $studentlastname = isset($_POST['studentlastname']) ? $_POST['studentlastname'] : '';
+        
+        $params = array($studentID);
+        $options = array("Scrollable" => 'static' );
+        $studentinfoSQL = "SELECT CONVERT(VARCHAR(11), SU.date_added,106), ST.SessionName, SI.Year
+                           FROM Students S, SiteUsers SU, SessionType ST, SessionInstance SI, Enrollment ER, Courses C
+                           WHERE S.StudentID = ? AND
+                                 SU.username = S.SiteUsername AND
+                                 ER.StudentID = S.StudentID AND
+                                 C.CourseID = ER.CourseID AND
+                                 SI.SessionInstanceID = C.SessionInstanceID AND
+                                 ST.SessionTypeID = SI.SessionTypeID";
+        $studentinfo = sqlsrv_query($con, $studentinfoSQL, $params, $options);
+        if ($studentinfo === false)
+            die(print_r(sqlsrv_errors(), true));
+        if (sqlsrv_fetch($studentinfo) === true)
         {
+            $last_session = sqlsrv_get_field($studentinfo, 0);
+            $date_added = sqlsrv_get_field($studentinfo, 1);
+            $year_added = sqlsrv_get_field($studentinfo, 2);
+            
+        }
+        
         ?>
         <body>
             <div id="wrapper">
@@ -60,13 +83,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                     </button>
                     <div class="container-fluid">
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><?php echo "$studentfirstname $studentlastname";?></h4>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Student Information</div>
                                     <div class="panel-body">
-                                        <p>Last Active Session:</p>
-                                        <p>Joined SmallTalk:</p>
+                                        <p>Last Active Session: <?=$date_added?> <?=$year_added?></p>
+                                        <p>Joined SmallTalk: <?=$last_session?></p>
                                         
                                     </div>
                                 </div>
@@ -74,7 +103,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-7 col-md-7 col-sm-7">        
                                 <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; ">
                                     <div class="panel-heading">
-                                        Statistics
+                                        Statistics/Performance Review
                                     </div>
                                 </div>
                             </div>
@@ -83,58 +112,68 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="row">
                             <div class="col-lg-10 col-md-10">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Courses</div>
-                                    <div class="panel-body">
-                                        <form>
-                                            <p>Filter Courses:</p>
-                                            <div class="form-group row">
-                                                <div class="col-lg-3">
-                                                    <input class="form-control" type="text" name="Session" id="Session" placeholder="Session">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                    <button class="btn btn-primary" type="submit">Apply Filter</button>
-                                            
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <div class="panel-heading">Student Expressions</div>
+                                    <div class="panel-body">    
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th>Expression</th>
+                                                    <th>Context/Vocab</th>
                                                     <th>Session</th>
-                                                    <th>Level</th>
-                                                    <th>Go To</th>
-                                                    <th>Annotation Editor</th>
+                                                    <th>Course</th>
+                                                    <th>Worksheet Number</th>
+                                                    <th>Worksheet</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Fall I 2012</td>
-                                                    <td>Basic</td>
-                                                    
-                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
-                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&worksheetNum=1">Annotation Editor</a></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>Fall II 2012</td>
-                                                    <td>Intermediate</td>
-                                                
-                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?CourseID=1&WorksheetNum=1">View Worksheet</a></td>
-                                                    <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/AnnotationEditor?CourseID=1&worksheetNum=1">Annotation Editor</a></td>
-                                                </tr>
-                                                
+    <?php
+            $params = array($studentID);
+            $studentexpressionsSQL = "SELECT E.Expression, E.[Context/Vocabulary], ST.SessionName, SI.Year, CT.CourseName, W.WorksheetNumber, W.WorksheetID
+            FROM Expressions E, SessionType ST, SessionInstance SI, CourseTypes CT, Courses C,  Worksheets W, Enrollment ER
+            WHERE ER.StudentID = ? AND
+                  C.CourseID = ER.CourseID AND
+                  W.CourseID = C.CourseID AND
+                  E.WorksheetID = W.WorksheetID AND
+                  E.EnrollmentID = ER.EnrollmentID AND
+                  CT.CourseTypesID = C.CourseTypesID AND
+                  SI.SessionInstanceID = C.SessionInstanceID AND
+                  ST.SessionTypeID = SI.SessionTypeID";
+            $studentexpressions = sqlsrv_query($con, $studentexpressionsSQL, $params, $options);
+            if ($studentexpressions === false)
+                die(print_r(sqlsrv_errors(), true));
+            $numexpressions = sqlsrv_num_rows($studentexpressions);
+            $expressions = [];
+            $contexts = [];
+            $sessionnames = [];
+            $years = [];
+            $coursenames = [];
+            $worksheetnums = [];
+            $worksheetids = [];
+            while (sqlsrv_fetch($studentexpressions) === true)
+            {
+                $expressions[] = sqlsrv_get_field($studentexpressions, 0);
+                $contexts[] = sqlsrv_get_field($studentexpressions, 1);
+                $sessionnames[] = sqlsrv_get_field($studentexpressions, 2);
+                $years[] = sqlsrv_get_field($studentexpressions, 3);
+                $coursenames[] = sqlsrv_get_field($studentexpressions, 4);
+                $worksheetnums[] = sqlsrv_get_field($studentexpressions, 5);
+                $worksheetids[] = sqlsrv_get_field($studentexpressions, 6);
+            }
+        for($i = 0; $i < $numexpressions; $i++)
+            echo "<tr><td>$expressions[$i]</td>
+                      <td>$contexts[$i]</td>
+                      <td>$sessionnames[$i] $years[$i]</td>
+                      <td>$coursenames[$i]</td>
+                      <td>$worksheetnums[$i]</td>
+                      <td><form method=\"POST\" action=\"/teacher/Archive/Courses/ViewCourse/ViewWorksheet/\" name=\"worksheet{$worksheetids[$i]}\">
+                      <input hidden type=\"text\" value=\"$worksheetids[$i]\" name =\"worksheetID\">
+                      <button class=\"btn btn-primary\">View Worksheet</button></form></td></tr>";
+        ?>
                                             </tbody>
                                         </table>
-                                        
-
-      
                                     </div>
                                 </div>
-                                
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -152,7 +191,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         </body> 
         <?php 
         }
-    }
 }
 
 else

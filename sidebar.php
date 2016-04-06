@@ -15,6 +15,7 @@
                 display:inline-block;
                 padding:2px;
             }
+            
         </style>
     </head>
     
@@ -188,6 +189,7 @@
             
             $institutions = [];
             $institution_ids = [];
+            $num_institutions = sqlsrv_num_rows($stmt);
             while( sqlsrv_fetch( $stmt ) === true) {
                 $institutions[] = sqlsrv_get_field( $stmt, 0);
                 $institution_ids[] = sqlsrv_get_field( $stmt, 1);
@@ -238,16 +240,21 @@
                             </li>
                             <li class="nav-divider"></li>
                             <?php
-            $i = 0;
-            foreach($institutions as $inst)
+            for($i = 0; $i < $num_institutions; $i++)
             {
                 ?>
                             <li class="dropdown">
-                              <a href="/teacher/MyInstitutions/" class="dropdown-toggle" data-toggle="dropdown"><?=$inst?><span class="caret"></span></a>
+                              <a href="/teacher/MyInstitutions/" class="dropdown-toggle" data-toggle="dropdown"><?=$institutions[$i]?><span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
                                   <li>
-                                      <a href="/Teacher/MyCourses/?in=<?=$institution_ids[$i]?>">Courses</a>
-                                      <a href="/Teacher/MyStudents/?in=<?=$institution_ids[$i]?>">Students</a>
+                                      <?php
+                    echo "<form method=\"POST\" action=\"/Teacher/MyCourses/\" name=\"courses{$i}\" id=\"courses{$i}\"><input hidden name=\"institutionid\" id=\"institutionid\" value=\"$institution_ids[$i]\"><a href=\"#\" onClick=\"document.courses{$i}.submit();return false\">Courses</a></form>";
+                ?>
+                                  
+                                  <?php
+                    echo "<form method=\"POST\" action=\"/Teacher/MyStudents/\" name=\"students{$i}\" id=\"students{$i}\"><a href=\"#\" onClick=\"document.students{$i}.submit();return false\">Students</a></form>";
+                ?>
+                                      
                                       
                                   </li>
            

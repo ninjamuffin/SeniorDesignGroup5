@@ -59,15 +59,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
                                 
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Filter Results</div>
+                                    <div class="panel-heading">Search for a Student</div>
                                     <div class="panel-body">
                                         <form method="POST" id="filterTeachers" action="">
                                             <div class="form-group row">
                                                 <div class="col-lg-10">
-                                                    <input class="form-control" id="LastName" type="text" placeholder="Student Last Name" />       
+                                                    <label>Start Typing a Student Name:<input class="form-control" id="LastName" type="text" placeholder="Student Last Name" /></label>    
                                                 </div> 
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Apply Filter</button>
                                         </form>
                                     </div>
                                 </div>
@@ -77,34 +76,61 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                 
                                 <div class="panel panel-primary" style="max-height:600px;">
-                                    <div class="panel-heading">My Student Archive</div>
+                                    <div class="panel-heading">Students</div>
                                     
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            Select rows per page
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="?pp=10">10</a></li>
-                                            <li><a href="?pp=50">50</a></li>
-                                            <li><a href="?pp=100">100</a></li>
-                                            <li><a href="?pp=200">200</a></li>
-                                            
-                                            
-                                        </ul>
-                                    </div>
                                     <div class="panel-body">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>Last Active Session</th>
-                                                    <th>Last Active Course</th>
                                                     <th>Go To</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+<?php
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => 'static' );
+        $mystudentsSQL = "SELECT S.FirstName, S.LastName, S.StudentID, ST.SessionName, SI.Year
+                          FROM Students as S, SessionType as ST, SessionInstance as SI, TeachingInstance as TI, Enrollment as ER, Courses as C
+                          WHERE TI.SiteUsername = ? AND
+                                C.TeachingInstanceID = TI.TeachingInstanceID AND
+                                ER.CourseID = C.CourseID AND
+                                S.StudentID = ER.StudentID AND
+                                SI.SessionInstanceID = C.SessionInstanceID AND
+                                ST.SessionTypeID = SI.SessionTypeID";
+        $mystudents = sqlsrv_query($con, $mystudentsSQL, $params, $options);
+        if ($mystudents === false)
+            die(print_r(sqlsrv_errors(), true));
+        $numstudents = sqlsrv_num_rows($mystudents);
+        $firstnames = [];
+        $lastnames = [];
+        $ids = [];
+        $sessionnames = [];
+        $years = [];
+        while (sqlsrv_fetch($mystudents) === true)
+        {
+            $firstnames[] = sqlsrv_get_field($mystudents, 0);
+            $lastnames[] = sqlsrv_get_field($mystudents, 1);
+            $ids[] = sqlsrv_get_field($mystudents, 2);
+            $sessionnames[] = sqlsrv_get_field($mystudents, 3);
+            $years[] = sqlsrv_get_field($mystudents, 4);
+        }
+        for($i = 0; $i < $numstudents; $i++)
+        {
+            $id = $ids[$i];
+            echo "<tr>
+                      <td>$firstnames[$i] $lastnames[$i]</td>
+                      <td>$sessionnames[$i] $years[$i]</td>
+                      <td><form method=\"POST\" action=\"ViewStudent/\" name=\"student{$id}\" id=\"student{$id}\">
+                            <input hidden type=\"text\" value=\"$id\" name=\"studentID\">
+                            <input hidden type=\"text\" value=\"$firstnames[$i]\" name=\"studentfirstname\">
+                            <input hidden type=\"text\" value=\"$lastnames[$i]\" name=\"studentlastname\">
+                            <button class=\"btn btn-primary\">Student Page</button></form></td></tr>";
+        
+        }
+        ?>
+                                                <!--<tr>
                                                     <td>Good Student</td>
                                                     <td>Fall II 2014</td>
                                                     <td>Advanced Oral Communication</td>
@@ -115,7 +141,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>Fall I 2014</td>
                                                     <td>Basic Oral Communication</td>
                                                     <td><a href='ViewStudent/?sid=1'>Student Page</a></td>
-                                                </tr>
+                                                </tr>-->
                                                 
                                             </tbody>
                                         </table>

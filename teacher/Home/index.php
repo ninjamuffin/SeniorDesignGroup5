@@ -79,21 +79,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-8 col-md-8">
-                                <h3><?php echo $_SESSION['firstname'] . $_SESSION['lastname']; ?></h3>
-                                <div class="panel panel-primary">
-                                    <div class="panel-body">
-                                        Teacher User Info:
-                                    </div>
-                                </div>
+                                <h3><?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname']; ?></h3>
+                                
                             </div>
                         </div>
                         <div class="row">
                             
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="panel panel-default">
+                            <div class="col-lg-5 col-md-6 col-sm-7">
+                                <div class="panel panel-default" style="min-height:600px;">
                                     <div class="panel-heading">
                                         <div class="row">
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-10">
                                                 <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
                                             </div>
                                         
@@ -156,7 +152,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     }
                                                     for ($i = 0; $i < $resultlength; $i++)
                                                     {
-                                                        echo "<tr><td>$coursenames[$i]</td><td>$sections[$i]</td><td>$institutions[$i]</td><td>$sessions[$i]</td><td><form method=\"post\" action=\"/Teacher/MyCourses/ViewCourse/\" name=\"activecourselink{$i}\" id=\"activecourselink{$i}\">
+                                                        echo "<tr><td>$coursenames[$i]</td><td>$sections[$i]</td><td>$sessions[$i]</td><td>$institutions[$i]</td><td><form method=\"post\" action=\"/Teacher/MyCourses/ViewCourse/\" name=\"activecourselink{$i}\" id=\"activecourselink{$i}\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseids[$i]\"><button class=\"btn btn-primary\">Course Page</button></form>
                                                         </td></tr>";
                                                     }
                                                 }
@@ -167,31 +163,68 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="panel panel-default">
+                            <div class="col-lg-4 col-md-6 col-sm-5">
+                                <div class="panel panel-default" style="min-height:600px;">
                                     <div class="panel-heading">
                                         <div class="row">
-                                            <div class="col-xs-6">
-                                                    <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
+                                            <div class="col-xs-10">
+                                                    <h4>My Students <a href="/Teacher/MyStudents/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel-body" style="min-height: 150px; max-height: 150px;">
+                                    <div class="panel-body">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
+                                                    <th>Institution</th>
                                                     <th>Go To</th>
                                                 </tr>
                                             </thead>
                                         
                                                 
                                             <tbody>
-                                                <tr>
-                                                    <td>Stu Dent</td>
-                                                    <td><a href="/Teacher/MyStudents/ViewStudentProfile/">View Profile</a></td>
-                                                </tr>
+                                                <?php
+                                                $mystudentsSQL = "SELECT DISTINCT S.StudentID, S.LastName, S.FirstName, I.InstitutionName
+                                                FROM Courses as C, TeachingInstance as TI, Students as S, Institutions as I, Enrollment as ER
+                                                WHERE TI.SiteUsername = ?
+                                                AND C.TeachingInstanceID = TI.TeachingInstanceID
+                                                AND ER.CourseID = C.CourseID
+                                                AND S.StudentID = ER.StudentID
+                                                AND I.InstitutionID = S.InstitutionID";
                                                 
+                                                $params = array($_SESSION['Username']);
+                                                $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+                                                
+                                                $mystudents = sqlsrv_query($con, $mystudentsSQL, $params, $options);
+                                                if($mystudents === false)
+                                                    die (print_r(sqlsrv_errors(), true));
+                                                $resultlength = sqlsrv_num_rows($mystudents);
+                                                if($resultlength == 0)
+                                                {
+                                                    echo "No Enrolled Students!";
+                                                }
+                                                else
+                                                {
+                                                    $studentids = [];
+                                                    $studentlastnames = [];
+                                                    $studentfirstnames = [];
+                                                    $institutions = [];
+                                                    while(sqlsrv_fetch($mystudents) === true)
+                                                    {
+                                                        $studentids[] = sqlsrv_get_field($mystudents, 0);
+                                                        $studentlastnames[] = sqlsrv_get_field($mystudents, 1);
+                                                        $studentfirstnames[] = sqlsrv_get_field($mystudents, 2);
+                                                        $institutions[] = sqlsrv_get_field($mystudents, 3);
+                                                    }
+                                                    for ($i = 0; $i < $resultlength; $i++)
+                                                    {
+                                                        echo "<tr><td>$studentfirstnames[$i] $studentlastnames[$i]</td><td>$institutions[$i]</td><td><form method=\"post\" action=\"/Teacher/MyStudents/ViewStudent/\" name=\"mystudentlink{$i}\" id=\"mystudentlink{$i}\"><input hidden type=\"text\" name=\"enrollmentid\" value=\"$studentids[$i]\"><button class=\"btn btn-primary\">Student Page</button></form>
+                                                        </td></tr>";
+                                                    }
+                                                }
+                                                
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -199,7 +232,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                             
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-lg-8 col-md-8">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -259,7 +292,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
 
