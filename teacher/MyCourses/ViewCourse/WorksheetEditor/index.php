@@ -19,6 +19,7 @@
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    <!--<script type="text/javascript" src="/js/dynamicRow.js"></script>-->
     
     <style>
     .glyphicon:before {
@@ -118,26 +119,45 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <!-- BEGIN PAGE CONTENT -->
                             <div class="col-xs-12">
                                 <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">Worksheet Info</div>
-                                            <div class="panel-body">
-                                                <h2>Course: Generated from page</h2>
-                                                <h5>Worksheet Number: Generated from page</h5>
-                                                <h5>Date: Generated dynamically</h5>
-                                                <h5>Topic: Form submission</h5>
+                                        <div class="col-xs-6">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">Worksheet Info</div>
+                                                <div class="panel-body">
+                                                    <h2>Course: Generated from page</h2>
+                                                    <h5>Worksheet Number: Generated from page</h5>
+                                                    <h5>Date: Generated dynamically</h5>
+                                                    <h5>Topic: Form submission</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="panel panel-default">
+                                            <div class="panel-heading">Worksheet Overview</div>
+                                                <div class="panel-body">
+                                                    <table class="table" id="myTable" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Expression</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="ExpressionTable">
+                                                            <tr id="ExpressionRow">
+                                                                <td id="ExpressionNum">1</td>
+                                                                <td id="Expression">This is a sample expression for the purpose of demonstrating how text will wrap when we type too many words.</td>
+                                                                <td class="text-danger" id="ExpressionStatus">Incomplete</td>
+                                                                <td>
+                                                                    <button id="EditExpression" class="btn btn-primary">Edit</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <div class="panel panel-default">
-                                        <div class="panel-heading">Worksheet Overview</div>
-                                            <div class="panel-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="entry panel panel-default" style="top-margin:40px;">
                                     <div class="panel-heading">Expressions</div>
                                     <div class="panel-body">
