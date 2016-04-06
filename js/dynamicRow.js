@@ -21,7 +21,7 @@ $(function(){
         $("#CorrectedExpr").val("");
     });
     
-    $("tr").each(function(index) {
+    /*$("tr").each(function(index) {
         if (index !=0) {
             $row = $(this);
             
@@ -33,5 +33,5 @@ $(function(){
                 $(this).show();
             }
         }
-    });
+    });*/
 });
