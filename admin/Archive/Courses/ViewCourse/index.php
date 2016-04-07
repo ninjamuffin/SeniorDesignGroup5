@@ -65,6 +65,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Info</div>
                                     <div class="panel-body">
+                                        <a href="ViewWorksheet/index.php" class="btn btn-primary " type="button">View Worksheet</a>
                                     <?php
             $params = array($courseID);
             $options = array( "Scrollable" => 'static');

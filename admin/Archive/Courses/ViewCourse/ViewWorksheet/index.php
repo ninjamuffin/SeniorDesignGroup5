@@ -68,6 +68,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         Course Details
                                     </div>
                                     <div class="panel-body">
+                                        <a href="AnnotationEditor/index.php" class="btn btn-primary " type="button">Annotation Editor</a>
                                         <?php
             $params = array($courseID);
             $options = array( "Scrollable" => 'static');
