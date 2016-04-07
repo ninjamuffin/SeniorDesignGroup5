@@ -21,26 +21,13 @@
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script type="text/javascript" src="/js/dynamicRowTeacher.js"></script>
     
-    <style>
-    .glyphicon:before {
-     visibility: visible;
-    }
-    .glyphicon.glyphicon-star-empty:checked:before {
-       content: "\e006";
-    }
-    input[type=checkbox].glyphicon{
-        visibility: hidden;
-
-    }
-    </style>
     
     <script>
-        
         $(function(){
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-    <script type="text/javascript">$(function()
+    <!--<script type="text/javascript">$(function()
     {
         $(document).on('click', '.btn-add', function(e)
         {
@@ -62,7 +49,7 @@
             return false;
         });
     });
-    </script>
+    </script>-->
     <!-- Background Setup -->
     <style>
         .dropdown-backdrop {
@@ -84,273 +71,174 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $params = array($_SESSION['Username']);
+        $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
+        if ($worksheetID == 0)
+            echo "<meta http-equiv='refresh' content='5;/' />";
+        $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
-        $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
-        if( $stmt === false ) {
-             die( print_r( sqlsrv_errors(), true));
+        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
+                                    FROM Expressions E, Students S, Enrollment ER
+                                    WHERE E.WorksheetID = ? AND
+                                          ER.StudentID = E.Student_ID AND
+                                          S.StudentID = ER.StudentID 
+                                    ORDER BY E.SentenceNumber";
+        $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
+        if ($worksheetexpressions === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_expressions = sqlsrv_num_rows($worksheetexpressions);
+        $sent_numbers = [];
+        $student_expression_ids = [];
+        $first_names = [];
+        $last_names = [];
+        $expressions = [];
+        $ids = [];
+        $alldos = [];
+        while(sqlsrv_fetch($worksheetexpressions) === true)
+        {
+            $sent_numbers[] = sqlsrv_get_field($worksheetexpressions, 0);
+            $student_expression_ids[] = sqlsrv_get_field($worksheetexpressions, 1);
+            $first_names[] = sqlsrv_get_field($worksheetexpressions,2);
+            $last_names[] = sqlsrv_get_field($worksheetexpressions, 3);
+            $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
+            $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
+            $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
         }
-
-        // Make the first (and in this case, only) row of the result set available for reading.
-        $RolesList = [];
-        while( sqlsrv_fetch( $stmt ) === true) {
-             $RolesList[] = sqlsrv_get_field( $stmt, 0);
-        }
+        
+        $coursestudentsSQL = "SELECT ER.StudentID 
+                              FROM Enrollment as ER, Worksheets as W, Courses C 
+                              WHERE W.WorksheetID = ? AND
+                                    C.CourseID = W.CourseID AND
+                                    ER.CourseID = C.CourseID";
+        $coursestudents = sqlsrv_query($con, $coursestudentsSQL, $params, $options);
+        if ($coursestudents === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_students = sqlsrv_num_rows($coursestudents);
+        $studentsids = [];
+        while(sqlsrv_fetch($coursestudents) === true)
+            $studentids[] = sqlsrv_get_field($coursestudents, 0);
+        
+        
     ?>        
 
-    <body>
-        
-    <?php
-        if(true)
-        {
-    ?>
-            <section class="container-fluid col-xs-12">                     
-                <!--body-->
-                <div id="wrapper">
-                    <div id="sidebar"></div>
-                    <div id="page-content-wrapper">
-                        <div class="container-fluid">
-                            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                <span class="hamb-top"></span>
-                                <span class="hamb-middle"></span>
-                                <span class="hamb-bottom"></span>
-                            </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <div class="col-xs-12">
-                                <div class="row">
-                                        <div class="col-xs-3">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">Worksheet Info</div>
-                                                <div class="panel-body">
-                                                    <h2>Course: Generated from page</h2>
-                                                    <h5>Worksheet Number: Generated from page</h5>
-                                                    <h5>Date: Generated dynamically</h5>
-                                                    <h5>Topic: Form submission</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="col-xs-1"></div>
-                                    
-                                        <div class="col-xs-8">
-                                            <div class="panel panel-default">
-                                            <div class="panel-heading">Worksheet Overview</div>
-                                                <div class="panel-body">
-                                                    <table class="table" id="myTable" >
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Student</th>
-                                                                <th>#</th>
-                                                                <th>Expression</th>
-                                                                <th>Vocab</th>
-                                                                <th>Pronunciation</th>
-                                                                <th>Status</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="ExpressionTable">
-                                                            <tr id="ExpressionRow">
-                                                                <td id="Student">Pablo Sanchez</td>
-                                                                <td id="ExprID">1</td>
-                                                                <td id="ExprToEdit">This is a sample expression for the purpose of demonstrating how text will wrap when we type too many words.</td>
-                                                                <td id="Vocab">
-                                                                Talking about hometown and where they came from
-                                                                </td>
-                                                                <td id="Pronunciation">
-                                                                Type of Pronunciation
-                                                                </td>
-                                                                <td id="ExpressionStatus">Incomplete</td>
-                                                                <td>
-                                                                    <button id="EditExpression" class="btn btn-primary">Edit</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <div class="entry panel panel-default" style="top-margin:40px;">
-                                    <div class="panel-heading">Expressions</div>
+<body>
+    <section class="container-fluid col-xs-12">                     
+        <!--body-->
+        <div id="wrapper">
+            <div id="sidebar"></div>
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                        <span class="hamb-top"></span>
+                        <span class="hamb-middle"></span>
+                        <span class="hamb-bottom"></span>
+                    </button>
+                    <!-- BEGIN PAGE CONTENT -->
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Worksheet Info</div>
                                     <div class="panel-body">
-                                        <div class="control-group controls" id="fields">
-                                            <form>
-                                                <div class="form-group row">
-                                                    <div class="col-xs-4 col-md-6">
-                                                        <select class="form-control">
-                                                            <option  selected="selected">--Student--</option>
-                                                            <option>Student 1</option>
-                                                            <option>Student 2</option>
-                                                            <option>Student 3</option>
-                                                            <option>Student 4</option>
-                                                            <option>Student 5</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        <input type="checkbox" style="font-size:25px;" class="glyphicon glyphicon-star-empty" >
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-xs-12">
-                                                        <label for="CorrectedExpr">Correction:</label>
-                                                            <input type="text" class="form-control" id="CorrectedExpr" placeholder="Enter the correct expression here" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-xs-7">
-                                                        <label for="VocabCorr">Vocab: </label>
-                                                        <input id="VocabCorr" type="text" class="form-control" placeholder="Vocab/Context">
-                                                    </div>
-                                                    <div class="col-xs-5">
-                                                        <label for="PronCorr">Pronunciation:</label>
-                                                        <input type="text" class="form-control" id="PronCorr" placeholder="Pronunciation"/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12">
-                                                    <button id="SubmitExpr"  class="btn btn-primary pull-right">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                        <h2>Course: Generated from page</h2>
+                                        <h5>Worksheet Number: Generated from page</h5>
+                                        <h5>Date: Generated dynamically</h5>
+                                        <h5>Topic: Form submission</h5>
                                     </div>
                                 </div>
-                                <div class="input-group" id="adv-search">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success btn-add" type="button">
-                                            New Expression
-                                        </button>
-                                    </span>
-                                </div>
-
                             </div>
-                            <!-- END PAGE CONTENT -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-    <?php    
-        }
-    ?>
-        
-        
-    <?php
-        if (false)
+                            <div class="col-xs-8">
+                                <div class="panel panel-default">
+                                <div class="panel-heading">Worksheet Overview</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <form method="POST" name="newexpression">
+                                                    <button type="button" class="btn btn-primary">
+                                                        New Expression
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <table class="table" id="myTable" >
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Student</th>
+                                                    <th>Expression</th>
+                                                    <th>All-Do</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ExpressionTable">
+<?php 
+        for($i = 0; $i < $num_expressions; $i++)
         {
-    ?>    
-            <section class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">                     
-                    <!--body-->
-                    <div id="wrapper">
-
-                        <div id = "sidebar"></div>
-                        <div id="page-content-wrapper">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                            <span class="hamb-top"></span>
-                                            <span class="hamb-middle"></span>
-                                            <span class="hamb-bottom"></span>
-                                        </button>
-                                            <!-- BEGIN PAGE CONTENT -->
-                                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">Worksheet Info</div>
-                                        <div class="panel-body">
-                                            <h2 class="page-header">Course: Generated from page</h2>
-                                            <h5>Worksheet Number: Generated from page</h5>
-                                            <h5>Date: Generated dynamically</h5>
-                                            <h5>Topic: Form submission</h5>
-                                        </div>
-                                    </div>
-                                    <div class="entry panel panel-default" style="top-margin:40px;">
-                                        <div class="panel-heading">Expressions</div>
-                                        <div class=" panel-body">
-                                                <div class="control-group" id="fields">
-                                                    <div class="controls"> 
-                                                        <form method="POST" name="Expressions[]" id="Expressions[]">
-                                                            <div class="form-group row">
-                                                                <div class="col-xs-4 col-sm-2">
-                                                                    <select class="form-control">
-                                                                        <option selected="selected">--Student--</option>
-                                                                        <option>Student 1</option>
-                                                                        <option>Student 2</option>
-                                                                        <option>Student 3</option>
-                                                                        <option>Student 4</option>
-                                                                        <option>Student 5</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-xs-2">
-
-                                                                    <input type="checkbox" style="font-size:25px;" class="glyphicon glyphicon-star-empty" >
-
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <div class="col-lg-12">
-                                                                    
-                                                                    
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <div class="col-xs-7">
-                                                                    <input type="text" class="form-control input-md" placeholder="Vocab/Context">
-                                                                </div>
-                                                                <div class="col-xs-5">
-                                                                    <input type="text" class="form-control input-md" placeholder="Pronunciation">
-                                                                </div>
-
-                                                            </div>
-                                                            <button type="submit"  class="btn btn-primary pull-right">Save</button><br>
-                                                            <hr>
-
-                                                        </form>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                        </div>  
-
-                                    </div>
-                                    <div class="input-group" id="adv-search">
-                                                                <span class="input-group-btn">
-                                                                <button class="btn btn-success btn-add" type="button">
-                                                                New Expression
-                                                                </button>
-                                                                </span>
-                                                            </div>
-
-                                </div>
-                            </div>
-                                            <!-- END PAGE CONTENT -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-                </section>
-    <?php
+            $pass_array = array($ids[$i], $student_expression_ids[$i], $first_names[$i], $last_names[$i]);
+            echo "<tr>
+                      <td>$sent_numbers[$i]</td>
+                      <td>$first_names[$i] $last_names[$i]</td>
+                      <td>$expressions[$i]</td>
+                      <td>";
+            if ($alldos[$i] == 1)
+                echo "<span class=\"glyphicon glyphicon-ok\"></span>";
+            else
+                echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+            echo "
+                </td>
+                      <td><form method=\"POST\" name=\"expressions{$i}\">
+                              <input hidden type=\"text\" name=\"expressionid\" value=\"$ids[$i]\">
+                              <input hidden type=\"text\" name=\"studentid\" value=\"$student_expression_ids[$i]\">
+                              <input hidden type=\"text\" name=\"firstname\" value=\"$first_names[$i]\">
+                              <input hidden type=\"text\" name=\"lastname\" value=\"$last_names[$i]\">
+                              
+                              <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
+                          </form>
+                      </td>
+                   </tr>";
         }
-    ?>
+?>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary" style="min-height:450px;">
+                            <div class="panel-heading"><h4>Expression Editor</h4></div>
+                            <div name="ExpressionEditor">
+                                
+                            </div>
+                        </div>
+                        <!--<div class="input-group" id="adv-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success btn-add" type="button">
+                                    New Expression
+                                </button>
+                            </span>
+                        </div>-->
+
+                    </div>
+                    <!-- END PAGE CONTENT -->
+                </div>
+            </div>
+        </div>
+    </section>
         
-        <script src="//code.jquery.com/jquery.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script>
-        $('.dropdown-toggle').click(function(e) {
-            e.preventDefault();
-            setTimeout($.proxy(function() {
-                if ('ontouchstart' in document.documentElement) {
-                    $(this).siblings('.dropdown-backdrop').off().remove();
-                }
-            }, this), 0);
-        });
-        
-        </body>
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script>
+    $('.dropdown-toggle').click(function(e) {
+        e.preventDefault();
+        setTimeout($.proxy(function() {
+            if ('ontouchstart' in document.documentElement) {
+                $(this).siblings('.dropdown-backdrop').off().remove();
+            }
+        }, this), 0);
+    });
+    </script>
+</body>
     <?php
     }
 }

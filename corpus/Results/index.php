@@ -13,16 +13,14 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
-    <link href="/FlatUI/css/theme.css" rel="stylesheet">
+    <link href="/FlatUI/css/corpus/theme.css" rel="stylesheet">
     
 
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
-        $(function(){
-            $("#header").load("/header.php");
-        });
+
         $(function(){
             $("#sidebar").load("/sidebar.php");
         });
@@ -55,10 +53,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-md-10">
                                 
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Search for a course</div>
+                                    <div class="panel-heading">Search Information</div>
                                     <div class="panel-body">
                                         
                                     <p>Search Information</p>
@@ -90,8 +88,72 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             
         }
         ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-6">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Search for a course</div>
+                                    <div class="panel-heading">
+                                        <h4>Filter By Language</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th><label><input type='checkbox' id='checkAll'> Select All </label></th>
+                                                    <th>Language</th>
+                                                    <th>Number of Results ( n = 50 )</th>
+                                                    <th>Percentage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="checkbox" name="selectLang"></td>
+                                                    <td>Spanish</td>
+                                                    <td>20</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-info" style="width: 40%">40%</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="checkbox" name="selectLang"></td>
+                                                    <td>French</td>
+                                                    <td>30</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-info" style="width: 60%">60%</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4>Filter By Level</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <th><label><input type='checkbox' id='checkAll'> Select All </label></th>
+                                                <th>Language</th>
+                                                <th>Number of Results(n= )</th>
+                                                <th>Percentage</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><h4>Result Expressions</h4></div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
@@ -142,10 +204,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     //Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                     </div>
-                                
                                 </div>
-                                
-                                
                             </div>
                         </div>
                     </div>
@@ -160,6 +219,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $("#menu-toggle").click(function(e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
+            });
+            $(document).on("change", "#checkAll", function(e){
+                e.preventDefault();
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
             });
             </script>
         </body> 

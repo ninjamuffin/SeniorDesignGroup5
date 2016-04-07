@@ -299,30 +299,32 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <h4>Build Search Query</h4>
                                     </div>
-                                    <div class="panel-body" style="height:100%">
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <button class="btn btn-primary" type="submit">Submit Search</button>
-                                                <div class="pull-right">
-                                                    <label class="radio-inline"><input type="radio" name="searchType" checked="checked">Sequential</label>
-                                                    <label class="radio-inline"><input type="radio" name="searchType">Non-Sequential</label>
+                                    <form method="POST" action="/Corpus/Results/" name="SubmitSearch">
+                                        <div class="panel-body" style="height:100%">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <button class="btn btn-primary" type="submit">Submit Search</button>
+                                                    <div class="pull-right">
+                                                        <label class="radio-inline"><input type="radio" name="searchType" checked="checked">Sequential</label>
+                                                        <label class="radio-inline"><input type="radio" name="searchType">Non-Sequential</label>
+                                                    </div>
                                                 </div>
                                             </div>
+
+                                            <table class="table table-hover" id="sortParams">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <th>Content</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        
-                                        <table class="table table-hover" id="sortParams">
-                                            <thead>
-                                                <tr>
-                                                    <th>Type</th>
-                                                    <th>Content</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    </form>
                                     <div class="panel-footer" style="position:absolute; width:95%; bottom:0;">
                                         <form method="POST" onsubmit="addOffset">
                                             <div class="row">

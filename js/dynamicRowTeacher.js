@@ -29,6 +29,19 @@ $(function(){
         $("#PronCorr").val("");
     });
     
+    $("button[name=SelectExpression]").on('click', function(e){
+        var expressionid = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "PopulateEditor.php",
+            data: 'expressionid='+expressionid,
+                   
+            success: function(data){
+                $("div[name='ExpressionEditor']").empty();
+                $("div[name='ExpressionEditor']").html(data);
+            }
+        });
+    });
     /*$("tr").each(function(index) {
         if (index !=0) {
             $row = $(this);
