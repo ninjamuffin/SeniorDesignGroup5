@@ -109,43 +109,32 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <style>
                                                 fieldset {
                                                     display: inline-block;
-                                                    padding-left: 220px;
+                                                    padding-left: 200px;
                                                     padding-top: 60px;
                                                 }
                                             </style>
-                                            <form onsubmit="printSelection()">
-                                                <fieldset>
-                                                <input type="text" class="form-control"     placeholder="Make Selection" id="input">
-                                                </fieldset>
-                                                <input class="btn btn-default" type="submit"/>
-                                            </form>
                                             
-                                            <div style="padding-top: 100px;">
-                                                <pre>
-                                                    <h3>Expressions:</h3>
-                                                    <h5>1. I no understand how to talk English</h5>
-                                                    <h5>2. How is you today?</h5>
-                                                    <h5>3. I drive to home for meal</h5>
-                                                    <h5>4. I no understand how to talk English</h5>
-                                                    <h5>5. How is you today?</h5>
-                                                    <h5>6. I drive to home for meal</h5>
-                                                    <h5>7. I no understand how to talk English</h5>
-                                                    <h5>8. How is you today?</h5>
-                                                    <h5>9. I drive to home for meal</h5>
-                                                    <h5>10. I drive to home for meal</h5>
-                                                </pre>
+                                            <div id="highlightrange" style="padding-top: 100px;">
+                                                <p>I no understand English</p>
+                                                    <h3>Expression:</h3>
+                                                    <h5>I no understand how to talk English</h5>
+                                                    
                                             </div>
                                         </div>
                                         
-                                        <div class="col-xs-6" style="padding-top: 100px;">
-                                            <div id="expression">
-                                                
+                                        <div class="col-xs-6">
+                                            
+                                           <div class="col-xs-12">
+                                                <textarea disabled id="expression" class="form-control" class="col-xs-11">
+                                                </textarea>
                                             </div>
                                             
+                                            <div class="col-xs-12" style="padding-top: 30px;">
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     Verbs <span class="caret"></span>
                                                 </button>
+<!--
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                                     <li class="dropdown-header">Dropdown header</li>
                                                     <li class="disabled">
@@ -162,6 +151,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <a tabindex="-1" href="#">Separated link</a>
                                                     </li>
                                                 </ul>
+-->
                                             </div>
                                             
                                             <div class="btn-group">
@@ -190,6 +180,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     Pronouns <span class="caret"></span>
                                                 </button>
+<!--
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                                     <li class="dropdown-header">Dropdown header</li>
                                                     <li class="disabled">
@@ -206,9 +197,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <a tabindex="-1" href="#">Separated link</a>
                                                     </li>
                                                 </ul>
-                                            </div>
+-->
                                             
-                                            <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     Adjective <span class="caret"></span>
                                                 </button>
@@ -228,12 +218,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <a tabindex="-1" href="#">Separated link</a>
                                                     </li>
                                                 </ul>
-                                            </div>
                                             
-                                            <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     Adverb <span class="caret"></span>
                                                 </button>
+<!--
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                                     <li class="dropdown-header">Dropdown header</li>
                                                     <li class="disabled">
@@ -250,12 +239,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <a tabindex="-1" href="#">Separated link</a>
                                                     </li>
                                                 </ul>
-                                            </div>
+-->
                                             
-                                            <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     Preposition <span class="caret"></span>
                                                 </button>
+<!--
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                                     <li class="dropdown-header">Dropdown header</li>
                                                     <li class="disabled">
@@ -272,12 +261,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <a tabindex="-1" href="#">Separated link</a>
                                                     </li>
                                                 </ul>
-                                            </div>
+-->
                                             
-                                            <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     Conjunctions <span class="caret"></span>
                                                 </button>
+<!--
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                                     <li class="dropdown-header">Dropdown header</li>
                                                     <li class="disabled">
@@ -294,12 +283,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <a tabindex="-1" href="#">Separated link</a>
                                                     </li>
                                                 </ul>
-                                            </div>
+-->
                                             
-                                            <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     Interjections <span class="caret"></span>
                                                 </button>
+<!--
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                                     <li class="dropdown-header">Dropdown header</li>
                                                     <li class="disabled">
@@ -316,7 +305,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                         <a tabindex="-1" href="#">Separated link</a>
                                                     </li>
                                                 </ul>
+-->
                                             </div>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -334,6 +326,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
             });
+
             </script>
         </body> 
         <?php  

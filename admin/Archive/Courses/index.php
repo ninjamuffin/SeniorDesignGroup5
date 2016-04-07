@@ -66,6 +66,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <!-- Select Rows Per Page -->
                                     <div class="row">
                                         <div class="col-xs-10">
+                                            <a href="ViewCourse/index.php" class="btn btn-primary " type="button">View Course</a>
                                             <div class="dropdown">
                                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 Select rows per page
