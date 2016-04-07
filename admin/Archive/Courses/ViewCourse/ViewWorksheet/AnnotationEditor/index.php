@@ -69,10 +69,22 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-10">
-                                <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; overflow-y:scroll">
+                            <div class="col-md-4">
+                                <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; overflow-y:auto">
                                     <div class="panel-heading">
-                                        Expressions List
+                                        <h4>Worksheet Details</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Course</p>
+                                        <p>Date</p>
+                                        <p>Topic</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; overflow-y:auto">
+                                    <div class="panel-heading">
+                                        <h4>Expressions List</h4>
                                     </div>
                                     <div class="panel-body">
                                         <table class="table table-hover">
@@ -81,7 +93,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>#</th>
                                                     <th>Student</th>
                                                     <th>Expression</th>
-                                                    <th>Go To</th>
+                                                    <th>Context/Vocab</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -89,7 +101,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <td>1</td>
                                                     <td><a href="/Admin/Archive/Students/ViewStudent/?sid=">Name</a></td>
                                                     <td>Here's a expression</td>
-                                                    <td><a href="#Function();">Open in Editor</a></td>
+                                                    <td>Some Context</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -98,217 +110,121 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-10">
-                                <div class="panel panel-primary" style="min-height: 500px;max-height: 500px; overflow-y:scroll">
+                            <div class="col-md-12">
+                                <div class="panel panel-primary" style="min-height: 600px;">
                                     <div class="panel-heading">
-                                        Editor
+                                        <h4>Editor</h4>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-4" style="min-height:600px; border-right: 1px solid #1abc9c;">
                                             <!--Working here-->
-                                            <style>
-                                                fieldset {
-                                                    display: inline-block;
-                                                    padding-left: 200px;
-                                                    padding-top: 60px;
-                                                }
-                                            </style>
                                             
-                                            <div id="highlightrange" style="padding-top: 100px;">
-                                                <p>I no understand English</p>
-                                                    <h3>Expression:</h3>
-                                                    <h5>I no understand how to talk English</h5>
-                                                    
-                                            </div>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Expression</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>
+                                                            <div name="highlightrange">
+                                                                Here's a expression
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>
+                                                            <div name="highlightrange">
+                                                                Another Expressions
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>
+                                                            <div name="highlightrange">
+                                                                Yet another expressive
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        
-                                        <div class="col-xs-6">
+                                    
+                                        <div class="col-xs-8">
+                                            <h4>Expression Annotator</h4>
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a data-toggle="tab" href="#newedit">New Annotation</a></li>
+                                                <li><a data-toggle="tab" href="#viewprevious">Previous Annotations</a></li>
+
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div id="newedit" class="tab-pane fade in active">
+                                                    <div class="row">
+                                                       <div class="col-xs-12">
+                                                            <textarea disabled id="expression" class="form-control" class="col-xs-11">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control">
+                                                                <option selected="selected">--Error Type--</option>
+                                                                <option>type1</option>
+                                                                <option>type2</option>
+                                                                <option>type3</option>
+                                                                <option>type4</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control">
+                                                                <option selected="selected">--Error Subselect--</option>
+                                                                <option>type1</option>
+                                                                <option>type2</option>
+                                                                <option>type3</option>
+                                                                <option>type4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-xs-8">
+                                                            <input type="text" class="form-control" name="Comments" id="Comments" placeholder="Comments">
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <button type="button" class="btn btn-primary">
+                                                                Submit Annotation
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             
-                                           <div class="col-xs-12">
-                                                <textarea disabled id="expression" class="form-control" class="col-xs-11">
-                                                </textarea>
+                                            
+                                                <div id="viewprevious" class="tab-pane fade">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h4>Previous Annotations</h4>
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Author</th>
+                                                                        <th>Text</th>
+                                                                        <th>Error Category</th>
+                                                                        <th>Error Name</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            
-                                            <div class="col-xs-12" style="padding-top: 30px;">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Verbs <span class="caret"></span>
-                                                </button>
-<!--
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
--->
-                                            </div>
-                                            
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Nouns <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Pronouns <span class="caret"></span>
-                                                </button>
-<!--
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
--->
-                                            
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Adjective <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
-                                            
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Adverb <span class="caret"></span>
-                                                </button>
-<!--
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
--->
-                                            
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Preposition <span class="caret"></span>
-                                                </button>
-<!--
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
--->
-                                            
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Conjunctions <span class="caret"></span>
-                                                </button>
-<!--
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
--->
-                                            
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Interjections <span class="caret"></span>
-                                                </button>
-<!--
-                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                                    <li class="dropdown-header">Dropdown header</li>
-                                                    <li class="disabled">
-                                                        <a tabindex="-1" href="#">Disabled</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Something else here</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li>
-                                                        <a tabindex="-1" href="#">Separated link</a>
-                                                    </li>
-                                                </ul>
--->
-                                            </div>
-                                            </div>
-                                            
+                                                    
                                         </div>
                                     </div>
                                 </div>

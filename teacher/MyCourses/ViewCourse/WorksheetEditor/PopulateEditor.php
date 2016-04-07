@@ -37,7 +37,7 @@ if (!(empty($_POST['expressionid'])))
         $last_names[] = sqlsrv_get_field($coursestudents, 2);
     }
     
-    $expressiondataSQL = "SELECT E.Expression, E.[Context/Vocabulary], E.Pronunciation, S.StudentID, S.FirstName, S.LastName, E.AllDo
+    $expressiondataSQL = "SELECT E.Expression, E.[Context/Vocabulary], E.Pronunciation, S.StudentID, S.FirstName, S.LastName, E.AllDo, E.[SentenceNumber]
                           FROM Expressions E, Students S
                           WHERE E.ExpressionID = ? AND
                                 S.StudentID = E.StudentID";
@@ -53,6 +53,7 @@ if (!(empty($_POST['expressionid'])))
         $selected_first_name = sqlsrv_get_field($expressiondata, 4);
         $selected_last_name = sqlsrv_get_field($expressiondata, 5);
         $alldo = sqlsrv_get_field($expressiondata, 6);
+        $sentence_number = sqlsrv_get_field($expressiondata, 7);
     }  
 }
     
@@ -62,6 +63,9 @@ echo "
     <div class=\"control-group controls\" id=\"fields\">
         <form>
             <div class=\"form-group row\">
+                <div class=\"col-xs-1\">
+                    <h4>$sentence_number</h4>
+                </div>
                 <div class=\"col-xs-4 col-md-6\">
                     <select class=\"form-control\">
                         <option  selected=\"selected\" value=\"$selected_student_id\">$selected_first_name $selected_last_name</option>";
@@ -112,11 +116,7 @@ echo "
                     <input type=\"text\" value=\"$pronunciation\" class=\"form-control\" id=\"PronCorr\" name=\"Pronunciation\">
                 </div>
             </div>
-            <div class=\"form-group row\">
-                <div class=\"col-md-6 pull-right\">
-                    <label>Record Reformulation:  <audio controls><source src=\"/Media/testaudio.mp3\" type=\"audio/mpeg\">Your browser does not support the audio element</audio></label>
-                </div>
-            </div>
+            
             <div class=\"form-group row\">
                 <div class=\"col-xs-12\">
                     <div class=\"btn-group\" role=\"group\">
