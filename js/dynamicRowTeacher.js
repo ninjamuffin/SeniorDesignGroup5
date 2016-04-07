@@ -31,6 +31,8 @@ $(function(){
     
     $("button[name=SelectExpression]").on('click', function(e){
         var expressionid = $(this).val();
+        $("#loadingicon").empty();
+        $("#loadingicon").append("<img src='/media/circle-loading-gif.gif' alt='loading' height='10' width='10'>");
         $.ajax({
             type: "POST",
             url: "PopulateEditor.php",
@@ -41,6 +43,7 @@ $(function(){
                 $("div[name='ExpressionEditor']").html(data);
             }
         });
+        $("#loadingicon").empty();
     });
     /*$("tr").each(function(index) {
         if (index !=0) {

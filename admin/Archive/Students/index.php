@@ -137,8 +137,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 "SELECT S.[FirstName], S.[LastName], L.[Language], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
 FROM Students as S, Expressions as E, Languages as L
 WHERE L.[LanguageID] = S.[Language] AND
-S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
-E.[Student_ID] = S.[ID]";
+S.[ID] in (SELECT DISTINCT ES.StudentID FROM Expressions as ES) AND
+E.[StudentID] = S.[ID]";
     /*if (!(empty($_POST['studentLastName'])))
     {
         $query = " = ?";

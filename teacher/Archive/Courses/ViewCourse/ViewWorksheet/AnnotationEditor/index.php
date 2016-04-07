@@ -171,13 +171,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $params = array($courseID, $worksheetNum);
             $options = array( "Scrollable" => 'static' );
             $query = 
-       "SELECT E.[Sentence number], S.[LastName], E.Expression, E.[Context/Vocabulary], E.[Pronunciation], E.Student_ID
+       "SELECT E.[Sentence number], S.[LastName], E.Expression, E.[Context/Vocabulary], E.[Pronunciation], E.StudentID
         FROM Expressions as E, 
              Students as S, 
 	         Country as C
         WHERE E.[Teachers&ClassesID] = ? AND
               E.[Worksheet#] = ? AND
-		      S.ID = E.Student_ID AND
+		      S.ID = E.StudentID AND
 		      C.ID = S.Citizenship
         ORDER BY [Sentence number]";
             $stmt = sqlsrv_query($con, $query, $params, $options);

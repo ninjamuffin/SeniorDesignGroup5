@@ -107,7 +107,7 @@ WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND
       TC.[InstructorID] = T.[TeacherID] AND 
 	  TC.[SessionID] = Ss.[SessionsID] AND
 	  SN.[SessionsID] = Ss.[SessionsID] AND
-      TC.[CoursesID] in (SELECT DISTINCT OtherExpressions.[Teachers&ClassesID] FROM Expressions as OtherExpressions WHERE OtherExpressions.[Student_ID] = ?)
+      TC.[CoursesID] in (SELECT DISTINCT OtherExpressions.[Teachers&ClassesID] FROM Expressions as OtherExpressions WHERE OtherExpressions.[StudentID] = ?)
 ORDER BY Ss.[SessionsID] desc";
 $stmt = sqlsrv_query($con, $query, $params, $options);
 if ( !$stmt )

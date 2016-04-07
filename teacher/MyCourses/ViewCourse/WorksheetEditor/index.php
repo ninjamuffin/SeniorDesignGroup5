@@ -79,7 +79,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
                                     FROM Expressions E, Students S, Enrollment ER
                                     WHERE E.WorksheetID = ? AND
-                                          ER.StudentID = E.Student_ID AND
+                                          ER.StudentID = E.StudentID AND
                                           S.StudentID = ER.StudentID 
                                     ORDER BY E.SentenceNumber";
         $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);

@@ -7,7 +7,7 @@ if(!empty($_POST["keyword"]))
     $query = "SELECT TOP 8 S.FirstName,S.LastName,min(Y.Year), max(Y.Year), S.ID
     FROM Students as S, Year as Y, Enrollment as E, Courses as TC, Sessions as Ss 
     WHERE S.LastName LIKE '" . $_POST["keyword"] . "%' AND 
-          S.ID in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND 
+          S.ID in (SELECT DISTINCT ES.StudentID FROM Expressions as ES) AND 
           E.StudentID = S.ID AND
           TC.CoursesID = E.ClassInstanceID AND
           Ss.SessionsID = TC.SessionID AND

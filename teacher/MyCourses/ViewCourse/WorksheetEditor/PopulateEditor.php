@@ -1,5 +1,6 @@
 <?php 
-include '../../../../base.php';
+require_once '../../../../base.php';
+//test connection speed.. require vs include
 
 if (!(empty($_POST['expressionid'])))
 {
@@ -39,7 +40,7 @@ if (!(empty($_POST['expressionid'])))
     $expressiondataSQL = "SELECT E.Expression, E.[Context/Vocabulary], E.Pronunciation, S.StudentID, S.FirstName, S.LastName, E.AllDo
                           FROM Expressions E, Students S
                           WHERE E.ExpressionID = ? AND
-                                S.StudentID = E.Student_ID";
+                                S.StudentID = E.StudentID";
     $expressiondata = sqlsrv_query($con, $expressiondataSQL, $params, $options);
     if ($expressiondata === false)
         die(print_r(sqlsrv_errors(), true));
