@@ -129,7 +129,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col-md-10">
+                                                    <div class="col-md-12">
                                                         <h4>Worksheet # <?=$new_worksheet_number?><span class="pull-right"><?=$today?></span></h4>
                                                     </div>
                                                 </div>

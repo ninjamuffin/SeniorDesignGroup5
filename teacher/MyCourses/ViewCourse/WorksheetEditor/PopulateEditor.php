@@ -1,5 +1,5 @@
 <?php 
-require_once '../../../../base.php';
+require_once ('../../../../base.php');
 //test connection speed.. require vs include
 
 if (!(empty($_POST['expressionid'])))
@@ -63,10 +63,10 @@ echo "
     <div class=\"control-group controls\" id=\"fields\">
         <form>
             <div class=\"form-group row\">
-                <div class=\"col-xs-1\">
-                    <h4>$sentence_number</h4>
-                </div>
+                
                 <div class=\"col-xs-4 col-md-6\">
+                    <h4 style=\"text-decoration:underline\">Sentence #$sentence_number</h4>
+                    <label>Student:
                     <select class=\"form-control\">
                         <option  selected=\"selected\" value=\"$selected_student_id\">$selected_first_name $selected_last_name</option>";
 for($i = 0; $i < $num_students; $i++)
@@ -75,7 +75,7 @@ for($i = 0; $i < $num_students; $i++)
         echo "<option value=\"$studentids[$i]\">$first_names[$i] $last_names[$i]</option>";
 }
 echo "                       
-                    </select>
+                    </select></label>
                 </div>
                 <div class=\"col-xs-2\">";
 if ($alldo == 1)

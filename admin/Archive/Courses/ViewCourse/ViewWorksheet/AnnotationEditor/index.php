@@ -47,6 +47,36 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         $courseID = isset($_GET['courseID']) ? $_GET['courseID'] : 0;
+        $worksheetID = 3572;
+        $params = array($worksheetID);
+        $options = array("Scrollable" => 'static');
+        $worksheetexpressionsSQL = "SELECT E.Expression, E.[Context/Vocabulary], E.SentenceNumber, E.ExpressionID, S.FirstName, S.LastName, S.StudentID
+                                    FROM Expressions E, Worksheets W, Students S
+                                    WHERE W.WorksheetID = ? AND
+                                          E.WorksheetID = W.WorksheetID AND
+                                          S.StudentID = E.StudentID
+                                    ORDER BY W.WorksheetNumber";
+        $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
+        if ($worksheetexpressions === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_expressions = sqlsrv_num_rows($worksheetexpressions);
+        $expressions = [];
+        $contexts = [];
+        $numbers = [];
+        $expressionids = [];
+        $firstnames = [];
+        $lastnames = [];
+        $studentids = [];
+        while (sqlsrv_fetch($worksheetexpressions) === true)
+        {
+            $expressions[] = sqlsrv_get_field($worksheetexpressions, 0);
+            $contexts[] = sqlsrv_get_field($worksheetexpressions, 1);
+            $numbers[] = sqlsrv_get_field($worksheetexpressions, 2);
+            $expressionids[] = sqlsrv_get_field($worksheetexpressions, 3);
+            $firstnames[] = sqlsrv_get_field($worksheetexpressions, 4);
+            $lastnames[] = sqlsrv_get_field($worksheetexpressions, 5);
+            $studentids[] = sqlsrv_get_field($worksheetexpressions, 6);
+        }
         $worksheetNum = isset($_GET['worksheetNum']) ? $_GET['worksheetNum'] : 0;
         if (false)
             echo "<meta http-equiv='refresh' content='0;../../' />";
@@ -94,15 +124,34 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Student</th>
                                                     <th>Expression</th>
                                                     <th>Context/Vocab</th>
+                                                    <th>Number of Annotations</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+<?php
+            for ($i = 0; $i < $num_expressions; $i++)
+            {
+?>
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td><a href="/Admin/Archive/Students/ViewStudent/?sid=">Name</a></td>
-                                                    <td>Here's a expression</td>
-                                                    <td>Some Context</td>
+                                                    <td name="sentencenumber"><?=$numbers[$i]?></td>
+                                                    <td><form method="POST" name="students<?=$i?>" action="/Admin/Archive/Students/ViewStudent/">
+                                                            <input hidden type="text" value="<?=$studentids[$i]?>" name="studentID">
+                                                            <button class="btn btn-primary"><?=$firstnames[$i]?> <?=$lastnames[$i]?></button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <div name="highlightrange"><?=$expressions[$i]?></div>
+                                                        <input hidden type="text" name="expressionid" value="<?=$expressionids[$i]?>">
+                                                        <input hidden type="text" name="expressionnumber" value="<?=$numbers[$i]?>">
+                                                    </td>
+                                                    <td><?=$contexts[$i]?></td>
+                                                    <td>0</td>
                                                 </tr>
+<?php
+            }
+?>
+                                                
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -111,52 +160,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="panel panel-primary" style="min-height: 600px;">
+                                <div class="panel panel-primary" style="min-height: 400px;">
                                     <div class="panel-heading">
                                         <h4>Editor</h4>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="col-xs-4" style="min-height:600px; border-right: 1px solid #1abc9c;">
-                                            <!--Working here-->
-                                            
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Expression</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>
-                                                            <div name="highlightrange">
-                                                                Here's a expression
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>
-                                                            <div name="highlightrange">
-                                                                Another Expressions
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div name="highlightrange">
-                                                                Yet another expressive
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    
-                                        <div class="col-xs-8">
-                                            <h4>Expression Annotator</h4>
+                                        <div class="col-md-10">
+                                            <h4>Expression Annotator ( # <span id="editorexpressionnumber"></span> ) </h4>
                                             <ul class="nav nav-tabs">
                                                 <li class="active"><a data-toggle="tab" href="#newedit">New Annotation</a></li>
                                                 <li><a data-toggle="tab" href="#viewprevious">Previous Annotations</a></li>
@@ -164,46 +174,50 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </ul>
                                             <div class="tab-content">
                                                 <div id="newedit" class="tab-pane fade in active">
-                                                    <div class="row">
-                                                       <div class="col-xs-12">
-                                                            <textarea disabled id="expression" class="form-control" class="col-xs-11">
-                                                            </textarea>
+                                                    <form method="POST" name="annotation" id="annotation">
+                                                        <input hidden type="text" name="expressionid" id="editorexpressionid">
+                                                        <div class="row">
+                                                            <div class="col-xs-10"> <span id="editorexpressionnumber"></span>
+                                                            </div>
+                                                            <div class="col-xs-10">
+                                                                <textarea disabled id="editorexpression" name="expression" class="form-control" class="col-xs-11">
+                                                                </textarea>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="row">
-                                                        <div class="col-xs-4">
-                                                            <select class="form-control">
-                                                                <option selected="selected">--Error Type--</option>
-                                                                <option>type1</option>
-                                                                <option>type2</option>
-                                                                <option>type3</option>
-                                                                <option>type4</option>
-                                                            </select>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <select class="form-control">
+                                                                    <option selected="selected">--Error Type--</option>
+                                                                    <option>type1</option>
+                                                                    <option>type2</option>
+                                                                    <option>type3</option>
+                                                                    <option>type4</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <select class="form-control">
+                                                                    <option selected="selected">--Error Subselect--</option>
+                                                                    <option>type1</option>
+                                                                    <option>type2</option>
+                                                                    <option>type3</option>
+                                                                    <option>type4</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-xs-4">
-                                                            <select class="form-control">
-                                                                <option selected="selected">--Error Subselect--</option>
-                                                                <option>type1</option>
-                                                                <option>type2</option>
-                                                                <option>type3</option>
-                                                                <option>type4</option>
-                                                            </select>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-xs-8">
+                                                                <input type="text" class="form-control" name="Comments" id="Comments" placeholder="Comments">
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <button type="button" class="btn btn-primary">
+                                                                    Submit Annotation
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="col-xs-8">
-                                                            <input type="text" class="form-control" name="Comments" id="Comments" placeholder="Comments">
-                                                        </div>
-                                                        <div class="col-xs-4">
-                                                            <button type="button" class="btn btn-primary">
-                                                                Submit Annotation
-                                                            </button>
-                                                        </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
-                                            
                                             
                                                 <div id="viewprevious" class="tab-pane fade">
                                                     <div class="row">

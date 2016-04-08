@@ -136,7 +136,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="col-xs-4">
-                                <div class="panel panel-default">
+                                <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
                                     <div class="panel-body">
                                         <h2>Course: Generated from page</h2>
@@ -147,7 +147,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                             <div class="col-xs-8">
-                                <div class="panel panel-default">
+                                <div class="panel panel-primary">
                                 <div class="panel-heading">Worksheet Overview</div>
                                     <div class="panel-body">
                                         <div class="row">
