@@ -43,27 +43,34 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         $params = array();
         $options = array( "Scrollable" => 'static');
-        $adminsQuery = "
-        SELECT I.InstitutionName, A.FirstName, A.LastName, R.Designation
-        FROM Institutions as I, Administrators as A, RoleInstances as RI, Roles as R
+        $adminsSQL = "
+        SELECT I.InstitutionName, A.FirstName, A.LastName, A.AdministratorID, R.Designation, CONVERT(VARCHAR(11), SU.date_added, 106)
+        FROM Institutions as I, Administrators as A, RoleInstances as RI, Roles as R, SiteUsers as SU
         WHERE A.RoleInstanceID = RI.RoleInstanceID AND
+              SU.username = A.SiteUsername AND
               RI.RoleID = R.RoleID AND
               R.Role = 'Admin' AND
               I.InstitutionID = A.InstitutionID";
-        $stmt = sqlsrv_query($con, $adminsQuery, $params, $options);
-        if ($stmt === false)
+        $admins = sqlsrv_query($con, $adminsSQL, $params, $options);
+        if ($admins === false)
             die(print_r(sqlsrv_errors(), true));
-        while (sqlsrv_fetch($stmt) === true)
-        {
-            $institution = sqlsrv_get_field($stmt, 0);
-            $fname = sqlsrv_get_field($stmt, 1);
-            $lname = sqlsrv_get_field($stmt, 2);
-            $designation = sqlsrv_get_field($stmt, 3);
+        $num_admins = sqlsrv_num_rows($admins);
+        $institutions = [];
+        $fnames = [];
+        $lnames = [];
+        $adminids = [];
+        $designations = [];
+        $dates = [];
             
-          /*  echo "<tr>";
-            echo "<td>$institution</td>";
-            echo "<td>$fname $lname</td>";
-            echo "<td>$designation</td>";*/
+        while (sqlsrv_fetch($admins) === true)
+        {
+            $institutions[] = sqlsrv_get_field($admins, 0);
+            $fnames[] = sqlsrv_get_field($admins, 1);
+            $lnames[] = sqlsrv_get_field($admins, 2);
+            $adminids[] = sqlsrv_get_field($admins, 3);
+            $designations[] = sqlsrv_get_field($admins, 4);
+            $dates[] = sqlsrv_get_field($admins, 5);
+            
         }
         ?>
         <body>
@@ -85,9 +92,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-8">
+                            <div class="col-md-10">
                                 
-                                <div class="panel panel-primary">
+                                <h4><form method="POST" action="/Admin/AddUser/"><button class="btn btn-primary">Create Admin</button></form></h4>
+                                <!--<div class="panel panel-primary">
                                     <div class="panel-heading">Add New Admin (Manually)</div>
                                     <div class="panel-body">
                                          <form method="POST" id="filterActivityQueue" action="">
@@ -95,12 +103,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 
                                                 
                                                 <div class="col-lg-4">
-                                                    <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" /><br />
-                                                    <input class="form-control" type="text" name="lname" id="lame" placeholder="Last Name" /><br />
+                                                    <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name"><br />
+                                                    <input class="form-control" type="text" name="Email" id="Email" placeholder="School Email"><br />
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input class="form-control" type="text" name="Email" id="Email" placeholder="School Email" /><br />
-                                                    <input class="form-control" type="text" name="AltEmail" id="AltEmail" placeholder="Alternate Email" /><br />
+                                                    <input class="form-control" type="text" name="lname" id="lame" placeholder="Last Name"><br />
+                                                    
+                                                    <input class="form-control" type="text" name="AltEmail" id="AltEmail" placeholder="Alternate Email"><br />
                                                 </div>
                                                 <div class="col-lg-4">
                                                     
@@ -114,14 +123,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 
                                                 
                                             </div>
-                                             <button type="submit" class="btn btn-primary pull-right">Add Admin</button>
+                                             <button class="btn btn-primary pull-right">Add Admin</button>
                                         </form>
                                     </div>
-                                </div>
+                                </div>-->
                                 
                                     
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-4">
+                            <!--<div class="col-lg-3 col-md-3 col-sm-4">
                                 <div class="panel panel-primary" style="min-height: 225px;max-height: 225px;">
                                     <div class="panel-heading">Add New Admin (By File)</div>
                                     <div class="panel-body">
@@ -137,10 +146,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                                 
                                     
-                            </div>
+                            </div>-->
                         </div>
                         <div class="row">
-                            <div class="col-lg-9 col-md-9">
+                            <div class="col-md-10">
 
                                 <div class="panel panel-primary" style="min-height: 400px; max-height: 400px; ">
                                     <div class="panel-heading">Admins</div>
@@ -148,19 +157,31 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td>Institution</td>
-                                                    <td>Name</td>
-                                                    <td>Date Added</td>
-                                                    <td>Visit Page</td>
+                                                    <th>Institution</th>
+                                                    <th>Name</th>
+                                                    <th>Designation</th>
+                                                    <th>Date Added</th>
+                                                    <th>Visit Page</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Gonzaga University</td>
-                                                    <td>T. Cher</td>
-                                                    <td>3/3/2016</td>
-                                                    <td><a href="ViewAdminProfile/">View Admin</a>
-                                                </tr>
+<?php
+        for($i = 0; $i < $num_admins; $i++)
+        {
+            echo "<tr>
+                    <td>$institutions[$i]</td>
+                    <td>$fnames[$i] $lnames[$i]</td>
+                    <td>$designations[$i]</td>
+                    <td>$dates[$i]</td>
+                    <td><form method=\"POST\" action=\"ViewAdmin/\" name=\"admins{$i}\">
+                          <input hidden type=\"text\" name=\"adminID\" value=\"$adminids[$i]\">
+                          <button class=\"btn btn-primary\">View Admin</button>
+                        </form>
+                    </td>
+                  </tr>";
+        }
+?>
+                                                
                                             </tbody>
                                         </table>
                                     </div>
