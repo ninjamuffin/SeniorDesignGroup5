@@ -88,9 +88,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             $Section = sqlsrv_get_field( $courseinfo, 4);
                                         }
                                         $WorksheetsSQL = "
-                                        SELECT WorksheetID, WorksheetNumber, EditStatus, CONVERT(VARCHAR(11), Date,106)
-                                        FROM Worksheets
-                                        WHERE CourseID = ? ORDER BY WorksheetNumber";
+                                        SELECT W.WorksheetID, W.WorksheetNumber, W.EditStatus, CONVERT(VARCHAR(11), W.Date,106), T.Topic
+                                        FROM Worksheets W, Topics T
+                                        WHERE W.CourseID = ? AND
+                                              T.TopicID = W.TopicID
+                                              ORDER BY W.WorksheetNumber";
                                         $params = array($courseID);
                                         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
                                         $worksheets = sqlsrv_query($con, $WorksheetsSQL, $params, $options);
@@ -104,12 +106,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         $worksheet_numbers = [];
                                         $statuses = [];
                                         $dates = [];
+                                        $topics = [];
                                         while(sqlsrv_fetch($worksheets) === true)
                                         {
                                             $worksheetIDs[] = sqlsrv_get_field($worksheets, 0);
                                             $worksheet_numbers[] = sqlsrv_get_field($worksheets, 1);
                                             $statuses[] = sqlsrv_get_field($worksheets, 2);
                                             $dates[] = sqlsrv_get_field($worksheets, 3);
+                                            $topics[] = sqlsrv_get_field($worksheets, 4);
                                         }
 
                                     echo "<p>Name: $ClassName</p>
@@ -125,7 +129,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                                 <div class="panel-body">
                                     <form method="POST" action="WorksheetEditor/" name="NewWorksheet">  
-                                        <input type="hidden" name="Number" value="<?=$new_worksheet_number?>">
+                                        <input type="hidden" name="worksheet_number" value="<?=$new_worksheet_number?>">
+                                        <input type="hidden" id="courseID" name="courseID" value="<?=$courseID?>">
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <div class="row">
@@ -135,24 +140,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-10">
-                                                        <input class="form-control" type="text" placeholder="Enter Topic">
+                                                        <input class="form-control" type="text" name="topic" placeholder="Enter Topic">
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <h4>My Students Will See:</h4>
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="worksheetTypeOriginal"> Original Expression</label>
+                                                    <label><input type="checkbox" name="worksheetTypeOriginal" checked="checked"> Original Expression</label>
                                                 </div>
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="worksheetTypeText" value="TextReform">  Text Reformulation</label>
+                                                    <label><input type="checkbox" name="worksheetTypeText" value="TextReform" checked="checked">  Text Reformulation</label>
                                                 </div>
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="worksheetTypeAudio" value="AudioReform">  Audio Reformulation</label>
+                                                    <label><input type="checkbox" name="worksheetTypeAudio" value="AudioReform" checked="checked">  Audio Reformulation</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        <span class="pull-right"><button class="btn btn-primary">Create New Worksheet</button></span>
+                                        <span id="successdisplay"></span>
+                                        <span class="pull-right"><button type="button" name="newworksheet" class="btn btn-primary">Create New Worksheet</button></span>
                                             
                                     </form>
                                 </div>
@@ -235,6 +240,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <tr>
                                                 <th>#</th>
                                                 <th>Date</th>
+                                                <th>Topic</th>
                                                 <th>Status</th>
                                                 <th>Go To</th>
                                                 <th>Perform an Action</th>
@@ -248,6 +254,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<tr>";
             echo "<td>$worksheet_numbers[$i]</td>";
             echo "<td>$dates[$i]</td>";
+            echo "<td>$topics[$i]</td>";
             echo "<td>$statuses[$i]</td>";
             if ($statuses[$i] == "Released")
             {
@@ -295,6 +302,42 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
+        });
+        $("button[name='newworksheet']").on("click", function() {
+            var topic = $("input[name='topic']").val();
+            var courseid = $("input[name='courseid']").val();
+            var worksheetnumber = $("input[name='worksheet_number']").val();
+            var original = $("input[name='worksheetTypeOriginal']").val();
+            var text = $("input[name='worksheetTypeText']").val();
+            var audio = $("input[name='worksheetTypeAudio']").val();
+            
+            
+            $.ajax({
+                type: "POST",
+                url: "CreateWorksheet.php",
+                data: {
+                    "topic":topic,
+                    "worksheet_number":worksheetnumber,
+                    "worksheetTypeOriginal":original,
+                    "worksheetTypeText":text,
+                    "worksheetTypeAudio":audio,
+                    "courseid":courseid
+                },
+                success: function(data){
+                    var courseID = $("#courseID").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "index.php",
+                        data: {
+                            "courseID":courseID
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+
+                    });
+                }
+            });
         });
         </script>
     </body>
