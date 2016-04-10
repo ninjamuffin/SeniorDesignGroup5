@@ -250,14 +250,12 @@
                                       <?php
                     echo "<form method=\"POST\" action=\"/Teacher/MyCourses/\" name=\"courses{$i}\" id=\"courses{$i}\"><input hidden name=\"institutionid\" id=\"institutionid\" value=\"$institution_ids[$i]\"><a href=\"#\" onClick=\"document.courses{$i}.submit();return false\">Courses</a></form>";
                 ?>
-                                  
                                   <?php
-                    echo "<form method=\"POST\" action=\"/Teacher/MyStudents/\" name=\"students{$i}\" id=\"students{$i}\"><a href=\"#\" onClick=\"document.students{$i}.submit();return false\">Students</a></form>";
+                    echo "<form method=\"POST\" action=\"/Teacher/MyStudents/\" name=\"students{$i}\" id=\"students{$i}\">
+                    <input hidden name=\"institutionid\" id=\"institutionid\" value=\"$institution_ids[$i]\"><a href=\"#\" onClick=\"document.students{$i}.submit();return false\">Students</a></form>";
                 ?>
                                       
-                                      
                                   </li>
-           
                               </ul>
                             </li>
                             <?php

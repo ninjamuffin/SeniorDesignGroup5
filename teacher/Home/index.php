@@ -92,12 +92,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <div class="col-xs-10">
                                                 <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
                                             </div>
-                                        
-                                        
                                         </div>
-                                        
-                                        
-                                        
                                     </div>
                                     <div class="panel-body" style="min-height: 150px; max-height: 150px;">
                                         <table class="table table-hover">
@@ -110,8 +105,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Go To</th>
                                                 </tr>
                                             </thead>
-                                        
-                                                
+                                                         
                                             <tbody>
                                                 <?php
                                                 $activecoursesSQL = "SELECT CT.CourseName, C.Section, I.InstitutionName, ST.SessionName, C.CourseID

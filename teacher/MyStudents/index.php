@@ -45,6 +45,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $institutionID = isset($_POST['institutionid']) ? $_POST['institutionid'] : 0;
+        
+        if ($institutionID == 0)
+        {
+            $params = array($_SESSION['Username']);
+            $options = array("Scrollable" => 'static');
+            $CoursesQuery = "SELECT S.StudentID, S.FirstName, S.LastName, CT.CourseName, I.InsitutionName
+            FROM Students S, Courses C, CourseTypes CT, EnrollmentER, Institutions I, TeachingInstance TI
+            WHERE"
+        }
     ?>        
 
     <body>
