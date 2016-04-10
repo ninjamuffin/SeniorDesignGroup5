@@ -2,13 +2,13 @@
 require_once ('../../../../base.php');
 //test connection speed.. require vs include
 
-if (!(empty($_POST['expressionid'])))
+if ((isset($_POST['expressionid'])) && (isset($_POST['courseID'])))
 {
     /*$expressionid = $passed_array[0];
     $selected_student_id = $passed_array[1];
     $selected_first_name = $passed_array[2];
     $selected_last_name = $passed_array[3];*/
-    
+    $courseID = $_POST['courseID'];
     $params = array($_POST['expressionid']);
 /*    $selected_student_id = isset($_POST['studentid']) ? $_POST['studentid'] : 0;
     $selected_first_name = isset($_POST['firstname']) ? $_POST['firstname'] : '';
@@ -55,13 +55,14 @@ if (!(empty($_POST['expressionid'])))
         $alldo = sqlsrv_get_field($expressiondata, 6);
         $sentence_number = sqlsrv_get_field($expressiondata, 7);
     }  
-}
+
     
 
 echo "
 <div class=\"panel-body\">
     <div class=\"control-group controls\" id=\"fields\">
         <form>
+            <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
             <div class=\"form-group row\">
                 
                 <div class=\"col-xs-4 col-md-6\">
@@ -132,4 +133,5 @@ echo "
     </div>
 </div>
 ";
+}
 ?>

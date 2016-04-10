@@ -31,12 +31,13 @@ $(function(){
     
     $("button[name=SelectExpression]").on('click', function(e){
         var expressionid = $(this).val();
-        $("#loadingicon").empty();
-        $("#loadingicon").append("<img src='/media/circle-loading-gif.gif' alt='loading' height='10' width='10'>");
+        var courseid = $(this).closest("form").find("input[name=courseID]").val();
         $.ajax({
             type: "POST",
             url: "PopulateEditor.php",
-            data: 'expressionid='+expressionid,
+            data: {'expressionid' : expressionid,
+                   'courseID' : courseid
+                  },
                    
             success: function(data){ 
                 $("div[name='ExpressionEditor']").empty();
@@ -48,6 +49,8 @@ $(function(){
     
     $("button[name=NewExpression]").on('click', function(e){
         var worksheetID = $(this).val();
+        var courseID = $(this).closest("form").find("input[name=courseID]").val();
+        alert(courseID);
         var expressionNum = $("input[name=newexpressionnumber]").val();
         $.ajax({
             type: "POST",
@@ -64,20 +67,37 @@ $(function(){
         });
     });
     
-    $("button[name=NewExpression]").on('click', function(e){
-        var worksheetID = $(this).val();
-        var expressionNum = $("input[name=newexpressionnumber]").val();
+    $(document).on('click', 'button[name="SaveExpression"]', function(e){
+        e.preventDefault();
+        var parentForm = $(this).closest("form");
+        
+        var Expression = $(parentForm).find("input[name=Expression]").val();
+        var ContextVocab = $(parentForm).find("input[name=ContextVocab]").val();
+        var Pronunciation = $(parentForm).find("input[name=Pronunciation]").val();
+        var studentID = $(parentForm).find("select[name=selectstudent]").prop("selected", true).val();        
+        var AllDo = 0;;
+        if ($(parentForm).find("input[name=alldo][value=all]").is(":checked"))
+            AllDo = 1;
+        var expressionNum = $(parentForm).find("input[name=newexpressionnumber]").val();
+        var worksheetID = $(parentForm).find("input[name=worksheetID]").val();
+        alert(Expression);
         $.ajax({
             type: "POST",
-            url: "NewExpression.php",
+            url: "SaveExpression.php",
             data: {
-                "worksheetID": worksheetID,
-                "newexpressionnumber": expressionNum
+                "Expression": Expression,
+                "ContextVocab": ContextVocab,
+                "Pronunciation": Pronunciation,
+                "studentID": studentID,
+                "AllDo": AllDo,
+                "expressionNum": expressionNum,
+                "worksheetID": worksheetID
             },
                    
             success: function(data){ 
                 $("div[name='ExpressionEditor']").empty();
-                $("div[name='ExpressionEditor']").html(data);
+                $("tbody[name='ExpressionTable']").empty();
+                $("tbody[name='ExpressionTable']").html(data);
             }
         });
     });

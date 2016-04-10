@@ -72,7 +72,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
-        if ($worksheetID == 0)
+        $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
+        if (($worksheetID == 0) || ($courseID == 0))
             echo "<meta http-equiv='refresh' content='5;/' />";
         $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
@@ -155,6 +156,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <div class="col-md-10">
                                                 <form method="POST" name="newexpression">
                                                     <input hidden type="text" name="newexpressionnumber" value="<?=$new_expression_number?>">
+                                                    <input hidden type="text" name="courseID" value="<?=$courseID?>">
                                                     <button type="button" name="NewExpression" class="btn btn-primary" value="<?=$worksheetID?>">
                                                         New Expression
                                                     </button>
@@ -172,7 +174,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="ExpressionTable">
+                                            <tbody name="ExpressionTable">
 <?php 
         for($i = 0; $i < $num_expressions; $i++)
         {
@@ -193,6 +195,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                               <input hidden type=\"text\" name=\"studentid\" value=\"$student_expression_ids[$i]\">
                               <input hidden type=\"text\" name=\"firstname\" value=\"$first_names[$i]\">
                               <input hidden type=\"text\" name=\"lastname\" value=\"$last_names[$i]\">
+                              <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
                               
                               <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
                           </form>
