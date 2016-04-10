@@ -70,7 +70,8 @@ if ((isset($_POST['worksheet_number'])) && (isset($_POST['topic'])))
            ,[TopicID]
            ,[DisplayOriginal]
            ,[DisplayTextReformulation]
-           ,[DisplayAudioReformulation]) VALUES (GETDATE(), ?, ?, 'Unreleased', ?, ?, ?, ?)";
+           ,[DisplayAudioReformulation]
+           ,[IsDeleted]) VALUES (GETDATE(), ?, ?, 'Unreleased', ?, ?, ?, ?, 0)";
     
     $newworksheet = sqlsrv_query($con, $newworksheetSQL, $params, $options);
     if($newworksheet === false)

@@ -92,6 +92,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         SELECT W.WorksheetID, W.WorksheetNumber, W.EditStatus, CONVERT(VARCHAR(11), W.Date,106), T.Topic
                                         FROM Worksheets W, Topics T
                                         WHERE W.CourseID = ? AND
+                                              W.IsDeleted = 0 AND
                                               T.TopicID = W.TopicID
                                               ORDER BY W.WorksheetNumber";
                                         $params = array($courseID);

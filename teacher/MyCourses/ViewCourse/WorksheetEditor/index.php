@@ -86,6 +86,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if ($worksheetexpressions === false)
             die(print_r(sqlsrv_errors(), true));
         $num_expressions = sqlsrv_num_rows($worksheetexpressions);
+        $new_expression_number = $num_expressions + 1;
         $sent_numbers = [];
         $student_expression_ids = [];
         $first_names = [];
@@ -153,7 +154,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <form method="POST" name="newexpression">
-                                                    <button type="button" class="btn btn-primary">
+                                                    <input hidden type="text" name="newexpressionnumber" value="<?=$new_expression_number?>">
+                                                    <button type="button" name="NewExpression" class="btn btn-primary" value="<?=$worksheetID?>">
                                                         New Expression
                                                     </button>
                                                 </form>

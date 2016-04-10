@@ -38,12 +38,48 @@ $(function(){
             url: "PopulateEditor.php",
             data: 'expressionid='+expressionid,
                    
-            success: function(data){
+            success: function(data){ 
                 $("div[name='ExpressionEditor']").empty();
                 $("div[name='ExpressionEditor']").html(data);
             }
         });
         $("#loadingicon").empty();
+    });
+    
+    $("button[name=NewExpression]").on('click', function(e){
+        var worksheetID = $(this).val();
+        var expressionNum = $("input[name=newexpressionnumber]").val();
+        $.ajax({
+            type: "POST",
+            url: "NewExpression.php",
+            data: {
+                "worksheetID": worksheetID,
+                "newexpressionnumber": expressionNum
+            },
+                   
+            success: function(data){ 
+                $("div[name='ExpressionEditor']").empty();
+                $("div[name='ExpressionEditor']").html(data);
+            }
+        });
+    });
+    
+    $("button[name=NewExpression]").on('click', function(e){
+        var worksheetID = $(this).val();
+        var expressionNum = $("input[name=newexpressionnumber]").val();
+        $.ajax({
+            type: "POST",
+            url: "NewExpression.php",
+            data: {
+                "worksheetID": worksheetID,
+                "newexpressionnumber": expressionNum
+            },
+                   
+            success: function(data){ 
+                $("div[name='ExpressionEditor']").empty();
+                $("div[name='ExpressionEditor']").html(data);
+            }
+        });
     });
     /*$("tr").each(function(index) {
         if (index !=0) {
