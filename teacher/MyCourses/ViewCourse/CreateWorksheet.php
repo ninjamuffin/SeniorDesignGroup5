@@ -56,6 +56,8 @@ if ((isset($_POST['worksheet_number'])) && (isset($_POST['topic'])))
         die(print_r(sqlsrv_errors(), true));
     if(sqlsrv_fetch($getTopicID) === true)
         $TopicID = sqlsrv_get_field($getTopicID, 0);
+    if (strlen($_POST['topic']) == 0)
+        $TopicID = 887;
     
     $params = array($_POST['courseid'], $_POST['worksheet_number'], $TopicID, $original_bool, $text_ref_bool, $audio_ref_bool);
     $options = array( "Scrollable" => 'static');

@@ -19,6 +19,7 @@
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    <script type="text/javascript" src="/js/spin.js"></script>
     <script>
         $(function(){
             $("#sidebar").load("/sidebar.php");
@@ -156,8 +157,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </div>
                                             </div>
                                         </div>
-                                        <span id="successdisplay"></span>
-                                        <span class="pull-right"><button type="button" name="newworksheet" class="btn btn-primary">Create New Worksheet</button></span>
+                                        <div class="row">
+                                            <div class="btn-group" class="col-md-3">
+                                                <button type="button" name="newworksheet" class="btn btn-primary">Create New Worksheet</button>
+                                            </div>
+                                            <div name="createnewspinner" class="col-md-1" style="left:50%; top:18px;">
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        
                                             
                                     </form>
                                 </div>
@@ -264,19 +273,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             {
                 echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"EditWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><button class=\"btn btn-primary\">Edit</button></form></td>";
             }
-            echo "<td style=\"width:180px;\"><div class=\"row\"><div class=\"col-xs-5\">
+            echo "<td style=\"width:225px;\"><div class=\"row\"><div class=\"col-xs-4\">
                     <form method=\"POST\" name=\"publishworksheet{$i}\" action=\"PublishWorksheet.php\">
-                      <input hidden type=\"text\" name=\"worksheetid\" value=\"$worksheetIDs[$i]\">
-                      <input hidden type=\"text\" name=\"courseid\" value=\"$courseID\">
+                      <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\">
+                      <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
                       <button class=\"btn btn-primary\">Publish</button>
                     </form></div>
                   ";
-            echo "<div class=\"col-xs-5\">
+            echo "<div class=\"col-xs-4\">
                     <form method=\"POST\" name=\"deleteworksheet{$i}\" action=\"DeleteWorksheet.php\">
-                      <input hidden type=\"text\" name=\"worksheetid\" value=\"$worksheetIDs[$i]\">
+                      <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\">
                       <input hidden type=\"text\" name=\"courseid\" value=\"$courseID\">
-                      <button class=\"btn btn-danger\">Delete</button>
-                    </form></div>
+                      <button type=\"button\" name=\"deleteworksheet\" class=\"btn btn-danger\">Delete</button>
+                    </form></div>";
+            echo "<div class=\"col-xs-1\" name=\"deletespinner\" style=\"top:15px;\">
+                    </div>
                   </div></td>";
             echo "</tr>";
         }
@@ -303,14 +314,97 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
-        $("button[name='newworksheet']").on("click", function() {
+        
+        $("button[name='deleteworksheet']").on("click", function(e){
+            e.preventDefault();
+            var memberForm = $(this).closest("form");
+            var worksheetID = $(memberForm).find("input[name='worksheetID']").val();
+            
+            var opts = {
+                  lines: 13 // The number of lines to draw
+                , length: 36 // The length of each line
+                , width: 12 // The line thickness
+                , radius: 36 // The radius of the inner circle
+                , scale: 0.15 // Scales overall size of the spinner
+                , corners: 1 // Corner roundness (0..1)
+                , color: '#000' // #rgb or #rrggbb or array of colors
+                , opacity: 0.45 // Opacity of the lines
+                , rotate: 0 // The rotation offset
+                , direction: 1 // 1: clockwise, -1: counterclockwise
+                , speed: 1.2 // Rounds per second
+                , trail: 59 // Afterglow percentage
+                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                , className: 'spinner' // The CSS class to assign to the spinner
+                , top: '75%' // Top position relative to parent
+                , left: '50%' // Left position relative to parent
+                , shadow: false // Whether to render a shadow
+                , hwaccel: false // Whether to use hardware acceleration
+                , position: 'absolute' // Element positioning
+            }
+            var target = $(this).closest("td").find("div[name='deletespinner']");
+            var spinner = new Spinner(opts).spin();
+            target.append(spinner.el);
+            $(":button").prop("disabled", true);
+            $.ajax({
+                type: "POST",
+                url: "DeleteWorksheet.php",
+                data: {
+                    "worksheetID":worksheetID
+                },
+                success: function(data) {
+                    var courseID = $("#courseID").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "index.php",
+                        data: {
+                            "courseID":courseID
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+            
+        
+        $("button[name='newworksheet']").on("click", function(e) {
+            e.preventDefault();
             var topic = $("input[name='topic']").val();
-            var courseid = $("input[name='courseid']").val();
+            var courseid = $("input[name='courseID']").val();
             var worksheetnumber = $("input[name='worksheet_number']").val();
             var original = $("input[name='worksheetTypeOriginal']").val();
             var text = $("input[name='worksheetTypeText']").val();
             var audio = $("input[name='worksheetTypeAudio']").val();
             
+            
+            var opts = {
+                  lines: 13 // The number of lines to draw
+                , length: 36 // The length of each line
+                , width: 12 // The line thickness
+                , radius: 36 // The radius of the inner circle
+                , scale: 0.25 // Scales overall size of the spinner
+                , corners: 1 // Corner roundness (0..1)
+                , color: '#000' // #rgb or #rrggbb or array of colors
+                , opacity: 0.45 // Opacity of the lines
+                , rotate: 0 // The rotation offset
+                , direction: 1 // 1: clockwise, -1: counterclockwise
+                , speed: 1.2 // Rounds per second
+                , trail: 59 // Afterglow percentage
+                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                , className: 'spinner' // The CSS class to assign to the spinner
+                , top: '75%' // Top position relative to parent
+                , left: '50%' // Left position relative to parent
+                , shadow: false // Whether to render a shadow
+                , hwaccel: false // Whether to use hardware acceleration
+                , position: 'absolute' // Element positioning
+            }
+            var target = $("div[name='createnewspinner']");
+            var spinner = new Spinner(opts).spin();
+            target.append(spinner.el);
+            $(":button").prop("disabled", true);
             
             $.ajax({
                 type: "POST",
