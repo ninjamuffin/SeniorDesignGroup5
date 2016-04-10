@@ -44,6 +44,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
+        $enrollmentID = isset($_POST['enrollmentID']) ? $_POST['enrollmentID'] : 0;
+        if (($courseID == 0) || ($enrollmentID == 0))
+            echo "<meta http-equiv='refresh' content='0;../' />";
+        echo $courseID;
+        echo $enrollmentID;
     ?>        
 
     <body>

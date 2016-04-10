@@ -171,6 +171,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
+                                                    <th>Course</th>
                                                     <th>Institution</th>
                                                     <th>Go To</th>
                                                 </tr>
@@ -179,13 +180,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 
                                             <tbody>
                                                 <?php
-                                                $mystudentsSQL = "SELECT DISTINCT S.StudentID, S.LastName, S.FirstName, I.InstitutionName
-                                                FROM Courses as C, TeachingInstance as TI, Students as S, Institutions as I, Enrollment as ER
+                                                $mystudentsSQL = "SELECT ER.EnrollmentID, S.LastName, S.FirstName, I.InstitutionName, CT.CourseName, C.CourseID
+                                                FROM Courses as C, TeachingInstance as TI, Students as S, Institutions as I, Enrollment as ER, CourseTypes as CT
                                                 WHERE TI.SiteUsername = ?
                                                 AND C.TeachingInstanceID = TI.TeachingInstanceID
                                                 AND ER.CourseID = C.CourseID
                                                 AND S.StudentID = ER.StudentID
-                                                AND I.InstitutionID = S.InstitutionID";
+                                                AND I.InstitutionID = S.InstitutionID
+                                                AND CT.CourseTypesID = C.CourseTypesID";
                                                 
                                                 $params = array($_SESSION['Username']);
                                                 $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
@@ -200,20 +202,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 }
                                                 else
                                                 {
-                                                    $studentids = [];
+                                                    $enrollmentids = [];
                                                     $studentlastnames = [];
                                                     $studentfirstnames = [];
                                                     $institutions = [];
+                                                    $coursenames = [];
+                                                    $courseids = [];
                                                     while(sqlsrv_fetch($mystudents) === true)
                                                     {
-                                                        $studentids[] = sqlsrv_get_field($mystudents, 0);
+                                                        $enrollmentids[] = sqlsrv_get_field($mystudents, 0);
                                                         $studentlastnames[] = sqlsrv_get_field($mystudents, 1);
                                                         $studentfirstnames[] = sqlsrv_get_field($mystudents, 2);
                                                         $institutions[] = sqlsrv_get_field($mystudents, 3);
+                                                        $coursenames[] = sqlsrv_get_field($mystudents, 4);
+                                                        $courseids[] = sqlsrv_get_field($mystudents, 5);
                                                     }
                                                     for ($i = 0; $i < $resultlength; $i++)
                                                     {
-                                                        echo "<tr><td>$studentfirstnames[$i] $studentlastnames[$i]</td><td>$institutions[$i]</td><td><form method=\"post\" action=\"/Teacher/MyStudents/ViewStudent/\" name=\"mystudentlink{$i}\" id=\"mystudentlink{$i}\"><input hidden type=\"text\" name=\"enrollmentid\" value=\"$studentids[$i]\"><button class=\"btn btn-primary\">Student Page</button></form>
+                                                        echo "<tr><td>$studentfirstnames[$i] $studentlastnames[$i]</td><td>$coursenames[$i]</td><td>$institutions[$i]</td><td><form method=\"post\" action=\"/Teacher/MyCourses/ViewCourse/Students/ViewStudentProfile\" name=\"mystudentlink{$i}\" id=\"mystudentlink{$i}\"><input hidden type=\"text\" name=\"enrollmentID\" value=\"$enrollmentids[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseids[$i]\"><button class=\"btn btn-primary\">Student Page</button></form>
                                                         </td></tr>";
                                                     }
                                                 }

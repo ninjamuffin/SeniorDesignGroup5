@@ -182,7 +182,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <?php
         $params = array($courseID);
         $options = array( "Scrollable" => 'static' );
-        $coursestudentsSQL = "SELECT S.FirstName, S.LastName, S.StudentID
+        $coursestudentsSQL = "SELECT S.FirstName, S.LastName, S.StudentID, ER.EnrollmentID
                               FROM Students as S, Enrollment as ER, Courses as C
                               WHERE C.CourseID = ? AND
                                     ER.CourseID = C.CourseID AND
@@ -198,7 +198,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         {
             $firstnames[] = sqlsrv_get_field($coursestudents, 0);
             $lastnames[] = sqlsrv_get_field($coursestudents, 1);
-            $ids[] = sqlsrv_get_field($coursestudents, 2);
+            $studentids[] = sqlsrv_get_field($coursestudents, 2);
+            $enrollmentids[] = sqlsrv_get_field($coursestudents, 3);
         }
         ?>
         
@@ -217,16 +218,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<tr>";
             echo "<td>$firstnames[$i] $lastnames[$i]</td>";
             echo "<td>
-                    <form method=\"POST\" action=\"/Teacher/MyStudents/ViewStudent/\" name=\"studentview{$i}\">
-                      <input hidden type=\"text\" name=\"studentID\" value=\"$ids[$i]\">
+                    <form method=\"POST\" action=\"/Teacher/MyCourses/ViewCourse/Students/ViewStudentProfile\" name=\"studentview{$i}\">
+                      <input hidden type=\"text\" name=\"enrollmentID\" value=\"$enrollmentids[$i]\">
+                      <input hidden type=\"text\" name = \"courseID\" value=\"$courseID\">
                       <button class=\"btn btn-primary\">Student Page</button>
                     </form>
                   </td>";
             echo "<td>
                     <form method=\"POST\" action=\"/Teacher/Archive/Students/ViewStudent/\" name=\"archivepage{$i}\">
-                      <input hidden type=\"text\" name=\"studentID\" value=\"$ids[$i]\">
-                      <input hidden type=\"text\" value=\"$firstnames[$i]\" name=\"studentfirstname\">
-                      <input hidden type=\"text\" value=\"$lastnames[$i]\" name=\"studentlastname\">
+                      <input hidden type=\"text\" name=\"studentID\" value=\"$studentids[$i]\">
                       <button class=\"btn btn-primary\">Archive Page</button>
                     </form>
                   </td>";
