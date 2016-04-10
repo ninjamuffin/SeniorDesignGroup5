@@ -219,7 +219,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     }
                                                     for ($i = 0; $i < $resultlength; $i++)
                                                     {
-                                                        echo "<tr><td>$studentfirstnames[$i] $studentlastnames[$i]</td><td>$coursenames[$i]</td><td>$institutions[$i]</td><td><form method=\"post\" action=\"/Teacher/MyCourses/ViewCourse/Students/ViewStudentProfile\" name=\"mystudentlink{$i}\" id=\"mystudentlink{$i}\"><input hidden type=\"text\" name=\"enrollmentID\" value=\"$enrollmentids[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseids[$i]\"><button class=\"btn btn-primary\">Student Page</button></form>
+                                                        echo "<tr><td>$studentfirstnames[$i] $studentlastnames[$i]</td><td>$coursenames[$i]</td><td>$institutions[$i]</td><td><form method=\"post\" action=\"/Teacher/MyCourses/ViewCourse/Students/ViewStudentProfile/\" name=\"mystudentlink{$i}\" id=\"mystudentlink{$i}\"><input hidden type=\"text\" name=\"enrollmentID\" value=\"$enrollmentids[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseids[$i]\"><button class=\"btn btn-primary\">Student Page</button></form>
                                                         </td></tr>";
                                                     }
                                                 }
