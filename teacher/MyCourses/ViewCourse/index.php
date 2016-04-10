@@ -218,9 +218,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<tr>";
             echo "<td>$firstnames[$i] $lastnames[$i]</td>";
             echo "<td>
-                    <form method=\"POST\" action=\"/Teacher/MyCourses/ViewCourse/Students/ViewStudentProfile\" name=\"studentview{$i}\">
+                    <form method=\"POST\" action=\"/Teacher/MyCourses/ViewCourse/Students/ViewStudentProfile/\" name=\"studentview{$i}\">
                       <input hidden type=\"text\" name=\"enrollmentID\" value=\"$enrollmentids[$i]\">
-                      <input hidden type=\"text\" name = \"courseID\" value=\"$courseID\">
+                      <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
                       <button class=\"btn btn-primary\">Student Page</button>
                     </form>
                   </td>";
