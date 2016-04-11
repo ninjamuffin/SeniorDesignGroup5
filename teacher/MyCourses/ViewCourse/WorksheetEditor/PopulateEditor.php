@@ -2,19 +2,14 @@
 require_once ('../../../../base.php');
 //test connection speed.. require vs include
 
-if ((isset($_POST['expressionid'])) && (isset($_POST['courseID'])))
+if ((isset($_POST['expressionID'])) && (isset($_POST['courseID'])) && (isset($_POST['worksheetID'])))
 {
-    /*$expressionid = $passed_array[0];
-    $selected_student_id = $passed_array[1];
-    $selected_first_name = $passed_array[2];
-    $selected_last_name = $passed_array[3];*/
-    $courseID = $_POST['courseID'];
-    $params = array($_POST['expressionid']);
-/*    $selected_student_id = isset($_POST['studentid']) ? $_POST['studentid'] : 0;
-    $selected_first_name = isset($_POST['firstname']) ? $_POST['firstname'] : '';
-    $selected_last_name = isset($_POST['lastname']) ? $_POST['lastname'] : '';
-    */
     
+    $courseID = $_POST['courseID'];
+    $worksheetID = $_POST['worksheetID'];
+    $expressionID = $_POST['expressionID'];
+    $params = array($expressionID);
+
     $options = array("Scrollable" => 'static');
     $coursestudentsSQL = "SELECT S.StudentID, S.FirstName, S.LastName
                           FROM Expressions as E, Enrollment as ER, Worksheets as W, Courses C, Students S
@@ -63,12 +58,16 @@ echo "
     <div class=\"control-group controls\" id=\"fields\">
         <form>
             <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
+            <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+            <input hidden type=\"text\" name=\"newexpressionnumber\" value=\"$sentence_number\">
+            <input hidden type=\"text\" name=\"expressionID\" value=\"$expressionID\">
+            
             <div class=\"form-group row\">
                 
                 <div class=\"col-xs-4 col-md-6\">
                     <h4 style=\"text-decoration:underline\">Sentence #$sentence_number</h4>
                     <label>Student:
-                    <select class=\"form-control\">
+                    <select class=\"form-control\" name=\"selectstudent\">
                         <option  selected=\"selected\" value=\"$selected_student_id\">$selected_first_name $selected_last_name</option>";
 for($i = 0; $i < $num_students; $i++)
 {
@@ -121,10 +120,10 @@ echo "
             <div class=\"form-group row\">
                 <div class=\"col-xs-12\">
                     <div class=\"btn-group\" role=\"group\">
-                        <button type=\"button\" id=\"Save\"  class=\"btn btn-primary\">Save</button>
+                        <button type=\"button\" id=\"Save\"  name=\"SaveExpression\" class=\"btn btn-primary\">Save</button>
                     </div>
                     <div class=\"btn-group\" role=\"group\">
-                        <button type=\"button\" id=\"SaveAndCreateNew\"  class=\"btn btn-primary\">Save and Create a New Expression</button>
+                        <button type=\"button\" id=\"SaveAndCreateNew\" name=\"SaveAndCreateNew\" class=\"btn btn-primary\">Save and Create a New Expression</button>
                     </div>
 
                 </div>
