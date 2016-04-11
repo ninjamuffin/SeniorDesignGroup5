@@ -74,7 +74,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
         $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
         if (($worksheetID == 0) || ($courseID == 0))
-            echo "<meta http-equiv='refresh' content='5;/' />";
+            echo "<meta http-equiv='refresh' content='0;/' />";
         $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo

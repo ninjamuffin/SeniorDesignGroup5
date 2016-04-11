@@ -2,7 +2,7 @@
 
 include '../../../../base.php';
 
-if ((isset($_POST['Expression'])) && (isset($_POST['ContextVocab'])) && (isset($_POST['Pronunciation'])) && (isset($_POST['studentID'])) && (isset($_POST['AllDo'])) && (isset($_POST['expressionNum'])) && (isset($_POST['worksheetID'])))
+if ((isset($_POST['Expression'])) && (isset($_POST['ContextVocab'])) && (isset($_POST['Pronunciation'])) && (isset($_POST['studentID'])) && (isset($_POST['AllDo'])) && (isset($_POST['expressionNum'])) && (isset($_POST['worksheetID'])) && (isset($_POST['courseID'])))
 {
     
     
@@ -13,10 +13,11 @@ if ((isset($_POST['Expression'])) && (isset($_POST['ContextVocab'])) && (isset($
     $AllDo = $_POST['AllDo'];
     $Number = $_POST['expressionNum'];
     $WorksheetID = $_POST['worksheetID'];
+    $courseID = $_POST['courseID'];
     
-    $params = array($StudentID, $Expression, $Pronunciation, $ContextVocab, $Number, $AllDo, $WorksheetID);
+    $params = array($StudentID, $Expression, $Pronunciation, $ContextVocab, $Number, $courseID, $AllDo, $WorksheetID);
     $options = array( "Scrollable" => 'static' );
-    $writeexpressionSQL = "INSERT INTO Expressions(Date, StudentID, Expression, Pronunciation, [Context/Vocabulary], SentenceNumber, AllDo, WorksheetID) VALUES (GETDATE(), ?, ?, ?, ?, ?, ?, ?)";
+    $writeexpressionSQL = "INSERT INTO Expressions(Date, StudentID, Expression, Pronunciation, [Context/Vocabulary], SentenceNumber, CourseID, AllDo, WorksheetID, IsDeleted) VALUES (GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, 0)";
     $writeexpression = sqlsrv_query($con, $writeexpressionSQL, $params, $options);
     if ($writeexpression === false)
         die(print_r(sqlsrv_errors(), true));

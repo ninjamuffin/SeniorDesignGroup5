@@ -50,14 +50,14 @@ $(function(){
     $("button[name=NewExpression]").on('click', function(e){
         var worksheetID = $(this).val();
         var courseID = $(this).closest("form").find("input[name=courseID]").val();
-        alert(courseID);
         var expressionNum = $("input[name=newexpressionnumber]").val();
         $.ajax({
             type: "POST",
             url: "NewExpression.php",
             data: {
                 "worksheetID": worksheetID,
-                "newexpressionnumber": expressionNum
+                "newexpressionnumber": expressionNum,
+                "courseID": courseID
             },
                    
             success: function(data){ 
@@ -80,7 +80,7 @@ $(function(){
             AllDo = 1;
         var expressionNum = $(parentForm).find("input[name=newexpressionnumber]").val();
         var worksheetID = $(parentForm).find("input[name=worksheetID]").val();
-        alert(Expression);
+        var courseID = $(parentForm).find("input[name=courseID]").val();
         $.ajax({
             type: "POST",
             url: "SaveExpression.php",
@@ -91,7 +91,8 @@ $(function(){
                 "studentID": studentID,
                 "AllDo": AllDo,
                 "expressionNum": expressionNum,
-                "worksheetID": worksheetID
+                "worksheetID": worksheetID,
+                "courseID": courseID
             },
                    
             success: function(data){ 

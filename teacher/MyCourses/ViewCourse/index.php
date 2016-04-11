@@ -272,7 +272,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }
             else
             {
-                echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"EditWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><button class=\"btn btn-primary\">Edit</button></form></td>";
+                echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"EditWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseID\"><button class=\"btn btn-primary\">Edit</button></form></td>";
             }
             echo "<td style=\"width:225px;\"><div class=\"row\"><div class=\"col-xs-4\">
                     <form method=\"POST\" name=\"publishworksheet{$i}\" action=\"PublishWorksheet.php\">
@@ -284,7 +284,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<div class=\"col-xs-4\">
                     <form method=\"POST\" name=\"deleteworksheet{$i}\" action=\"DeleteWorksheet.php\">
                       <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\">
-                      <input hidden type=\"text\" name=\"courseid\" value=\"$courseID\">
+                      <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
                       <button type=\"button\" name=\"deleteworksheet\" class=\"btn btn-danger\">Delete</button>
                     </form></div>";
             echo "<div class=\"col-xs-1\" name=\"deletespinner\" style=\"top:15px;\">
