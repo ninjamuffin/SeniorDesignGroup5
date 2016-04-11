@@ -12,18 +12,30 @@ if ((isset($_POST['Expression'])) && (isset($_POST['ContextVocab'])) && (isset($
     $StudentID = $_POST['studentID'];
     $AllDo = $_POST['AllDo'];
     $Number = $_POST['expressionNum'];
-    $WorksheetID = $_POST['worksheetID'];
+    $worksheetID = $_POST['worksheetID'];
     $courseID = $_POST['courseID'];
+    $expressionID = isset($_POST['expressionID']) ? $_POST['expressionID'] : 0;
     
-    $params = array($StudentID, $Expression, $Pronunciation, $ContextVocab, $Number, $courseID, $AllDo, $WorksheetID);
+    
     $options = array( "Scrollable" => 'static' );
-    $writeexpressionSQL = "INSERT INTO Expressions(Date, StudentID, Expression, Pronunciation, [Context/Vocabulary], SentenceNumber, CourseID, AllDo, WorksheetID, IsDeleted) VALUES (GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+    if ($expressionID == 0) 
+    {
+        $writeexpressionSQL = "INSERT INTO Expressions(Date, StudentID, Expression, Pronunciation, [Context/Vocabulary], SentenceNumber, CourseID, AllDo, WorksheetID, IsDeleted) VALUES (GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+        $params = array($StudentID, $Expression, $Pronunciation, $ContextVocab, $Number, $courseID, $AllDo, $worksheetID);
+    }
+    else 
+    {
+        $writeexpressionSQL = "UPDATE Expressions SET Date = GETDATE(), StudentID = ?, Expression = ?, Pronunciation = ?, [Context/Vocabulary] = ?, SentenceNumber = ?, CourseID = ?, AllDo = ?, WorksheetID = ?, IsDeleted = 0 
+        WHERE ExpressionID = ?";
+        $params = array($StudentID, $Expression, $Pronunciation, $ContextVocab, $Number, $courseID, $AllDo, $worksheetID, $expressionID);
+    }
+    
     $writeexpression = sqlsrv_query($con, $writeexpressionSQL, $params, $options);
     if ($writeexpression === false)
         die(print_r(sqlsrv_errors(), true));
     
     /* Retrieve all expressions for the worksheet, and echo them to the calling page */
-    $params = array($WorksheetID);
+    $params = array($worksheetID);
     $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
     $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
                                 FROM Expressions E, Students S, Enrollment ER
@@ -56,7 +68,6 @@ if ((isset($_POST['Expression'])) && (isset($_POST['ContextVocab'])) && (isset($
 
     for($i = 0; $i < $num_expressions; $i++)
     {
-        $pass_array = array($ids[$i], $student_expression_ids[$i], $first_names[$i], $last_names[$i]);
         echo "<tr>
                   <td>$sent_numbers[$i]</td>
                   <td>$first_names[$i] $last_names[$i]</td>
@@ -69,12 +80,14 @@ if ((isset($_POST['Expression'])) && (isset($_POST['ContextVocab'])) && (isset($
         echo "
             </td>
                   <td><form method=\"POST\" name=\"expressions{$i}\">
-                          <input hidden type=\"text\" name=\"expressionid\" value=\"$ids[$i]\">
-                          <input hidden type=\"text\" name=\"studentid\" value=\"$student_expression_ids[$i]\">
+                          <input hidden type=\"text\" name=\"expressionID\" value=\"$ids[$i]\">
+                          <input hidden type=\"text\" name=\"studentID\" value=\"$student_expression_ids[$i]\">
                           <input hidden type=\"text\" name=\"firstname\" value=\"$first_names[$i]\">
                           <input hidden type=\"text\" name=\"lastname\" value=\"$last_names[$i]\">
-
-                          <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
+                          <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+                          <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
+                          <input hidden type=\"text\" name=\"newexpressionnumber\" value=\"$new_expression_number\">
+                          <button type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
                       </form>
                   </td>
                </tr>";

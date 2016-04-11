@@ -157,7 +157,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <form method="POST" name="newexpression">
                                                     <input hidden type="text" name="newexpressionnumber" value="<?=$new_expression_number?>">
                                                     <input hidden type="text" name="courseID" value="<?=$courseID?>">
-                                                    <button type="button" name="NewExpression" class="btn btn-primary" value="<?=$worksheetID?>">
+                                                    <input hidden type="text" name="worksheetID" value="<?=$worksheetID?>">
+                                                    <button type="button" name="NewExpression" class="btn btn-primary">
                                                         New Expression
                                                     </button>
                                                 </form>
@@ -191,12 +192,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "
                 </td>
                       <td><form method=\"POST\" name=\"expressions{$i}\">
-                              <input hidden type=\"text\" name=\"expressionid\" value=\"$ids[$i]\">
-                              <input hidden type=\"text\" name=\"studentid\" value=\"$student_expression_ids[$i]\">
+                              <input hidden type=\"text\" name=\"expressionID\" value=\"$ids[$i]\">
+                              <input hidden type=\"text\" name=\"studentID\" value=\"$student_expression_ids[$i]\">
                               <input hidden type=\"text\" name=\"firstname\" value=\"$first_names[$i]\">
                               <input hidden type=\"text\" name=\"lastname\" value=\"$last_names[$i]\">
                               <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
-                              
+                              <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+                              <input hidden type=\"text\" name=\"newexpressionnumber\" value=\"$new_expression_number\">
                               <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
                           </form>
                       </td>
