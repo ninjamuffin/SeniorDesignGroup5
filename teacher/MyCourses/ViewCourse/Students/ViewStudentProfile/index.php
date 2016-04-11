@@ -48,8 +48,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $enrollmentID = isset($_POST['enrollmentID']) ? $_POST['enrollmentID'] : 0;
         if (($courseID == 0) || ($enrollmentID == 0))
             echo "<meta http-equiv='refresh' content='0;../' />";
-        echo $courseID;
-        echo $enrollmentID;
     ?>        
 
     <body>
@@ -143,7 +141,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                   SS.WorksheetID = WS.WorksheetID";
             $worksheetsubmissions = sqlsrv_query($con, $worksheetsubmissionsSQL, $params, $options);
             if($worksheetsubmissions === false)
-                die (print_R(sqlsrv_errors(), true));
+                die (print_r(sqlsrv_errors(), true));
             $resultlength = sqlsrv_num_rows($worksheetsubmissions);
             if($resultlength == 0)
             {
@@ -164,9 +162,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 }
                 for ($i = 0; $i < $resultlength; $i++)
                 {
-                    echo "<tr><td>$coursenames[$i]</td><td>$worksheetnumbers[$i]</td><td>TBD</td><form method =\"post\" action=\"/Teacher/MyCourses/ViewWorksheet/ViewSubmission/\" name=\"viewsubmissionlink{$i}\" id=\"viewsubmissionlink{$i}\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetids[$i]\"><input hidden type=\"text\" name=\"studentsubmissionID\" value=\"studentsubmissionids[$i]\"><button class=\"btn btn-primary\">View Submission</button></form></td></tr>";
+                    echo "<tr><td>$coursenames[$i]</td><td>$worksheetnumbers[$i]</td><td>TBD</td><td><form method =\"post\" action=\"/Teacher/MyCourses/ViewCourse/ViewWorksheet/ViewSubmission/\" name=\"viewsubmissionlink{$i}\" id=\"viewsubmissionlink{$i}\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetids[$i]\"><input hidden type=\"text\" name=\"studentsubmissionID\" value=\"$studentsubmissionids[$i]\"><button class=\"btn btn-primary\">View Submission</button></form></td></tr>";
                 }
             }
+        ?>
                                         </tbody>
                                     </table>
                                 </div>

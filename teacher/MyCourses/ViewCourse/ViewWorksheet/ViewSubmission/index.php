@@ -64,6 +64,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
+        $studentsubmissionID = isset($_POST['studentsubmissionID']) ? $_POST['studentsubmissionID'] : 0;
     ?>        
 
     <body>
@@ -83,12 +85,35 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="panel panel-primary">
                                 <div class="panel-heading">Submission Details and Statistics</div>
                                 <div class="panel-body">
-                                    <p>Student name:</p>
-                                    <p>Date:</p>
-                                    <p>Worksheet Topic:</p>
-                                    <p>Starred Sentences:</p>
-                                    <p>Student-authored Sentences:</p>
-                                    <p>Performance:</p>
+    <?php
+        $params = array($worksheetID, $studentsubmissionID);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $submissioninfoSQL = "SELECT S.FirstName, S.LastName, CONVERT(VARCHAR(11), SS.Date,106), CT.CourseName, WS.WorksheetNumber, SS. AttemptNumber, TP.Topic
+            FROM Students S, Enrollment ER, Worksheets WS, Topics TP, StudentSubmissions SS, Courses C, CourseTypes CT
+            WHERE WS.WorksheetID = ? AND
+                  WS.WorksheetID = SS.WorksheetID AND
+                  SS.StudentSubmissionID = ? AND
+                  SS.EnrollmentID = ER.EnrollmentID AND
+                  ER.StudentID = S.StudentID AND
+                  TP.TopicID = WS.TopicID AND
+                  WS.CourseID = C.CourseID AND
+                  C.CourseTypesID = CT.CourseTypesID";
+        $submissioninfo = sqlsrv_query($con, $submissioninfoSQL, $params, $options);
+        if($submissioninfo === false)
+            die (print_r(sqlsrv_errors(), true));
+        sqlsrv_fetch($submissioninfo);
+        $firstname = sqlsrv_get_field($submissioninfo, 0);
+        $lastname = sqlsrv_get_field($submissioninfo, 1);
+        $date = sqlsrv_get_field($submissioninfo, 2);
+        $coursename = sqlsrv_get_field($submissioninfo, 3);
+        $worksheetnumber = sqlsrv_get_field($submissioninfo, 4);
+        $attemptnumber = sqlsrv_get_field($submissioninfo, 5);
+        $topic = sqlsrv_get_field($submissioninfo, 6);
+                              echo "<p>Student name: $firstname $lastname</p>
+                                    <p>Date: $date</p>
+                                    <p>$coursename: Worksheet #$worksheetnumber Attempt $attemptnumber</p>
+                                    <p>Topic: $topic</p>";
+        ?>
                                 </div> 
                             </div>
                         </div>
@@ -99,14 +124,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="panel panel-default">
                                 <div class="panel-heading">Submitted Sentences</div>
                                 <div class="panel-body">
+    <?php
+        $submissionreformulationsSQL = "SELECT EX.SentenceNumber, EX.Expression, ";
+            
+        ?>
                                     <div class="panel-group" id="accordian">
                                         <div class="panel">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">
-                                                    <a class="accordian-toggle" data-toggle="collapse" data-parent="#accordian" href="#collapseOne" style="width:60%">
+                                                   <a class="accordian-toggle" data-toggle="collapse" data-parent="#accordian" href="#collapseOne" style="width:60%">
                                                         <span>Sentence #1</span>
-                                                    </a>
-                                                    
+                                                    </a> 
                                                     <span class="glyphicon glyphicon-star pull-right" style="font-size:20px; "></span>
                                                    
                                                 </h3>
