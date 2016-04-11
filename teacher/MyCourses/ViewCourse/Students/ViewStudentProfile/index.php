@@ -129,62 +129,44 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>ELCT 102</td>
-                                                <td>2</td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-info" style="width: 80%">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="/Teacher/MyCourses/ViewCourse/ViewWorksheet/ViewSubmission/?subid=">View Submission</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>ELCT 102</td>
-                                                <td>1</td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-info" style="width: 100%">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="/Teacher/MyCourses/ViewCourse/ViewWorksheet/ViewSubmission/?subid=">View Submission</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>ELCT 101</td>
-                                                <td>3</td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-info" style="width: 90%">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?wid=">Worksheet in Archive</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>ELCT 101</td>
-                                                <td>2</td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-info" style="width: 100%">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?wid=">Worksheet in Archive</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>ELCT 101</td>
-                                                <td>1</td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-info" style="width: 50%">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="/Teacher/Archive/Courses/ViewCourse/ViewWorksheet/?wid=">Worksheet in Archive</a></td>
-                                            </tr>
-                                            
+        <?php
+            $params = array($courseID, $enrollmentID);
+            $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+            $worksheetsubmissionsSQL = "SELECT CT.CourseName, WS.WorksheetNumber, SS.StudentSubmissionID, WS.WorksheetID
+            FROM CourseTypes CT, Courses C, Enrollment ER, Worksheets WS, StudentSubmissions SS
+            WHERE C.CourseID = ? AND
+                  ER.EnrollmentID = ? AND
+				  ER.CourseID = C.CourseID AND
+                  WS.CourseID = C.CourseID AND
+                  C.CourseTypesID = CT.CourseTypesID AND
+                  SS.EnrollmentID = ER.EnrollmentID AND
+                  SS.WorksheetID = WS.WorksheetID";
+            $worksheetsubmissions = sqlsrv_query($con, $worksheetsubmissionsSQL, $params, $options);
+            if($worksheetsubmissions === false)
+                die (print_R(sqlsrv_errors(), true));
+            $resultlength = sqlsrv_num_rows($worksheetsubmissions);
+            if($resultlength == 0)
+            {
+                echo "No Submissions!";
+            }
+            else
+            {
+                $coursenames = [];
+                $worksheetnumbers = [];
+                $studentsubmissionids = [];
+                $worksheetids = [];
+                while(sqlsrv_fetch($worksheetsubmissions) === true)
+                {
+                    $coursenames[] = sqlsrv_get_field($worksheetsubmissions, 0);
+                    $worksheetnumbers[] = sqlsrv_get_field($worksheetsubmissions, 1);
+                    $studentsubmissionids[] = sqlsrv_get_field($worksheetsubmissions, 2);
+                    $worksheetids[] = sqlsrv_get_field($worksheetsubmissions, 3);
+                }
+                for ($i = 0; $i < $resultlength; $i++)
+                {
+                    echo "<tr><td>$coursenames[$i]</td><td>$worksheetnumbers[$i]</td><td>TBD</td><form method =\"post\" action=\"/Teacher/MyCourses/ViewWorksheet/ViewSubmission/\" name=\"viewsubmissionlink{$i}\" id=\"viewsubmissionlink{$i}\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetids[$i]\"><input hidden type=\"text\" name=\"studentsubmissionID\" value=\"studentsubmissionids[$i]\"><button class=\"btn btn-primary\">View Submission</button></form></td></tr>";
+                }
+            }
                                         </tbody>
                                     </table>
                                 </div>
