@@ -1,23 +1,33 @@
 $(function(){
     // Find a <table> element with id="myTable":
-    var exprTable = document.getElementById("myTable");
-    var corrExpr;
+    var exprTable = document.getElementById('myTable');
+    var expr;
+    var rowIndex;
     var exprHead;
     
-    $('#EditExpression').on('click',function(e) {
-        var exprRow = exprTable.getElementsByTagName("tr");
-        var expr = exprTable.getElementsByTagName("td");
+    $(".btn").on('click',function(e) {
+        var $row = $(this).closest("tr");
+        rowIndex = $row.find(".nr").text();
+        expr = $row.find(".expr").text();
         
-        document.getElementById("ExprToEdit").innerHTML = expr[1].innerHTML;
-        document.getElementById("ExprID").innerHTML = "- #" + expr[0].innerHTML;
-        $("#CorrectedExpr").val(expr[1].innerHTML);
+        document.getElementById("ExprToEdit").innerHTML = expr;
+        document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
     });
     
     $('#SubmitExpr').on('click',function(e){
-        corrExpr = document.getElementById("CorrectedExpr").value;
-        document.getElementById("ExpressionStatus").innerHTML='Complete';
-        document.getElementById("Expression").innerHTML=corrExpr;
-        $("#CorrectedExpr").val("");
+        e.preventDefault();
+        
+        var row = document.getElementsByTagName("tr");
+        var cell = row.getElementsbyTagName("td");
+        
+        var corrExpr = document.getElementById("CorrectedExpr").value;
+        
+        document.getElementById("ExpressionStatus").innerHTML = "Correct";
+        
+        document.getElementById("myTable").rows[rowIndex].cell(3) = corrExpr;
+        
+        $("#CorrectedExpr").empty();
+        
     });
     
     $(document).on('click', "button[name='SelectExpression']", function(e){
@@ -38,6 +48,15 @@ $(function(){
                 $("div[name='ExpressionEditor']").empty();
                 $("div[name='ExpressionEditor']").html(data);
             }
+        });
+    });
+    
+    $(document).ready(function() {
+        $("#myTable tr").each(function() {
+            var sentence_number = $(this).find("td[name=sentence_number]").val();
+            var studentID = $(this).find("td[name=studentID]").val();
+            var Expression = $(this).find("td[name=Expression]").val();
+            var assign = $(this).find("td[name=assign]").val();
         });
     });
 });
