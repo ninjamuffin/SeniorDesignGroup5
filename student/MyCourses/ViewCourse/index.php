@@ -44,6 +44,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+    $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
+        echo "$courseID";
+    if ($courseID == 0)
+            echo "<meta http-equiv='refresh' content='10;../' />";
 ?>       
 
 <body>
@@ -126,33 +130,43 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Fake Data -->
-                                        <tr>
-                                            <td>1</td>
-                                            <td>2/2/2016</td>
-                                            <td>The Futility of Hope</td>
-                                            <td>Submitted</td>
-                                            <td><a href="#">See Feedback</a></td>
-                                            <td><a href="ViewWorksheet/">View Worksheet</a></td>
+        <?php
+            $params = array($_SESSION['Username'], $courseID);
+            $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+            $studentworksheetsSQL = "SELECT WS. WorksheetNumber, CONVERT(VARCHAR(11), WS.Date,106), TP.Topic, WS.WorksheetID
+                                        FROM Worksheets WS, Topics TP, Courses C, Enrollment ER, Students S
+                                        WHERE S.SiteUsername = ? AND
+                                              ER.StudentID = S.StudentID AND
+                                              WS.CourseID = ER.CourseID AND
+											  C.CourseID = ? AND
+                                              WS.TopicID = TP.TopicID";
+                $studentworksheets = sqlsrv_query($con, $studentworksheetsSQL, $params, $options);
+                if ($studentworksheets === false)
+                                            die(print_r(sqlsrv_errors(), true));
+                                        $num_worksheets = sqlsrv_num_rows($studentworksheets);
 
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>2/9/2016</td>
-                                            <td>Optimism</td>
-                                            <td>Submitted</td>
-                                            <td>Not available</td>
-                                            <td><a href="ViewWorksheet/">View Worksheet</a></td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>3/1/2016</td>
-                                            <td>Politics</td>
-                                            <td>Not Submitted</td>
-                                            <td>N/A</td>
-                                            <td><a href="WorksheetEditor/">Edit Worksheet</a></td>
-                                        </tr>
+                                        $worksheetIDs = [];
+                                        $worksheet_numbers = [];
+                                        $dates = [];
+                                        $topics = [];
+                                        while(sqlsrv_fetch($studentworksheets) === true)
+                                        {
+                                            $worksheet_numbers[] = sqlsrv_get_field($studentworksheets, 0);
+                                            $dates[] = sqlsrv_get_field($studentworksheets, 1);
+                                            $topics[] = sqlsrv_get_field($studentworksheets, 2);
+                                            $worksheetIDs[] = sqlsrv_get_field($studentworksheets, 3);
+                                        }
+            for($i = 0; $i < $num_worksheets; $i++)
+        {
+            echo "<tr>";
+            echo "<td>$worksheet_numbers[$i]</td>";
+            echo "<td>$dates[$i]</td>";
+            echo "<td>$topics[$i]</td>";
+            echo "<td>-</td>";
+            echo "<td>-</td>";
+            echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"WorksheetEditor\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><input hidden type=\"text\" value=\"$courseID\" name =\"courseID\"><button class=\"btn btn-primary\">Edit Worksheet</button></form></td></tr>";
+        }
+        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -177,7 +191,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     <?php
     }
 }
-    
+
 else
 {
     ?>

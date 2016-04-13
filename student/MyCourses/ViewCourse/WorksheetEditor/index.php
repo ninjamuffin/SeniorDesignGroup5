@@ -67,6 +67,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
         if (($worksheetID == 0) || ($courseID == 0))
             echo "<meta http-equiv='refresh' content='0;/' />";
+        
+        $params = array($worksheetID);
+        $options = array( "Scrollable" => 'static' );
+        $worksheetinfoSQL = "SELECT W.WorksheetNumber, CONVERT(VARCHAR(11), W.Date, 106), T.Topic
+                             FROM Worksheets W, Topics T
+                             WHERE W.WorksheetID = ? AND
+                                   T.TopicID = W.TopicID";
+        $worksheetinfo = sqlsrv_query($con, $worksheetinfoSQL, $params, $options);
+        if ($worksheetinfo === false)
+            die(print_r(sqlsrv_errors(), true));
+        if (sqlsrv_fetch($worksheetinfo) === true)
+        {
+            $worksheet_number = sqlsrv_get_field($worksheetinfo, 0);
+            $date = sqlsrv_get_field($worksheetinfo, 1);
+            $topic = sqlsrv_get_field($worksheetinfo, 2);
+        }
+        
         $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
@@ -131,15 +148,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
                                     <div class="panel-body">
-                                        <h2>Course: Generated from page</h2>
-                                        <h5>Worksheet Number: Generated from page</h5>
-                                        <h5>Date: Generated dynamically</h5>
-                                        <h5>Topic: Form submission</h5>
+                                        <h5>Worksheet Number: <?=$worksheet_number?></h5>
+                                        <h5>Date: <?=$date?></h5>
+                                        <h5>Topic: <?=$topic?></h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xs-8">
-                                <div class="panel panel-primary">
+                                <div class="panel panel-primary" style="max-height:350px;overflow-y:scroll">
                                 <div class="panel-heading">Worksheet Overview</div>
                                     <div class="panel-body">
                                         <table class="table" id="myTable" >

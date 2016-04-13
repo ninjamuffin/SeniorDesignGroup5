@@ -82,11 +82,11 @@ echo "
                 <div class=\"col-xs-12\">
                     <div class=\"btn-group\" role=\"group\">
                         <button type=\"button\" name=\"SaveExpression\"  class=\"btn btn-primary\">Save</button>
-                    </div>
-                    <div class=\"btn-group\" role=\"group\">
+                    </div>";
+                   /*<div class=\"btn-group\" role=\"group\">
                         <button type=\"button\" id=\"SaveAndCreateNewExpression\"  class=\"btn btn-primary\">Save and Create a New Expression</button>
-                    </div>
-
+                    </div>*/
+echo "
                 </div>
             </div>
         </form>
