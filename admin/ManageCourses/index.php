@@ -19,16 +19,13 @@
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    <script type="text/javascript" src="/js/CreateNewCourse.js"></script>
     <script>
-        $(function(){
-            $("#header").load("/header.php");
-        });
+        
         $(function(){
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-
-    
 </head>
 
 <?php
@@ -44,6 +41,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => 'static' );
+        $institutionSQL = "SELECT I.InstitutionID FROM Institutions as I, Administrators as A
+                           WHERE A.SiteUsername = ? AND
+                                 I.InstitutionID = A.InstitutionID";
+        $institution = sqlsrv_query($con, $institutionSQL, $params, $options);
+        if ($institution === false)
+            die(print_r(sqlsrv_errors(), true));
+        if (sqlsrv_fetch($institution) === true)
+            $institutionID = sqlsrv_get_field($institution, 0);
         ?>
         <body>
             <div id="wrapper">
@@ -67,44 +74,108 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-body">
                                          <form method="POST" id="filterActivityQueue" action="">
                                             <div class="form-group row">
-                                                
-                                                <div class="col-lg-4">
-                                                    <select class="form-control" name="Session">
-                                                        <option selected="selected">--Session--</option>
-                                                        <option>Fall I 2015</option>
-                                                        <option>Fall II 2015</option>
-                                                        <option>Summer I 2015</option>
-                                                        <option>Summer II 2015</option>
-                                                        <option>Spring I 2016</option>
-                                                        <option>Spring II 2016</option>
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="institution">
+                                                        <option selected="selected" value="0">--Institution--</option>
+                                                        <option value="1">Gonzaga University</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="session">
+                                                        <option selected="selected" value="0">--Session--</option>
+<?php   
+        $params = array();
+        $options = array( "Scrollable" => 'static' );
+        $sessionsSQL = "SELECT TOP 6 SI.SessionInstanceID, SI.Year, ST.SessionName
+                        FROM SessionInstance SI, SessionType ST
+                        WHERE ST.SessionTypeID = SI.SessionTypeID
+                        ORDER BY SI.Year DESC";
+        $sessions = sqlsrv_query($con, $sessionsSQL, $params, $options);
+        if ($sessions === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_sessions = sqlsrv_num_rows($sessions);
+        $ids = [];
+        $years = [];
+        $session_names = [];
+        while (sqlsrv_fetch($sessions) === true)
+        {
+            $ids[] = sqlsrv_get_field($sessions, 0);
+            $years[] = sqlsrv_get_field($sessions, 1);
+            $session_names[] = sqlsrv_get_field($sessions, 2);
+        }
+        for ($i = 0; $i < $num_sessions; $i++)
+            echo "<option value=\"$ids[$i]\">$session_names[$i] $years[$i]</option>";
+?>                                      
                                                     
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-4">
-                                                    <select class="form-control" name="CourseName" id="CourseName">
-                                                        <option selected="selected">--Level--</option>
-                                                        <option>Entry</option>
-                                                        <option>Basic</option>
-                                                        <option>Intermediate</option>
-                                                        <option>Advanced</option>
-                                                        <option>Seminar</option>
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="coursename" >
+                                                        <option selected="selected" value="0">--Course Number--</option>
+<?php                                                      
+        $params = array();
+        $options = array( "Scrollable" => 'static' );
+        $coursetypesSQL = "SELECT CourseTypesID, CourseName FROM CourseTypes ORDER BY CourseTypesID";
+        $coursetypes = sqlsrv_query($con, $coursetypesSQL, $params, $options);
+        if ($coursetypes === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_course_types = sqlsrv_num_rows($coursetypes);
+        $ids = [];
+        $levels = [];
+        while (sqlsrv_fetch($coursetypes) === true)
+        {
+            $ids[] = sqlsrv_get_field($coursetypes, 0);
+            $levels[] = sqlsrv_get_field($coursetypes, 1);
+        }
+        for ($i = 0; $i < $num_course_types; $i++)
+            echo "<option value=\"$ids[$i]\">$levels[$i]</option>";
+?>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-4">
-                                                    <select class="form-control" name="Section" id="Section">
-                                                        <option selected="selected">--Section--</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
+                                                <div class="col-lg-3">
+                                                    <select class="form-control" name="section" id="section">
+                                                        <option selected="selected" value="0">--Section--</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
                                                     </select>
                                                 </div>
+                                                
                                                 
                                                 
                                             </div>
                                              <div class="form-group row" style="padding-right: 15px;">
                                                  <div class="col-lg-9">
-                                                    <input class="form-control" type="text" name="SelectTeacher" id="SelectTeacher" placeholder="Teacher" />
+                                                     <select class="form-control" name="teacherid" >
+                                                        <option selected="selected" value="0">
+<?php
+        $params = array($institutionID);
+        $options = array( "Scrollable" => 'static' );
+        $teachersSQL = "SELECT TI.TeachingInstanceID, T.FirstName, T.LastName 
+                        FROM TeachingInstance as TI, Teachers as T
+                        WHERE TI.InstitutionID = ? AND
+                              T.TeacherID = TI.TeacherID
+                        ORDER BY T.LastName, T.FirstName";
+        $teachers = sqlsrv_query($con, $teachersSQL, $params, $options);
+        if ($teachers === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_teachers = sqlsrv_num_rows($teachers);
+        $ids = [];
+        $firstnames = [];
+        $lastnames = [];
+        while (sqlsrv_fetch($teachers) === true)
+        {
+            $ids[] = sqlsrv_get_field($teachers, 0);
+            $firstnames[] = sqlsrv_get_field($teachers, 1);
+            $lastnames[] = sqlsrv_get_field($teachers, 2);
+        }
+        for ($i = 0; $i < $num_teachers; $i++)
+            echo "<option value=\"$ids[$i]\">$firstnames[$i] $lastnames[$i]</option>";
+?>
+                                                         
+                                                        </option>
+                                                     </select>
                                                  </div>
-                                                    <button type="submit" class="btn btn-primary pull-right">Create Course</button>
+                                                    <button type="button" name="CreateCourse" class="btn btn-primary pull-right">Create Course</button>
                                              </div>
                                              
                                         </form>
@@ -128,13 +199,49 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Gonzaga University</td>
-                                                    <td>Fall II 2014</td>
-                                                    <td>Advanced...</td>
-                                                    <td>1</td>
-                                                    <td>Hunter</td>
-                                                </tr>
+<?php
+        $params = array();
+        $options = array( "Scrollable" => 'static' );
+        $coursesSQL = "SELECT I.InstitutionName, ST.SessionName, SI.Year, CT.CourseName, C.Section, T.FirstName, T.LastName
+                       FROM Institutions I, SessionType ST, SessionInstance SI, CourseTypes CT, Courses C, TeachingInstance TI, Teachers T
+                       WHERE C.Status = 'Active' AND
+                             CT.CourseTypesID = C.CourseTypesID AND
+                             TI.TeachingInstanceID = C.TeachingInstanceID AND
+                             T.TeacherID = TI.TeacherID AND
+                             I.InstitutionID = TI.InstitutionID AND
+                             SI.SessionInstanceID = C.SessionInstanceID AND
+                             ST.SessionTypeID = SI.SessionTypeID
+                             ORDER BY CourseID DESC";
+        $courses = sqlsrv_query($con, $coursesSQL, $params, $options);
+        if ($courses === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_courses = sqlsrv_num_rows($courses);
+        $institutions = [];
+        $session_names = [];
+        $years = [];
+        $course_names = [];
+        $sections = [];
+        $teacher_firstnames = [];
+        $teacher_lastnames = [];
+        while(sqlsrv_fetch($courses) === true)
+        {
+            $institutions[] = sqlsrv_get_field($courses, 0);
+            $session_names[] = sqlsrv_get_field($courses, 1);
+            $years[] = sqlsrv_get_field($courses, 2);
+            $course_names[] = sqlsrv_get_field($courses, 3);
+            $sections[] = sqlsrv_get_field($courses, 4);
+            $teacher_firstnames[] = sqlsrv_get_field($courses, 5);
+            $teacher_lastnames[] = sqlsrv_get_field($courses, 6);
+        }
+        for ($i = 0; $i < $num_courses; $i++)
+        {
+            echo "<tr><td>$institutions[$i]</td>
+                      <td>$session_names[$i] $years[$i]</td>
+                      <td>$course_names[$i]</td>
+                      <td>$sections[$i]</td>
+                      <td>$teacher_firstnames[$i] $teacher_lastnames[$i]</td></tr>";
+        }
+?>
                                             </tbody>
                                         </table>
                                     </div>

@@ -102,9 +102,10 @@ $(function(){
             },
                    
             success: function(data){ 
-                $("div[name='ExpressionEditor']").empty();
+                /*$("div[name='ExpressionEditor']").empty();
                 $("tbody[name='ExpressionTable']").empty();
-                $("tbody[name='ExpressionTable']").html(data);
+                $("tbody[name='ExpressionTable']").html(data);*/
+                location.reload();
             }
         });
     });
