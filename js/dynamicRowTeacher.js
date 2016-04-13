@@ -108,6 +108,16 @@ $(function(){
             }
         });
     });
+    
+    $(document).on('click', 'button[name="Delete"]', function(e){
+       $(this).closest('tr').remove();
+    });
+    
+    /*$(document).on('click', 'button[name="Delete"]', function(e){
+        e.preventDefault();
+        var table = $(this).closest('table').attr('id');
+    });*/
+    
     /*$("tr").each(function(index) {
         if (index !=0) {
             $row = $(this);

@@ -173,6 +173,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Expression</th>
                                                     <th>All-Do</th>
                                                     <th>Action</th>
+                                                    <th>Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody name="ExpressionTable">
@@ -201,6 +202,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                               <input hidden type=\"text\" name=\"newexpressionnumber\" value=\"$new_expression_number\">
                               <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
                           </form>
+                      </td>
+                      <td><button value=\"$ids[$i]\" type=\"button\" name=\"Delete\" class=\"btn btn-warning\">Delete</button>
                       </td>
                    </tr>";
         }
