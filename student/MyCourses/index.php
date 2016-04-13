@@ -74,13 +74,53 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>ELCT 101</td>
-                                            <td>Basic Oral Communication</td>
-                                            <td>Fall II 2015</td>
-                                            <td>Hunter</td>
-                                            <td><a href="ViewCourse/?cid=">View Course</a></td>
-                                        </tr>
+<?php
+        $params = array($_SESSION['Username']);
+        $options = array( "Scrollable" => 'static' );
+        $coursesSQL = "SELECT CT.CourseName, CT.CourseTypeName, ST.SessionName, SI.Year, S.Firstname, S.LastName, C.CourseID
+                       FROM CourseTypes CT, SessionType ST, SessionInstance SI, Students S, Courses C, Enrollment ER
+                       WHERE S.SiteUsername = ? AND
+                             ER.StudentID = S.StudentID AND
+                             C.CourseID = ER.CourseID AND
+                             SI.SessionInstanceID = C.SessionInstanceID AND
+                             ST.SessionTypeID = SI.SessionTypeID AND
+                             CT.CourseTypesID = C.CourseTypesID";
+        $courses = sqlsrv_query($con, $coursesSQL, $params, $options);
+        if ($courses === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_courses = sqlsrv_num_rows($courses);
+        $course_numbers = [];
+        $course_names = [];
+        $session_names = [];
+        $years = [];
+        $teacher_firstnames = [];
+        $teacher_lastnames = [];
+        $course_ids = [];
+        while(sqlsrv_fetch($courses) === true)
+        {
+            $course_numbers[] = sqlsrv_get_field($courses, 0);
+            $course_names[] = sqlsrv_get_field($courses, 1);
+            $session_names[] = sqlsrv_get_field($courses, 2);
+            $years[] = sqlsrv_get_field($courses, 3);
+            $teacher_firstnames[] = sqlsrv_get_field($courses, 4);
+            $teacher_lastnames[] = sqlsrv_get_field($courses, 5);
+            $course_ids[] = sqlsrv_get_field($courses, 6);
+        }
+        for ($i = 0; $i < $num_courses; $i++)
+        {
+            echo "<tr><td>$course_numbers[$i]</td>
+                      <td>$course_names[$i]</td>
+                      <td>$session_names[$i] $years[$i]</td>
+                      <td>$teacher_firstnames[$i] $teacher_lastnames[$i]</td>
+                      <td><form method=\"POST\" action=\"ViewCourse\" name=\"courseid{$i}\">
+                            <input hidden type=\"text\" name=\"courseID\" value=\"$course_ids[$i]\">
+                            <button class=\"btn btn-primary\">View Course</button>
+                          </form>
+                      </td>
+                    </tr>";
+        }
+?>
+        
                                     </tbody>
                                 </table>
                             </div>

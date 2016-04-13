@@ -27,29 +27,7 @@
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-    <!--<script type="text/javascript">$(function()
-    {
-        $(document).on('click', '.btn-add', function(e)
-        {
-            e.preventDefault();
 
-            var controlForm = $('.controls form:last'),
-                currentEntry = $(this).parents('.entry:first'),
-                newEntry = $(controlForm.clone()).appendTo(controlForm);
-
-            newEntry.find('input').val('');
-            controlForm.find('.entry:not(:last) .btn-add')
-                .removeClass('btn-add').addClass('btn-remove')
-                .removeClass('btn-success').addClass('btn-danger')
-                .html('<span class="glyphicon glyphicon-minus"></span>');
-        }).on('click', '.btn-remove', function(e)
-        {
-            $(this).parents('.entry:last').remove();
-            e.preventDefault();
-            return false;
-        });
-    });
-    </script>-->
     <!-- Background Setup -->
     <style>
         .dropdown-backdrop {
@@ -118,8 +96,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $studentsids = [];
         while(sqlsrv_fetch($coursestudents) === true)
             $studentids[] = sqlsrv_get_field($coursestudents, 0);
-        
-        
     ?>        
 
 <body>

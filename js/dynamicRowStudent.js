@@ -20,17 +20,24 @@ $(function(){
         $("#CorrectedExpr").val("");
     });
     
-    /*$("tr").each(function(index) {
-        if (index !=0) {
-            $row = $(this);
-            
-            var id = $row.find("td:first").text();
-            
-            if (id.indexOf(value) != 0) {
-                $(this).hide();
-            } else {
-                $(this).show();
+    $(document).on('click', "button[name='SelectExpression']", function(e){
+        var expressionid = $(this).closest("form").find("input[name=expressionID]").val();
+        var worksheetid = $(this).closest("form").find("input[name=worksheetID]").val();
+        var courseid = $(this).closest("form").find("input[name=courseID]").val();
+        var newexpressionnumber = $(this).closest("form").find("input[name=newexpressionnumber]").val();
+        $.ajax({
+            type: "POST",
+            url: "PopulateEditor.php",
+            data: {'expressionID' : expressionid,
+                   'courseID' : courseid, 
+                   'worksheetID' : worksheetid, 
+                   'expressionNum' : newexpressionnumber
+                  },
+                   
+            success: function(data){ 
+                $("div[name='ExpressionEditor']").empty();
+                $("div[name='ExpressionEditor']").html(data);
             }
-        }
-    });*/
+        });
+    });
 });
