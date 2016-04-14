@@ -53,6 +53,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
         if (($worksheetID == 0) || ($courseID == 0))
             echo "<meta http-equiv='refresh' content='0;/' />";
+        $worksheetDate = isset($_POST['worksheetDate']) ? $_POST['worksheetDate'] : 0;
+        $worksheetTopic = isset($_POST['worksheetTopic']) ? $_POST['worksheetTopic'] : 0;
+        $worksheetStatus = isset($_POST['worksheetStatus']) ? $_POST['worksheetStatus'] : 0;
+         $worksheetNumber = isset($_POST['worksheetNumber']) ? $_POST['worksheetNumber'] : 0;
+        $className = isset($_POST['className']) ? $_POST['className'] : 0;
         $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
@@ -117,10 +122,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
                                     <div class="panel-body">
-                                        <h2>Course: Generated from page</h2>
-                                        <h5>Worksheet Number: Generated from page</h5>
-                                        <h5>Date: Generated dynamically</h5>
-                                        <h5>Topic: Form submission</h5>
+                                        <h2>Course: <?php echo "$className"; ?></h2>
+                                        <h5>Worksheet Number: <?php echo "$worksheetNumber"; ?></h5>
+                                        <h5>Date: <?php echo "$worksheetDate"; ?></h5>
+                                        <h5>Topic: <?php echo "$worksheetTopic"; ?></h5>
                                     </div>
                                 </div>
                             </div>
