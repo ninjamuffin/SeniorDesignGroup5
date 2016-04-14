@@ -77,11 +77,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 <?php
         $params = array($_SESSION['Username']);
         $options = array( "Scrollable" => 'static' );
-        $coursesSQL = "SELECT CT.CourseName, CT.CourseTypeName, ST.SessionName, SI.Year, S.Firstname, S.LastName, C.CourseID
-                       FROM CourseTypes CT, SessionType ST, SessionInstance SI, Students S, Courses C, Enrollment ER
+        $coursesSQL = "SELECT CT.CourseName, CT.CourseTypeName, ST.SessionName, SI.Year, T.FirstName, T.LastName, C.CourseID
+                       FROM CourseTypes CT, SessionType ST, SessionInstance SI, Students S, Courses C, Enrollment ER, Teachers T, TeachingInstance TI
                        WHERE S.SiteUsername = ? AND
                              ER.StudentID = S.StudentID AND
                              C.CourseID = ER.CourseID AND
+                             C.TeachingInstanceID = TI.TeachingInstanceID AND
+                             TI.TeacherID = T.TeacherID AND
                              SI.SessionInstanceID = C.SessionInstanceID AND
                              ST.SessionTypeID = SI.SessionTypeID AND
                              CT.CourseTypesID = C.CourseTypesID";
@@ -112,7 +114,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                       <td>$course_names[$i]</td>
                       <td>$session_names[$i] $years[$i]</td>
                       <td>$teacher_firstnames[$i] $teacher_lastnames[$i]</td>
-                      <td><form method=\"POST\" action=\"ViewCourse\" name=\"courseid{$i}\">
+                      <td><form method=\"POST\" action=\"ViewCourse/\" name=\"courseid{$i}\">
                             <input hidden type=\"text\" name=\"courseID\" value=\"$course_ids[$i]\">
                             <button class=\"btn btn-primary\">View Course</button>
                           </form>
