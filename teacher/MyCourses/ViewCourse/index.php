@@ -272,7 +272,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }
             else
             {
-                echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"EditWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseID\"><button class=\"btn btn-primary\">Edit</button></form></td>";
+                echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"EditWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
+                <input hidden type=\"text\" name=\"worksheetDate\" value=\"$dates[i]\">
+                <input hidden type=\"text\" name=\"worksheetTopic\" value=\"$topics[i]\"><input hidden type=\"text\" name=\"worksheetStatus\" value=\"$statuses[i]\">
+                <input hidden type=\"text\" name=\"className\" value=\"$className\"><input hidden type=\"text\" name=\"worksheetNumber\" value=\"$worksheet_numbers[i]\"><button class=\"btn btn-primary\">Edit</button></form></td>";
             }
             echo "<td style=\"width:225px;\"><div class=\"row\"><div class=\"col-xs-4\">
                     <form method=\"POST\" name=\"publishworksheet{$i}\" action=\"PublishWorksheet.php\">
