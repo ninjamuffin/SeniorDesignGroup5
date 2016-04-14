@@ -65,8 +65,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
         $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
+/*
         if (($worksheetID == 0) || ($courseID == 0))
-            echo "<meta http-equiv='refresh' content='0;/' />";
+*/
+            /*echo "<meta http-equiv='refresh' content='0;/' />";*/
+            
         $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
@@ -148,14 +151,25 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>#</th>
                                                     <th>Student</th>
                                                     <th>Expression</th>
+                                                    <th>Correction</th>
                                                     <th>All-Do</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody name="ExpressionTable">
+                                                <tr>
+                                                    <td class="nr"><span>1</span></td>
+                                                    <td>student</td>
+                                                    <td class="expr"><span>expression</span></td>
+                                                    <td class="corr"><span></span></td>
+                                                    <td>Assign Type</td>
+                                                    <td id="ExpressionStatus">Incomplete</td>
+                                                    <td><button class="btn btn-primary" type="button">Edit</button></td>
+                                                    <td style="visibility:hidden;" value="1234"></td>
+                                                </tr>
 <?php 
-        for($i = 0; $i < $num_expressions; $i++)
+        /*for($i = 0; $i < $num_expressions; $i++)
         {
             $pass_array = array($ids[$i], $student_expression_ids[$i], $first_names[$i], $last_names[$i]);
             echo "<tr>
@@ -181,7 +195,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                           </form>
                       </td>
                    </tr>";
-        }
+        }*/
 ?>
                                                 
                                             </tbody>
@@ -194,16 +208,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             <div class="panel-heading" id="ExprHeading">Expression Edit Window
                                 <span id="ExprID" class=""></span>
                             </div>
-
-
                             <div class="panel-body">
                                 <div class="col-xs-8" name="left column">
-                                    <div class="col-xs-11" style="text-align: left";>
+                                    <div class="col-xs-12" style="text-align: left">
                                         Expression
                                     </div>
-
                                     <div class="col-xs-12">
-                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-11">
+                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">
                                         </textarea>
                                     </div>
 
@@ -222,7 +233,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                                     </div>
                                     <div class="col-xs-12">
-                                        <button id="SubmitExpr"  class="btn btn-primary pull-right">Submit</button>
+                                        <button id="SubmitExpr" type="button" class="btn btn-primary pull-right">Submit</button>
                                     </div>
                                 </div>
                             </div>
