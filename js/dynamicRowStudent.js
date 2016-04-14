@@ -1,33 +1,43 @@
 $(function(){
     // Find a <table> element with id="myTable":
     var exprTable = document.getElementById('myTable');
-    var expr;
     var rowIndex;
     var exprHead;
     
-    $(".btn").on('click',function(e) {
+    $("button[name='Edit']").on('click',function(e) {
+        var exprID = $(this).val();
         var $row = $(this).closest("tr");
-        rowIndex = $row.find(".nr").text();
-        expr = $row.find(".expr").text();
+        var rowIndex = $row.find(".nr").text();
+        var expr = $row.find(".expr").text();
         
+        var first = "<input hidden type='text' name='expressionID' value='";
+        var last = "'>";
+        var to_add = first + exprID + last;
+        
+        
+        $("#expressionID").val(exprID);
         document.getElementById("ExprToEdit").innerHTML = expr;
         document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
     });
-    
+
     $('#SubmitExpr').on('click',function(e){
         e.preventDefault();
         
-        var row = document.getElementsByTagName("tr");
-        var cell = row.getElementsbyTagName("td");
+        $("#CorrectedExpr").val("");
+        document.getElementById("ExprID").innerHTML = " - Load new expression";
+        var exprID = $("#expressionID").val();
         
-        var corrExpr = document.getElementById("CorrectedExpr").value;
+        var target_button = $(document).find("button").attr('value', exprID);
+        var target_row = $(target_button).closest("tr");
+        var target_correct = $(target_row).find("td[name='corrected']");
         
-        document.getElementById("ExpressionStatus").innerHTML = "Correct";
         
+        var corrExpr = $("input[name='CorrectedExpr']").val();
+        $(target_correct).html(corrExpr);
+
+/*
         document.getElementById("myTable").rows[rowIndex].cell(3) = corrExpr;
-        
-        $("#CorrectedExpr").empty();
-        
+*/
     });
     
     $(document).on('click', "button[name='SelectExpression']", function(e){

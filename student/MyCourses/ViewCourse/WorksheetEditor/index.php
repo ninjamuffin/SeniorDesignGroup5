@@ -65,11 +65,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
         $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
-/*
-        if (($worksheetID == 0) || ($courseID == 0))
 
+        if (($worksheetID == 0) || ($courseID == 0))
             echo "<meta http-equiv='refresh' content='0;/' />";
-*/        
+        
         $params = array($worksheetID);
         $options = array( "Scrollable" => 'static' );
         $worksheetinfoSQL = "SELECT W.WorksheetNumber, CONVERT(VARCHAR(11), W.Date, 106), T.Topic
@@ -164,53 +163,47 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Student</th>
                                                     <th>Expression</th>
                                                     <th>Correction</th>
                                                     <th>All-Do</th>
+<!--
                                                     <th>Status</th>
+-->
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody name="ExpressionTable">
-                                                <tr>
-                                                    <td class="nr"><span>1</span></td>
-                                                    <td>student</td>
-                                                    <td class="expr"><span>expression</span></td>
-                                                    <td class="corr"><span></span></td>
+                                                <!--<tr>
+                                                    <td style="display:none" value="Here is context" name="context"></td>
+                                                    <td style="display:none" value="Here is pronunciation" name="pronunciation"></td>
+                                                    <td name="number" class="nr"><span>1</span></td>
+                                                    <td name="expression" class="expr">Here's a expression</td>
+                                                    <td name="corrected" class="corr" value="test"></td>
                                                     <td>Assign Type</td>
                                                     <td id="ExpressionStatus">Incomplete</td>
-                                                    <td><button class="btn btn-primary" type="button">Edit</button></td>
-                                                    <td style="visibility:hidden;" value="1234"></td>
-                                                </tr>
+                                                    <td><button class="btn btn-primary" type="button" name="Edit">Edit</button></td>
+                                                </tr>-->
 <?php 
-        /*for($i = 0; $i < $num_expressions; $i++)
+        for($i = 0; $i < $num_expressions; $i++)
         {
-            $pass_array = array($ids[$i], $student_expression_ids[$i], $first_names[$i], $last_names[$i]);
             echo "<tr>
-                      <td>$sent_numbers[$i]</td>
-                      <td>$first_names[$i] $last_names[$i]</td>
-                      <td>$expressions[$i]</td>
+                      <td style=\"display:none\" value=\"Here is context\" name=\"context\"></td>
+                      <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
+                      <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
+                      <td name=\"expression\" class=\"expr\">$expressions[$i]</td>
+                      <td name=\"corrected\" class=\"corr\"></td>
                       <td>";
             if ($alldos[$i] == 1)
-                echo "<span class=\"glyphicon glyphicon-ok\"></span>";
+                echo "All-Do";
             else
-                echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+                echo "Mine";
             echo "
                 </td>
-                      <td><form method=\"POST\" name=\"expressions{$i}\">
-                              <input hidden type=\"text\" name=\"expressionID\" value=\"$ids[$i]\">
-                              <input hidden type=\"text\" name=\"studentID\" value=\"$student_expression_ids[$i]\">
-                              <input hidden type=\"text\" name=\"firstname\" value=\"$first_names[$i]\">
-                              <input hidden type=\"text\" name=\"lastname\" value=\"$last_names[$i]\">
-                              <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
-                              <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
-                              <input hidden type=\"text\" name=\"newexpressionnumber\" value=\"$new_expression_number\">
-                              <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
-                          </form>
-                      </td>
-                   </tr>";
-        }*/
+                    <td>
+                        <button value=\"$ids[$i]\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
+                    </td>
+                </tr>";
+        }
 ?>
                                                 
                                             </tbody>
@@ -232,21 +225,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">
                                         </textarea>
                                     </div>
+                                    <input hidden id="expressionID" />
 
                                     <div class="col-xs-12" style="padding-top: 40px">
                                         <form role="form">
                                             <div class="form-group">
                                                 <label for="CorrectedExpr">Correction:</label>
-                                                <input type="text" class="form-control" id="CorrectedExpr" placeholder="Enter the correct expression here" />
+                                                <input type="text" class="form-control" name="CorrectedExpr" placeholder="Enter the correct expression here" />
                                             </div>
                                         </form>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-4" name="right column">
-                                    <div class="col-xs-12">
-
-                                    </div>
                                     <div class="col-xs-12">
                                         <button id="SubmitExpr" type="button" class="btn btn-primary pull-right">Submit</button>
                                     </div>
