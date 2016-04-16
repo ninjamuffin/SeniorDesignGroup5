@@ -90,7 +90,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-10">
-                                                <h4>Active Courses <a href="/Teacher/MyCourses/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
+                                                <h4>Active Courses</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +162,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-10">
-                                                    <h4>My Students <a href="/Teacher/MyStudents/"><i class="glyphicon glyphicon-new-window"></i></a></h4>
+                                                    <h4>My Students</h4>
                                             </div>
                                         </div>
                                     </div>

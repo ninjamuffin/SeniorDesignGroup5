@@ -101,7 +101,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $studentsids = [];
         while(sqlsrv_fetch($coursestudents) === true)
             $studentids[] = sqlsrv_get_field($coursestudents, 0);
-        echo "$className $worksheetStatus $worksheetDate";
     ?>        
 
 <body>
@@ -119,6 +118,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <!-- BEGIN PAGE CONTENT -->
                     <div class="col-xs-12">
                         <div class="row">
+                            <div class="col-md-10">
+                                <div class="btn-group">
+                                    <h1><button type="button" class="btn-lg btn-primary">Save Worksheet</button>
+                                        <button type="button" hidden class="btn-lg btn-primary">Publish Worksheet</button>
+                                    </h1>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
@@ -133,7 +142,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                             <div class="col-xs-8">
-                                <div class="panel panel-primary">
+                                <div class="panel panel-primary" style="max-height:300px;overflow-y:scroll">
                                 <div class="panel-heading">Worksheet Overview</div>
                                     <div class="panel-body">
                                         <div class="row">
@@ -202,14 +211,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 
                             </div>
                         </div>
-                        <!--<div class="input-group" id="adv-search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success btn-add" type="button">
-                                    New Expression
-                                </button>
-                            </span>
-                        </div>-->
-
                     </div>
                     <!-- END PAGE CONTENT -->
                 </div>

@@ -4,6 +4,11 @@ $(function(){
     var corrExpr;
     var exprHead;
     
+    var sentence_numbers = new Array();
+    var student_first_name
+    
+    $("#WorksheetOverview tbody").append("<tr><td>...</td></tr>");
+    /*$(document).onload...*/
     $('#EditExpression').on('click',function(e) {
         var exprRow = exprTable.getElementsByTagName("tr");
         var expr = exprTable.getElementsByTagName("td");

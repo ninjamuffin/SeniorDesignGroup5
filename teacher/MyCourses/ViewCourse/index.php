@@ -273,18 +273,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             else
             {
                 echo "<td><form method=\"POST\" action=\"WorksheetEditor/\" name=\"EditWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
-                <input hidden type=\"text\" name=\"worksheetDate\" value=\"$dates[i]\">
-                <input hidden type=\"text\" name=\"worksheetTopic\" value=\"$topics[i]\"><input hidden type=\"text\" name=\"worksheetStatus\" value=\"$statuses[i]\">
-                <input hidden type=\"text\" name=\"className\" value=\"$className\"><input hidden type=\"text\" name=\"worksheetNumber\" value=\"$worksheet_numbers[i]\"><button class=\"btn btn-primary\">Edit</button></form></td>";
+                <input hidden type=\"text\" name=\"worksheetDate\" value=\"$dates[$i]\">
+                <input hidden type=\"text\" name=\"worksheetTopic\" value=\"$topics[$i]\"><input hidden type=\"text\" name=\"worksheetStatus\" value=\"$statuses[$i]\">
+                <input hidden type=\"text\" name=\"className\" value=\"$ClassName\"><input hidden type=\"text\" name=\"worksheetNumber\" value=\"$worksheet_numbers[$i]\"><button class=\"btn btn-primary\">Edit</button></form></td>";
             }
-            echo "<td style=\"width:225px;\"><div class=\"row\"><div class=\"col-xs-4\">
+            echo "<td style=\"width:275px;\"><div class=\"row\"><div class=\"col-xs-4\">
                     <form method=\"POST\" name=\"publishworksheet{$i}\" action=\"PublishWorksheet.php\">
-                      <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\">
-                      <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
-                      <button class=\"btn btn-primary\">Publish</button>
-                    </form></div>
-                  ";
-            echo "<div class=\"col-xs-4\">
+                      <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\">";
+            if ($statuses[$i] == "Released")
+                echo "<button type=\"button\" disabled class=\"btn btn-primary\">Published</button>";
+            else
+                echo "<button type=\"button\" name=\"publishworksheet\" class=\"btn btn-primary\">Publish</button>";
+            echo "</form></div>
+                    <div class=\"col-xs-4\">
                     <form method=\"POST\" name=\"deleteworksheet{$i}\" action=\"DeleteWorksheet.php\">
                       <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\">
                       <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
@@ -437,7 +438,62 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 }
             });
         });
-        </script>
+            
+        $("button[name='publishworksheet']").on("click", function(e) {
+            var opts = {
+                  lines: 13 // The number of lines to draw
+                , length: 36 // The length of each line
+                , width: 12 // The line thickness
+                , radius: 36 // The radius of the inner circle
+                , scale: 0.15 // Scales overall size of the spinner
+                , corners: 1 // Corner roundness (0..1)
+                , color: '#000' // #rgb or #rrggbb or array of colors
+                , opacity: 0.45 // Opacity of the lines
+                , rotate: 0 // The rotation offset
+                , direction: 1 // 1: clockwise, -1: counterclockwise
+                , speed: 1.2 // Rounds per second
+                , trail: 59 // Afterglow percentage
+                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                , className: 'spinner' // The CSS class to assign to the spinner
+                , top: '75%' // Top position relative to parent
+                , left: '50%' // Left position relative to parent
+                , shadow: false // Whether to render a shadow
+                , hwaccel: false // Whether to use hardware acceleration
+                , position: 'absolute' // Element positioning
+            }
+            var target = $(this).closest("td").find("div[name='deletespinner']");
+            var spinner = new Spinner(opts).spin();
+            target.append(spinner.el);
+
+            $(":button").prop("disabled", true);
+
+            var parentForm = $(this).closest("form");
+            var worksheetID = $(parentForm).find("input[name=worksheetID]").val();
+            alert(worksheetID);
+            $.ajax({
+                type: "POST",
+                url: "PublishWorksheet.php",
+                data: {
+                    "worksheetID": worksheetID
+                },
+                success: function(data){
+                    var courseID = $("#courseID").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "index.php",
+                        data: {
+                            "courseID":courseID
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+
+                    });
+                }
+            });
+    });
+    </script>
     </body>
     <?php
     }
