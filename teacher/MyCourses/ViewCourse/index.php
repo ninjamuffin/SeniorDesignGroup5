@@ -162,13 +162,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <div class="btn-group" class="col-md-3">
                                                 <button type="button" name="newworksheet" class="btn btn-primary">Create New Worksheet</button>
                                             </div>
-                                            <div name="createnewspinner" class="col-md-1" style="left:50%; top:18px;">
-                                                
-                                            </div>
-                                            
+                                            <div name="createnewspinner" class="col-md-1" style="left:50%; top:18px;">                                                
+                                            </div>                
                                         </div>
-                                        
-                                            
                                     </form>
                                 </div>
                             </div>
@@ -268,7 +264,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             echo "<td>$statuses[$i]</td>";
             if ($statuses[$i] == "Released")
             {
-                echo "<td><form method=\"POST\" action=\"ViewWorksheet/\" name=\"ViewWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><button class=\"btn btn-primary\">Review</button></form></td>";
+                echo "<td><form method=\"POST\" action=\"ViewWorksheet/\" name=\"ViewWorksheet\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetIDs[$i]\"><input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
+                <input hidden type=\"text\" name=\"worksheetDate\" value=\"$dates[$i]\">
+                <input hidden type=\"text\" name=\"worksheetTopic\" value=\"$topics[$i]\"><input hidden type=\"text\" name=\"worksheetStatus\" value=\"$statuses[$i]\">
+                <input hidden type=\"text\" name=\"className\" value=\"$ClassName\"><input hidden type=\"text\" name=\"worksheetNumber\" value=\"$worksheet_numbers[$i]\"><button class=\"btn btn-primary\">Review</button></form></td>";
             }
             else
             {

@@ -41,6 +41,67 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
+        if ($worksheetID == 0)
+            echo "<meta http-equiv='refresh' content='40;/' />";
+        $worksheetDate = isset($_POST['worksheetDate']) ? $_POST['worksheetDate'] : 0;
+        $worksheetTopic = isset($_POST['worksheetTopic']) ? $_POST['worksheetTopic'] : 0;
+        $worksheetStatus = isset($_POST['worksheetStatus']) ? $_POST['worksheetStatus'] : 0;
+        $worksheetNumber = isset($_POST['worksheetNumber']) ? $_POST['worksheetNumber'] : 0;
+        $className = isset($_POST['className']) ? $_POST['className'] : 0;
+        $params = array($worksheetID);
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
+                                    FROM Expressions E, Students S, Enrollment ER
+                                    WHERE E.WorksheetID = ? AND
+                                          ER.StudentID = E.StudentID AND
+                                          S.StudentID = ER.StudentID 
+                                    ORDER BY E.SentenceNumber";
+        $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
+        if ($worksheetexpressions === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_expressions = sqlsrv_num_rows($worksheetexpressions);
+        $new_expression_number = $num_expressions + 1;
+        $sent_numbers = [];
+        $student_expression_ids = [];
+        $first_names = [];
+        $last_names = [];
+        $expressions = [];
+        $ids = [];
+        $alldos = [];
+        while(sqlsrv_fetch($worksheetexpressions) === true)
+        {
+            $sent_numbers[] = sqlsrv_get_field($worksheetexpressions, 0);
+            $student_expression_ids[] = sqlsrv_get_field($worksheetexpressions, 1);
+            $first_names[] = sqlsrv_get_field($worksheetexpressions,2);
+            $last_names[] = sqlsrv_get_field($worksheetexpressions, 3);
+            $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
+            $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
+            $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
+        }
+        
+        $worksheetsubmissionsSQL = "SELECT S.FirstName, S.LastName, SS.StudentSubmissionID, CONVERT(VARCHAR(11), SS.Date,106), SS.AttemptNumber
+        FROM Students S, Enrollment ER, StudentSubmissions SS
+        WHERE SS.WorksheetID = ? AND
+              ER.EnrollmentID = SS.EnrollmentID AND
+              S.StudentID = ER.StudentID";
+        $worksheetsubmissions = sqlsrv_query($con, $worksheetsubmissionsSQL, $params, $options);
+        if($worksheetsubmissions === false)
+            die(print_r(sqlsrv_errors(),true));
+        $num_submissions = sqlsrv_num_rows($worksheetsubmissions);
+        $sub_first_names = [];
+        $sub_last_names = [];
+        $sub_ids = [];
+        $sub_dates = [];
+        $sub_attempts = [];
+        while(sqlsrv_fetch($worksheetsubmissions) === true)
+        {
+            $sub_first_names[] = sqlsrv_get_field($worksheetsubmissions, 0);
+            $sub_last_names[] = sqlsrv_get_field($worksheetsubmissions, 1);
+            $sub_ids[] = sqlsrv_get_field($worksheetsubmissions, 2);
+            $sub_dates[] = sqlsrv_get_field($worksheetsubmissions, 3);
+            $sub_attempts[] = sqlsrv_get_field($worksheetsubmissions, 4);
+        }
     ?>        
 
     <body>
@@ -62,16 +123,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         
                     </div>
-                    <hr />
                     <div class="row">
                         <div class="col-sm-4">
                             <!-- Worksheet Info -->
                             <div class="panel panel-primary">
-                                <div class="panel-heading">Worksheet Details</div>
+                                <div class="panel-heading">Worksheet Info</div>
                                 <div class="panel-body">
-                                    <p>Topic:</p>
-                                    <p>Date:</p>
-                                    <p>Number of Sentences:</p>
+                                    <?php
+                                    echo "
+                                    <h2>Course: $className</h2>
+                                    <h5>Worksheet Number: $worksheetNumber</h5>
+                                    <h5>Date: $worksheetDate</h5>
+                                    <h5>Topic: $worksheetTopic</h5>";?>
                                 </div> 
                             </div>
                         </div>
@@ -87,32 +150,26 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <th>#</th>
                                                 <th>Student</th>
                                                 <th>Expression</th>
-                                                <th>Context/Vocab</th>
-                                                <th>Type</th>
+                                                <th>All-Do</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Name</td>
-                                                <td>Expr</td>
-                                                <td>Context is:</td>
-                                                <td><span class="glyphicon glyphicon-star"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Name</td>
-                                                <td>Expr</td>
-                                                <td>Context is:</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Name</td>
-                                                <td>Expr</td>
-                                                <td>Context is:</td>
-                                                <td></td>
-                                            </tr>
+                                        <tbody name="ExpressionTable">
+<?php
+        for($i = 0; $i < $num_expressions; $i++)
+        {
+            echo "<tr>
+                        <td>$sent_numbers[$i]</td>
+                        <td>$first_names[$i] $last_names[$i]</td>
+                        <td>$expressions[$i]</td>
+                        <td>";
+            if ($alldos[$i] == 1)
+                echo "<span class=\"glyphicon glyphicon-ok\"></span>";
+            else
+                echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+            echo "
+                </td></tr>";
+        }
+?>
                                         </tbody>
                                     </table>
                                     
@@ -130,27 +187,22 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <thead>
                                             <tr>
                                                 <th>Student</th>
-                                                <th>Submission #</th>
+                                                <th>Attempt #</th>
                                                 <th>Date</th>
-                                                <th>Sentences Submitted</th>
                                                 <th>Go To</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><a href="/Teacher/MyStudents/ViewStudentProfile/?sid=">Student</a></td>
-                                                <td>First</td>
-                                                <td>2/3/16</td>
-                                                <td>14</td>
-                                                <td>
-                                                    <form method="POST" action="ViewSubmission/" id="viewsubmission" name="viewsubmission">
-                                                        <input hidden type="text" value="1" id="submissionID" name="submissionID">
-                                                        <button class="btn btn-primary" type="submit">View Submission</button>
-                                                    
-                                                    </form>
-                                                </td>
-                                                
-                                            </tr>
+<?php
+        for($i = 0; $i < $num_submissions; $i++)
+        {
+            echo "<tr>
+                        <td>$sub_first_names[$i] $sub_last_names[$i] </td>
+                        <td>$sub_attempts[$i] </td>
+                        <td>$sub_dates[$i] </td>
+                        <td><form method=\"POST\" action=\"ViewSubmission/\" name=\"ViewSubmission\"><input hidden type=\"text\" name=\"submissionID\" value=\"$sub_ids[$i]\"><button class=\"btn btn-primary\">View Submission</button></form></td>";
+        }
+?>
                                         </tbody>
                                     </table>
                                 </div> 
