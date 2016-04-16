@@ -1,20 +1,21 @@
+var rowIndex;
+var rowID;
 $(function(){
     // Find a <table> element with id="myTable":
     var exprTable = document.getElementById('myTable');
-    var rowIndex;
+    
     var exprHead;
     
     $("button[name='Edit']").on('click',function(e) {
         var exprID = $(this).val();
         var $row = $(this).closest("tr");
-        var rowIndex = $row.find(".nr").text();
+        rowID = $row.attr('id');
+        rowIndex = $row.find(".nr").text();
         var expr = $row.find(".expr").text();
         
         var first = "<input hidden type='text' name='expressionID' value='";
         var last = "'>";
         var to_add = first + exprID + last;
-        
-        
         $("#expressionID").val(exprID);
         document.getElementById("ExprToEdit").innerHTML = expr;
         document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
@@ -23,21 +24,19 @@ $(function(){
     $('#SubmitExpr').on('click',function(e){
         e.preventDefault();
         
-        $("#CorrectedExpr").val("");
+        //this isnt working right now, can fix later not huge deal
+        /*$("#CorrectedExpr").val(""); 
+        */
+        
         document.getElementById("ExprID").innerHTML = " - Load new expression";
-        var exprID = $("#expressionID").val();
-        
-        var target_button = $(document).find("button").attr('value', exprID);
-        var target_row = $(target_button).closest("tr");
-        var target_correct = $(target_row).find("td[name='corrected']");
-        
-        
         var corrExpr = $("input[name='CorrectedExpr']").val();
-        $(target_correct).html(corrExpr);
-
-/*
-        document.getElementById("myTable").rows[rowIndex].cell(3) = corrExpr;
-*/
+        var exprID = $("#expressionID").val();
+        var row = $(document).find("button").closest('tr');
+        
+        //Dont know why this is index 9, there must be more children than there are tds, there
+        //are actually a total of 15 children
+        var children = document.getElementById(rowID).childNodes[9].innerHTML = corrExpr;
+        
     });
     
     $(document).on('click', "button[name='SelectExpression']", function(e){

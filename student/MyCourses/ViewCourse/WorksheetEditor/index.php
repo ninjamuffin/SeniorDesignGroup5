@@ -186,12 +186,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 <?php 
         for($i = 0; $i < $num_expressions; $i++)
         {
-            echo "<tr>
+            echo "<tr id = $ids[$i]>
                       <td style=\"display:none\" value=\"Here is context\" name=\"context\"></td>
                       <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
                       <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
                       <td name=\"expression\" class=\"expr\">$expressions[$i]</td>
-                      <td name=\"corrected\" class=\"corr\"></td>
+                      <td id = $ids[$i] name=\"corrected\" class=\"corr\"></td>
                       <td>";
             if ($alldos[$i] == 1)
                 echo "All-Do";
