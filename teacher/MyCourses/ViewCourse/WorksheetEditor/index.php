@@ -101,6 +101,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $studentsids = [];
         while(sqlsrv_fetch($coursestudents) === true)
             $studentids[] = sqlsrv_get_field($coursestudents, 0);
+        echo "$className $worksheetStatus $worksheetDate";
     ?>        
 
 <body>
