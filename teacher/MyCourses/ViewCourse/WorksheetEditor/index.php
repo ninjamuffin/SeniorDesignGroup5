@@ -128,7 +128,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <h2>Course: $className</h2>
                                         <h5>Worksheet Number: $worksheetNumber</h5>
                                         <h5>Date: $worksheetDate</h5>
-                                        <h5>Topic: $worksheetTopic</h5>;"?>
+                                        <h5>Topic: $worksheetTopic</h5>";?>
                                     </div>
                                 </div>
                             </div>
