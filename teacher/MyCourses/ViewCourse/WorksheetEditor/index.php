@@ -122,10 +122,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
                                     <div class="panel-body">
-                                        <h2>Course: <?php echo "$className"; ?></h2>
-                                        <h5>Worksheet Number: <?php echo "$worksheetNumber"; ?></h5>
-                                        <h5>Date: <?php echo "$worksheetDate"; ?></h5>
-                                        <h5>Topic: <?php echo "$worksheetTopic"; ?></h5>
+                                        <?php
+                                        echo "
+                                        <h2>Course: $className</h2>
+                                        <h5>Worksheet Number: $worksheetNumber</h5>
+                                        <h5>Date: $worksheetDate</h5>
+                                        <h5>Topic: $worksheetTopic</h5>;"?>
                                     </div>
                                 </div>
                             </div>
