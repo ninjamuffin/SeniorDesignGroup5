@@ -204,8 +204,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     </td>
                 </tr>";
         }
-?>
-                                                
+?>                                           
                                             </tbody>
                                         </table>
                                     </div>
@@ -222,7 +221,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         Expression
                                     </div>
                                     <div class="col-xs-12">
-                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">
+                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">Add an expression to begin
                                         </textarea>
                                     </div>
                                     <input hidden id="expressionID" />
