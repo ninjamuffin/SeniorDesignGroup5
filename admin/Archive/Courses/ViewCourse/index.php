@@ -44,8 +44,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $courseID = isset($_GET['courseID']) ? $_GET['courseID'] : 0;
-        if (false)
+        $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
+        if ($courseID == 0)
             echo "<meta http-equiv='refresh' content=0;../";
         else
         {
@@ -65,29 +65,31 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Course Info</div>
                                     <div class="panel-body">
-                                        <a href="ViewWorksheet/index.php" class="btn btn-primary " type="button">View Worksheet</a>
                                     <?php
             $params = array($courseID);
             $options = array( "Scrollable" => 'static');
-            $courseInfoQuery = "
-            SELECT TC.CoursesID, CN.ClassName, TC.Section, T.FirstName, T.LastName, SN.SessionName, I.InstitutionName
-            FROM Courses as TC, [Class Names] as CN, Teachers as T, Sessions as Ss, SessionNames as SN, Institutions as I
-            WHERE TC.CoursesID = ? AND
-                  CN.ClassNamesID = TC.ClassNamesID AND
-                  T.TeacherID = TC.InstructorID AND
-                  Ss.SessionsID = TC.SessionID AND
-                  SN.SessionsID = Ss.SessionsID";
-            $stmt = sqlsrv_query($con, $courseInfoQuery, $params, $options);
-            if ($stmt === false)
+            $courseinfoSQL = "
+            SELECT CT.CourseName, C.Section, T.FirstName, T.LastName, ST.SessionName, SI.Year, I.InstitutionName
+            FROM Courses as C, CourseTypes as CT, Teachers as T, TeachingInstance TI, SessionInstance as SI, SessionType as ST, Institutions as I
+            WHERE C.CourseID = ? AND
+                  CT.CourseTypesID = C.CourseTypesID AND
+                  TI.TeachingInstanceID = C.TeachingInstanceID AND
+                  T.TeacherID = TI.TeacherID AND
+                  SI.SessionInstanceID = C.SessionInstanceID AND
+                  ST.SessionTypeID = SI.SessionTypeID AND
+                  I.InstitutionID = C.InstitutionID";
+            $courseinfo = sqlsrv_query($con, $courseinfoSQL, $params, $options);
+            if ($courseinfo === false)
                 die(print_r(sqlsrv_errors(), true));
-            if (sqlsrv_fetch($stmt) === true)
+            if (sqlsrv_fetch($courseinfo) === true)
             {
-                $ClassName = sqlsrv_get_field($stmt, 1);
-                $Section = sqlsrv_get_field($stmt, 2);
-                $FirstName = sqlsrv_get_field($stmt, 3);
-                $LastName = sqlsrv_get_field($stmt, 4);
-                $Session = sqlsrv_get_field($stmt, 5);
-                $Institution = sqlsrv_get_field($stmt, 6);
+                $ClassName = sqlsrv_get_field($courseinfo, 0);
+                $Section = sqlsrv_get_field($courseinfo, 1);
+                $FirstName = sqlsrv_get_field($courseinfo, 2);
+                $LastName = sqlsrv_get_field($courseinfo, 3);
+                $Session = sqlsrv_get_field($courseinfo, 4);
+                $Year = sqlsrv_get_field($courseinfo, 5);
+                $Institution = sqlsrv_get_field($courseinfo, 6);
                 
             }
             echo "<p>Class Name: $ClassName</p><p>Section: $Section</p><p>Teacher: $FirstName $LastName</p><p>Session: $Session</p><p>Hosting Institution: $Institution</p>";
@@ -114,13 +116,17 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
             $params = array($courseID);
             $options = array( "Scrollable" => 'static' );
-            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = ? GROUP BY [Worksheet#],[Teachers&ClassesID]";
-            $stmt = sqlsrv_query($con, $query, $params, $options);
-            if (!$stmt)
+            $worksheetsSQL = "SELECT W.WorksheetID, W.WorksheetNumber, T.Topic 
+                      FROM Worksheets W, Topics T
+                      WHERE W.CourseID = ? AND
+                            T.TopicID = W.TopicID
+                      ORDER BY W.WorksheetNumber";
+            $worksheets = sqlsrv_query($con, $worksheetsSQL, $params, $options);
+            if (!$worksheets)
                 die( print_r( sqlsrv_errors(), true));
             
             $rowsPerPage = 10;
-            $rowsReturned = sqlsrv_num_rows($stmt);
+            $rowsReturned = sqlsrv_num_rows($worksheets);
             if($rowsReturned === false)
                 die(print_r( sqlsrv_errors(), true));
             elseif($rowsReturned == 0)
@@ -134,12 +140,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }
             
             $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-            $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
+            $page = Pagination::getPage($worksheets, $pageNum, $rowsPerPage);
             foreach($page as $row)
             {
-                $worksheetPageLink = "ViewWorksheet/?courseID=$row[1]&worksheetNum=$row[0]";
-                $annotationPageLink = "ViewWorksheet/AnnotationEditor/?courseID=$row[1]&worksheetNum=$row[0]";
-                echo "<tr><td>$row[0]</td><td><a href='$worksheetPageLink'>Worksheet Page</a></td><td><a href='$annotationPageLink'>Annotation Editor</a></td></tr>";
+                $worksheetID = $row[0];
+                echo "<tr>  
+                        <td>$row[1]</td>
+                        <td><form method=\"POST\" action=\"ViewWorksheet\">
+                                <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+                                <button class=\"btn btn-primary\">Worksheet Page</button>
+                            </form>
+                        </td>
+                        <td><form method=\"POST\" action=\"ViewWorksheet/AnnotationEditor/\">
+                                <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+                                <button class=\"btn btn-primary\">Annotation Editor</button>
+                            </form>
+                        </td>
+                      </tr>";
             }
         ?>
             

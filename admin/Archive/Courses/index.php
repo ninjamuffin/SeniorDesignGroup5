@@ -66,7 +66,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <!-- Select Rows Per Page -->
                                     <div class="row">
                                         <div class="col-xs-10">
-                                            <a href="ViewCourse/index.php" class="btn btn-primary " type="button">View Course</a>
+                                            
                                             <div class="dropdown">
                                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 Select rows per page
@@ -77,7 +77,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <li><a href="?pp=25">25</a></li>
                                                     <li><a href="?pp=50">50</a></li>
                                                     <li><a href="?pp=100">100</a></li>
-
                                                 </ul>
                                             </div>
                                         </div>
@@ -128,8 +127,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <th>Course</th>
+                                                    <th>Section</th>
                                                     <th>Instructor</th>
                                                     <th>Session Name</th>
+                                                    <th>Year</th>
                                                     <th>Go To</th>
                                                 </tr>
                                             </thead>
@@ -139,16 +140,28 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     /* Set up and declare query entity */
     $params = array();
     $options = array( "Scrollable" => 'static' );
-    $query = "  SELECT  CN.[ClassName], TC.[Section], T.[LastName], SN.SessionName, TC.[CoursesID], TC.[InstructorID]
+    /*$old_query = "  SELECT  CN.[ClassName], TC.[Section], T.[LastName], SN.SessionName, TC.[CoursesID], TC.[InstructorID]
                 FROM [Courses] as TC, [Teachers] as T, [Class Names] as CN, [Sessions] as Ss, SessionNames as SN
                 WHERE TC.[ClassNamesID] = CN.[ClassNamesID] AND 
                 TC.[InstructorID] = T.[TeacherID] AND 
                 TC.[SessionID] = Ss.[SessionsID] AND
                 TC.CoursesID in (SELECT [Teachers&ClassesID] from Expressions) AND
                 SN.[SessionsID] = Ss.[SessionSID]
-                ORDER BY Ss.[SessionsID] desc";
-    $stmt = sqlsrv_query($con, $query, $params, $options);
-    if ( !$stmt )
+                ORDER BY Ss.[SessionsID] desc";*/
+    $archivecoursesSQL = "
+    SELECT CT.CourseName, I.InstitutionID, T.LastName, ST.SessionName, SI.Year, C.CourseID, T.TeacherID
+    FROM Courses C, CourseTypes CT, Teachers T, TeachingInstance TI, SessionInstance SI, SessionType ST, Institutions I
+    WHERE CT.CourseTypesID = C.CourseTypesID AND
+          TI.TeachingInstanceID = C.TeachingInstanceID AND
+          T.TeacherID = TI.TeacherID AND
+          SI.SessionInstanceID = C.SessionInstanceID AND
+          ST.SessionTypeID = SI.SessionTypeID AND
+          I.InstitutionID = C.InstitutionID
+    ORDER BY SI.Year
+    "; 
+    
+    $archivecourses = sqlsrv_query($con, $archivecoursesSQL, $params, $options);
+    if ( !$archivecourses )
         die( print_r( sqlsrv_errors(), true));
 
     /* Extract Pagination Paramaters */
@@ -156,7 +169,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 10
 
 
-    $rowsReturned = sqlsrv_num_rows($stmt);
+    $rowsReturned = sqlsrv_num_rows($archivecourses);
     if($rowsReturned === false)
         die(print_r( sqlsrv_errors(), true));
     elseif($rowsReturned == 0)
@@ -172,12 +185,26 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
     /* Echo results to the page */
     $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-    $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
+    $page = Pagination::getPage($archivecourses, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
-        $coursePageLink = "ViewCourse/?courseID=$row[4]";
-        $teacherPageLink = "/Admin/Archive/Teachers/ViewTeacher/?tid=$row[5]";
-        echo "<tr><td>$row[0]</td><td><a href='$teacherPageLink'>$row[2]</a></td><td>$row[3]</td><td><a href='$coursePageLink'>Course Page</a></td></tr>";
+        $courseID = $row[5];
+        $teacherID = $row[6];
+        echo "<tr><td>$row[0]</td>
+                  <td>$row[1]</td>
+                  <td><form method=\"POST\" action=\"/Admin/Archive/Teachers/ViewTeacher/\">
+                          <input hidden type=\"text\" name=\"teacherID\" value=\"$teacherID\">
+                          <button class=\"btn btn-primary\">$row[2]</button>
+                      </form>
+                  </td>
+                  <td>$row[3]</td>
+                  <td>$row[4]</td>
+                  <td><form method=\"POST\" action=\"/Admin/Archive/Courses/ViewCourse/\">
+                          <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
+                          <button class=\"btn btn-primary\">View Course</button>
+                      </form>
+                  </td>
+              </tr>";
     }
 
     echo "</tbody></table><br />";

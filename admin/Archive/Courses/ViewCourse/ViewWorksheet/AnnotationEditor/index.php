@@ -46,16 +46,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $courseID = isset($_GET['courseID']) ? $_GET['courseID'] : 0;
-        $worksheetID = 3572;
+        $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
+        if ($worksheetID == 0)
+            echo "<meta http-equiv='refresh' content='0;/' />";
         $params = array($worksheetID);
         $options = array("Scrollable" => 'static');
         $worksheetexpressionsSQL = "SELECT E.Expression, E.[Context/Vocabulary], E.SentenceNumber, E.ExpressionID, S.FirstName, S.LastName, S.StudentID
-                                    FROM Expressions E, Worksheets W, Students S
-                                    WHERE W.WorksheetID = ? AND
-                                          E.WorksheetID = W.WorksheetID AND
+                                    FROM Expressions E, Students S
+                                    WHERE E.WorksheetID = ? AND
                                           S.StudentID = E.StudentID
-                                    ORDER BY W.WorksheetNumber";
+                                    ORDER BY E.[SentenceNumber]";
         $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
         if ($worksheetexpressions === false)
             die(print_r(sqlsrv_errors(), true));
@@ -77,11 +77,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $lastnames[] = sqlsrv_get_field($worksheetexpressions, 5);
             $studentids[] = sqlsrv_get_field($worksheetexpressions, 6);
         }
-        $worksheetNum = isset($_GET['worksheetNum']) ? $_GET['worksheetNum'] : 0;
-        if (false)
-            echo "<meta http-equiv='refresh' content='0;../../' />";
-        else
-        {
+
         ?>
         <body>
             <div id="wrapper">
@@ -112,9 +108,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; overflow-y:auto">
+                                <div class="panel panel-primary" style="min-height: 400px;max-height: 300px; overflow-y:auto">
                                     <div class="panel-heading">
-                                        <h4>Expressions List</h4>
+                                        <h4>Expressions List (click and drag to get started!)</h4>
                                     </div>
                                     <div class="panel-body">
                                         <table class="table table-hover">
@@ -129,6 +125,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </thead>
                                             <tbody>
 <?php
+        echo $num_expressions;
             for ($i = 0; $i < $num_expressions; $i++)
             {
 ?>
@@ -261,7 +258,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         </body> 
         <?php  
         }
-    }
 }
 
 else
