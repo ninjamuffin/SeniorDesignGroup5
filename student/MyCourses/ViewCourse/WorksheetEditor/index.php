@@ -198,7 +198,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                       </td>
                 </tr>";
         }
+<<<<<<< HEAD
 ?>                                              
+=======
+?>                                           
+>>>>>>> b02e45b29551a58c31be86c6dc41510384476972
                                             </tbody>
                                         </table>
                                     </div>
@@ -215,7 +219,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         Expression
                                     </div>
                                     <div class="col-xs-12">
-                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">
+                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">Add an expression to begin
                                         </textarea>
                                     </div>
                                     <input hidden id="expressionID"/>
