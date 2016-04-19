@@ -180,7 +180,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 <?php 
         for($i = 0; $i < $num_expressions; $i++)
         {
-            echo "<tr id=$i value=$ids[i]>
+            echo "<tr id='$i'>
                       <td style=\"display:none\" value=\"Here is context\" name=\"context\"></td>
                       <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
                       <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
@@ -198,11 +198,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                       </td>
                 </tr>";
         }
-<<<<<<< HEAD
 ?>                                              
-=======
-?>                                           
->>>>>>> b02e45b29551a58c31be86c6dc41510384476972
+
                                             </tbody>
                                         </table>
                                     </div>
