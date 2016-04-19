@@ -96,6 +96,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
         if ($worksheetexpressions === false)
             die(print_r(sqlsrv_errors(), true));
+        
         $num_expressions = sqlsrv_num_rows($worksheetexpressions);
         $new_expression_number = $num_expressions + 1;
         $sent_numbers = [];
@@ -105,6 +106,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $expressions = [];
         $ids = [];
         $alldos = [];
+        $correctedExpr = [];
+        
         while(sqlsrv_fetch($worksheetexpressions) === true)
         {
             $sent_numbers[] = sqlsrv_get_field($worksheetexpressions, 0);
@@ -114,6 +117,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
             $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
             $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
+            $correctedExpr[] = ""; 
         }
         
         $coursestudentsSQL = "SELECT ER.StudentID 
@@ -159,6 +163,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary" style="max-height:350px;overflow-y:scroll">
                                 <div class="panel-heading">Worksheet Overview</div>
                                     <div class="panel-body">
+                                        <div>
+                                            <button class="btn btn-primary pull-left" type="button" id="Update">Update Worksheet</button>
+                                        </div>
                                         <table class="table" id="myTable" >
                                             <thead>
                                                 <tr>
@@ -166,32 +173,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Expression</th>
                                                     <th>Correction</th>
                                                     <th>All-Do</th>
-<!--
-                                                    <th>Status</th>
--->
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody name="ExpressionTable">
-                                                <!--<tr>
-                                                    <td style="display:none" value="Here is context" name="context"></td>
-                                                    <td style="display:none" value="Here is pronunciation" name="pronunciation"></td>
-                                                    <td name="number" class="nr"><span>1</span></td>
-                                                    <td name="expression" class="expr">Here's a expression</td>
-                                                    <td name="corrected" class="corr" value="test"></td>
-                                                    <td>Assign Type</td>
-                                                    <td id="ExpressionStatus">Incomplete</td>
-                                                    <td><button class="btn btn-primary" type="button" name="Edit">Edit</button></td>
-                                                </tr>-->
 <?php 
         for($i = 0; $i < $num_expressions; $i++)
         {
-            echo "<tr id = $ids[$i]>
+            echo "<tr id=$i value=$ids[i]>
                       <td style=\"display:none\" value=\"Here is context\" name=\"context\"></td>
                       <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
                       <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
                       <td name=\"expression\" class=\"expr\">$expressions[$i]</td>
-                      <td id = $ids[$i] name=\"corrected\" class=\"corr\"></td>
+                      <td name=\"corrected\" class=\"corr\">$correctedExpr[$i]</td>
                       <td>";
             if ($alldos[$i] == 1)
                 echo "All-Do";
@@ -199,12 +193,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 echo "Mine";
             echo "
                 </td>
-                    <td>
-                        <button value=\"$ids[$i]\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
-                    </td>
+                      <td>
+                        <button value=\"$i\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
+                      </td>
                 </tr>";
         }
+<<<<<<< HEAD
+?>                                              
+=======
 ?>                                           
+>>>>>>> b02e45b29551a58c31be86c6dc41510384476972
                                             </tbody>
                                         </table>
                                     </div>
@@ -224,13 +222,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">Add an expression to begin
                                         </textarea>
                                     </div>
-                                    <input hidden id="expressionID" />
-
+                                    <input hidden id="expressionID"/>
                                     <div class="col-xs-12" style="padding-top: 40px">
                                         <form role="form">
                                             <div class="form-group">
                                                 <label for="CorrectedExpr">Correction:</label>
                                                 <input type="text" class="form-control" name="CorrectedExpr" placeholder="Enter the correct expression here" />
+                                                <!--onkeydown = "if(event.keyCode == 13) document.getElementById('SubmitExpr').click()"-->
                                             </div>
                                         </form>
                                     </div>
