@@ -1,32 +1,33 @@
 var rowIndex;
 var rowID;
+var correctedArray = [];
+var expressionID;
+var exprIDs = []; // On page load: fill with values
+
 $(function(){
     // Find a <table> element with id="myTable":
     var exprTable = document.getElementById('myTable');
-    
     var exprHead;
     
     $("button[name='Edit']").on('click',function(e) {
-        var exprID = $(this).val();
+        e.preventDefault();
+        
         var $row = $(this).closest("tr");
         rowID = $row.attr('id');
         rowIndex = $row.find(".nr").text();
         var expr = $row.find(".expr").text();
         
-        var first = "<input hidden type='text' name='expressionID' value='";
-        var last = "'>";
-        var to_add = first + exprID + last;
+        var expressionID = $(this).closest("tr");
+        exprIDs[rowID] = expressionID.attr('value');
+        alert(exprIDs);
+
         $("#expressionID").val(exprID);
         document.getElementById("ExprToEdit").innerHTML = expr;
         document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
     });
 
-    $('#SubmitExpr').on('click',function(e){
-        e.preventDefault();
-        
-        //this isnt working right now, can fix later not huge deal
-        /*$("#CorrectedExpr").val(""); 
-        */
+    $('#SubmitExpr').on('click',function(e) {
+        e.preventDefault();     
         
         document.getElementById("ExprID").innerHTML = " - Load new expression";
         var corrExpr = $("input[name='CorrectedExpr']").val();
@@ -35,8 +36,38 @@ $(function(){
         
         //Dont know why this is index 9, there must be more children than there are tds, there
         //are actually a total of 15 children
-        var children = document.getElementById(rowID).childNodes[9].innerHTML = corrExpr;
-        
+        document.getElementById(rowID).childNodes[9].innerHTML = corrExpr;
+        correctedArray[rowID] = corrExpr;
+        $("input[name='CorrectedExpr']").val("");
+    });
+    
+    $('#Update').on('click',function(e){
+        e.preventDefault();
+/*
+        alert(correctedArray.join('\n'));
+*/
+        $.ajax({
+            type: POST,
+            url: "WriteExpressions.php",
+            data: {
+                "expressionIDs" : exprIDs,
+                "correctedText" : correctedArray
+            },
+            success: function(data) {
+                // From document retrieve worksheet ID as 'worksheetID'
+                $.ajax({
+                    type : POST,
+                    url: "index.php",
+                    data: {
+                        "worksheetID" : worksheetID  
+                    },
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            }
+            
+        });
     });
     
     $(document).on('click', "button[name='SelectExpression']", function(e){
