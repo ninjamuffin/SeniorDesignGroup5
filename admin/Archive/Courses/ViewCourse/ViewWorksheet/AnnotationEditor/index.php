@@ -125,7 +125,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             </thead>
                                             <tbody>
 <?php
-        echo $num_expressions;
             for ($i = 0; $i < $num_expressions; $i++)
             {
 ?>
