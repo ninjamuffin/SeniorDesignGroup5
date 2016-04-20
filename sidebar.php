@@ -367,7 +367,7 @@
                                 
                             
                             </li>
-                            <li class="nav-divider"></li>
+                            <!--<li class="nav-divider"></li>
                             <li class="dropdown">
                                 <a href="/student/MyCourses/" class="dropdown-toggle" data-toggle="dropdown">My Courses<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -390,8 +390,10 @@
                                     <a href="/student/MyTeachers/ViewTeacherProfile/">Teacher 2</a>
                                     <a href="/student/MyTeachers/ViewTeacherProfile/">Teacher 3</a></li>
                                 </ul>
-                            </li>
+                            </li>-->
+<!--
                             <li><a href="#">Practice!</a></li>
+-->
                             <li class="nav-divider"></li>
                             <li><a href="#">Change Password</a></li>
                             <li><a href="/Logout.php">Logout</a></li>
