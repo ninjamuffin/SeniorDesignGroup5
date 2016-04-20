@@ -16,7 +16,7 @@ include '../../base.php';
 <!--
     <link href="/css/advancedsearch.css" rel="stylesheet">
 -->
-    <link href="/FlatUI/css/corpus/theme.css" rel="stylesheet" media="screen">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     
     <!-- Including Header -->
