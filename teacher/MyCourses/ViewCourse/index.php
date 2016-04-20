@@ -469,7 +469,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
             var parentForm = $(this).closest("form");
             var worksheetID = $(parentForm).find("input[name=worksheetID]").val();
-            alert(worksheetID);
             $.ajax({
                 type: "POST",
                 url: "PublishWorksheet.php",

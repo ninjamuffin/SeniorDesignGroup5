@@ -77,7 +77,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <!--<div class="col-lg-6">
                         <div class="panel panel-primary" style="min-height: 300px;max-height: 300px; ">
                             <div class="panel-heading">
-                                <h3>Course Activity Queue</h3>
+                                <h3>Course Activity</h3>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-hover">
@@ -106,8 +106,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </table>
                             </div>
                             
-                        </div>
-                    </div>-->
+                        </div>-->
+                    </div>
                     
                 </div>
                 <div class="row">

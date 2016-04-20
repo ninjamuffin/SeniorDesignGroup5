@@ -9,6 +9,11 @@ $(function(){
     
     $("#WorksheetOverview tbody").append("<tr><td>...</td></tr>");
     /*$(document).onload...*/
+    
+    $("#SaveWorksheet").on('click', function(e){
+        alert("Worksheet saved!"); 
+    });
+    
     $('#EditExpression').on('click',function(e) {
         var exprRow = exprTable.getElementsByTagName("tr");
         var expr = exprTable.getElementsByTagName("td");
@@ -77,7 +82,7 @@ $(function(){
     
     $(document).on('click', 'button[name="SaveExpression"]', function(e){
         e.preventDefault();
-
+        
         var parentForm = $(this).closest("form");
         var Expression = $(parentForm).find("input[name=Expression]").val();
         var ContextVocab = $(parentForm).find("input[name=ContextVocab]").val();

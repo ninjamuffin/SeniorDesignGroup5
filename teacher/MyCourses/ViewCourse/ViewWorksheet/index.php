@@ -116,9 +116,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-6">
-                            <h1>Edit Worksheet<form method="POST" action="AnnotationEditor/" name="AnnotationEditorOpen" id="AnnotationEditorOpen">
+                            <h1>Edit Worksheet<form method="POST" name="AnnotationEditorOpen" id="AnnotationEditorOpen">
                                 <input hidden type="text" id="worksheetID" name="worksheetID">
-                                <button class="btn-lg btn-primary" type="submit">Annotate</button>
+                                <button class="btn btn-lg btn-primary" type="submit">Annotate</button>
                             </form></h1>
                         </div>
                         

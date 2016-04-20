@@ -32,12 +32,13 @@
             {
                 $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, $correctedText[$i])";    
             }
+            
             $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, $correctedText[$i]), ";
         }
         $studentattempts = sqlsrv_query($con, $studentattemptsSQL, $params, $options);
         if ($studentattempts === false)
             die(print_r(sqlsrv_errors(), true));
-        
+    }
     else
     {
         echo "Data Error";
