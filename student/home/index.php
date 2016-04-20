@@ -90,10 +90,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h4><a href="/Student/MyCourses/">My Courses</a></h4>
+                                        <h4>My Courses</h4>
                                     </div>
                                     <div class="panel-body" style="min-height: 146px; max-height: 146px;">
                                         <table class="table table-hover" data-link="row">
@@ -102,19 +104,59 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     <th>Course Name</th>
                                                     <th>Teacher</th>
                                                     <th>Session</th> 
+                                                    <th>Go To</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><a href="/Student/MyCourses/ViewCourse/?cid=">Seminar</a></td>
-                                                    <td>Hunter</td>
-                                                    <td>Fall II 2015</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="/Student/MyCourses/ViewCourse/?cid=">Advanced</a></td>
-                                                    <td>Momono</td>
-                                                    <td>Fall I 2015</td>
-                                                </tr>
+<?php
+     $params = array($_SESSION['Username']);
+     $options = array( "Scrollable" => 'static' );
+     $coursesSQL = "SELECT C.CourseID, CT.Level, T.FirstName, T.LastName, ST.SessionName, SI.Year
+                    FROM Courses C, CourseTypes CT, TeachingInstance TI, Teachers T, SessionType ST, SessionInstance SI, Enrollment ER, Students S
+                    WHERE S.SiteUsername = ? AND
+                          ER.StudentID = S.StudentID AND
+                          C.CourseID = ER.CourseID AND
+                          CT.CourseTypesID = C.CourseTypesID AND
+                          TI.TeachingInstanceID = C.TeachingInstanceID AND
+                          T.TeacherID = TI.TeacherID AND
+                          SI.SessionInstanceID = C.SessionInstanceID AND
+                          ST.SessionTypeID = SI.SessionTypeID";
+     $courses = sqlsrv_query($con, $coursesSQL, $params, $options);
+     if ($courses === false)
+         die(print_r(sqlsrv_errors(), true));
+     $course_ids = [];
+     $course_levels = [];
+     $teacher_firstnames = [];
+     $teacher_lastnames = [];
+     $session_names = [];
+     $years = [];
+     
+     $num_courses = sqlsrv_num_rows($courses);
+     while (sqlsrv_fetch($courses) === true)
+     {
+         $course_ids[] = sqlsrv_get_field($courses, 0);
+         $course_levels[] = sqlsrv_get_field($courses, 1);
+         $teacher_firstnames[] = sqlsrv_get_field($courses, 2);
+         $teacher_lastnames[] = sqlsrv_get_field($courses, 3);
+         $session_names[] = sqlsrv_get_field($courses, 4);
+
+         $years[] = sqlsrv_get_field($courses, 5);
+     }
+     for ($i = 0; $i < $num_courses; $i++)
+     {
+         echo "<tr><td>$course_levels[$i]</td>
+                   <td>$teacher_firstnames[$i] $teacher_lastnames[$i]</td>
+                   <td>$session_names[$i] $years[$i]</td>
+                   <td><form method=\"POST\" action=\"/Student/MyCourses/ViewCourse/\" name=\"course{$i}\">
+                         <input hidden type=\"text\" name=\"courseID\" value=\"$course_ids[$i]\">
+                         <button class=\"btn btn-primary\">Course Page</button>
+                       </form>
+                    </td>
+                </tr>";
+    
+     }
+     ?>
+     
                                             </tbody>
                                         </table>
                                     </div>
@@ -122,7 +164,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                             
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-12">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
@@ -156,7 +198,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
 

@@ -22,7 +22,6 @@ $(function(){
         var expr = $row.find(".expr").text();
         
         exprIDs[rowID] = $row.find(".expr").attr('id');
-        alert(exprIDs[rowID]);
         
         document.getElementById("ExprToEdit").innerHTML = expr;
         document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
@@ -45,7 +44,8 @@ $(function(){
     $('#Update').on('click',function(e){
         e.preventDefault();
         
-        alert(correctedArray.join('\n'));
+        alert("Saving your expressions!");
+        /*alert(correctedArray.join('\n'));
         alert(exprIDs.join('\n'));
         
         
@@ -74,7 +74,7 @@ $(function(){
                     }
                 });
             }
-        });
+        });*/
     });
     
 /*    $(document).on('click', "button[name='SelectExpression']", function(e){
