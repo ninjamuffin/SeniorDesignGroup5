@@ -62,7 +62,7 @@
                     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                         <ul class="nav sidebar-nav">
                             <li class="sidebar-brand">
-                                <a href="/Admin/Home/">Home</a>
+                                <a href="/Admin/Home/">Smalltalk</a>
                             </li>
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['Username']?><span class="caret"></span></a>
@@ -76,7 +76,7 @@
                 if ($ListedRole == $_SESSION['Role'])
                 {
         ?>
-                                        <strong><a><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a></strong>
+                                        <a style="text-decoration:underline"><?=$ListedRole?> <small class="text-muted"><?=$Designations[$count]?></small></a>
         <?php
                 }
                 else
@@ -93,18 +93,18 @@
                               </ul>
                             </li>
                             <li class="nav-divider"></li>
+                            <li><a href="/Admin/SiteUsers/">Site Users</a></li>
+                            </li>
                             <li class="dropdown">
-                              <a class="dropdown-toggle" data-toggle="dropdown">Manage Website<span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown">Site Activity<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li>
                                     <?php
             if ($_SESSION['AccessType'] == 'Super')
             {
                 ?>
-                                    <a href="/Admin/ManageAdmins/">Admins <small class="text-muted">Superuser</small></a>
-                                    <a href="/Admin/ManageInstitutions/">Institutions <small class="text-muted">Superuser</small></a>
-                                    <?php
-                
+                <a href="/Admin/ManageInstitutions/">Institutions <small class="text-muted">Superuser</small></a>
+                <?php
             }
             else
             {
@@ -115,14 +115,17 @@
                                     <?php
                 }
             }
-                                    ?>
+            ?>
                                     <a href="/Admin/ManageCorpus/">Corpus</a>
                                     <a href="/Admin/ManageCourses/">Courses</a>
-                                    <a href="/Admin/ManageTeachers/">Teachers</a>
-                                    <a href="/Admin/ManageStudents/">Students</a>
-                                  </li>  
-                              </ul>
-                            </li>
+                                </li>
+                            </ul>
+            <?php
+            
+                
+                                    ?>
+                                    
+                                    
                             
                             <li>
                                 <a href="/corpus/Search/">Corpus</a>

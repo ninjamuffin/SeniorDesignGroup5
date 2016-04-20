@@ -130,11 +130,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 ?>
                                                 <tr>
                                                     <td name="sentencenumber"><?=$numbers[$i]?></td>
-                                                    <td><form method="POST" name="students<?=$i?>" action="/Admin/Archive/Students/ViewStudent/">
-                                                            <input hidden type="text" value="<?=$studentids[$i]?>" name="studentID">
-                                                            <button class="btn btn-primary"><?=$firstnames[$i]?> <?=$lastnames[$i]?></button>
-                                                        </form>
-                                                    </td>
+                                                    <td><?=$firstnames[$i]?> <?=$lastnames[$i]?></td>
                                                     <td>
                                                         <div name="highlightrange"><?=$expressions[$i]?></div>
                                                         <input hidden type="text" name="expressionid" value="<?=$expressionids[$i]?>">
