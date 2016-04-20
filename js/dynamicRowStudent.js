@@ -1,13 +1,17 @@
+var exprTable;
 var rowIndex;
 var rowID;
 var correctedArray = [];
 var expressionID;
 var exprIDs = []; // On page load: fill with values
+var worksheetID;
+var enrollmentID;
+
 
 $(function(){
     // Find a <table> element with id="myTable":
-    var exprTable = document.getElementById('myTable');
-    var exprHead;
+    exprTable = document.getElementById('myTable');
+    enrollmentID = document.getElementById('EnrollmentID').innerHTML;
     
     $("button[name='Edit']").on('click',function(e) {
         e.preventDefault();
@@ -17,11 +21,9 @@ $(function(){
         rowIndex = $row.find(".nr").text();
         var expr = $row.find(".expr").text();
         
-        var expressionID = $(this).closest("tr");
-        exprIDs[rowID] = expressionID.attr('value');
-        alert(exprIDs);
-
-        $("#expressionID").val(exprID);
+        exprIDs[rowID] = $row.find(".expr").attr('id');
+        alert(exprIDs[rowID]);
+        
         document.getElementById("ExprToEdit").innerHTML = expr;
         document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
     });
@@ -34,8 +36,7 @@ $(function(){
         var exprID = $("#expressionID").val();
         var row = $(document).find("button").closest('tr');
         
-        //Dont know why this is index 9, there must be more children than there are tds, there
-        //are actually a total of 15 children
+        //Dont know why the index of the correction td is 9, there must be more children than //there are tds, there are actually a total of 15 children
         document.getElementById(rowID).childNodes[9].innerHTML = corrExpr;
         correctedArray[rowID] = corrExpr;
         $("input[name='CorrectedExpr']").val("");
@@ -43,15 +44,22 @@ $(function(){
     
     $('#Update').on('click',function(e){
         e.preventDefault();
-/*
+        
         alert(correctedArray.join('\n'));
-*/
+        alert(exprIDs.join('\n'));
+        
+        
+        worksheetID = document.getElementById('WorksheetID').innerHTML;
+        alert(enrollmentID);
+        
         $.ajax({
             type: POST,
-            url: "WriteExpressions.php",
+            url: "WriteCorrections.php",
             data: {
+                "worksheetID"   : worksheetID,
                 "expressionIDs" : exprIDs,
-                "correctedText" : correctedArray
+                "correctedText" : correctedArray,
+                "enrollmentID"  : enrollmentID
             },
             success: function(data) {
                 // From document retrieve worksheet ID as 'worksheetID'
@@ -66,11 +74,10 @@ $(function(){
                     }
                 });
             }
-            
         });
     });
     
-    $(document).on('click', "button[name='SelectExpression']", function(e){
+/*    $(document).on('click', "button[name='SelectExpression']", function(e){
         var expressionid = $(this).closest("form").find("input[name=expressionID]").val();
         var worksheetid = $(this).closest("form").find("input[name=worksheetID]").val();
         var courseid = $(this).closest("form").find("input[name=courseID]").val();
@@ -89,7 +96,7 @@ $(function(){
                 $("div[name='ExpressionEditor']").html(data);
             }
         });
-    });
+    });*/
     
     $(document).ready(function() {
         $("#myTable tr").each(function() {
