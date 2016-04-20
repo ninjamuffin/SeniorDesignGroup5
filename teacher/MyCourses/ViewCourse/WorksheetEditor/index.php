@@ -118,26 +118,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <!-- BEGIN PAGE CONTENT -->
                     <div class="col-xs-12">
                         <div class="row">
-                            <div class="col-md-10">
-                                <div class="btn-group">
-                                    <h1><button type="button" class="btn-lg btn-primary">Save Worksheet</button>
-                                        <button type="button" hidden class="btn-lg btn-primary">Publish Worksheet</button>
-                                    </h1>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-xs-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
                                     <div class="panel-body">
-                                        <?php
-                                        echo "
-                                        <h2>Course: $className</h2>
-                                        <h5>Worksheet Number: $worksheetNumber</h5>
-                                        <h5>Date: $worksheetDate</h5>
-                                        <h5>Topic: $worksheetTopic</h5>";?>
+                                        <div class="col-xs-7">
+                                            <?php
+                                            echo "
+                                            <h2>Course: $className</h2>
+                                            <h5>Worksheet Number: $worksheetNumber</h5>
+                                            <h5>Date: $worksheetDate</h5>
+                                            <h5>Topic: $worksheetTopic</h5>";?>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <div class="btn-group">
+                                                <h1><button type="button" class="btn-md btn-primary">Save Worksheet</button></h1>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

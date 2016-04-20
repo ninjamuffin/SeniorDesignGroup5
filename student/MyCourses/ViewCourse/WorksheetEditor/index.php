@@ -20,6 +20,7 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script type="text/javascript" src="/js/dynamicRowStudent.js"></script>
+
     <style>
         .glyphicon:before {
             visibility: visible;
@@ -131,7 +132,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $num_students = sqlsrv_num_rows($coursestudents);
         $studentsids = [];
         while(sqlsrv_fetch($coursestudents) === true)
-            $studentids[] = sqlsrv_get_field($coursestudents, 0);
+            $studentsids[] = sqlsrv_get_field($coursestudents, 0);
+        
+        $params = array($_SESSION['Username']);
+        $getenrollmentidSQL = "SELECT ER.EnrollmentID
+                                FROM Enrollment ER, Students S, SiteUsers SU
+                                WHERE SU.username = S.SiteUsername AND
+                                    ER.StudentID = S.StudentID AND
+                                    SU.username = ?";
+        $getenrollmentid = sqlsrv_query($con, $getenrollmentidSQL, $params, $options);
+        if ($getenrollmentid === false)
+            die(print_r(sqlsrv_errors(), true));
+        while(sqlsrv_fetch($getenrollmentid) === true)
+            $myEnrollmentID = sqlsrv_get_field($getenrollmentid, 0);
     ?>
     
 <body>
@@ -153,9 +166,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
                                     <div class="panel-body">
-                                        <h5>Worksheet Number: <?=$worksheet_number?></h5>
-                                        <h5>Date: <?=$date?></h5>
-                                        <h5>Topic: <?=$topic?></h5>
+                                        <div class="col-xs-7">
+                                            <h5>Worksheet Number: <?=$worksheet_number?></h5>
+                                            <h5>Date: <?=$date?></h5>
+                                            <h5>Topic: <?=$topic?></h5>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <button class="btn btn-primary btn-lg pull-right" type="button" id="Update">Update Worksheet</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -163,9 +181,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel panel-primary" style="max-height:350px;overflow-y:scroll">
                                 <div class="panel-heading">Worksheet Overview</div>
                                     <div class="panel-body">
-                                        <div>
-                                            <button class="btn btn-primary pull-left" type="button" id="Update">Update Worksheet</button>
-                                        </div>
+<?php
+    echo "<div style=\"display:none\" id=\"WorksheetID\">$worksheetID</div>";
+    echo "<div style=\"display:none\" id=\"EnrollmentID\">$myEnrollmentID</div>";
+?>
                                         <table class="table" id="myTable" >
                                             <thead>
                                                 <tr>
@@ -180,11 +199,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 <?php 
         for($i = 0; $i < $num_expressions; $i++)
         {
-            echo "<tr id='$i'>
+            echo "<tr id=\"$i\">
                       <td style=\"display:none\" value=\"Here is context\" name=\"context\"></td>
                       <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
                       <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
-                      <td name=\"expression\" class=\"expr\">$expressions[$i]</td>
+                      <td id=\"$ids[$i]\" name=\"expression\" class=\"expr\">$expressions[$i]</td>
                       <td name=\"corrected\" class=\"corr\">$correctedExpr[$i]</td>
                       <td>";
             if ($alldos[$i] == 1)
@@ -198,7 +217,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                       </td>
                 </tr>";
         }
-?>                                              
+?>
+
 
                                             </tbody>
                                         </table>
