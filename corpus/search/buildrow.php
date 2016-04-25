@@ -6,11 +6,24 @@ include '../../base.php';
 if ((isset($_POST['words'])) && (isset($_POST['searchedword'])))
 {
     $words = $_POST['words'];
+    $num_words = count($words);
+
     $searchedword = $_POST['searchedword'];
 ?>
     <tr>
     <td>Word</td>
-    <td><?=$searchedword?></td>
+    <td>
+<?php
+    foreach($words as $word)
+    {
+?>
+        <input hidden type="text" name="words[]" value="<?=$word?>">
+<?php
+    }
+?>
+        echo $word;
+?>
+    </td>
     <td>
         <button class='btn btn-danger' type='button' name='DeleteRow'>
             Delete
@@ -20,7 +33,8 @@ if ((isset($_POST['words'])) && (isset($_POST['searchedword'])))
     foreach($words as $word)
     {
         ?>
-        <input hidden name="<?=$searchedword?>[]" value="<?=$word?>">
+        <p><?=$word?></p>
+        
         
 <?php
         

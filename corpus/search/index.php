@@ -183,9 +183,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     
                                                 </div>
                                                 <br>
-                                                <button class="btn btn-primary pull-right" type="button" name="new_word_button">
-                                                    <span>Send to selector ==></span>
-                                                </button>
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary pull-right" type="button" name="new_word_button">
+                                                                <span>Send to selector =></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary pull-right" type="button" name="full_new_word_button">
+                                                                <span>Send to query builder ==></span>
+                                                            </button>
+                                                        </span>
+                                                    </div> 
+                                                </div>
+                                                
                                                 <br>
                                                 </form>
                                                 <hr>
@@ -213,10 +227,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                             
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    
                                                     <div class="col-xs-4">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-primary" type="button" name="new_tag_button">
-                                                                <span>Send to selector ==></span>
+                                                                <span>Send to selector =></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary" type="button" name="full_new_tag_button">
+                                                                <span>Send to query builder ==></span>
                                                             </button>
                                                         </span>
                                                     </div>
@@ -349,16 +374,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 </div>
             <script type="text/javascript">
             
-            var fixHelper = function(e, ui) {
+            /*var fixHelper = function(e, ui) {
                 ui.children().each(function() {
                     $(this).width($(this).width());
                 });
                 return ui;
-            };
+            };*/
             
-            $("#sortParams tbody").sortable({
+            /*$("#sortParams tbody").sortable({
                 helper: fixHelper
-            }).disableSelection();
+            }).disableSelection();*/
             </script>
             <script>
             var numOffsets = 0;   
@@ -390,9 +415,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     $(this).prop("disabled",true);
                     var words = [];
                     var searchedword = $("input[name='searchedword']").val();
+                    
                     $("input[name^='checkwords']").each(function() {
                         if ($(this).is(':checked')) {
                             words.push($(this).val());
+                            alert($(this).val());
                         }
                     });
                     var tags = [];
