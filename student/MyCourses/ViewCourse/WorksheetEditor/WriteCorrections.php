@@ -1,43 +1,48 @@
 <?php
-include '../../../base.php';
+include '../../../../base.php';
 
-echo "Brian is drinking coffee";
-/*if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_POST['correctedText']) && isset($_POST['enrollmentID']) )
+if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_POST['correctedText']) && isset($_POST['enrollmentID']) )
 {
     $worksheetID = $_POST['worksheetID'];
-    $expressionIDs[] = $_POST['expressionIDs'];
-    $correctedText[] = $_POST['correctedText'];
+    $expressionIDs = $_POST['expressionIDs'];
+    $correctedText = $_POST['correctedText'];
     $enrollmentID = $_POST['enrollmentID'];
     $params = array($enrollmentID, $worksheetID);
     $options = array("Scrollable" => 'static');
-    echo "FUCK OFF";
 
-    $studentsubmissionsSQL = "INSERT INTO StudentSubmissions (?, ?, 1, 0, GETDATE())";
+    $studentsubmissionsSQL = "INSERT INTO StudentSubmissions VALUES (?, ?, 1, 0, GETDATE())";
     $studentsubmissions = sqlsrv_query($con, $studentsubmissionsSQL, $params, $options);
-    if ($studentsubmissionsid === false)
+    if ($studentsubmissions === false)
         die(print_r(sqlsrv_errors(), true));
 
-    $getstudentsubmissionidSQL = "SELECT StudentSubmissionID FROM StudentSubmissions
+    $getstudentsubmissionidSQL = "SELECT DISTINCT StudentSubmissionID FROM StudentSubmissions
                             WHERE EnrollmentID = ? AND
                                   WorksheetID = ? AND
                                   AttemptNumber = 1";
-    $getstudentsubmissionid = sqlsrv_query($con, $studentsubmissionidSQL, $params, $options);
+    $getstudentsubmissionid = sqlsrv_query($con, $getstudentsubmissionidSQL, $params, $options);
     if ($getstudentsubmissionid === false)
         die(print_r(sqlsrv_errors(), true));
     while(sqlsrv_fetch($getstudentsubmissionid) === true)
         $studentsubmissionid = sqlsrv_get_field($getstudentsubmissionid, 0);
 
     $studentattemptsSQL = "INSERT INTO StudentAttempts (ExpressionID, StudentSubmissionID, ReformulationText) VALUES ";
-    for($i = 0; $i < $expressionIDs.count(); $i++)
+    for($i = 0; $i < count($expressionIDs); $i++)
     {
-        if ($i == $expressionIDs.count() - 1)
+        if ($i == count($expressionIDs) - 1)
         {
-            $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, $correctedText[$i])";    
+            if (strlen($correctedText[$i]) > 0)
+                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]')";
         }
-
-        $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, $correctedText[$i]), ";
+        else
+        {
+            if (strlen($correctedText[$i]) > 0)
+                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]''), ";
+        }
+        
     }
+/*
     echo "$studentattemptsSQL";
+*/
     $studentattempts = sqlsrv_query($con, $studentattemptsSQL, $params, $options);
     if ($studentattempts === false)
         die(print_r(sqlsrv_errors(), true));
@@ -45,5 +50,5 @@ echo "Brian is drinking coffee";
 else
 {
     echo "Data Error";
-}*/
+}
 ?>

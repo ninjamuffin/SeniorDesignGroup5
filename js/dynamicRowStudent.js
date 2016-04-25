@@ -34,7 +34,6 @@ $(function(){
         var corrExpr = $("input[name='CorrectedExpr']").val();
         var exprID = $("#expressionID").val();
         var row = $(document).find("button").closest('tr');
-        
         //Dont know why the index of the correction td is 9, there must be more children than //there are tds, there are actually a total of 15 children
         document.getElementById(rowID).childNodes[9].innerHTML = corrExpr;
         correctedArray[rowID] = corrExpr;
@@ -44,16 +43,14 @@ $(function(){
     $('#Update').on('click',function(e){
         e.preventDefault();
         
-        alert("Saving your expressions!");
-        /*alert(correctedArray.join('\n'));
+        alert(correctedArray.join('\n'));
         alert(exprIDs.join('\n'));
         
         
         worksheetID = document.getElementById('WorksheetID').innerHTML;
-        alert(enrollmentID);
         
         $.ajax({
-            type: POST,
+            type: "POST",
             url: "WriteCorrections.php",
             data: {
                 "worksheetID"   : worksheetID,
@@ -62,9 +59,12 @@ $(function(){
                 "enrollmentID"  : enrollmentID
             },
             success: function(data) {
+                
+                        alert(data);
                 // From document retrieve worksheet ID as 'worksheetID'
+            
                 $.ajax({
-                    type : POST,
+                    type : "POST",
                     url: "index.php",
                     data: {
                         "worksheetID" : worksheetID  
@@ -74,7 +74,7 @@ $(function(){
                     }
                 });
             }
-        });*/
+        });
     });
     
 /*    $(document).on('click', "button[name='SelectExpression']", function(e){
