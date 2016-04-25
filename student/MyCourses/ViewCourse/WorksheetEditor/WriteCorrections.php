@@ -26,19 +26,20 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
         $studentsubmissionid = sqlsrv_get_field($getstudentsubmissionid, 0);
 
     $studentattemptsSQL = "INSERT INTO StudentAttempts (ExpressionID, StudentSubmissionID, ReformulationText) VALUES ";
-    for($i = 0; $i < count($expressionIDs); $i++)
+    $numExpressions = count($expressionIDs);
+    //echo "$numExpressions";
+    echo "($expressionIDs[0], $studentsubmissionid, $correctedText[0])";
+    for($i = 0; $i < $numExpressions; $i++)
     {
-        if ($i == count($expressionIDs) - 1)
+        if ($i == $numExpressions - 1)
         {
-            if (strlen($correctedText[$i]) > 0)
                 $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]')";
         }
         else
         {
-            if (strlen($correctedText[$i]) > 0)
-                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]''), ";
+                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]'), ";
         }
-        
+         echo "$i";
     }
 /*
     echo "$studentattemptsSQL";

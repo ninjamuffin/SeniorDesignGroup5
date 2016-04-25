@@ -86,11 +86,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $topic = sqlsrv_get_field($worksheetinfo, 2);
         }
         
-        $params = array($worksheetID);
+        $params = array($_SESSION['Username']);
+        $getenrollmentidSQL = "SELECT ER.EnrollmentID
+                                FROM Enrollment ER, Students S, SiteUsers SU
+                                WHERE SU.username = S.SiteUsername AND
+                                    ER.StudentID = S.StudentID AND
+                                    SU.username = ?";
+        $getenrollmentid = sqlsrv_query($con, $getenrollmentidSQL, $params, $options);
+        if ($getenrollmentid === false)
+            die(print_r(sqlsrv_errors(), true));
+        if(sqlsrv_fetch($getenrollmentid) === true)
+            $myEnrollmentID = sqlsrv_get_field($getenrollmentid, 0);
+        
+        $params = array($worksheetID, $myEnrollmentID, $worksheetID, $myEnrollmentID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
                                     FROM Expressions E, Students S, Enrollment ER
                                     WHERE E.WorksheetID = ? AND
+                                          (E.AllDo = 1 OR E.EnrollmentID = ?) AND
                                           ER.StudentID = E.StudentID AND
                                           S.StudentID = ER.StudentID 
                                     ORDER BY E.SentenceNumber";
@@ -118,9 +131,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
             $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
             $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
-            $correctedExpr[] = ""; 
+            
         }
-        
         $coursestudentsSQL = "SELECT ER.StudentID 
                               FROM Enrollment as ER, Worksheets as W, Courses C 
                               WHERE W.WorksheetID = ? AND
@@ -134,17 +146,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         while(sqlsrv_fetch($coursestudents) === true)
             $studentsids[] = sqlsrv_get_field($coursestudents, 0);
         
-        $params = array($_SESSION['Username']);
-        $getenrollmentidSQL = "SELECT ER.EnrollmentID
-                                FROM Enrollment ER, Students S, SiteUsers SU
-                                WHERE SU.username = S.SiteUsername AND
-                                    ER.StudentID = S.StudentID AND
-                                    SU.username = ?";
-        $getenrollmentid = sqlsrv_query($con, $getenrollmentidSQL, $params, $options);
-        if ($getenrollmentid === false)
-            die(print_r(sqlsrv_errors(), true));
-        while(sqlsrv_fetch($getenrollmentid) === true)
-            $myEnrollmentID = sqlsrv_get_field($getenrollmentid, 0);
+        
     ?>
     
 <body>
@@ -184,6 +186,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 <?php
     echo "<div style=\"display:none\" id=\"WorksheetID\">$worksheetID</div>";
     echo "<div style=\"display:none\" id=\"EnrollmentID\">$myEnrollmentID</div>";
+    echo "<div style=\"display:none\" id=\"NumExpressions\">$num_expressions</div>";
+    //echo "<div style=\"display:none\" id=\"ExpressionIDs\" value=\"$ids\"></div>";
 ?>
                                         <table class="table" id="myTable" >
                                             <thead>

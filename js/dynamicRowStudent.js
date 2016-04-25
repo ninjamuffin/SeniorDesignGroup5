@@ -1,6 +1,7 @@
 var exprTable;
 var rowIndex;
 var rowID;
+var numExpressions;
 var correctedArray = [];
 var expressionID;
 var exprIDs = []; // On page load: fill with values
@@ -9,10 +10,21 @@ var enrollmentID;
 
 
 $(function(){
-    // Find a <table> element with id="myTable":
-    exprTable = document.getElementById('myTable');
     enrollmentID = document.getElementById('EnrollmentID').innerHTML;
+    numExpressions = parseInt(document.getElementById('NumExpressions').innerHTML);
+    //exprIDs = document.getElementByID('ExpressionIDs');
+    alert(numExpressions);
+    var $tb = $(this).find(".table");
     
+    for(i = 0; i < numExpressions; i++) {
+        correctedArray[i] = 'n/a';
+    }
+    
+    $('.table tr').each(function (i, row) {
+        exprIDs[i - 1] = $(row).find(".expr").attr('id');
+        //started counting at index 1.
+    });
+    alert(exprIDs[9]);
     $("button[name='Edit']").on('click',function(e) {
         e.preventDefault();
         
@@ -42,7 +54,7 @@ $(function(){
     
     $('#Update').on('click',function(e){
         e.preventDefault();
-        
+         
         alert(correctedArray.join('\n'));
         alert(exprIDs.join('\n'));
         
@@ -77,7 +89,7 @@ $(function(){
         });
     });
     
-/*    $(document).on('click', "button[name='SelectExpression']", function(e){
+    $(document).on('click', "button[name='SelectExpression']", function(e){
         var expressionid = $(this).closest("form").find("input[name=expressionID]").val();
         var worksheetid = $(this).closest("form").find("input[name=worksheetID]").val();
         var courseid = $(this).closest("form").find("input[name=courseID]").val();
@@ -96,7 +108,7 @@ $(function(){
                 $("div[name='ExpressionEditor']").html(data);
             }
         });
-    });*/
+    });
     
     $(document).ready(function() {
         $("#myTable tr").each(function() {
