@@ -158,7 +158,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-5">
-                                <div class="panel panel-default" style="min-height:600px;">
+                                <div class="panel panel-default" style="min-height:600px; max-height:600px;overflow-y:auto">
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-10">
@@ -180,10 +180,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 
                                             <tbody>
                                                 <?php
-                                                $mystudentsSQL = "SELECT ER.EnrollmentID, S.LastName, S.FirstName, I.InstitutionName, CT.CourseName, C.CourseID
+                                                $mystudentsSQL = "SELECT DISTINCT ER.EnrollmentID, S.LastName, S.FirstName, I.InstitutionName, CT.CourseName, C.CourseID
                                                 FROM Courses as C, TeachingInstance as TI, Students as S, Institutions as I, Enrollment as ER, CourseTypes as CT
                                                 WHERE TI.SiteUsername = ?
                                                 AND C.TeachingInstanceID = TI.TeachingInstanceID
+                                                AND C.Status = 'Active'
                                                 AND ER.CourseID = C.CourseID
                                                 AND S.StudentID = ER.StudentID
                                                 AND I.InstitutionID = S.InstitutionID

@@ -94,7 +94,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         WHERE W.CourseID = ? AND
                                               W.IsDeleted = 0 AND
                                               T.TopicID = W.TopicID
-                                              ORDER BY W.WorksheetNumber";
+                                              ORDER BY W.WorksheetNumber DESC";
                                         $params = array($courseID);
                                         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
                                         $worksheets = sqlsrv_query($con, $WorksheetsSQL, $params, $options);
@@ -170,7 +170,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="panel panel-primary" style="min-height:578px;">
+                            <div class="panel panel-primary" style="min-height:578px;max-height:578px;">
                                 <div class="panel-heading">
                                     <h4>Students</h4>
                                 </div>

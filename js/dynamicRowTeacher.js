@@ -87,7 +87,14 @@ $(function(){
         var Expression = $(parentForm).find("input[name=Expression]").val();
         var ContextVocab = $(parentForm).find("input[name=ContextVocab]").val();
         var Pronunciation = $(parentForm).find("input[name=Pronunciation]").val();
-        var studentID = $(parentForm).find("select[name=selectstudent]").prop("selected", true).val();        
+        var studentID = $(parentForm).find("select[name=selectstudent]").prop("selected", true).val();         if (studentID == 0) {
+            alert("Pick a student!");
+            return false;
+        }
+        if ( (Expression.length == 0) && (ContextVocab == 0) && (Pronunciation == 0)) {
+            alert("Enter some data");
+            return false;
+        }
         var AllDo = 0;;
         if ($(parentForm).find("input[name=alldo][value=all]").is(":checked"))
             AllDo = 1;

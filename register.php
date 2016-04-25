@@ -27,6 +27,8 @@
                 {
                     $username = $_POST['username'];
                     $password = md5($_POST['password'] . $salt);
+                    $firstname = $_POST['firstname'];
+                    $lastname = $_POST['lastname'];
                     
                     
                     $login_sql = "SELECT * FROM SiteUsers WHERE username = ?";
@@ -43,8 +45,8 @@
                     }
                     else
                     {
-                        $params = array($username, $password);
-                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, date_added) VALUES(?,?, GETDATE())", $params, $options);
+                        $params = array($username, $password, $firstname, $lastname);
+                        $registerquery = sqlsrv_query($con, "INSERT INTO SiteUsers (username, password, firstname, lastname, date_added) VALUES(?,?,?,?, GETDATE())", $params, $options);
                         
                         if($registerquery === false)
                         {
@@ -67,6 +69,8 @@
                     <p>Please enter your details below to register.</p>
                     <form method="post" action="register.php" name="registerform" id="registerform">
                     <fieldset>
+                        <label for="firstname">First Name:</label><input type="text" name="firstname" id="firstname" /><br />
+                        <label for="lastname">Last Name:</label><input type="text" name="lastname" id="lastname" /><br />
                         <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
                         
                         <label for="password">Password:</label><input type="password" name="password" id="password" /><br />

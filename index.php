@@ -131,7 +131,7 @@ WHERE SU.username = ? AND
                     $email = sqlsrv_get_field( $stmt, 2);
                 }
                 else
-                    echo "Teacher...shit";
+                    echo "Teacher.";
             }
             elseif ($role == 'Student')
             {

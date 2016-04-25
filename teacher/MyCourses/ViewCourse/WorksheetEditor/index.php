@@ -118,6 +118,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <!-- BEGIN PAGE CONTENT -->
                     <div class="col-xs-12">
                         <div class="row">
+                            
+                            <h1 class="pull-right"><button type="button" class="btn btn-lg btn-primary pull-right" id="SaveWorksheet">Save Worksheet</button></h1>
+                        </div>
+                        <hr>
+                        <div class="row">
                             <div class="col-xs-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
@@ -125,14 +130,12 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         <div class="col-xs-8">
                                             <?php
                                             echo "
-                                            <h2>Course: $className</h2>
+                                            <h3>Course: $className</h3>
                                             <h5>Worksheet Number: $worksheetNumber</h5>
                                             <h5>Date: $worksheetDate</h5>
                                             <h5>Topic: $worksheetTopic</h5>";?>
                                         </div>
-                                        <div class="col-xs-4">
-                                                <h1><button type="button" class="btn btn-lg btn-primary pull-right" id="SaveWorksheet">Save Worksheet</button></h1>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
