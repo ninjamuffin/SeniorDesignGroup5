@@ -5,6 +5,7 @@ var numExpressions;
 var correctedArray = [];
 var expressionID;
 var exprIDs = []; // On page load: fill with values
+var is_altered = [];
 var worksheetID;
 var enrollmentID;
 
@@ -18,6 +19,7 @@ $(function(){
     
     for(i = 0; i < numExpressions; i++) {
         correctedArray[i] = 'n/a';
+        is_altered[i] = false;
     }
     
     $('.table tr').each(function (i, row) {
@@ -49,12 +51,13 @@ $(function(){
         //Dont know why the index of the correction td is 9, there must be more children than //there are tds, there are actually a total of 15 children
         document.getElementById(rowID).childNodes[9].innerHTML = corrExpr;
         correctedArray[rowID] = corrExpr;
+        is_altered[rowID] = true;
         $("input[name='CorrectedExpr']").val("");
     });
     
     $('#Update').on('click',function(e){
         e.preventDefault();
-         
+
         alert(correctedArray.join('\n'));
         alert(exprIDs.join('\n'));
         
@@ -68,6 +71,7 @@ $(function(){
                 "worksheetID"   : worksheetID,
                 "expressionIDs" : exprIDs,
                 "correctedText" : correctedArray,
+                "isAltered"     : is_altered,
                 "enrollmentID"  : enrollmentID
             },
             success: function(data) {

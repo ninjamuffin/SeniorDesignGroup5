@@ -1,16 +1,29 @@
 <?php
 include '../../../../base.php';
 
-if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_POST['correctedText']) && isset($_POST['enrollmentID']) )
+if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_POST['correctedText']) && isset($_POST['enrollmentID']) && isset($_POST['isAltered']))
 {
     $worksheetID = $_POST['worksheetID'];
     $expressionIDs = $_POST['expressionIDs'];
     $correctedText = $_POST['correctedText'];
     $enrollmentID = $_POST['enrollmentID'];
+    $isAltered = $_POST['isAltered'];
+    
     $params = array($enrollmentID, $worksheetID);
     $options = array("Scrollable" => 'static');
+    $getattemptnumberSQL = "SELECT count(AttemptNumber) 
+                         FROM StudentSubmissions 
+                         WHERE WorksheetID = ? AND EnrollmentID = ?";
+    $getattemptnumber = sqlsrv_query($con, $getattemptnumberSQL, $params, $options);
+    if ($getattemptnumber === false)
+        die(print_r(sqlsrv_errors(), true));
+    if (sqlsrv_fetch($getattemptnumber) === true)
+        $attemptNumber = sqlsrv_get_field($getattemptnumber, 0);
+    $attemptNumber = $attemptNumber + 1;
 
-    $studentsubmissionsSQL = "INSERT INTO StudentSubmissions VALUES (?, ?, 1, 0, GETDATE())";
+    /* Write to student submissions */
+    $params = array($enrollmentID, $worksheetID, $attemptNumber);
+    $studentsubmissionsSQL = "INSERT INTO StudentSubmissions VALUES (?, ?, ?, 0, GETDATE())";
     $studentsubmissions = sqlsrv_query($con, $studentsubmissionsSQL, $params, $options);
     if ($studentsubmissions === false)
         die(print_r(sqlsrv_errors(), true));
@@ -18,7 +31,7 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
     $getstudentsubmissionidSQL = "SELECT DISTINCT StudentSubmissionID FROM StudentSubmissions
                             WHERE EnrollmentID = ? AND
                                   WorksheetID = ? AND
-                                  AttemptNumber = 1";
+                                  AttemptNumber = ?";
     $getstudentsubmissionid = sqlsrv_query($con, $getstudentsubmissionidSQL, $params, $options);
     if ($getstudentsubmissionid === false)
         die(print_r(sqlsrv_errors(), true));
@@ -33,10 +46,12 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
     {
         if ($i == $numExpressions - 1)
         {
+            if ($isAltered[$i])
                 $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]')";
         }
         else
         {
+            if ($isAltered[$i])
                 $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]'), ";
         }
          //echo "$i"; 

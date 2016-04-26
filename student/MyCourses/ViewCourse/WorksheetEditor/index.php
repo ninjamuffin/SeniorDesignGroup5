@@ -100,13 +100,19 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         
         $params = array($worksheetID, $myEnrollmentID, $worksheetID, $myEnrollmentID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName,             E.Expression, E.ExpressionID, E.AllDo
-                                    FROM Expressions E, Students S, Enrollment ER
-                                    WHERE E.WorksheetID = ? AND
-                                          (E.AllDo = 1 OR E.EnrollmentID = ?) AND
-                                          ER.StudentID = E.StudentID AND
-                                          S.StudentID = ER.StudentID 
-                                    ORDER BY E.SentenceNumber";
+        $worksheetexpressionsSQL = "
+SELECT DISTINCT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo, SA.ReformulationText
+FROM Expressions E, Students S, Enrollment ER, StudentSubmissions SS, StudentAttempts SA
+WHERE E.WorksheetID = ? AND
+      (E.AllDo = 1 OR E.EnrollmentID = ?) AND
+      ER.StudentID = E.StudentID AND
+      S.StudentID = ER.StudentID AND
+	  SS.WorksheetID = ? AND
+	  SS.EnrollmentID = ? AND
+	  SS.AttemptNumber = (SELECT max(SS_ALT.AttemptNumber) FROM StudentSubmissions SS_ALT) AND
+	  SA.StudentSubmissionID = SS.StudentSubmissionID AND
+      SA.ExpressionID = E.ExpressionID
+ORDER BY E.SentenceNumber";
         $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
         if ($worksheetexpressions === false)
             die(print_r(sqlsrv_errors(), true));
@@ -131,7 +137,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
             $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
             $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
-            
+            $correctedExpr[] = sqlsrv_get_field($worksheetexpressions, 7);
         }
         $coursestudentsSQL = "SELECT ER.StudentID 
                               FROM Enrollment as ER, Worksheets as W, Courses C 
@@ -164,6 +170,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <!-- BEGIN PAGE CONTENT -->
                     <div class="col-xs-12">
                         <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary btn-lg pull-right" type="button" id="Update">Update Worksheet</button>
+                            </div>
+                            
+                        </div>
+                        <hr>
+                        <div class="row">
                             <div class="col-xs-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">Worksheet Info</div>
@@ -172,9 +185,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <h5>Worksheet Number: <?=$worksheet_number?></h5>
                                             <h5>Date: <?=$date?></h5>
                                             <h5>Topic: <?=$topic?></h5>
-                                        </div>
-                                        <div class="col-xs-5">
-                                            <button class="btn btn-primary btn-lg pull-right" type="button" id="Update">Update Worksheet</button>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +218,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                       <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
                       <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
                       <td id=\"$ids[$i]\" name=\"expression\" class=\"expr\">$expressions[$i]</td>
-                      <td name=\"corrected\" class=\"corr\">placeholder</td>
+                      <td name=\"corrected\" class=\"corr\">$correctedExpr[$i]</td>
                       <td>";
             if ($alldos[$i] == 1)
                 echo "All-Do";
@@ -230,6 +240,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="panel panel-default" style="top-margin:40px;">
                             <div class="panel-heading" id="ExprHeading">Expression Edit Window
                                 <span id="ExprID" class=""></span>
