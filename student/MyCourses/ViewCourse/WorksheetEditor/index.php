@@ -100,7 +100,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         
         $params = array($worksheetID, $myEnrollmentID, $worksheetID, $myEnrollmentID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
+        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName,             E.Expression, E.ExpressionID, E.AllDo
                                     FROM Expressions E, Students S, Enrollment ER
                                     WHERE E.WorksheetID = ? AND
                                           (E.AllDo = 1 OR E.EnrollmentID = ?) AND
@@ -208,7 +208,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                       <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
                       <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
                       <td id=\"$ids[$i]\" name=\"expression\" class=\"expr\">$expressions[$i]</td>
-                      <td name=\"corrected\" class=\"corr\">$correctedExpr[$i]</td>
+                      <td name=\"corrected\" class=\"corr\">placeholder</td>
                       <td>";
             if ($alldos[$i] == 1)
                 echo "All-Do";

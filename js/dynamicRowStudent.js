@@ -13,7 +13,7 @@ $(function(){
     enrollmentID = document.getElementById('EnrollmentID').innerHTML;
     numExpressions = parseInt(document.getElementById('NumExpressions').innerHTML);
     //exprIDs = document.getElementByID('ExpressionIDs');
-    alert(numExpressions);
+    //alert(numExpressions);
     var $tb = $(this).find(".table");
     
     for(i = 0; i < numExpressions; i++) {
@@ -24,7 +24,7 @@ $(function(){
         exprIDs[i - 1] = $(row).find(".expr").attr('id');
         //started counting at index 1.
     });
-    alert(exprIDs[9]);
+    //alert(exprIDs[9]);
     $("button[name='Edit']").on('click',function(e) {
         e.preventDefault();
         

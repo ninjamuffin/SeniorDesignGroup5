@@ -28,7 +28,7 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
     $studentattemptsSQL = "INSERT INTO StudentAttempts (ExpressionID, StudentSubmissionID, ReformulationText) VALUES ";
     $numExpressions = count($expressionIDs);
     //echo "$numExpressions";
-    echo "($expressionIDs[0], $studentsubmissionid, $correctedText[0])";
+    //echo "($expressionIDs[0], $studentsubmissionid, $correctedText[0])";
     for($i = 0; $i < $numExpressions; $i++)
     {
         if ($i == $numExpressions - 1)
@@ -39,7 +39,7 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
         {
                 $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]'), ";
         }
-         echo "$i";
+         //echo "$i"; 
     }
 /*
     echo "$studentattemptsSQL";
