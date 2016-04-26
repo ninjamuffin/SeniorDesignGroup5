@@ -162,7 +162,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                 }
                 for ($i = 0; $i < $resultlength; $i++)
                 {
-                    echo "<tr><td>$coursenames[$i]</td><td>$worksheetnumbers[$i]</td><td>TBD</td><td><form method =\"post\" action=\"/Teacher/MyCourses/ViewCourse/ViewWorksheet/ViewSubmission/\" name=\"viewsubmissionlink{$i}\" id=\"viewsubmissionlink{$i}\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetids[$i]\"><input hidden type=\"text\" name=\"studentsubmissionID\" value=\"$studentsubmissionids[$i]\"><button class=\"btn btn-primary\">View Submission</button></form></td></tr>";
+                    echo "<tr><td>$coursenames[$i]</td><td>$worksheetnumbers[$i]</td><td>TBD</td><td><form method =\"post\" action=\"/Teacher/MyCourses/ViewCourse/ViewWorksheet/ViewSubmission/\" name=\"viewsubmissionlink{$i}\" id=\"viewsubmissionlink{$i}\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetids[$i]\"><input hidden type=\"text\" name=\"submissionID\" value=\"$studentsubmissionids[$i]\"><button class=\"btn btn-primary\">View Submission</button></form></td></tr>";
                 }
             }
         ?>
