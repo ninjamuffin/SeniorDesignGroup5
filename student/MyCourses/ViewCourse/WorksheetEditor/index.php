@@ -215,7 +215,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             else
                 echo "Mine";
             echo "
-                </td>
+                      </td>
                       <td>
                         <button value=\"$i\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
                       </td>

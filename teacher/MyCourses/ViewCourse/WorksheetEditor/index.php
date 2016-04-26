@@ -24,6 +24,7 @@
     
     <script>
         $(function(){
+            alert("HELLO WORLD");
             $("#sidebar").load("/sidebar.php");
         });
     </script>
@@ -60,7 +61,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $className = isset($_POST['className']) ? $_POST['className'] : 0;
         $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
+        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo, E.Pronunciation, E.[Context/Vocabulary]
                                     FROM Expressions E, Students S, Enrollment ER
                                     WHERE E.WorksheetID = ? AND
                                           ER.StudentID = E.StudentID AND
@@ -78,6 +79,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $expressions = [];
         $ids = [];
         $alldos = [];
+        $pronunciation = [];
+        $contextVocab = [];
         while(sqlsrv_fetch($worksheetexpressions) === true)
         {
             $sent_numbers[] = sqlsrv_get_field($worksheetexpressions, 0);
@@ -87,6 +90,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
             $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
             $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
+            $pronunciation[] = sqlsrv_get_field($worksheetexpressions, 7);
+            $contextVocab[] = sqlsrv_get_field($worksheetexpressions, 8);
         }
         
         $coursestudentsSQL = "SELECT ER.StudentID 
@@ -118,7 +123,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     <!-- BEGIN PAGE CONTENT -->
                     <div class="col-xs-12">
                         <div class="row">
-                            
                             <h1 class="pull-right"><button type="button" class="btn btn-lg btn-primary pull-right" id="SaveWorksheet">Save Worksheet</button></h1>
                         </div>
                         <hr>
@@ -171,18 +175,21 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         for($i = 0; $i < $num_expressions; $i++)
         {
             $pass_array = array($ids[$i], $student_expression_ids[$i], $first_names[$i], $last_names[$i]);
-            echo "<tr>
+            echo "<tr id=\"$i\">
                       <td>$sent_numbers[$i]</td>
                       <td>$first_names[$i] $last_names[$i]</td>
-                      <td>$expressions[$i]</td>
+                      <td name=\"expr\">$expressions[$i]</td>
+                      <td style=\"display: none\" id=\"context\">$contextVocab[$i]</td>
+                      <td style=\"display: none\" id=\"pronunciation\">$pronunciation[$i]</td>
                       <td>";
             if ($alldos[$i] == 1)
                 echo "<span class=\"glyphicon glyphicon-ok\"></span>";
             else
                 echo "<span class=\"glyphicon glyphicon-remove\"></span>";
             echo "
-                </td>
-                      <td><form method=\"POST\" name=\"expressions{$i}\">
+                      </td>
+                      <td style=\"display: none\">
+                          <form method=\"POST\" name=\"expressions{$i}\">
                               <input hidden type=\"text\" name=\"expressionID\" value=\"$ids[$i]\">
                               <input hidden type=\"text\" name=\"studentID\" value=\"$student_expression_ids[$i]\">
                               <input hidden type=\"text\" name=\"firstname\" value=\"$first_names[$i]\">
@@ -190,8 +197,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                               <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
                               <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
                               <input hidden type=\"text\" name=\"newexpressionnumber\" value=\"$new_expression_number\">
-                              <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
                           </form>
+                      </td>
+                      <td>
+                        <button value=\"$i\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
                       </td>
                    </tr>";
         }
@@ -206,7 +215,64 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <div class="panel panel-primary" style="min-height:450px;">
                             <div class="panel-heading"><h4>Expression Editor</h4></div>
                             <div name="ExpressionEditor">
-                                
+                                <div class="panel-body">
+                                    <div class="control-group controls" id="fields">
+                                        <form>
+                                            <input hidden type="text" name="newexpressionnumber" value="$sentence_number">
+                                            <input hidden type="text" name="worksheetID" value="$worksheetID">
+                                            <input hidden type="text" name="courseID" value="$courseID">
+                                            <div class="form-group row">
+                                                <div class="col-xs-4 col-md-6">
+                                                    <h4 style="text-decoration:underline" id="SentenceNum">Sentence #</h4>
+                                                    <label>Student:
+                                                    <select class="form-control" name="selectstudent">
+                                                        <option  selected="selected" value="0">--Select Student--</option>";
+<?php
+                                                    for($i = 0; $i < $num_students; $i++)
+                                                        echo "<option value=\"$studentids[$i]\">$first_names[$i] $last_names[$i]</option>";
+?>                      
+                                                    </select></label>
+                                                </div>
+                                                
+                                                <div class="col-xs-2">
+                                                    <div class="radio">
+                                                        <label><input type="radio" value="all" name="alldo">All-Do</label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label><input type="radio" value="individual" name="individual" checked="checked">Individual</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-8 col-xs-12 form-group">
+                                                    <label for="ContextVocab">Expression:</label>
+                                                    <input name="ContextVocab"  type="text" class="form-control" placeholder="Write a new expression or select one to edit from above">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-5 col-xs-7 form-group">
+                                                    <label for="ContextVocab">Context/Vocab: </label>
+                                                    <input name="ContextVocab"  type="text" class="form-control" id="context">
+                                                </div>
+                                                <div class="col-md-3 col-xs-5 form-group">
+                                                    <label for="PronCorr">Pronunciation:</label>
+                                                    <input type="text"  class="form-control" name="Pronunciation" id="pronunciation">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-xs-12">
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" name="SaveExpression"  class="btn btn-primary">Save</button>
+                                                    </div>
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" id="SaveAndCreateNewExpression"  class="btn btn-primary">Save and Create a New Expression</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

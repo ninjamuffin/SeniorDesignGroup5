@@ -1,11 +1,16 @@
+var rowID;
+
 $(function(){
+    e.preventDefault();
     // Find a <table> element with id="myTable":
     var exprTable = document.getElementById("myTable");
     var corrExpr;
     var exprHead;
+    alert("exppTable");
+    alert("rowID");
     
-    var sentence_numbers = new Array();
-    var student_first_name
+//    var sentence_numbers = new Array();
+//    var student_first_name;
     
     $("#WorksheetOverview tbody").append("<tr><td>...</td></tr>");
     /*$(document).onload...*/
@@ -14,17 +19,26 @@ $(function(){
         alert("Worksheet saved!"); 
     });
     
-    $('#EditExpression').on('click',function(e) {
-        var exprRow = exprTable.getElementsByTagName("tr");
-        var expr = exprTable.getElementsByTagName("td");
-        /*var std = expr.getElementsByTagName("option");*/
-        /*document.getElementById("ExprToEdit").innerHTML = expr[1].innerHTML;*/
-        /*document.getElementById("ExprID").innerHTML = expr[0].innerHTML;*/
-        /*$(std[0]).val(expr[0].innerHTML);*/
-        $("#CorrectedExpr").val(expr[2].innerHTML);
-        $("#VocabCorr").val(expr[3].innerHTML);
-        $("#PronCorr").val(expr[3].innerHTML);
-    });
+     $('#Edit').on('click',function(e)) {
+        e.preventDefault();
+        alert("Hello?");
+     };
+/*        var $row = $(this).closest("tr");
+        rowID = $row.attr('id');
+        var expr = $row.find(".expr").text();
+        
+        document.getElementById("exprToEdit").innerHTML = expr;*/
+        
+//        var exprRow = exprTable.getElementsByTagName("tr");
+//        var expr = exprTable.getElementsByTagName("td");
+//        /*var std = expr.getElementsByTagName("option");*/
+//        /*document.getElementById("ExprToEdit").innerHTML = expr[1].innerHTML;*/
+//        /*document.getElementById("ExprID").innerHTML = expr[0].innerHTML;*/
+//        /*$(std[0]).val(expr[0].innerHTML);*/
+//        $("#CorrectedExpr").val(expr[2].innerHTML);
+//        $("#VocabCorr").val(expr[3].innerHTML);
+//        $("#PronCorr").val(expr[3].innerHTML);
+   
     
     $('#SubmitExpr').on('click',function(e){
         corrExpr = document.getElementById("CorrectedExpr").value;

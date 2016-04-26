@@ -45,8 +45,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if ($courseID == 0)
             echo "<meta http-equiv='refresh' content='0;../' />";
     
-    ?>        
-
+    ?>
+    
     <body>
         <div id="wrapper">
             <div id = "sidebar"></div>
