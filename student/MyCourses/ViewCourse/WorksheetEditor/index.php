@@ -98,20 +98,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         if(sqlsrv_fetch($getenrollmentid) === true)
             $myEnrollmentID = sqlsrv_get_field($getenrollmentid, 0);
         
-        $params = array($worksheetID, $myEnrollmentID, $worksheetID, $myEnrollmentID);
+        $params = array($worksheetID, $myEnrollmentID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $worksheetexpressionsSQL = "
-SELECT DISTINCT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo, SA.ReformulationText
+SELECT DISTINCT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
 FROM Expressions E, Students S, Enrollment ER, StudentSubmissions SS, StudentAttempts SA
 WHERE E.WorksheetID = ? AND
       (E.AllDo = 1 OR E.EnrollmentID = ?) AND
       ER.StudentID = E.StudentID AND
-      S.StudentID = ER.StudentID AND
-	  SS.WorksheetID = ? AND
-	  SS.EnrollmentID = ? AND
-	  SS.AttemptNumber = (SELECT max(SS_ALT.AttemptNumber) FROM StudentSubmissions SS_ALT) AND
-	  SA.StudentSubmissionID = SS.StudentSubmissionID AND
-      SA.ExpressionID = E.ExpressionID
+      S.StudentID = ER.StudentID
 ORDER BY E.SentenceNumber";
         $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
         if ($worksheetexpressions === false)
@@ -137,7 +132,7 @@ ORDER BY E.SentenceNumber";
             $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
             $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
             $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
-            $correctedExpr[] = sqlsrv_get_field($worksheetexpressions, 7);
+            $correctedExpr[] = "";//sqlsrv_get_field($worksheetexpressions, 7);
         }
         $coursestudentsSQL = "SELECT ER.StudentID 
                               FROM Enrollment as ER, Worksheets as W, Courses C 
