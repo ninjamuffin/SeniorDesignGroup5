@@ -86,6 +86,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel-heading">Submission Details and Statistics</div>
                                 <div class="panel-body">
     <?php
+        echo "$worksheetID $studentsubmissionID";
         $params = array($worksheetID, $studentsubmissionID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
         $submissioninfoSQL = "SELECT S.FirstName, S.LastName, CONVERT(VARCHAR(11), SS.Date,106), CT.CourseName, WS.WorksheetNumber, SS. AttemptNumber, TP.Topic
