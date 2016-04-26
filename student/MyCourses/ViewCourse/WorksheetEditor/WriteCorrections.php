@@ -9,7 +9,8 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
     $enrollmentID = $_POST['enrollmentID'];
     $isAltered = $_POST['isAltered'];
     
-    $params = array($enrollmentID, $worksheetID);
+    
+    $params = array($worksheetID, $enrollmentID);
     $options = array("Scrollable" => 'static');
     $getattemptnumberSQL = "SELECT count(AttemptNumber) 
                          FROM StudentSubmissions 
@@ -19,9 +20,10 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
         die(print_r(sqlsrv_errors(), true));
     if (sqlsrv_fetch($getattemptnumber) === true)
         $attemptNumber = sqlsrv_get_field($getattemptnumber, 0);
-    $attemptNumber = $attemptNumber + 1;
 
-    /* Write to student submissions */
+/*
+     Write to student submissions 
+*/
     $params = array($enrollmentID, $worksheetID, $attemptNumber);
     $studentsubmissionsSQL = "INSERT INTO StudentSubmissions VALUES (?, ?, ?, 0, GETDATE())";
     $studentsubmissions = sqlsrv_query($con, $studentsubmissionsSQL, $params, $options);
@@ -38,7 +40,10 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
     while(sqlsrv_fetch($getstudentsubmissionid) === true)
         $studentsubmissionid = sqlsrv_get_field($getstudentsubmissionid, 0);
 
-    $studentattemptsSQL = "INSERT INTO StudentAttempts (ExpressionID, StudentSubmissionID, ReformulationText) VALUES ";
+    
+    
+    
+    $studentattemptsSQL = "INSERT INTO StudentAttempts (ExpressionID, StudentSubmissionID, ReformulationText, AttemptNumber, completed) VALUES ";
     $numExpressions = count($expressionIDs);
     //echo "$numExpressions";
     //echo "($expressionIDs[0], $studentsubmissionid, $correctedText[0])";
@@ -46,13 +51,15 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
     {
         if ($i == $numExpressions - 1)
         {
-            if ($isAltered[$i])
-                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]')";
+            if ($isAltered[$i] == 1)
+                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]', $attemptNumber, 1)";
+            else
+                $studentattemptsSQL = substr($studentattemptsSQL, 0, strlen($studentattemptsSQL) - 2);
         }
         else
         {
-            if ($isAltered[$i])
-                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]'), ";
+            if ($isAltered[$i] == 1)
+                $studentattemptsSQL = $studentattemptsSQL . "($expressionIDs[$i], $studentsubmissionid, '$correctedText[$i]', $attemptNumber, 1), ";
         }
          //echo "$i"; 
     }
