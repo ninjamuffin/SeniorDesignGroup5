@@ -19,7 +19,7 @@ $(function(){
     
     for(i = 0; i < numExpressions; i++) {
         correctedArray[i] = 'n/a';
-        is_altered[i] = false;
+        is_altered[i] = 0;
     }
     
     $('.table tr').each(function (i, row) {
@@ -51,7 +51,7 @@ $(function(){
         //Dont know why the index of the correction td is 9, there must be more children than //there are tds, there are actually a total of 15 children
         document.getElementById(rowID).childNodes[9].innerHTML = corrExpr;
         correctedArray[rowID] = corrExpr;
-        is_altered[rowID] = true;
+        is_altered[rowID] = 1;
         $("input[name='CorrectedExpr']").val("");
     });
     
