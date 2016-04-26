@@ -200,7 +200,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         <td>$sub_first_names[$i] $sub_last_names[$i] </td>
                         <td>$sub_attempts[$i] </td>
                         <td>$sub_dates[$i] </td>
-                        <td><form method=\"POST\" action=\"ViewSubmission/\" name=\"ViewSubmission\"><input hidden type=\"text\" name=\"submissionID\" value=\"$sub_ids[$i]\"><button class=\"btn btn-primary\">View Submission</button></form></td>";
+                        <td><form method=\"POST\" action=\"ViewSubmission/\" name=\"ViewSubmission\"><input hidden type=\"text\" name=\"submissionID\" value=\"$sub_ids[$i]\"><input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\"><button class=\"btn btn-primary\">View Submission</button></form></td>";
         }
 ?>
                                         </tbody>
