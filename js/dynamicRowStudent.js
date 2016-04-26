@@ -11,6 +11,9 @@ var enrollmentID;
 
 
 $(function(){
+    $.getScript('/js/spin.js', function() {
+         
+    });
     enrollmentID = document.getElementById('EnrollmentID').innerHTML;
     numExpressions = parseInt(document.getElementById('NumExpressions').innerHTML);
     //exprIDs = document.getElementByID('ExpressionIDs');
@@ -27,6 +30,15 @@ $(function(){
         //started counting at index 1.
     });
     //alert(exprIDs[9]);
+    $("button[name='Clear']").on('click',function(e) {
+        e.preventDefault();
+        
+        var $row = $(this).closest("tr");
+        rowID = $row.attr('id');
+        correctedArray[rowID] = 'n/a';
+        is_altered[rowID] = 1;
+        $row.find("td[name=corrected]").empty();
+    });
     $("button[name='Edit']").on('click',function(e) {
         e.preventDefault();
         
@@ -55,12 +67,45 @@ $(function(){
         $("input[name='CorrectedExpr']").val("");
     });
     
+    
     $('#Update').on('click',function(e){
         e.preventDefault();
+        var is_changed = false;
+        for(i = 0; i < numExpressions; i++) {
+            if (is_altered[i])
+                is_changed = true;
+        }
+        if (!is_changed) {
+            alert("Make a correction before updating!");
+            return false;
+        }
+        var opts = {
+                  lines: 13 // The number of lines to draw
+                , length: 36 // The length of each line
+                , width: 12 // The line thickness
+                , radius: 36 // The radius of the inner circle
+                , scale: 0.15 // Scales overall size of the spinner
+                , corners: 1 // Corner roundness (0..1)
+                , color: '#000' // #rgb or #rrggbb or array of colors
+                , opacity: 0.45 // Opacity of the lines
+                , rotate: 0 // The rotation offset
+                , direction: 1 // 1: clockwise, -1: counterclockwise
+                , speed: 1.2 // Rounds per second
+                , trail: 59 // Afterglow percentage
+                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                , className: 'spinner' // The CSS class to assign to the spinner
+                , top: '75%' // Top position relative to parent
+                , left: '50%' // Left position relative to parent
+                , shadow: false // Whether to render a shadow
+                , hwaccel: false // Whether to use hardware acceleration
+                , position: 'absolute' // Element positioning
+            }
+        var target = $(this).closest("td").find("div[name='updatespinner']");
+        var spinner = new Spinner(opts).spin();
+        target.append(spinner.el);
+        $(":button").prop("disabled", true);
 
-        alert(correctedArray.join('\n'));
-        alert(exprIDs.join('\n'));
-        
         
         worksheetID = document.getElementById('WorksheetID').innerHTML;
         
@@ -75,10 +120,7 @@ $(function(){
                 "enrollmentID"  : enrollmentID
             },
             success: function(data) {
-                
-                        alert(data);
-                // From document retrieve worksheet ID as 'worksheetID'
-            
+                            
                 $.ajax({
                     type : "POST",
                     url: "index.php",

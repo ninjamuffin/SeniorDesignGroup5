@@ -20,6 +20,7 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script type="text/javascript" src="/js/dynamicRowStudent.js"></script>
+    <script type="text/javascript" src="/js/spin.js"></script>
 
     <style>
         .glyphicon:before {
@@ -121,7 +122,7 @@ ORDER BY E.SentenceNumber";
         $expressions = [];
         $ids = [];
         $alldos = [];
-        $correctedExpr = [];
+        $attempt_numbers = [];
         
         while(sqlsrv_fetch($worksheetexpressions) === true)
         {
@@ -132,8 +133,47 @@ ORDER BY E.SentenceNumber";
             $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
             $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
             $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
-            $correctedExpr[] = "";//sqlsrv_get_field($worksheetexpressions, 7);
+            $attempt_numbers[] = sqlsrv_get_field($worksheetexpressions, 7);
+            $correctedExpr[] = "";
         }
+        
+        $params = array($worksheetID, $myEnrollmentID);
+        $allcorrectionsSQL = "
+SELECT SA.ReformulationText, SA.AttemptNumber, SA.ExpressionID
+FROM StudentAttempts SA, StudentSubmissions SS
+WHERE SS.WorksheetID = ? AND
+	  SS.EnrollmentID = ? AND
+	  SA.StudentSubmissionID = SS.StudentSubmissionID";
+        $allcorrections = sqlsrv_query($con, $allcorrectionsSQL, $params, $options);
+        if ($allcorrections === false)
+            die(print_r(sqlsrv_errors(), true));
+        $all_reformulation_texts = [];
+        $all_reformulation_attempts = [];
+        $all_reformulation_exprIDs = [];
+        $num_all_reformulations = sqlsrv_num_rows($allcorrections);
+        while(sqlsrv_fetch($allcorrections) === true)
+        {
+            $all_reformulation_texts[] = sqlsrv_get_field($allcorrections, 0);
+            $all_reformulation_attempts[] = sqlsrv_get_field($allcorrections, 1);
+            $all_reformulation_exprIDs[] = sqlsrv_get_field($allcorrections, 2);
+        }
+        
+        /* Select among corrections for most recent */
+        
+        
+        for ($j = 0; $j < $num_expressions; $j++)
+        {
+            for ($i = 0; $i < $num_all_reformulations; $i++)
+            {
+                if (($ids[$j] == $all_reformulation_exprIDs[$i]))// && ($attempt_numbers[$j] == $all_reformulation_attempts[$i]))
+                {
+                    if ($all_reformulation_texts[$i] != 'n/a')
+                        $correctedExpr[$j] = $all_reformulation_texts[$i];
+                }
+                    
+            }
+        }
+                
         $coursestudentsSQL = "SELECT ER.StudentID 
                               FROM Enrollment as ER, Worksheets as W, Courses C 
                               WHERE W.WorksheetID = ? AND
@@ -165,8 +205,18 @@ ORDER BY E.SentenceNumber";
                     <!-- BEGIN PAGE CONTENT -->
                     <div class="col-xs-12">
                         <div class="row">
-                            <div class="col-md-12">
-                                <button class="btn btn-primary btn-lg pull-right" type="button" id="Update">Update Worksheet</button>
+                            
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-1" name="updatespinner">
+                                        
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-primary btn-lg pull-right" type="button" id="Update">Update Worksheet</button>
+                                    </div>
+                                    
+                                </div>
+                                
                             </div>
                             
                         </div>
@@ -223,6 +273,9 @@ ORDER BY E.SentenceNumber";
                 </td>
                       <td>
                         <button value=\"$i\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
+                      </td>
+                      <td>
+                        <button value=\"$i\" type=\"button\" name=\"Clear\" class=\"btn btn-danger\">Clear</button>
                       </td>
                 </tr>";
         }
