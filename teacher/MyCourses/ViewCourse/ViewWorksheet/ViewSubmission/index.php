@@ -65,7 +65,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
-        $studentsubmissionID = isset($_POST['studentsubmissionID']) ? $_POST['studentsubmissionID'] : 0;
+        $studentsubmissionID = isset($_POST['submissionID']) ? $_POST['submissionID'] : 0;
     ?>        
 
     <body>
@@ -126,97 +126,57 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <div class="panel-heading">Submitted Sentences</div>
                                 <div class="panel-body">
     <?php
-        $submissionreformulationsSQL = "SELECT EX.SentenceNumber, EX.Expression, ";
-            
+        $params = array[$worksheetID, $studentsubmissionID];
+        $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
+        $submissionreformulationsSQL = "SELECT EX.SentenceNumber, EX.Expression, EX.[Context/Vocabulary], RF.ReformulationText, SA.ReformulationText, EX.AllDo
+        FROM Expressions EX, Reformulations RF, StudentAttempts SA, StudentSubmissions SS
+        WHERE EX.WorksheetID = ? AND
+        SS.WorksheetID = EX.WorksheetID AND
+        RF.WorksheetID = EX.WorksheetID AND
+        SS.StudentSubmissionID = ? AND
+        SA.StudentSubmissionID = SS.StudentSubmissionID";
+        
+        $submissionreformulations = sqlsrv_query($con, $submissionreformulationsSQL, $params, $options);
+        if ($submissionreformulations === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_expressions = sqlsrv_num_rows($submissionreformulations);
+        
+        $sentencenumbers = [];
+        $expressions = [];
+        $contexts = [];
+        $answers = [];
+        $studentreformulations = [];
+        $alldos = [];
+        
+        while(sqlsrv_fetch($submissionreformulations) === true)
+        {
+            $sentencenumbers[] = sqlsrv_get_field($submissionreformulations, 0);
+            $expressions[] = sqlsrv_get_field($submissionreformulations, 1);
+            $contexts[] = sqlsrv_get_field($submissionreformulations, 2);
+            $answers[] = sqlsrv_get_field($submissionreformulations, 3);
+            $studentreformulations[] = sqlsrv_get_field($submissionreformulations, 4);
+            $alldos[] = sqlsrv_get_field($submissionreformulations, 5);
+        }
+        
         ?>
                                     <div class="panel-group" id="accordian">
+    <?php
+        for($i = 0 ; $i < num_expressions ; $i++)
+        {
+            
+    ?>
                                         <div class="panel">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">
-                                                   <a class="accordian-toggle" data-toggle="collapse" data-parent="#accordian" href="#collapseOne" style="width:60%">
-                                                        <span>Sentence #1</span>
-                                                    </a> 
-                                                    <span class="glyphicon glyphicon-star pull-right" style="font-size:20px; "></span>
-                                                   
-                                                </h3>
-                                            </div>
-                                            <div id="collapseOne" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Original</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-7" >
-                                                            <textarea class="form-control" disabled>Expression</textarea>
-                                                        </div>
-                                                        <div class="col-sm-4 col-xs-11">
-                                                            <textarea class="form-control" disabled>Context/Vocab</textarea>
-                                                        </div>
-                                                        
-                                                        
-                                                    </div>
-                                                    
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Corrected</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-6 col-md-8">
-                                                            <textarea class="form-control" disabled>Correct Expression</textarea>
-                                                        </div>
-                                                        <div class="col-sm-6 col-md-4">
-                                                            <audio controls title="Reformulation">
-                                                                <source src="/Media/Audio/sample.mp3" type="audio/mpeg">
-                                                                Your Browser does not support this audio element
-                                                            </audio>
-                                                        </div>
-                                                    </div>
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Submitted</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-6 col-md-8">
-                                                            <textarea class="form-control" disabled >Submitted Expression</textarea>
-                                                        </div>
-                                                        <div class="col-sm-6 col-md-4">
-                                                            <audio controls title="Reformulation">
-                                                                <source src="/Media/Audio/sample.mp3" type="audio/mpeg">
-                                                                Your Browser does not support this audio element
-                                                            </audio>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Assessment</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <textarea class="form-control">Stats</textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel">
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title">
-                                                    <a class="accordian-toggle" data-toggle="collapse" data-parent="#accordian" href="#collapseTwo" style="width:60%">
-                                                        <span>Sentence #2</span>
+                                                   <a class="accordian-toggle" data-toggle="collapse" data-parent="#accordian" href="#collapse<?php echo"$i";?>" style="width:60%">
+                                                        <span>Sentence #<?php echo "sentencenumbers[$i]";?></span>
                                                     </a>
-                                                    
-                                                    <span class="pull-right">Authored</span>
-                                                   
+                                                    <?php if ($alldos[$i])
+                                                        echo "<span class=\"glyphicon glyphicon-star pull-right\" style=\"font-size:20px; \"></span>";
+                                                        else echo "<span class=\"pull-right\">Authored</span>";?>
                                                 </h3>
                                             </div>
-                                            <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div id="collapse<?php echo"$i";?>" class="panel-collapse collapse">
                                                 <div class="panel-body">
                                                     
                                                     <table width="100%">
@@ -226,10 +186,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </table>
                                                     <div class="row">
                                                         <div class="col-sm-7" >
-                                                            <textarea class="form-control" disabled>Expression</textarea>
+                                                            <textarea class="form-control" disabled><?php echo "$expressions[$i]";?></textarea>
                                                         </div>
                                                         <div class="col-sm-4 col-xs-11">
-                                                            <textarea class="form-control" disabled>Context/Vocab</textarea>
+                                                            <textarea class="form-control" disabled>Context/Vocab: <?php echo "$context[$i]";?></textarea>
                                                         </div>
                                                         
                                                         
@@ -242,7 +202,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </table>
                                                     <div class="row">
                                                         <div class="col-sm-6 col-md-8">
-                                                            <textarea class="form-control" disabled>Correct Expression</textarea>
+                                                            <textarea class="form-control" disabled><?php echo "$answers[$i]";?></textarea>
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <audio controls title="Reformulation">
@@ -258,7 +218,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </table>
                                                     <div class="row">
                                                         <div class="col-sm-6 col-md-8">
-                                                            <textarea class="form-control" disabled >Submitted Expression</textarea>
+                                                            <textarea class="form-control" disabled ><?php echo "$studentreformulations[$i]";?></textarea>
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <audio controls title="Reformulation">
@@ -275,93 +235,18 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                     </table>
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <textarea class="form-control">Stats</textarea>
+                                                            <textarea class="form-control">Comments Go Here!</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="panel">
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title">
-                                                    <a class="accordian-toggle" data-toggle="collapse" data-parent="#accordian" href="#collapseThree" style="width:60%">
-                                                        <span>Sentence #3</span>
-                                                    </a>
-                                                    
-                                                    <span class="pull-right">Authored</span>
-                                                   
-                                                </h3>
-                                            </div>
-                                            <div id="collapseThree" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Original</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-7" >
-                                                            <textarea class="form-control" disabled>Expression</textarea>
-                                                        </div>
-                                                        <div class="col-sm-4 col-xs-11">
-                                                            <textarea class="form-control" disabled>Context/Vocab</textarea>
-                                                        </div>
-                                                        
-                                                        
-                                                    </div>
-                                                    
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Corrected</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-6 col-md-8">
-                                                            <textarea class="form-control" disabled>Correct Expression</textarea>
-                                                        </div>
-                                                        <div class="col-sm-6 col-md-4">
-                                                            <audio controls title="Reformulation">
-                                                                <source src="/Media/Audio/sample.mp3" type="audio/mpeg">
-                                                                Your Browser does not support this audio element
-                                                            </audio>
-                                                        </div>
-                                                    </div>
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Submitted</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-6 col-md-8">
-                                                            <textarea class="form-control" disabled >Submitted Expression</textarea>
-                                                        </div>
-                                                        <div class="col-sm-6 col-md-4">
-                                                            <audio controls title="Reformulation">
-                                                                <source src="/Media/Audio/sample.mp3" type="audio/mpeg">
-                                                                Your Browser does not support this audio element
-                                                            </audio>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <table width="100%">
-                                                      <td><hr /></td>
-                                                      <td style="width:1px; padding: 0 10px; white-space: nowrap;"><strong>Assessment</strong></td>
-                                                      <td><hr /></td>
-                                                    </table>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <textarea class="form-control">Stats</textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                    
+                                        <?php
+        }
+        ?>
+                                    </div>                              
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
