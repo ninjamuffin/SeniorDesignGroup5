@@ -249,7 +249,7 @@ WHERE SS.WorksheetID = ? AND
                                                 <tr>
                                                     <th>Expression</th>
                                                     <th>Correction</th>
-                                                    <th>   </th>
+                                                    <th><span class="glyphicon glyphicon-arrow-right" style="font-size:20px;left:10px;"></span></th>
                                                     <th>All-Do</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -296,13 +296,13 @@ WHERE SS.WorksheetID = ? AND
                                     </div>
                                     <div class="panel-body">
                                         <strong>Original Expression:</strong>
-                                        <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">Add an expression to begin
+                                        <textarea disabled id="ExprToEdit" name="OriginalExpression" class="form-control" class="col-xs-12">Click an Edit Button to begin!
                                         </textarea>
                                         <input hidden id="expressionID"/>
                                         <form role="form">
                                             <div class="form-group">
                                                 <label for="CorrectedExpr">Correction:</label>
-                                                <input type="text" class="form-control" name="CorrectedExpr" id="CorrectedExpr" placeholder="Enter the correct expression here" />
+                                                <input type="text" class="form-control" name="CorrectedExpr" id="CorrectedExpr" disabled placeholder="Enter the correct expression here" />
                                                 <!---->
                                             </div>
                                         </form>

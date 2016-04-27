@@ -40,6 +40,7 @@ $(function(){
     $("button[name='Edit']").on('click',function(e) {
         e.preventDefault();
         $("#SubmitExpr").attr("disabled", false);
+        $("#CorrectedExpr").attr("disabled", false);
         
         var $row = $(this).closest("tr");
         rowID = $row.attr('id');
@@ -65,7 +66,8 @@ $(function(){
     $('#SubmitExpr').on('click',function(e) {
         e.preventDefault();   
         $("#SubmitExpr").attr("disabled", true);
-        $("#")
+        $("#CorrectedExpr").attr("disabled", true);
+        
         
         document.getElementById("ExprID").innerHTML = " - Load new expression";
         var corrExpr = $("input[name='CorrectedExpr']").val();
@@ -76,6 +78,7 @@ $(function(){
         correctedArray[rowID] = corrExpr;
         is_altered[rowID] = 1;
         $("input[name='CorrectedExpr']").val("");
+        $("textarea[name='OriginalExpression']").val("");
     });
     
     
