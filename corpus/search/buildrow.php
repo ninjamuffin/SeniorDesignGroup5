@@ -13,15 +13,16 @@ if ((isset($_POST['words'])) && (isset($_POST['searchedword'])))
     <tr>
     <td>Word</td>
     <td>
+    <input hidden type="text" name="search_words[]" value="<?=$searchedword?>">
 <?php
     foreach($words as $word)
     {
 ?>
-        <input hidden type="text" name="words[]" value="<?=$word?>">
+        <input hidden type="text" name="<?=$searchedword?>[]" value="<?=$word?>">
 <?php
     }
-?>
-        echo $word;
+
+    echo $word;
 ?>
     </td>
     <td>

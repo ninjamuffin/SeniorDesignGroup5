@@ -42,9 +42,42 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     else
     {
         
-        $searched_titles = isset($_POST['words']) ? $_POST['words'] : 'nope';
-        foreach($searched_titles as $wordID)
-            echo "$wordID";
+        $searched_words = isset($_POST['search_words']) ? $_POST['search_words'] : '';
+        $num_searched_words = count($searched_words);
+        
+        $expressionsSQL = "SELECT E.Expression
+                           FROM Expressions E, SeqWords SW
+                           WHERE ";
+        $params = [];
+        $options = array( "Scrollable" => 'static' );
+        for($j = 0; $j < $num_searched_words; $j++)
+        {
+            $word_title = $searched_words[$j];
+            $word_list = $_POST[$word_title];
+            $num_words = count($word_list);
+            $add_to_query = "(";
+            for($i = 0; $i < $num_words - 1; $i++)
+            {
+                $add_to_query .= "SW.WordID = ? OR ";
+                $params[] = $word_list[$i];
+            }
+            $add_to_query .= "SW.WordID = ?) AND ";
+            $params[] = $word_list[$num_words - 1];
+            $expressionsSQL .= $add_to_query;
+        }
+        $expressionsSQL .= "E.ExpressionID = SW.ExpressionID";
+        
+        /*$expressions = sqlsrv_query($con, $expressionsSQL, $params, $options);
+        if ($expressions === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_expressions = sqlsrv_num_rows($expressions);
+        $expression_data = [];
+        
+        while (sqlsrv_fetch($expressions) === true)
+            $expression_data[] = sqlsrv_get_field($expressions, 0);*/
+        
+        
+        
         
         ?>
         <body>
@@ -57,6 +90,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     <span class="hamb-bottom"></span>
                                 </button>
                     <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="POST" action="/Corpus/Search/">
+                                    <button class="btn-lg btn-primary">New Search</button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                        <br>
                         <div class="row">
                             <div class="col-md-10">
                                 
@@ -131,28 +173,29 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <div class="row">
                             <div class="col-md-10">
-                                <div class="panel panel-primary">
+                                <div class="panel panel-primary" style="max-height:400px;">
                                     <div class="panel-heading"><h4>Result Expressions</h4></div>
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <h3><td>Expression</td></h3>
-                                        
+                                                    <th>Expression</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-    /*$params = array();
+    
+        
+        
     $options = array( "Scrollable" => 'static' );
     
-    $stmt = sqlsrv_query($con, $getExpressionQuery, $params, $options);
+    $stmt = sqlsrv_query($con, $expressionsSQL, $params, $options);
     if ( !$stmt )
-        die( print_r( sqlsrv_errors(), true));*/
+        die( print_r( sqlsrv_errors(), true));
 
     /* Extract Pagination Paramaters */
 
-/*    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 10
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 20; // get rows per page, default = 10
 
 
     $rowsReturned = sqlsrv_num_rows($stmt);
@@ -164,13 +207,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         exit();
     }
     else
-    {*/
+    {
         /* Calculate number of pages. */
-   /*     $numOfPages = ceil($rowsReturned/$rowsPerPage);
-    }*/
+        $numOfPages = ceil($rowsReturned/$rowsPerPage);
+    }
 
     /* Echo results to the page */
-    /*$pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
+    $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
     $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
@@ -179,8 +222,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
 
     echo "</tbody></table><br />";
-    $modulator = 3;*/
-    //Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
+    $modulator = 3;
+    Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                     </div>
                                 </div>
