@@ -206,13 +206,24 @@ WHERE SS.WorksheetID = ? AND
                     <div class="col-xs-12">
                         <div class="row">
                             
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-1" name="updatespinner">
                                         
                                     </div>
-                                    <div class="col-md-4">
-                                        <button class="btn btn-primary btn-lg pull-right" type="button" id="Update">Update Worksheet</button>
+                                    <div class="col-sm-4">
+                                        <strong>
+                                            <span>
+                                                Worksheet #<?=$worksheet_number?><br>
+                                                Date: <?=$date?><br>
+                                                Topic: <?=$topic?>
+                                            </span>
+                                        </strong>
+                                        
+                                    </div>
+                                    
+                                    <div class="col-md-1 pull-right">
+                                        <button class="btn btn-primary btn-lg pull-right" type="button" id="Update">Submit Worksheet</button>
                                     </div>
                                     
                                 </div>
@@ -222,20 +233,9 @@ WHERE SS.WorksheetID = ? AND
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-xs-4">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">Worksheet Info</div>
-                                    <div class="panel-body">
-                                        <div class="col-xs-7">
-                                            <h5>Worksheet Number: <?=$worksheet_number?></h5>
-                                            <h5>Date: <?=$date?></h5>
-                                            <h5>Topic: <?=$topic?></h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-8">
-                                <div class="panel panel-primary" style="max-height:350px;overflow-y:scroll">
+                            
+                            <div class="col-sm-8">
+                                <div class="panel panel-primary" style="max-height:600px;overflow-y:scroll">
                                 <div class="panel-heading">Worksheet Overview</div>
                                     <div class="panel-body">
 <?php
@@ -247,9 +247,9 @@ WHERE SS.WorksheetID = ? AND
                                         <table class="table" id="myTable" >
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Expression</th>
                                                     <th>Correction</th>
+                                                    <th>   </th>
                                                     <th>All-Do</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -261,9 +261,14 @@ WHERE SS.WorksheetID = ? AND
             echo "<tr id=\"$i\">
                       <td style=\"display:none\" value=\"Here is context\" name=\"context\"></td>
                       <td style=\"display:none\" value=\"Here is pronunciation\" name=\"pronunciation\"></td>
-                      <td name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
+                      <td style=\"display:none\" name=\"number\" class=\"nr\">$sent_numbers[$i]</td>
+                      
                       <td id=\"$ids[$i]\" name=\"expression\" class=\"expr\">$expressions[$i]</td>
+                      
                       <td name=\"corrected\" class=\"corr\">$correctedExpr[$i]</td>
+                      <td>
+                        <button value=\"$i\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
+                      </td>
                       <td>";
             if ($alldos[$i] == 1)
                 echo "All-Do";
@@ -271,9 +276,6 @@ WHERE SS.WorksheetID = ? AND
                 echo "Mine";
             echo "
                 </td>
-                      <td>
-                        <button value=\"$i\" type=\"button\" name=\"Edit\" class=\"btn btn-primary\">Edit</button>
-                      </td>
                       <td>
                         <button value=\"$i\" type=\"button\" name=\"Clear\" class=\"btn btn-danger\">Clear</button>
                       </td>
@@ -287,40 +289,32 @@ WHERE SS.WorksheetID = ? AND
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="panel panel-default" style="top-margin:40px;">
-                            <div class="panel-heading" id="ExprHeading">Expression Edit Window
-                                <span id="ExprID" class=""></span>
-                            </div>
-                            <div class="panel-body">
-                                <div class="col-xs-8" name="left column">
-                                    <div class="col-xs-12" style="text-align: left">
-                                        Expression
+                            <div class="col-sm-4">
+                                <div class="panel panel-primary" style="top-margin:40px;">
+                                    <div class="panel-heading" id="ExprHeading">Expression Edit Window
+                                        <span id="ExprID" class=""></span>
                                     </div>
-                                    <div class="col-xs-12">
+                                    <div class="panel-body">
+                                        <strong>Original Expression:</strong>
                                         <textarea disabled id="ExprToEdit" class="form-control" class="col-xs-12">Add an expression to begin
                                         </textarea>
-                                    </div>
-                                    <input hidden id="expressionID"/>
-                                    <div class="col-xs-12" style="padding-top: 40px">
+                                        <input hidden id="expressionID"/>
                                         <form role="form">
                                             <div class="form-group">
                                                 <label for="CorrectedExpr">Correction:</label>
-                                                <input type="text" class="form-control" name="CorrectedExpr" placeholder="Enter the correct expression here" />
-                                                <!--onkeydown = "if(event.keyCode == 13) document.getElementById('SubmitExpr').click()"-->
+                                                <input type="text" class="form-control" name="CorrectedExpr" id="CorrectedExpr" placeholder="Enter the correct expression here" />
+                                                <!---->
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
 
-                                <div class="col-xs-4" name="right column">
-                                    <div class="col-xs-12">
-                                        <button id="SubmitExpr" type="button" class="btn btn-primary pull-right">Submit</button>
+                                                <button id="SubmitExpr" disabled type="button" class="btn btn-primary pull-right">Save</button>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
+                        
+                        
                     </div>
                     <!-- END PAGE CONTENT -->
                 </div>

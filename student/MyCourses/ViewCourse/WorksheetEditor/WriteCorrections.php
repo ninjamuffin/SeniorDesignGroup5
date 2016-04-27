@@ -20,6 +20,7 @@ if (isset($_POST['worksheetID']) && isset($_POST['expressionIDs']) && isset($_PO
         die(print_r(sqlsrv_errors(), true));
     if (sqlsrv_fetch($getattemptnumber) === true)
         $attemptNumber = sqlsrv_get_field($getattemptnumber, 0);
+    $attemptNumber = $attemptNumber + 1;
 
 /*
      Write to student submissions 

@@ -120,7 +120,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Worksheet Number</th>
+                                            <th>#</th>
                                             <th>Date</th>
                                             <th>Topic</th>
                                             <th>Status</th>
@@ -132,13 +132,15 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         <?php
             $params = array($_SESSION['Username'], $courseID);
             $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-            $studentworksheetsSQL = "SELECT WS. WorksheetNumber, CONVERT(VARCHAR(11), WS.Date,106), TP.Topic, WS.WorksheetID
-                                        FROM Worksheets WS, Topics TP, Courses C, Enrollment ER, Students S
+            $studentworksheetsSQL = "SELECT W. WorksheetNumber, CONVERT(VARCHAR(11), W.Date,106), T.Topic, W.WorksheetID
+                                        FROM Worksheets W, Topics T, Courses C, Enrollment ER, Students S
                                         WHERE S.SiteUsername = ? AND
                                               ER.StudentID = S.StudentID AND
-                                              WS.CourseID = ER.CourseID AND
+                                              W.CourseID = ER.CourseID AND
+                                              W.EditStatus = 'Released' AND
+                                              W.IsDeleted = 0 AND
 											  C.CourseID = ? AND
-                                              WS.TopicID = TP.TopicID";
+                                              T.TopicID = W.TopicID";
                 $studentworksheets = sqlsrv_query($con, $studentworksheetsSQL, $params, $options);
                 if ($studentworksheets === false)
                                             die(print_r(sqlsrv_errors(), true));

@@ -35,26 +35,37 @@ $(function(){
         
         var $row = $(this).closest("tr");
         rowID = $row.attr('id');
-        correctedArray[rowID] = 'n/a';
-        is_altered[rowID] = 1;
         $row.find("td[name=corrected]").empty();
     });
     $("button[name='Edit']").on('click',function(e) {
         e.preventDefault();
+        $("#SubmitExpr").attr("disabled", false);
         
         var $row = $(this).closest("tr");
         rowID = $row.attr('id');
         rowIndex = $row.find(".nr").text();
         var expr = $row.find(".expr").text();
+        var corr = $row.find(".corr").text();
         
         exprIDs[rowID] = $row.find(".expr").attr('id');
         
         document.getElementById("ExprToEdit").innerHTML = expr;
+        $("input[name=CorrectedExpr]").val(corr);
         document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
     });
 
+    
+    $('input[name="CorrectedExpr"]').keypress(function(e){
+        if (e.which == 13) {
+            $("#SubmitExpr").click();
+            return false;
+        }
+    });
+
     $('#SubmitExpr').on('click',function(e) {
-        e.preventDefault();     
+        e.preventDefault();   
+        $("#SubmitExpr").attr("disabled", true);
+        $("#")
         
         document.getElementById("ExprID").innerHTML = " - Load new expression";
         var corrExpr = $("input[name='CorrectedExpr']").val();
