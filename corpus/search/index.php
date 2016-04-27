@@ -330,8 +330,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                                 <div class="col-md-10">
                                                     <button class="btn btn-primary" type="submit">Submit Search</button>
                                                     <div class="pull-right">
-                                                        <label class="radio-inline"><input type="radio" name="searchType" checked="checked">Sequential</label>
-                                                        <label class="radio-inline"><input type="radio" name="searchType">Non-Sequential</label>
+                                                        <label class="radio-inline"><input type="radio" name="searchType">Sequential</label>
+                                                        <label class="radio-inline"><input type="radio" name="searchType" checked="checked">Non-Sequential</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -386,10 +386,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }).disableSelection();*/
             </script>
             <script>
-            var numOffsets = 0;   
+            var numOffsets = 0; 
+            
             $(document).ready(function() {
                 $("#addOffsetButton").click(function() {
                     var offsetVal = $("#newOffset").val();
+                    
+                    
                     var before = '<tr><td>offset</td><td>';
                     var after = "</td><td><button class='btn btn-danger' type='button' name='DeleteRow'>Delete</button></td>";
                     var formDataOne = "<input hidden type='text' value='";
@@ -419,7 +422,6 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                     $("input[name^='checkwords']").each(function() {
                         if ($(this).is(':checked')) {
                             words.push($(this).val());
-                            alert($(this).val());
                         }
                     });
                     var tags = [];

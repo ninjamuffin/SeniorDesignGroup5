@@ -45,27 +45,48 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $searched_words = isset($_POST['search_words']) ? $_POST['search_words'] : '';
         $num_searched_words = count($searched_words);
         
-        $expressionsSQL = "SELECT E.Expression
+        $expressionsSQL = "SELECT DISTINCT E.Expression
                            FROM Expressions E, SeqWords SW
                            WHERE ";
         $params = [];
         $options = array( "Scrollable" => 'static' );
-        for($j = 0; $j < $num_searched_words; $j++)
+        for($j = 0; $j < $num_searched_words - 1; $j++)
         {
             $word_title = $searched_words[$j];
             $word_list = $_POST[$word_title];
             $num_words = count($word_list);
-            $add_to_query = "(";
+            $add_to_query = "E.ExpressionID in (SELECT E2.ExpressionID
+                                                FROM Expressions E2, SeqWords SW2
+                                                WHERE (";
             for($i = 0; $i < $num_words - 1; $i++)
             {
-                $add_to_query .= "SW.WordID = ? OR ";
+                $add_to_query .= "SW2.WordID = ? OR ";
                 $params[] = $word_list[$i];
             }
-            $add_to_query .= "SW.WordID = ?) AND ";
+            $add_to_query .= "SW2.WordID = ?";
             $params[] = $word_list[$num_words - 1];
             $expressionsSQL .= $add_to_query;
+            $expressionsSQL .= ") AND E2.ExpressionID = SW2.ExpressionID) AND ";
         }
-        $expressionsSQL .= "E.ExpressionID = SW.ExpressionID";
+        $word_title = $searched_words[$num_searched_words - 1];
+        $word_list = $_POST[$word_title];
+        $num_words = count($word_list);
+        $add_to_query = "E.ExpressionID in (SELECT E2.ExpressionID
+                                            FROM Expressions E2, SeqWords SW2
+                                            WHERE (";
+        for($i = 0; $i < $num_words - 1; $i++)
+        {
+            $add_to_query .= "SW2.WordID = ? OR ";
+            $params[] = $word_list[$i];
+        }
+        $add_to_query .= "SW2.WordID = ? ";
+        $params[] = $word_list[$num_words - 1];
+        $expressionsSQL .= $add_to_query;
+        $expressionsSQL .= ") AND E2.ExpressionID = SW2.ExpressionID)";
+
+
+        
+        
         
         /*$expressions = sqlsrv_query($con, $expressionsSQL, $params, $options);
         if ($expressions === false)
@@ -91,7 +112,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                 </button>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-3">
                                 <form method="POST" action="/Corpus/Search/">
                                     <button class="btn-lg btn-primary">New Search</button>
                                 </form>
@@ -100,6 +121,22 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                         </div>
                         <br>
                         <div class="row">
+                            <div class="col-md-9">
+                                <h3><strong>
+                                    <span>
+<?php
+        for ($i = 0; $i < $num_searched_words - 1; $i++)
+            echo "$searched_words[$i] + ";
+        $end = $num_searched_words - 1;
+        echo "$searched_words[$end]";
+?>
+                                    </span>
+                                </strong></h3>
+                                
+                            </div>
+                        </div>
+                        <br>
+                        <!--<div class="row">
                             <div class="col-md-10">
                                 
                                 <div class="panel panel-primary">
@@ -110,8 +147,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div>-->
+                        <!--<div class="row">
                             <div class="col-md-5 col-sm-6">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
@@ -170,10 +207,10 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row">
                             <div class="col-md-10">
-                                <div class="panel panel-primary" style="max-height:400px;">
+                                <div class="panel panel-primary" style="max-height:600px;">
                                     <div class="panel-heading"><h4>Result Expressions</h4></div>
                                     <div class="panel-body">
                                         <table class="table">
