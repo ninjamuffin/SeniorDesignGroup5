@@ -250,7 +250,7 @@ WHERE SS.WorksheetID = ? AND
                                                     <th>Expression</th>
                                                     <th>Correction</th>
                                                     <th><span class="glyphicon glyphicon-arrow-right" style="font-size:20px;left:10px;"></span></th>
-                                                    <th>All-Do</th>
+                                                    <th>Assigned</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

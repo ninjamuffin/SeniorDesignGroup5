@@ -50,7 +50,7 @@ $(function(){
         
         exprIDs[rowID] = $row.find(".expr").attr('id');
         
-        document.getElementById("ExprToEdit").innerHTML = expr;
+        $("textarea[name=OriginalExpression]").val(expr);
         $("input[name=CorrectedExpr]").val(corr);
         document.getElementById("ExprID").innerHTML = "- Working on Expression: #" + rowIndex;
     });
