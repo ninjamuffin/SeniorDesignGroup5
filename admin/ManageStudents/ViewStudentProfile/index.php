@@ -13,6 +13,9 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet">
+    
+    
     <!-- Including Header -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
@@ -25,16 +28,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+    
 </head>
 
 <?php
@@ -52,21 +46,104 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
-                                <h1>View Student Account</h1>
-                            <p>Documentation:</p>
-                            <p>After accepting a form submission from ManageStudents, this page will display the profile of a given student user</p>
+                    </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <h1>Stu D. Ent</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-4">        
+                                <div class="panel panel-primary" style="min-height: 280px;">
+                                    <div class="panel-heading">
+                                        <h4>Student Info</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Active Courses:</p>
+                                        <p>Total Courses:</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-8"> 
+                                <div class="panel panel-primary" style="min-height: 280px;max-height: 280px;">
+                                    <div class="panel-heading">
+                                        <h4>Recent Courses</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course Number</th>
+                                                    <th>Session</th>
+                                                    <th>Status</th>
+                                                    <th>Percent Complete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>ELCT 102</td>
+                                                    <td>Fall II 2012</td>
+                                                    <td>Complete</td>
+                                                    <td><div class="progress">
+                                    <div class="progress-bar progress-bar-info" style="width: 100%"></div>
+                                </div></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>ELCT 103</td>
+                                                    <td>Spring I 2013</td>
+                                                    <td>Partial</td>
+                                                    <td><div class="progress">
+                                    <div class="progress-bar progress-bar-info" style="width: 20%"></div>
+                                </div></td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10">        
+                                <div class="panel panel-primary" style="min-height: 400px;max-height: 400px; ">
+                                    <div class="panel-heading">
+                                        <h3>Completed Worksheets</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course Number</th>
+                                                    <th>Course Name</th>
+                                                    <th>Session</th>
+                                                    <th>Worksheet Number</th>
+                                                    <th>Performance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>ELCT 101</td>
+                                                    <td>Basic Oral Communication</td>
+                                                    <td>Fall II 2014</td>
+                                                    <td>5</td>
+                                                    <td><div class="progress">
+                                    <div class="progress-bar progress-bar-info" style="width: 20%"></div>
+                                </div></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,7 +151,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             </div>
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
             <script src="/js/bootstrap-datepicker.js"></script>

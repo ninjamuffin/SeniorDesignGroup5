@@ -15,9 +15,10 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
@@ -28,22 +29,13 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+   
 </head>
         
 <?php
 if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 {
-    if($_SESSION['Role'] != 'teacher')
+    if($_SESSION['Role'] != 'Teacher')
     {
         ?>
         <p>You do not have permission to view this page.  Redirecting in 5 seconds</p>
@@ -53,25 +45,59 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
+        $institutionID = isset($_POST['institutionid']) ? $_POST['institutionid'] : 0;
+        
+        if ($institutionID == 0)
+        {
+            $params = array($_SESSION['Username']);
+            $options = array("Scrollable" => 'static');
+            $CoursesQuery = "SELECT S.StudentID, S.FirstName, S.LastName, CT.CourseName, I.InsitutionName
+            FROM Students S, Courses C, CourseTypes CT, EnrollmentER, Institutions I, TeachingInstance TI
+            WHERE"
+        }
     ?>        
 
     <body>
-        <div id="header"></div>
         <div id="wrapper">
             <div id = "sidebar"></div>
             <div id="page-content-wrapper">
+                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <span class="hamb-top"></span>
+                    <span class="hamb-middle"></span>
+                    <span class="hamb-bottom"></span>
+                </button>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                            <span class="hamb-top"></span>
-                            <span class="hamb-middle"></span>
-                            <span class="hamb-bottom"></span>
-                        </button>
-                            <!-- BEGIN PAGE CONTENT -->
-                            <h2>My Students</h2>
-                            <p>For a given teacher, will list all active students (according to active courses) and display a link to each student's profile view  </p>
-                            <!-- END PAGE CONTENT -->
+                        <div class="col-lg-10">
+                            <h3>My Students</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Institution</th>
+                                                <th>Current Course</th>
+                                                <th>Go To</th>
+                                                <th>Go To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Stu Dent</td>
+                                                <td>Gonzaga University</td>
+                                                <td>ELCT 103</td>
+                                                <td><a href="/Teacher/Archive/Students/ViewStudent/">Archive Page</a></td>
+                                                <td><a href="/Teacher/MyCourses/ViewCourse/Students/ViewStudentProfile/?sid=">View in Course</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +105,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="/js/bootstrap.min.js"></script>
         <script>

@@ -14,9 +14,10 @@ include "../../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
 
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
@@ -27,16 +28,7 @@ include "../../../../base.php";
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+
 </head>
 
 <?php
@@ -52,54 +44,89 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $courseID = isset($_GET['courseID']) ? $_GET['courseID'] : 0;
+        $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
         if ($courseID == 0)
             echo "<meta http-equiv='refresh' content=0;../";
         else
         {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
+                    <div class="container-fluid">        
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6">     
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Documentation</div>
+                                    <div class="panel-heading">Course Info</div>
                                     <div class="panel-body">
-                                        <p>Main course (archived) view for admin/teacher.  Will contain list/links to worksheets, students, and the teacher</p>
-                                        <p>This top section will contain general information about a given course (teacher, level, etc)</p>
+                                    <?php
+            $params = array($courseID);
+            $options = array( "Scrollable" => 'static');
+            $courseinfoSQL = "
+            SELECT CT.CourseName, C.Section, T.FirstName, T.LastName, ST.SessionName, SI.Year, I.InstitutionName
+            FROM Courses as C, CourseTypes as CT, Teachers as T, TeachingInstance TI, SessionInstance as SI, SessionType as ST, Institutions as I
+            WHERE C.CourseID = ? AND
+                  CT.CourseTypesID = C.CourseTypesID AND
+                  TI.TeachingInstanceID = C.TeachingInstanceID AND
+                  T.TeacherID = TI.TeacherID AND
+                  SI.SessionInstanceID = C.SessionInstanceID AND
+                  ST.SessionTypeID = SI.SessionTypeID AND
+                  I.InstitutionID = C.InstitutionID";
+            $courseinfo = sqlsrv_query($con, $courseinfoSQL, $params, $options);
+            if ($courseinfo === false)
+                die(print_r(sqlsrv_errors(), true));
+            if (sqlsrv_fetch($courseinfo) === true)
+            {
+                $ClassName = sqlsrv_get_field($courseinfo, 0);
+                $Section = sqlsrv_get_field($courseinfo, 1);
+                $FirstName = sqlsrv_get_field($courseinfo, 2);
+                $LastName = sqlsrv_get_field($courseinfo, 3);
+                $Session = sqlsrv_get_field($courseinfo, 4);
+                $Year = sqlsrv_get_field($courseinfo, 5);
+                $Institution = sqlsrv_get_field($courseinfo, 6);
+                
+            }
+            echo "<p>Class Name: $ClassName</p><p>Section: $Section</p><p>Teacher: $FirstName $LastName</p><p>Session: $Session</p><p>Hosting Institution: $Institution</p>";
+                                        
+                                        
+                                        ?>
+                                    
                                     </div>
-                                </div>
-                                <div class="panel panel-primary">
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="panel panel-primary" style="max-height:350px; ">
                                     <div class="panel-heading">Worksheet display</div>
                                     <div class="panel-body">
-                                        <table class="table">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td>Worksheet Number</td>
-                                                    <td>Link to worksheet page</td>
+                                                    <th>#</th>
+                                                    <th>Go To</th>
+                                                    <th>Annotate this worksheet</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
         <?php
             $params = array($courseID);
             $options = array( "Scrollable" => 'static' );
-            $query = "SELECT [Worksheet#], [Teachers&ClassesID] FROM Expressions WHERE [Teachers&ClassesID] = ? GROUP BY [Worksheet#],[Teachers&ClassesID]";
-            $stmt = sqlsrv_query($con, $query, $params, $options);
-            if (!$stmt)
+            $worksheetsSQL = "SELECT W.WorksheetID, W.WorksheetNumber, T.Topic 
+                      FROM Worksheets W, Topics T
+                      WHERE W.CourseID = ? AND
+                            T.TopicID = W.TopicID
+                      ORDER BY W.WorksheetNumber";
+            $worksheets = sqlsrv_query($con, $worksheetsSQL, $params, $options);
+            if (!$worksheets)
                 die( print_r( sqlsrv_errors(), true));
             
             $rowsPerPage = 10;
-            $rowsReturned = sqlsrv_num_rows($stmt);
+            $rowsReturned = sqlsrv_num_rows($worksheets);
             if($rowsReturned === false)
                 die(print_r( sqlsrv_errors(), true));
             elseif($rowsReturned == 0)
@@ -113,11 +140,23 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
             }
             
             $pageNum = isset($_GET['pageNum']) ? $_GET['pageNum'] : 1;
-            $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
+            $page = Pagination::getPage($worksheets, $pageNum, $rowsPerPage);
             foreach($page as $row)
             {
-                $worksheetPageLink = "ViewWorksheet/?courseID=$row[1]&worksheetNum=$row[0]";
-                echo "<tr><td>$row[0]</td><td><a href='$worksheetPageLink'>Worksheet Page</a></td></tr>";
+                $worksheetID = $row[0];
+                echo "<tr>  
+                        <td>$row[1]</td>
+                        <td><form method=\"POST\" action=\"ViewWorksheet\">
+                                <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+                                <button class=\"btn btn-primary\">Worksheet Page</button>
+                            </form>
+                        </td>
+                        <td><form method=\"POST\" action=\"ViewWorksheet/AnnotationEditor/\">
+                                <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+                                <button class=\"btn btn-primary\">Annotation Editor</button>
+                            </form>
+                        </td>
+                      </tr>";
             }
         ?>
             
@@ -128,14 +167,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
             <script>

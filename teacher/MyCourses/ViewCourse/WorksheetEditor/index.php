@@ -17,12 +17,12 @@
     <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
+    <script type="text/javascript" src="/js/dynamicRowTeacher.js"></script>
+    
+    
     <script>
-        $(function(){
-            $("#header").load("/header.php");
-        });
         $(function(){
             $("#sidebar").load("/sidebar.php");
         });
@@ -30,7 +30,9 @@
 
     <!-- Background Setup -->
     <style>
-      
+        .dropdown-backdrop {
+            position: static;
+        }
     </style>
 </head>
         
@@ -47,140 +49,186 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     }
     else
     {
-        $params = array($_SESSION['Username']);
+        $worksheetID = isset($_POST['worksheetID']) ? $_POST['worksheetID'] : 0;
+        $courseID = isset($_POST['courseID']) ? $_POST['courseID'] : 0;
+        if (($worksheetID == 0) || ($courseID == 0))
+            echo "<meta http-equiv='refresh' content='0;/' />";
+        $worksheetDate = isset($_POST['worksheetDate']) ? $_POST['worksheetDate'] : 0;
+        $worksheetTopic = isset($_POST['worksheetTopic']) ? $_POST['worksheetTopic'] : 0;
+        $worksheetStatus = isset($_POST['worksheetStatus']) ? $_POST['worksheetStatus'] : 0;
+         $worksheetNumber = isset($_POST['worksheetNumber']) ? $_POST['worksheetNumber'] : 0;
+        $className = isset($_POST['className']) ? $_POST['className'] : 0;
+        $params = array($worksheetID);
         $options = array( "Scrollable" => SQLSRV_CURSOR_KEYSET);
-        $ListRolesQuery = "SELECT DISTINCT R.Role, RI.RoleID FROM Roles as R, RoleInstances as RI WHERE RI.SiteUsername = ? AND RI.RoleID = R.RoleID ORDER BY RI.RoleID";
-        $stmt = sqlsrv_query($con, $ListRolesQuery, $params, $options);
-        if( $stmt === false ) {
-             die( print_r( sqlsrv_errors(), true));
+        $worksheetexpressionsSQL = "SELECT E.SentenceNumber, S.StudentID, S.FirstName, S.LastName, E.Expression, E.ExpressionID, E.AllDo
+                                    FROM Expressions E, Students S, Enrollment ER
+                                    WHERE E.WorksheetID = ? AND
+                                          ER.StudentID = E.StudentID AND
+                                          S.StudentID = ER.StudentID 
+                                    ORDER BY E.SentenceNumber";
+        $worksheetexpressions = sqlsrv_query($con, $worksheetexpressionsSQL, $params, $options);
+        if ($worksheetexpressions === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_expressions = sqlsrv_num_rows($worksheetexpressions);
+        $new_expression_number = $num_expressions + 1;
+        $sent_numbers = [];
+        $student_expression_ids = [];
+        $first_names = [];
+        $last_names = [];
+        $expressions = [];
+        $ids = [];
+        $alldos = [];
+        while(sqlsrv_fetch($worksheetexpressions) === true)
+        {
+            $sent_numbers[] = sqlsrv_get_field($worksheetexpressions, 0);
+            $student_expression_ids[] = sqlsrv_get_field($worksheetexpressions, 1);
+            $first_names[] = sqlsrv_get_field($worksheetexpressions,2);
+            $last_names[] = sqlsrv_get_field($worksheetexpressions, 3);
+            $expressions[] = sqlsrv_get_field($worksheetexpressions, 4);
+            $ids[] = sqlsrv_get_field($worksheetexpressions, 5);
+            $alldos[] = sqlsrv_get_field($worksheetexpressions, 6);
         }
-
-        // Make the first (and in this case, only) row of the result set available for reading.
-        $RolesList = [];
-        while( sqlsrv_fetch( $stmt ) === true) {
-             $RolesList[] = sqlsrv_get_field( $stmt, 0);
-        }
+        
+        $coursestudentsSQL = "SELECT ER.StudentID 
+                              FROM Enrollment as ER, Worksheets as W, Courses C 
+                              WHERE W.WorksheetID = ? AND
+                                    C.CourseID = W.CourseID AND
+                                    ER.CourseID = C.CourseID";
+        $coursestudents = sqlsrv_query($con, $coursestudentsSQL, $params, $options);
+        if ($coursestudents === false)
+            die(print_r(sqlsrv_errors(), true));
+        $num_students = sqlsrv_num_rows($coursestudents);
+        $studentsids = [];
+        while(sqlsrv_fetch($coursestudents) === true)
+            $studentids[] = sqlsrv_get_field($coursestudents, 0);
     ?>        
 
-    <body>
-        
-        <nav class="navbar navbar-inverse" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+<body>
+    <section class="container-fluid col-xs-12">                     
+        <!--body-->
+        <div id="wrapper">
+            <div id="sidebar"></div>
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                        <span class="hamb-top"></span>
+                        <span class="hamb-middle"></span>
+                        <span class="hamb-bottom"></span>
                     </button>
-                <a class="navbar-brand" href="/"><img src="/media/logo.jpeg" style="width:200px;height:40px;"></a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse right-offset">
-                <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu">
-                      <span class="glyphicon glyphicon-user"></span> <?=$_SESSION['Username']?> <b class="caret"></b>
-                    </a>
-                      
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                        <li><a href="/<?=$_SESSION['Role']?>/Home/Profile/">My Profile</a></li>
-                        <li><a href="#">Change Password</a></li>
-                        <li class="divider">My Roles</li>
-                         <?php                    
-        foreach($RolesList as $ListedRole)
-        {
-            if ($ListedRole == $_SESSION['Role'])
-            {
-            ?>
-                        <li><a><strong><?=$ListedRole?></strong></a></li>
-                                
-            <?php
-            }
-            else
-            {
-                ?>
-                <li><a href="/ChangeRole.php?q=<?=$ListedRole?>"><?=$ListedRole?></a></li>
-                <?php
-            }
-        }
-        ?>
-                        <li class="divider"></li>
-                        <li><a href="/logout.php">Log out</a></li>
-                    </ul>
-          
+                    <!-- BEGIN PAGE CONTENT -->
+                    <div class="col-xs-12">
+                        <div class="row">
                             
-                </li>
-                             
-                </ul>
-                </div><!-- /.navbar-collapse -->
-            </nav>
-        <section class="container col-xs-12">
-            <!--navbar-->
-                     
-            <!--body-->
-            <div id="wrapper">
-                
-                <div id = "sidebar"></div>
-                <div id="page-content-wrapper">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                                    <span class="hamb-top"></span>
-                                    <span class="hamb-middle"></span>
-                                    <span class="hamb-bottom"></span>
-                                </button>
-                                    <!-- BEGIN PAGE CONTENT -->
-                                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Details</div>
-                                <div class="panel-body">
-                                    <h2 class="page-header">Course 121</h2>
-                                    <h5>Worksheet #1</h5>
-                                    <h5>Date: 3/2/16</h5>
-                                    <h5>Topic: English</h5>
+                            <h1 class="pull-right"><button type="button" class="btn btn-lg btn-primary pull-right" id="SaveWorksheet">Save Worksheet</button></h1>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">Worksheet Info</div>
+                                    <div class="panel-body">
+                                        <div class="col-xs-8">
+                                            <?php
+                                            echo "
+                                            <h3>Course: $className</h3>
+                                            <h5>Worksheet Number: $worksheetNumber</h5>
+                                            <h5>Date: $worksheetDate</h5>
+                                            <h5>Topic: $worksheetTopic</h5>";?>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Worksheet</div>
-                                <div class="panel-body">
-                                    <div class="modal-dialog">
-                                        <!--<div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                            <div class="col-xs-8">
+                                <div class="panel panel-primary" style="max-height:300px;overflow-y:scroll">
+                                <div class="panel-heading">Worksheet Overview</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <form method="POST" name="newexpression">
+                                                    <input hidden type="text" name="newexpressionnumber" value="<?=$new_expression_number?>">
+                                                    <input hidden type="text" name="courseID" value="<?=$courseID?>">
+                                                    <input hidden type="text" name="worksheetID" value="<?=$worksheetID?>">
+                                                    <button type="button" name="NewExpression" class="btn btn-primary">
+                                                        New Expression
+                                                    </button>
+                                                </form>
                                             </div>
-                                            <div class="modal-body">
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-
-                                        </div>--><!-- /.modal-content -->
+                                        </div>
+                                        <hr>
+                                        <table class="table" id="myTable" >
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Student</th>
+                                                    <th>Expression</th>
+                                                    <th>All-Do</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody name="ExpressionTable">
+<?php 
+        for($i = 0; $i < $num_expressions; $i++)
+        {
+            $pass_array = array($ids[$i], $student_expression_ids[$i], $first_names[$i], $last_names[$i]);
+            echo "<tr>
+                      <td>$sent_numbers[$i]</td>
+                      <td>$first_names[$i] $last_names[$i]</td>
+                      <td>$expressions[$i]</td>
+                      <td>";
+            if ($alldos[$i] == 1)
+                echo "<span class=\"glyphicon glyphicon-ok\"></span>";
+            else
+                echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+            echo "
+                </td>
+                      <td><form method=\"POST\" name=\"expressions{$i}\">
+                              <input hidden type=\"text\" name=\"expressionID\" value=\"$ids[$i]\">
+                              <input hidden type=\"text\" name=\"studentID\" value=\"$student_expression_ids[$i]\">
+                              <input hidden type=\"text\" name=\"firstname\" value=\"$first_names[$i]\">
+                              <input hidden type=\"text\" name=\"lastname\" value=\"$last_names[$i]\">
+                              <input hidden type=\"text\" name=\"courseID\" value=\"$courseID\">
+                              <input hidden type=\"text\" name=\"worksheetID\" value=\"$worksheetID\">
+                              <input hidden type=\"text\" name=\"newexpressionnumber\" value=\"$new_expression_number\">
+                              <button value=\"$ids[$i]\" type=\"button\" name=\"SelectExpression\" class=\"btn btn-primary\">Edit</button>
+                          </form>
+                      </td>
+                   </tr>";
+        }
+?>
+                                                
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
-                                    <!-- END PAGE CONTENT -->
-                                </div>
+                        <div class="panel panel-primary" style="min-height:450px;">
+                            <div class="panel-heading"><h4>Expression Editor</h4></div>
+                            <div name="ExpressionEditor">
+                                
                             </div>
                         </div>
                     </div>
+                    <!-- END PAGE CONTENT -->
+                </div>
             </div>
-            
-        </section>
+        </div>
+    </section>
         
-        <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="/flatUI/js/bootstrap.min.js"></script>
-        
-        </body>
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script>
+    $('.dropdown-toggle').click(function(e) {
+        e.preventDefault();
+        setTimeout($.proxy(function() {
+            if ('ontouchstart' in document.documentElement) {
+                $(this).siblings('.dropdown-backdrop').off().remove();
+            }
+        }, this), 0);
+    });
+    </script>
+</body>
     <?php
     }
 }

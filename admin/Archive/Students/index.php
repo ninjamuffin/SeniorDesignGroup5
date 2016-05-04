@@ -14,9 +14,11 @@ include "../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
@@ -26,17 +28,19 @@ include "../../../base.php";
             $("#sidebar").load("/sidebar.php");
         });
     </script>
-
-    <!-- Background Setup -->
     <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
+        #div .bg1
+        {
+            background: url(/Media/circle-loading-gif.gif);
+            background-size: 30px 30px;
         }
+        #names-list{float:left;list-style:none;margin:0;width:100%;padding:0;}
+        #names-list li{padding: 10px;background-color: #8b8b8b; border-bottom:#F0F0F0 1px solid;border-width:#F0F0F0 1px solid;}
+        #names-list li:hover{background: rgba(56, 110, 128, 1);}
     </style>
+    
+    
+
 </head>
 
 <?php
@@ -54,26 +58,47 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <!--<div class="col-lg-10">
+                                                    <input class="form-control" id="search-box" type="text" placeholder="Student Last Name" />
+                                                    <div id="suggesstion-box"></div>
+                                                    
+                                                </div> -->
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10">  
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Student Search</div>
+                                    <div class="panel-heading">Search</div>
                                     <div class="panel-body">
-                                        <p>This window will have a search interface for looking up students in the DB. </p>
+                                        <form method="POST" id="searchStudent"  action="ViewStudent/" autocomplete="off">
+                                            <div class="form-group row">
+                                                <div class="col-xs-6">
+                                                    <input class="form-control" id="search-box" name="studentLastName" type="text" placeholder="Student Last Name" />
+                                                    <div id="suggesstion-box"></div>
+                                                    
+                                                </div>
+                                                <input hidden id="sid" name="sid" type="text">
+                                                <input hidden type="submit" value="go">
+
+                                            </div>
+                                            <!--<button type="submit" class="btn btn-primary pull-right">Search</button>-->
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">Course Listing (sort by most recent)</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10">
+                                
+                                <div class="panel panel-primary" style="max-height:600px;">
+                                    <div class="panel-heading">Student Archive</div>
                                     
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -81,6 +106,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="?pp=10">10</a></li>
                                             <li><a href="?pp=50">50</a></li>
                                             <li><a href="?pp=100">100</a></li>
                                             <li><a href="?pp=200">200</a></li>
@@ -89,17 +115,16 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table">
+                                        <table class="table table-hover" >
                                             <thead>
                                                 <tr>
-                                                    <td>First Name</td>
-                                                    <td>Last Name</td>
-                                                    <td>Citizenship</td>
-                                                    <!--<td>Language</td>-->
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Language</th>
                                                     <!--<td>Joined Site</td>-->
                                                     <!--<td>Last active session</td>-->
-                                                    <td>Link to Student's Page</td>
-                                                    <td>Number of Courses Taken</td>
+                                                    <th>Go To</th>
+                                                    <th>Courses Taken</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -109,18 +134,24 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $params = array();
     $options = array( "Scrollable" => 'static' );
     $query = 
-"SELECT S.[FirstName], S.[LastName], C.[Country], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
-FROM Students as S, Country as C, Expressions as E
-WHERE C.[ID] = S.[Citizenship] AND
-S.[ID] in (SELECT DISTINCT ES.Student_ID FROM Expressions as ES) AND
-E.[Student_ID] = S.[ID]
-GROUP BY S.[FirstName], S.[LastName], C.[Country], S.[ID]";
+"SELECT S.[FirstName], S.[LastName], L.[Language], S.[ID], COUNT(DISTINCT E.[Teachers&ClassesID])
+FROM Students as S, Expressions as E, Languages as L
+WHERE L.[LanguageID] = S.[Language] AND
+S.[ID] in (SELECT DISTINCT ES.StudentID FROM Expressions as ES) AND
+E.[StudentID] = S.[ID]";
+    /*if (!(empty($_POST['studentLastName'])))
+    {
+        $query = " = ?";
+        $params = array($_POST['studentID']);
+    }*/
+    $query .= " GROUP BY S.[FirstName], S.[LastName], S.[ID], L.Language";
+
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
         die( print_r( sqlsrv_errors(), true));
 
     /* Extract Pagination Paramaters */
-    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 50; // get rows per page, default = 50
+    $rowsPerPage = isset($_GET['pp']) ? $_GET['pp'] : 10; // get rows per page, default = 50
     $rowsReturned = sqlsrv_num_rows($stmt);
     if($rowsReturned === false)
         die(print_r( sqlsrv_errors(), true));
@@ -145,7 +176,7 @@ GROUP BY S.[FirstName], S.[LastName], C.[Country], S.[ID]";
     }
 
     echo "</tbody></table><br />";
-    $modulator = 2;
+    $modulator = 4;
     Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                             
@@ -158,7 +189,7 @@ GROUP BY S.[FirstName], S.[LastName], C.[Country], S.[ID]";
                 </div>
             </div>
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
             <script>
@@ -166,6 +197,40 @@ GROUP BY S.[FirstName], S.[LastName], C.[Country], S.[ID]";
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
             });
+            </script>
+<!--
+            <script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+-->
+            <script>
+                // AJAX call for autocomplete 
+            $(document).ready(function(){
+                $("#search-box").keyup(function(){
+                    $.ajax({
+                    type: "POST",
+                    url: "RetrieveStudentNames.php",
+                    data:'keyword='+$(this).val(),
+                    beforeSend: function(){
+                        $("#search-box").css("background", "url(/Media/LoadingIcon.gif)")
+                    },
+                    success: function(data){
+                        
+                        $("#suggesstion-box").show();
+                        $("#suggesstion-box").html(data);
+                        
+                    }
+                    });
+                });
+            });
+            //To select country name
+            function selectName(val) {
+                $("#sid").val(val);
+                $("#searchStudent").submit();
+                $("#suggesstion-box").hide();
+            }
+            
+                
+                
+                
             </script>
         </body> 
         <?php        

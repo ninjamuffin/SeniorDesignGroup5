@@ -14,9 +14,10 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="/datepicker.less" />
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/FlatUI/css/theme.css" rel="stylesheet" media="screen">
     
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
@@ -27,16 +28,7 @@
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
+    
 </head>
         
 <?php
@@ -55,24 +47,46 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 ?>
 
 <body>
-    <div id="header"></div>
     <div id="wrapper">
         <div id="sidebar"></div>
         <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                             <span class="hamb-top"></span>
                             <span class="hamb-middle"></span>
                             <span class="hamb-bottom"></span>
                         </button>
-                        <!-- BEGIN PAGE CONTENT -->
-                        <h2>Documentation:</h2>
-                        <p>This page has lesser priority.  This will provide students a review of teachers that the student is with at the time.  More importantly, this will provide the path for looking at ViewTeacherProfile, which will be necessary for student features</p>
-                        <p>standard student navbars</p>
-        
-                        <!-- END PAGE CONTENT -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-primary" style="min-height: 450px;max-height: 450px;">
+                            <div class="panel-heading">
+                                <h3>Teachers</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher Name</th>
+                                            <th>Status</th>
+                                            <th>Visit Page</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Bob Loblaw</td>
+                                            <td>Active</td>
+                                            <td><a href="ViewTeacher/">View Teacher</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Not Bob</td>
+                                            <td>Previous</td>
+                                            <td><a href="ViewTeacher">View Teacher</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -80,7 +94,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
     <script>

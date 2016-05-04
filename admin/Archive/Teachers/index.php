@@ -14,9 +14,11 @@ include "../../../base.php";
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="/css/SidebarPractice.css" rel="stylesheet">
+    <link href="/flatUI/css/theme.css" rel="stylesheet" media="screen">
+
 
     <!-- Including Header -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/js/SidebarPractice.js"></script>
     <script>
         $(function(){
@@ -27,16 +29,6 @@ include "../../../base.php";
         });
     </script>
 
-    <!-- Background Setup -->
-    <style>
-        body{
-            background: url(/Media/gonzagasmalltalk_background.png) no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: auto;
-        }
-    </style>
 </head>
 
 <?php
@@ -54,26 +46,42 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     {
         ?>
         <body>
-            <div id="header"></div>           
             <div id="wrapper">
                 <div id="sidebar"></div>
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                                     <span class="hamb-top"></span>
                                     <span class="hamb-middle"></span>
                                     <span class="hamb-bottom"></span>
-                                </button>
+                    </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8">
                                 <div class="panel panel-primary">
-                                    <div class="panel-heading">Teacher Search</div>
+                                    <div class="panel-heading">Filter Results</div>
                                     <div class="panel-body">
-                                        <p>This window will have a search interface for looking up teachers </p>
+                                        <form method="POST" id="filterTeachers" action="">
+                                            <div class="form-group row">
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="LastName" type="text" placeholder="Teacher Last Name" />
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="Institution" type="text" placeholder="Institution" />
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Apply Filter</button>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">Teacher listing (only SmallTalk contributors, listed alphabetically by last name</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10">
+                                <div class="panel panel-primary" style="max-height:500px;">
+                                    <div class="panel-heading">Teachers</div>
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             Select rows per page
@@ -87,12 +95,13 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                         </ul>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table">
+                                        <table class="table table-hover" >
                                             <thead>
                                                 <tr>
-                                                    <td>First Name</td>
-                                                    <td>Last Name</td>
-                                                    <td>Link to Teacher's Page</td>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Site Username</th>
+                                                    <th>Go To</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,7 +111,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     $params = array();
     $options = array( "Scrollable" => 'static' );
     $query = 
-"SELECT T.[FirstName], T.[LastName], T.[TeacherID]
+"SELECT T.[FirstName], T.[LastName], T.SiteUsername, T.[TeacherID]
 FROM Teachers as T";
     $stmt = sqlsrv_query($con, $query, $params, $options);
     if ( !$stmt )
@@ -129,8 +138,8 @@ FROM Teachers as T";
     $page = Pagination::getPage($stmt, $pageNum, $rowsPerPage);
     foreach($page as $row)
     {
-        $teacherPageLink = "ViewTeacher/?tid=$row[2]";
-        echo "<tr><td>$row[0]</td><td>$row[1]</td><td><a href='$teacherPageLink'>Visit Page</a></td></tr>";
+        $teacherPageLink = "ViewTeacher/?tid=$row[3]";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td><a href='$teacherPageLink'>Visit Page</a></td></tr>";
     }
 
     echo "</tbody></table><br />";
@@ -147,7 +156,7 @@ FROM Teachers as T";
                 </div>
             </div>
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <!-- Include all compiled plugins (below), or include individual files as needed -->
             <script src="/js/bootstrap.min.js"></script>
             <script>

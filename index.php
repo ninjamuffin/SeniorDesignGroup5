@@ -12,7 +12,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
     
         <!-- Header File -->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <style>
             body{
                 background: url(Media/GonzagaBackground.jpg) no-repeat center center fixed;
@@ -69,12 +69,12 @@
         $username = $_POST['username'];
         $password = md5($_POST['password'] . $salt);
         $loginquery = "
-SELECT SU.[user_id],SU.[username],SU.[password],SU.[first_name],SU.[last_name],SU.[email],SU.[date_added], R.[Role]
+SELECT DISTINCT SU.[user_id], SU.[username], SU.[password], SU.[date_added], R.[Role], R.[Type], R.[Designation], SU.firstname, SU.lastname
 FROM SiteUsers as SU, RoleInstances as RI, Roles as R
 WHERE SU.username = ? AND
       SU.[password] = ? AND
       RI.SiteUsername = SU.username AND
-      RI.RoleInstanceID = (SELECT max(RoleInstanceID) FROM RoleInstances WHERE SiteUsername = ?) AND
+      RI.Priority = 'Default' AND
       R.RoleID = RI.RoleID";
         
         $params = array($username, $password, $username);
@@ -86,21 +86,23 @@ WHERE SU.username = ? AND
         if(sqlsrv_num_rows($checklogin) == 1)
         {
             $row = sqlsrv_fetch_array($checklogin);
-            $email = $row['email'];
             $role = $row['Role'];
-            $first_name = $row['first_name'];
-            $last_name = $row['last_name'];
             
             
             $_SESSION['Username'] = $username;
             $_SESSION['LoggedIn'] = 1;
             $_SESSION['Role'] = $role;
+            $_SESSION['AccessType'] = $row['Type'];
+            $_SESSION['Designation'] = $row['Designation'];
+            $_SESSION['UserID'] = $row['user_id'];
+            $_SESSION['firstname'] = $row['firstname'];
+            $_SESSION['lastname'] = $row['lastname'];
             
             if ($role == 'Admin')
             {
                 $params = array($username);
                 $options = array( "Scrollable" => 'static');
-                $query = "SELECT FirstName, LastName, Email FROM Administrators WHERE SiteUsername = ?";
+                $query = "SELECT A.FirstName, A.LastName, A.Email, I.InstitutionName FROM Administrators as A, Institutions as I WHERE A.SiteUsername = ? AND I.InstitutionID = A.InstitutionID";
                 $stmt = sqlsrv_query($con, $query, $params, $options);
                 if ($stmt === false)
                     die( print_r( sqlsrv_errors(), true));
@@ -109,7 +111,10 @@ WHERE SU.username = ? AND
                     $first_name = sqlsrv_get_field( $stmt, 0);
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
+                    $institution = sqlsrv_get_field( $stmt, 3);
+                    $_SESSION['Institution'] = $institution;
                 }
+                
             }
             elseif ($role == 'Teacher')
             {
@@ -125,12 +130,14 @@ WHERE SU.username = ? AND
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
                 }
+                else
+                    echo "Teacher.";
             }
             elseif ($role == 'Student')
             {
                 $params = array($username);
                 $options = array( "Scrollable" => 'static');
-                $query = "SELECT FirstName, LastName, Email FROM Students WHERE SiteUsername = ?";
+                $query = "SELECT S.FirstName, S.LastName, S.Email, I.InstitutionName FROM Students as S, Institutions as I WHERE SiteUsername = ? and I.InstitutionID = S.InstitutionID";
                 $stmt = sqlsrv_query($con, $query, $params, $options);
                 if ($stmt === false)
                     die( print_r( sqlsrv_errors(), true));
@@ -139,7 +146,10 @@ WHERE SU.username = ? AND
                     $first_name = sqlsrv_get_field( $stmt, 0);
                     $last_name = sqlsrv_get_field( $stmt, 1);
                     $email = sqlsrv_get_field( $stmt, 2);
+                    $institution = sqlsrv_get_field( $stmt, 3);
+                    $_SESSION['Institution'] = $institution;
                 }
+
             }
             
             $_SESSION['EmailAddress'] = $email;
@@ -148,7 +158,7 @@ WHERE SU.username = ? AND
             
             
             
-            echo "<meta http-equiv='refresh' content='0;/' />";
+            echo "<meta http-equiv='refresh' content='0;/$role/Home/' />";
         }
         else
         {?>
@@ -187,11 +197,11 @@ WHERE SU.username = ? AND
                 </fieldset>
                 <h4 class="form-signin-heading text-right"><a href="#">Forgot Username?</a></h4>
                 <h4 class="form-signin-heading text-right"><a href="#">Forgot Password?</a></h4>
-                <h4 class="form-signin-heading text-right"><a href="register.php">Register</a></h4>
+               <!-- <h4 class="form-signin-heading text-right"><a href="register.php">Register</a></h4> -->
                 </form>
             </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
     </body>
