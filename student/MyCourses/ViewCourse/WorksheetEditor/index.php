@@ -251,7 +251,6 @@ WHERE SS.WorksheetID = ? AND
                                                     <th>Correction</th>
                                                     <th><span class="glyphicon glyphicon-arrow-right" style="font-size:20px;left:10px;"></span></th>
                                                     <th>Assigned</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody name="ExpressionTable">
@@ -276,9 +275,7 @@ WHERE SS.WorksheetID = ? AND
                 echo "Mine";
             echo "
                 </td>
-                      <td>
-                        <button value=\"$i\" type=\"button\" name=\"Clear\" class=\"btn btn-danger\">Clear</button>
-                      </td>
+
                 </tr>";
         }
 ?>
@@ -306,8 +303,14 @@ WHERE SS.WorksheetID = ? AND
                                                 <!---->
                                             </div>
                                         </form>
-
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="button" name="Clear" class="btn btn-danger">Clear</button>
                                                 <button id="SubmitExpr" disabled type="button" class="btn btn-primary pull-right">Save</button>
+                                            </div>
+                                            
+                                        </div>
+                                                
                                     </div>
                                 </div>
                             </div>

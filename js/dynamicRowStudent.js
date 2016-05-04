@@ -32,10 +32,8 @@ $(function(){
     //alert(exprIDs[9]);
     $("button[name='Clear']").on('click',function(e) {
         e.preventDefault();
+        $("input[name=CorrectedExpr]").val("");
         
-        var $row = $(this).closest("tr");
-        rowID = $row.attr('id');
-        $row.find("td[name=corrected]").empty();
     });
     $("button[name='Edit']").on('click',function(e) {
         e.preventDefault();

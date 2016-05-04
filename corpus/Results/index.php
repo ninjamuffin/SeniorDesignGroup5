@@ -45,8 +45,8 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $searched_words = isset($_POST['search_words']) ? $_POST['search_words'] : '';
         $num_searched_words = count($searched_words);
         
-        $expressionsSQL = "SELECT DISTINCT E.Expression
-                           FROM Expressions E, SeqWords SW
+        $expressionsSQL = "SELECT DISTINCT E.Expression, E.[Context/Vocabulary], CT.Level, L.Language
+                           FROM Expressions E, SeqWords SW, Students S, Courses C, CourseTypes CT, Languages L
                            WHERE ";
         $params = [];
         $options = array( "Scrollable" => 'static' );
@@ -83,6 +83,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
         $params[] = $word_list[$num_words - 1];
         $expressionsSQL .= $add_to_query;
         $expressionsSQL .= ") AND E2.ExpressionID = SW2.ExpressionID)";
+        
+        $expressionsSQL .= " AND S.StudentID = E.StudentID AND
+                                 L.LanguageID = S.Language AND
+                                 C.CourseID = E.CourseID AND
+                                 CT.CourseTypesID = C.CourseTypesID";
 
 
         
@@ -217,6 +222,9 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
                                             <thead>
                                                 <tr>
                                                     <th>Expression</th>
+                                                    <th>Context</th>
+                                                    <th>Level</th>
+                                                    <th>Native Language</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -255,11 +263,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
     foreach($page as $row)
     {
         //$coursePageLink = "ViewCourse/?courseID=$row[5]";
-        echo "<tr><td>$row[0]</td></tr>";
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";
     }
 
     echo "</tbody></table><br />";
-    $modulator = 3;
+    $modulator = 0;
     Pagination::pageLinks($numOfPages, $pageNum, $rowsPerPage, $rowsReturned, $modulator);
     ?>
                                     </div>
